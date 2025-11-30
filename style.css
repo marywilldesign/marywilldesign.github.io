@@ -452,3 +452,13 @@ body, html {
     padding: 0.5rem;
   }
 }
+
+/* Disable special cursor on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  #custom-cursor { display: none !important; }
+  * { cursor: auto !important; }
+}
+
+/* JS will also add .is-touch for broader support; use it as a fallback */
+html.is-touch #custom-cursor { display: none !important; }
+html.is-touch * { cursor: auto !important; }
