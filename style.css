@@ -8,6 +8,13 @@
 :root {
   /* single source of truth for page padding */
   --page-pad: 2rem;
+
+  /* masonry/grid settings */
+  --masonry-gap: 12px;                /* space between items (both axes) */
+  --masonry-row-height: 4px;          /* virtual row size used for JS span calc */
+  --masonry-columns-desktop: 3;       /* desktop columns */
+  --masonry-columns-tablet: 2;        /* tablet columns */
+  --masonry-mobile-max: 420px;        /* mobile column max width (centered) */
 }
 
 html.no-scroll {
@@ -90,6 +97,36 @@ body, html {
 
 .made {
   margin-top: 1rem;
+}
+
+/* Sidebar "Projects" block aligned with breadcrumb */
+.sidebar .breadcrumb {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.sidebar .other-cases {
+  margin-top: 0.5rem; /* slight spacing below breadcrumb */
+}
+
+.sidebar .other-cases h4 {
+  margin: 0 0 0.5rem 0; /* no left indent */
+}
+
+.sidebar .other-cases ul {
+  list-style: none; /* remove bullets */
+  margin: 0;        /* remove default margin */
+  padding: 0;       /* remove default padding/indent */
+}
+
+/* ensure items align flush left and behave like a clean list */
+.sidebar .other-cases .view-cs {
+  display: block;
+  padding-left: 0;
+}
+
+.sidebar .other-cases .sidebar-bottom {
+  padding-left: 0;
 }
 
 /* right sidebar */
@@ -249,10 +286,7 @@ body, html {
 .overlay {
   display: none;
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  padding: 0;
   background: rgba(0,0,0,0.7);
   justify-content: center;
   align-items: center;
@@ -351,6 +385,7 @@ body, html {
   align-items: center;
   justify-content: flex-start;
   background: #ffffff;
+  padding: var(--page-pad);
   box-shadow: 0 1px 0 rgba(0,0,0,0.04);
   z-index: 1200;
 }
@@ -358,7 +393,7 @@ body, html {
 .mobile-menu-toggle {
   all: unset;
   cursor: none;
-  font-size: 1rem; /* same size as close X */
+  font-size: 1rem;
   color: #0000cd;
   line-height: 1;
 }
@@ -367,6 +402,8 @@ body, html {
 .close-menu {
   display: none; /* shown only when overlay open on mobile */
   position: absolute;
+  top: var(--page-pad);
+  left: var(--page-pad);
   font-size: 0.70rem; 
   color: #0000cd;
   background: none;
@@ -462,3 +499,66 @@ body, html {
 /* JS will also add .is-touch for broader support; use it as a fallback */
 html.is-touch #custom-cursor { display: none !important; }
 html.is-touch * { cursor: auto !important; }
+
+
+/* -----------------------
+   Responsive Grid Masonry (tight, equal gaps)
+   -----------------------
+   Desktop: 3 columns
+   Tablet: 2 columns
+   Mobile: 1 column (centered, capped width)
+*/
+.masonry,
+.masonry-video {
+  display: grid;
+  grid-auto-flow: dense;
+  grid-template-columns: repeat(var(--masonry-columns-desktop), 1fr);
+  grid-auto-rows: var(--masonry-row-height); /* small virtual row used by JS span calc */
+  gap: var(--masonry-gap);
+  align-items: start;
+  width: 100%;
+}
+
+/* ensure media fills the grid cell and never overflows */
+.masonry-item {
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  -moz-column-break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.masonry-item img,
+.masonry-item video {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+/* tablet breakpoint */
+@media (max-width: 900px) {
+  .masonry,
+  .masonry-video {
+    grid-template-columns: repeat(var(--masonry-columns-tablet), 1fr);
+  }
+}
+
+/* mobile breakpoint: single column, capped width, centered */
+@media (max-width: 1024px) {
+  .masonry,
+  .masonry-video {
+    grid-template-columns: 1fr;
+    gap: calc(var(--masonry-gap) * 1);
+    max-width: var(--masonry-mobile-max);
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+  }
+
+  .masonry-item img,
+  .masonry-item video {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+}
