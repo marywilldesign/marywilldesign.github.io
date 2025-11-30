@@ -11,28 +11,33 @@
   <script src="../script.js" defer></script>
 
   <style>
-    /* Simple masonry layout */
-    .masonry {
+    /* masonry grid */
+   
+        .masonry,
+    .masonry-video {
       column-count: 3;
       column-gap: 1rem;
-      margin-top: 2rem;
+    }
+
+    @media (max-width: 900px) {
+      .masonry,
+      .masonry-video {
+        column-count: 2;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .masonry,
+      .masonry-video {
+        column-count: 1;
+      }
     }
 
     .masonry-item {
       break-inside: avoid;
       margin-bottom: 1rem;
-      position: relative;
     }
 
-    .masonry-item img {
-      width: 100%;
-      border-radius: 8px;
-      transition: transform 0.2s ease-in-out;
-    }
-
-    .masonry-item img:hover {
-      transform: scale(1.02);
-    }
 
     .caption {
       font-size: 0.8rem;
