@@ -1,11 +1,21 @@
-// --- custom cursor ---
+// --- custom cursor (disabled on touch devices) ---
 const cursor = document.getElementById('custom-cursor');
 
-document.addEventListener('mousemove', (e) => {
-  if (!cursor) return;
-  cursor.style.left = e.clientX + 'px';
-  cursor.style.top = e.clientY + 'px';
-});
+const isTouchDevice =
+  window.matchMedia('(hover: none) and (pointer: coarse)').matches ||
+  ('ontouchstart' in window) ||
+  navigator.maxTouchPoints > 0 ||
+  navigator.msMaxTouchPoints > 0;
+
+if (isTouchDevice) {
+  document.documentElement.classList.add('is-touch');
+  if (cursor) cursor.style.display = 'none';
+} else if (cursor) {
+  document.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
+}
 
 // --- clock (desktop only) ---
 function startClock() {
