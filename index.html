@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -13,11 +12,13 @@
 
     <!-- left sidebar -->
     <aside class="sidebar">
+      <button class="close-menu" aria-label="Close menu">✕</button>
       <div class="sidebar-top">
         <h1 class="name"><a href="#">marywildesign.com</a></h1>
-       
+
         <p class="bio">
-          I am a UX/UI designer and researcher, project manager, and graphic designer. I have been applying user-centred design logic to digital experiences for nearly 10 years.<br><br>
+          I am a UX/UI designer and researcher, project manager, and graphic designer. I have been applying user-centred design logic to digital experiences for nearly 10 years.
+        </p>
       </div>
       <div class="sidebar-bottom">
         <a href="https://drive.google.com/file/d/1vJQT7nzT0Jh-cYgugH08rDDmF4s7uFco/view?usp=sharing" target="_blank" rel="noopener noreferrer">resume.pdf ↗</a>
@@ -25,12 +26,18 @@
         <a href="https://www.lomography.com/homes/marycastawayball/photos" target="_blank" rel="noopener noreferrer">photography ↗</a>
         <a href="https://www.instagram.com/marywildesign/" target="_blank" rel="noopener noreferrer">instagram ↗</a>
         <a href="https://www.linkedin.com/in/marygracewilson/" target="_blank" rel="noopener noreferrer"> linkedin ↗</a>
-        <div class="made">made by mary <span style="color: #ff0000;">♥</span></div>
+        <div class="made">made by mary <span style="color: #0000cd;">♥</span></div>
       </div>
     </aside>
 
     <!-- case studays -->
     <main class="content">
+
+      <!-- MOBILE TOPBAR (appears on <=1024px) -->
+      <div class="mobile-topbar" aria-hidden="true">
+        <button class="mobile-menu-toggle" aria-label="Open menu">↦</button>
+      </div>
+
       <div class="clock" id="clock">00:00:00</div>
 
       <!-- filter buttons -->
@@ -45,26 +52,6 @@
 
       <!-- case study cards -->
       <div class="cards">
-        <!-- card 1 -->
-        <div class="case-card" data-category="ux">
-          <img src="./images/modo/modohero.png" alt="Modo">
-          
-          <div class="caption">
-            <p>Carsharing Site Redesign – Modo</p>
-            <div class="tags">
-              <span class="tag">UX</span>
-            </div>
-            <div class="desc">Improving sales journey for new and current customers. Leading design strategy and stakeholder presentations.</div>
-            <!--<button class="view-cs" onclick="window.location.href='cs/modo.html'">view site</button>-->
-            <div class="sidebar-bottom">
-              <a href="https://www.modo.coop/" target="_blank" rel="noopener noreferrer"> view site ↗</a>
-            </div>
-            
-        
-
-
-          </div>
-        </div>
 
         <!-- card 2 -->
         <div class="case-card" data-category="graphic-design exhibits">
@@ -114,7 +101,6 @@
           </div>
         </div>
 
-
         <!-- card 5 -->
         <div class="case-card" data-category="ux graphic-design web-dev">
           <img src="./images/twotruths/twotruthsai_hero.png" alt="Two Truths & AI">
@@ -126,14 +112,11 @@
               <span class="tag">web dev</span>
             </div>
             <div class="desc">AI-powered game exploring human vs machine patterns. UX and UI design included.</div>
-      
+
           <!--<button class="view-cs" onclick="window.location.href='cs/twotruths.html'">view project</button>-->
             <div class="sidebar-bottom">
               <a href="https://twotruthsai.live" target="_blank" rel="noopener noreferrer"> view site ↗</a>
             </div>
-          
-          
-          
           </div>
         </div>
 
@@ -264,7 +247,6 @@
             <!--<button class="view-cs" onclick="window.location.href='cs/blackbox.html'">view project</button>-->
           </div>
         </div>
-
       </div>
     </main>
 
@@ -301,9 +283,9 @@
   </div>
 
   <!-- Overlay -->
-  <div class="overlay" id="overlay">
+  <div class="overlay" id="overlay" style="display:none;">
     <div class="overlay-content" id="overlay-content">
-      <button class="close-overlay" id="close-overlay">✕</button>
+      <button class="close-overlay" id="close-overlay" aria-label="Close overlay">✕</button>
       <img src="" alt="Case Study Image" id="overlay-image">
       <h3 id="overlay-title"></h3>
       <div id="overlay-tags"></div>
