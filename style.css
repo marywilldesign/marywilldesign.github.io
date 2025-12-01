@@ -242,7 +242,6 @@ body, html {
   line-height: 1.4;
 }
 
-/* spacing for tags - bigger padding and spacing */
 .tags {
   display: flex;
   flex-wrap: wrap;
