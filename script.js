@@ -33,10 +33,21 @@ startClock();
 // --- filtering case cards ---
 const filterButtons = document.querySelectorAll('.filter-btn');
 const caseCards = document.querySelectorAll('.case-card');
+const originalOrder = Array.from(caseCards); // Fixed original HTML order (indices 0-15)
+
+// Fixed permutations per filter (indices of matching cards, in desired consistent order)
+const filterOrders = {
+  'all': [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
+  'ux': [4,13,14,8,2,1],
+  'graphic-design': [6,10,7,0,3,2,4,13,14,5,9,11,12,15],
+  'web-dev': [13,4,14],
+  'print': [12,15,5,9,11],
+  'exhibits': [11,0,3]
+};
 
 filterButtons.forEach((btn) => {
   btn.addEventListener('click', () => {
-    // remove active state from all
+    // Remove active state from all
     filterButtons.forEach((b) => b.classList.remove('active'));
     btn.classList.add('active');
 
@@ -47,6 +58,19 @@ filterButtons.forEach((btn) => {
       card.style.display =
         filter === 'all' || categories.includes(filter) ? 'block' : 'none';
     });
+
+    const container = document.querySelector('.cards');
+    const indices = filterOrders[filter] || Array.from({length: 16}, (_, i) => i); // Fallback to orig
+    const visibleSet = new Set(indices);
+
+    const orderedVisibleCards = indices.map(idx => originalOrder[idx]);
+    const hiddenCards = originalOrder.filter((_, idx) => !visibleSet.has(idx));
+
+    while (container.firstChild) {
+      container.removeChild(container.firstChild);
+    }
+    hiddenCards.forEach((card) => container.appendChild(card));
+    orderedVisibleCards.forEach((card) => container.appendChild(card));
   });
 });
 
@@ -77,7 +101,7 @@ function openOverlayFromCard(card) {
   }
 }
 
-// Attach to possible trigger buttons (view-btn, view-cs)
+// Attach to possible trigger buttons (view-btn, .view-cs)
 document.querySelectorAll('.view-btn, .view-cs').forEach((btn) => {
   btn.addEventListener('click', (e) => {
     const card = e.currentTarget.closest('.case-card');
