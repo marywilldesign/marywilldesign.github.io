@@ -382,8 +382,7 @@ body, html {
 .mobile-topbar {
   display: none;
   width: 100%;
-  align-items: center;
-  justify-content: flex-start;
+  align-items: left;
   background: #ffffff;
   padding: var(--page-pad);
   box-shadow: 0 1px 0 rgba(0,0,0,0.04);
@@ -391,10 +390,12 @@ body, html {
 }
 
 .mobile-menu-toggle {
-  all: unset;
-  cursor: none;
-  font-size: 1rem;
+  position: absolute;
+  background-color: #fff;
+  font-size: 1rem; 
   color: #0000cd;
+  border: none;
+  cursor: none;
   line-height: 1;
 }
 
@@ -402,11 +403,9 @@ body, html {
 .close-menu {
   display: none; /* shown only when overlay open on mobile */
   position: absolute;
-  top: var(--page-pad);
-  left: var(--page-pad);
-  font-size: 0.70rem; 
+  font-size: 1rem; 
   color: #0000cd;
-  background: none;
+  background: #fff;
   border: none;
   cursor: none;
   line-height: 1;
