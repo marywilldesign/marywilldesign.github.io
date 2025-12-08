@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Longest Collaborative Sentence</title>
+  <link rel="icon" type="mw.svg" href="mw.svg" />
+  <link rel="stylesheet" href="../style.css" />
+  <script src="../script.js" defer></script>
+</head>
+
+<body>
+  <div class="container">
+
+    <!-- left sidebar -->
+    <aside class="sidebar">
+      <a href="/" class="breadcrumb">← home / longest sentence</a>
+      
+      <div class="other-cases">
+        <ul>
+          <button class="view-cs" onclick="window.location.href='/vancouverartgallery/'">Vancouver Art Gallery</button>
+          <button class="view-cs" onclick="window.location.href='/telus/'">Telus Internet Sales</button>
+          <button class="view-cs" onclick="window.location.href='/modo/'">Modo Carsharing Site</button>
+          <button class="view-cs" onclick="window.location.href='/postertriennial/'">Poster Triennial, Lahti</button>
+          <button class="view-cs" onclick="window.location.href='/twotruths/'">Two Truths and AI game</button>
+          <button class="view-cs" onclick="window.location.href='/friendsfest/'">Friends Fest branding</button>
+          <button class="view-cs" onclick="window.location.href='/speleo/'">Speleo Record Label</button>
+          <button class="view-cs" onclick="window.location.href='/papercut/'">Paper Cut Poster folio</button>
+               <!--<button class="view-cs" onclick="window.location.href='/ibm/'">IBM: Volunteerism</button>-->
+          <button class="view-cs" onclick="window.location.href='/subtext/'">Subtext Movie Poster</button>
+          <button class="view-cs" onclick="window.location.href='/risographposters/'">Risograph Poster Exhibit</button>
+          <button class="view-cs" onclick="window.location.href='/wellflip/'">Well, Flip!: Coptic Book</button>
+          <button class="view-cs" onclick="window.location.href='/blackbox/'">Web-based Blackbox VJ</button>
+          <button class="view-cs active" onclick="window.location.href='/collaborativesentence/'">Longest Sentence site</button>         
+          <button class="view-cs" onclick="window.location.href='/glyphscorrupted/'">Glyphs: Corrupted</button>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- middle content -->
+    <main class="content">
+
+      <!-- clock -->
+      <div class="clock" id="clock">00:00</div>
+
+      <!-- project header -->
+      <h2>Longest Collaborative Sentence – Remixed</h2>
+      <div class="tags">
+        <span class="tag">UX</span>
+        <span class="tag">graphic design</span>
+        <span class="tag">web dev</span>
+        <span class="tag">personal project</span>
+      </div>
+        <h4>
+          2025
+        </h4>
+      <p class="quick-desc">
+        This project considered how we obscure and censor text, especially when people are left to their own devices. Using web scraping and conditional programming, remixed this art piece originally intended to be a collaborative piece. The toughest part of the project was not pushing my developing boundaries but having to sit through a large chunk of it to find words which could be deemed problematic – including nuances.
+      </p>
+
+      <!-- masonry gallery -->
+      <div class="masonry">
+
+        <div class="masonry-item">
+          <video
+            src="../collaborativesentence/longestsentence.webm"
+            autoplay
+            loop
+            muted
+            playsinline
+            class="video-item"
+            style="width: 250%;">
+          </video>
+        </div>
+        </div>
+
+        <p class="quick-desc">
+        So far, I have permission from the Whitney Museum of American Art but not yet from the Douglas Davis estate so, until then, this website will just be on my local server. I hope to share it one day as I believe it takes a few hours to sit through the whole thing, given my webscraping script drew in around 160+ text files!      </p>
+
+         <div class="masonry-item">
+          <video
+            src="../collaborativesentence/longestsentencezalgo.webm"
+            autoplay
+            loop
+            muted
+            playsinline
+            class="video-item"
+            style="width: 90%;">
+          </video>
+      
+
+    </main>
+  </div>
+
+  <!-- custom cursor -->
+  <div id="custom-cursor"></div>
+</body>
+</html>
