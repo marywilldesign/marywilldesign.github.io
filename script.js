@@ -38,11 +38,12 @@ const originalOrder = Array.from(caseCards); // Fixed original HTML order (indic
 // Fixed permutations per filter (indices of matching cards, in desired consistent order)
 const filterOrders = {
   'all': [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
-  'ux': [4,13,14,8,2,1],
-  'graphic-design': [6,10,7,0,3,2,4,13,14,5,9,11,12,15],
-  'web-dev': [13,4,14],
+  'ux': [2,4,13,8,14,1,0],
+  'graphic-design': [6,5,15,10,7,3,2,14,4,13,9,11,12],
+  'web-dev': [4,13,14],
   'print': [12,15,5,9,11],
-  'exhibits': [11,0,3]
+  'exhibits': [11,0,3],
+  'personal-project': [4,7,9,12,13,14,15]
 };
 
 filterButtons.forEach((btn) => {
@@ -130,7 +131,7 @@ function setMenuOpen(open) {
   leftSidebar.classList.toggle('menu-open', open);
   document.documentElement.classList.toggle('no-scroll', open);
   document.body.classList.toggle('no-scroll', open);
-  menuToggle.textContent = open ? '✕' : '↦';
+  // Do not change menuToggle text; keep it as 'menu'
 }
 
 if (menuToggle && leftSidebar) {

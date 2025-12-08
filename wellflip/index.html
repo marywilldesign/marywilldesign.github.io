@@ -2,16 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="mw.svg" href="mw.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Well, Flip coptic-bound book</title>
-
-  <!-- Shared styles and scripts -->
+  <title>Well, Flip</title>
+  <link rel="icon" type="mw.svg" href="mw.svg" />
   <link rel="stylesheet" href="../style.css" />
   <script src="../script.js" defer></script>
 
   <style>
-  /* per-page: keep captions and lightbox; grid masonry is in style.css */
+  /* grid masonry */
 
   .caption {
     font-size: 0.8rem;
@@ -51,48 +49,27 @@
 
     <!-- sidebar -->
     <aside class="sidebar">
-      <button class="close-menu" aria-label="Close menu">✕</button>
-      <a href="/" class="breadcrumb">← home / Well, Flip!</a>
-
+      
+      <a href="../index.html" class="breadcrumb">← home / well flip</a>
+      <button class="menu-btn close-menu" aria-label="close menu">close menu</button>
+      
       <div class="other-cases">
-        <p>projects</p>
         <ul>
-
-          <!--<button class="view-cs" onclick="window.location.href='ibm.html'">IBM</button>-->
-          <!--<button class="view-cs" onclick="window.location.href='telus.html'">Telus</button>-->
-          <div class="sidebar-bottom">
-              <a href="https://www.telus.com/en/internet?linkname=Shop&linktype=ge-meganav" target="_blank" rel="noopener noreferrer"> Telus</a>
-          <!--<button class="view-cs" onclick="window.location.href='modo.html'">Modo</button>-->
-          <div class="sidebar-bottom">
-              <a href="https://modo.coop" target="_blank" rel="noopener noreferrer"> modo</a>
-          <!--<button class="view-cs" onclick="window.location.href='speleo.html'">speleo</button>
-          <button class="view-cs" onclick="window.location.href='subtext.html'">subtext</button>-->
-          <button class="view-cs active" onclick="window.location.href='wellflip.html'">well, flip! ←</button>
-          <!--<button class="view-cs" onclick="window.location.href='blackbox.html'">blackbox VJ</button>
-          <button class="view-cs" onclick="window.location.href='friendsfest.html'">friends fest</button>
-          <button class="view-cs" onclick="window.location.href='scannerartly.html'">scanner artly</button>-->
-          <button class="view-cs" onclick="window.location.href='../grafia/'">poster triennial</button>
-          <!--<button class="view-cs" onclick="window.location.href='twotruths.html'">two truths and AI</button>-->
-            <div class="sidebar-bottom">
-              <a href="https://twotruthsai.live" target="_blank" rel="noopener noreferrer"> two truths and AI</a>
-          <!--<button class="view-cs" onclick="window.location.href='papercut.html'">Paper Cut Posters</button>
-          <button class="view-cs" onclick="window.location.href='vag.html'">Vancouver Art Gallery</button>
-          <button class="view-cs" onclick="window.location.href='kunstnerneshus.html'">Kunstnernes Hus Gallery</button>-->
-
-          <!--<button class="view-cs" onclick="window.location.href='ibm.html'">IBM</button>
-          <button class="view-cs" onclick="window.location.href='telus.html'">Telus</button>
-          <button class="view-cs" onclick="window.location.href='modo.html'">Modo</button>
-          <button class="view-cs" onclick="window.location.href='speleo.html'">Speleo</button>
-          <button class="view-cs" onclick="window.location.href='subtext.html'">Subtext</button>
-          <button class="view-cs active" onclick="window.location.href='wellflip.html'">Well, Flip! ←</button>
-          <button class="view-cs" onclick="window.location.href='blackbox.html'">Blackbox VJ</button>
-          <button class="view-cs" onclick="window.location.href='friendsfest.html'">Friends Fest</button>
-          <button class="view-cs" onclick="window.location.href='scannerartly.html'">Scanner Artly</button>
-          <button class="view-cs" onclick="window.location.href='grafiahelsinki.html'">Poster Triennial</button>
-          <button class="view-cs" onclick="window.location.href='twotruths.html'">Two Truths and AI</button>
-          <button class="view-cs" onclick="window.location.href='papercut.html'">Paper Cut Posters</button>
-          <button class="view-cs" onclick="window.location.href='vag.html'">Vancouver Art Gallery</button>
-          <button class="view-cs" onclick="window.location.href='kunstnerneshus.html'">Kunstnernes Hus Gallery</button>-->
+          <button class="view-cs" onclick="window.location.href='/vancouverartgallery/'">Vancouver Art Gallery</button>
+          <button class="view-cs" onclick="window.location.href='/telus/'">Telus Internet Sales</button>
+          <button class="view-cs" onclick="window.location.href='/modo/'">Modo Carsharing Site</button>
+          <button class="view-cs" onclick="window.location.href='/postertriennial/'">Poster Triennial, Lahti</button>
+          <button class="view-cs" onclick="window.location.href='/twotruths/'">Two Truths and AI game</button>
+          <button class="view-cs" onclick="window.location.href='/friendsfest/'">Friends Fest branding</button>
+          <button class="view-cs" onclick="window.location.href='/speleo/'">Speleo Record Label</button>
+          <button class="view-cs" onclick="window.location.href='/papercut/'">Paper Cut Poster folio</button>
+               <!--<button class="view-cs" onclick="window.location.href='/ibm/'">IBM: Volunteerism</button>-->
+          <button class="view-cs" onclick="window.location.href='/subtext/'">Subtext Movie Poster</button>
+          <button class="view-cs" onclick="window.location.href='/risographposters/'">Risograph Poster Exhibit</button>
+          <button class="view-cs active" onclick="window.location.href='/wellflip/'">Well, Flip!: Coptic Book</button>
+          <button class="view-cs" onclick="window.location.href='/blackbox/'">Web-based Blackbox VJ</button>
+          <button class="view-cs" onclick="window.location.href='/collaborativesentence/'">Longest Sentence site</button>         
+          <button class="view-cs" onclick="window.location.href='/glyphscorrupted/'">Glyphs: Corrupted</button>
         </ul>
       </div>
     </aside>
@@ -101,36 +78,35 @@
     <main class="content">
       <!-- MOBILE TOPBAR (appears on <=1024px) -->
       <div class="mobile-topbar" aria-hidden="true">
-        <button class="mobile-menu-toggle" aria-label="Open menu">↦</button>
+        <button class="menu-btn mobile-menu-toggle" aria-label="Open menu">menu</button> 
       </div>
 
       <div class="clock" id="clock">00:00</div>
 
-      <h2>Well, Flip! - coptic bound book</h2>
+      <h2>Well, Flip: coptic-bound book</h2>
       <div class="tags">
-        <span class="tag">print</span>
-        <span class="tag">graphic design</span>
-        <span class="tag">web dev</span>
+        <span class="tag">Graphic Design</span>
+        <span class="tag">Print</span>
       </div>
-
+    
       <p>
         'Well, Flip!' harnesses p5.js to animate text falling and gathering itself up in a different form. Each frame was then extracted using Python and placed in InDesign for printing. The goal was to combine a traditional media format (a flipbook) with code as I wanted to explore creative coding.
       </p>
-
-
+      
+    
       <!-- masonry gallery -->
       <div class="masonry-video">
 
         <div class="masonry-item">
-            <video
-              src="../wellflip/scrn.webm"
-              autoplay
-              loop
-              muted
-              playsinline
-              class="video-item">
-            </video>
-          </div>
+          <video
+            src="../wellflip/scrn.webm"
+            autoplay
+            loop
+            muted
+            playsinline
+            class="video-item">
+          </video>
+        </div>
 
         <div class="masonry-item">
           <video
@@ -155,49 +131,46 @@
         </div>
 
         <div class="masonry-item">
-              <video
-                src="../wellflip/20.webm"
-                autoplay
-                loop
-                muted
-                playsinline
-                class="video-item">
-              </video>
-            </div>
+          <video
+            src="../wellflip/20.webm"
+            autoplay
+            loop
+            muted
+            playsinline
+            class="video-item">
+          </video>
+        </div>
 
-          <div class="masonry-item">
-            <video
-              src="../wellflip/18.webm"
-              autoplay
-              loop
-              muted
-              playsinline
-              class="video-item">
-            </video>
-          </div>
+        <div class="masonry-item">
+          <video
+            src="../wellflip/18.webm"
+            autoplay
+            loop
+            muted
+            playsinline
+            class="video-item">
+          </video>
+        </div>
 
-          <div class="masonry-item">
-            <video
-              src="../wellflip/7.webm"
-              autoplay
-              loop
-              muted
-              playsinline
-              class="video-item">
-            </video>
-          </div>
+        <div class="masonry-item">
+          <video
+            src="../wellflip/7.webm"
+            autoplay
+            loop
+            muted
+            playsinline
+            class="video-item">
+          </video>
+        </div>
 
-
-
-
-</div>
-
-
+      </div>
+    </main>
 
 
       </div>
     </main>
 
+  </div>
 
   <!-- Lightbox overlay -->
   <div class="lightbox" id="lightbox">
@@ -220,3 +193,4 @@
   <div id="custom-cursor"></div>
 </body>
 </html>
+

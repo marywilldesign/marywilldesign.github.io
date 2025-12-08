@@ -47,7 +47,6 @@ body, html {
   flex-direction: column;
   justify-content: space-between;
   font-size: 0.8rem;
-  color: #000000;
   position: sticky;
   top: 0;
   height: 100vh;
@@ -59,27 +58,36 @@ body, html {
   margin-bottom: 1rem;
 }
 
-.name a {
-  text-decoration: none;
-  color: inherit;
-  font-weight: 700;
-  font-size: 0.8rem;
+.profile-picture {
+  width: 100%;            
+  height: auto;
+  display: block;
+  margin-bottom: 1rem;    
+  border-radius: 0;       
+  object-fit: cover;      
+  border: 1px dotted #0000cd;
+  padding: .5rem;
 }
 
-.name a:hover {
-  text-decoration: underline;
+.name a {
+  text-decoration: wavy;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: #0000cd;
+  font-weight: 700;
+  font-size: 2rem;
 }
 
 .bio {
   margin-top: 0.5rem;
   font-size: 0.75rem;
   line-height: 1.5;
-  color: #000000;
+  color: #0000cd;
 }
 
 .sidebar-bottom {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 0.7rem;
 }
 
@@ -99,33 +107,27 @@ body, html {
   margin-top: 1rem;
 }
 
-/* Sidebar "Projects" block aligned with breadcrumb */
 .sidebar .breadcrumb {
   margin-left: 0;
   padding-left: 0;
 }
 
 .sidebar .other-cases {
-  margin-top: 0.5rem; /* slight spacing below breadcrumb */
+  margin-top: 0.5rem;
 }
 
 .sidebar .other-cases h4 {
-  margin: 0 0 0.5rem 0; /* no left indent */
+  margin: 0 0 0.5rem 0;
 }
 
 .sidebar .other-cases ul {
-  list-style: none; /* remove bullets */
-  margin: 0;        /* remove default margin */
-  padding: 0;       /* remove default padding/indent */
+  list-style: none; 
+  margin: 0;        
+  padding: 0;       
 }
 
-/* ensure items align flush left and behave like a clean list */
 .sidebar .other-cases .view-cs {
   display: block;
-  padding-left: 0;
-}
-
-.sidebar .other-cases .sidebar-bottom {
   padding-left: 0;
 }
 
@@ -166,7 +168,7 @@ body, html {
   z-index: auto;
 }
 
-/* filter buttons - no sticky */
+/* filter buttons */
 .filters {
   margin-bottom: 1rem;
   display: flex;
@@ -182,10 +184,9 @@ body, html {
   padding: 0.5rem 1rem;
   background: #ffffff;
   color: #0000cd;
-  border: #0000cd;
+  border: none;
   font-family: 'Epilogue', sans-serif;
   font-size: 0.8rem;
-  border-width: 4px;
   cursor: none;
 }
 
@@ -193,17 +194,6 @@ body, html {
 .filter-btn.active {
   background: #0000cd;
   color: #ffffff;
-  border: #0000cd;
-}
-
-/* case card images at 3560x1215 ratio (no cropping) */
-.case-card img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 3560 / 1215;
-  height: auto;
-  object-fit: contain;
-  background: #ffffff;
 }
 
 /* case cards */
@@ -217,11 +207,19 @@ body, html {
   display: flex;
   flex-direction: column;
   border: 1px solid #0000cd;
-  border-radius: 0;
   overflow: hidden;
   text-decoration: none;
   color: #222;
   background: #fff;
+}
+
+.case-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3560 / 1215;
+  height: auto;
+  object-fit: contain;
+  background: #ffffff;
 }
 
 .case-card .caption {
@@ -240,6 +238,9 @@ body, html {
 .desc {
   font-size: 0.8rem;
   line-height: 1.4;
+  display: inline-block;
+  margin-right: 10px;
+  vertical-align: middle;
 }
 
 .tags {
@@ -248,10 +249,11 @@ body, html {
   margin-bottom: 1rem;
   gap: 0.5rem;
 }
+
 .tags .tag {
   display: inline-block;
   font-size: 0.65rem;
-  padding: 3px 8px; /* increased padding */
+  padding: 3px 8px;
   margin: 0;
   border: 1px solid #0000cd;
   border-radius: 3px;
@@ -265,20 +267,18 @@ body, html {
   color: #0000cd;
   font-weight: 500;
   text-align: left;
-  padding: 0;
+  padding-left: 0;
+  padding-top: 0.5rem;
   cursor: none;
   text-decoration: none;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
 }
 
-.view-cs:hover {
-  all: unset;
-  color: #0000cd;
-  font-size: 0.8rem;
+.view-cs:hover,
+.view-cs.active {
   text-decoration: line-through;
-}
-
-.view-cs:active {
-  text-decoration: underline;
 }
 
 /* overlay */
@@ -307,7 +307,7 @@ body, html {
   position: absolute;
   top: 10px;
   right: 10px;
-  font-size: 1.2rem;
+  font-size: 1rem;
   background: none;
   border: none;
   cursor: none;
@@ -335,16 +335,39 @@ body, html {
 }
 
 /* breadcrumb style */
-.breadcrumb {
+.breadcrumb,
+.breadcrumb-mobile {
   display: inline-block;
   color: #0000cd;
   text-decoration: none;
   font-weight: 500;
-  margin-bottom: 1rem;
+}
+
+.breadcrumb-mobile {
+  font-size: .95rem;
+  font-weight: 400;
+  margin-top: 1rem;
+  margin-bottom: 0;
 }
 
 .breadcrumb:hover {
   text-decoration: underline;
+}
+
+h2 {
+  color: #0000cd;
+}
+
+li {
+  list-style-type: decimal-leading-zero;
+  padding-left: 1rem;
+  margin: 0.2rem 0;
+  max-width: 100ch;
+}
+
+p {
+  max-width: 100ch;
+  line-height: 1.5;
 }
 
 /* detail view */
@@ -377,147 +400,88 @@ body, html {
   line-height: 1.5;
 }
 
-/* mobile topbar (arrow on the left) */
+/* mobile topbar */
 .mobile-topbar {
   display: none;
   width: 100%;
-  align-items: left;
+  align-items: flex-start;
   background: #ffffff;
-  padding: var(--page-pad);
+  padding: 1rem 0;
   box-shadow: 0 1px 0 rgba(0,0,0,0.04);
   z-index: 1200;
 }
 
-.mobile-menu-toggle {
-  position: absolute;
-  background-color: #fff;
-  font-size: 1rem; 
-  color: #0000cd;
-  border: none;
-  cursor: none;
-  line-height: 1;
-}
-
-/* close button for mobile sidebar overlay (same position/size as the toggle) */
-.close-menu {
-  display: none; /* shown only when overlay open on mobile */
-  position: absolute;
-  font-size: 1rem; 
+.menu-btn {
+  font-size: 1rem;
   color: #0000cd;
   background: #fff;
   border: none;
   cursor: none;
   line-height: 1;
 }
+
+.close-menu {
+  display: none;
+  padding-bottom: 16px;
+  color: #ff0000;
+}
+
 .close-menu:focus {
   outline: 2px solid rgba(19, 23, 31, 0.15);
   outline-offset: 2px;
 }
 
-/* responsive tweaks and mobile overlay behavior */
+/* responsive tweaks */
 @media (max-width: 1024px) {
-  .clock {
-    display: none; /* hide clock on mobile */
-  }
+  .clock { display: none; }
+  .sidebar-right { display: none !important; }
 
-  .sidebar-right {
-    display: none !important;
-  }
+  .content { padding-top: 0.5rem; }
+  .mobile-topbar { display: flex; position: sticky; top: 0; left: 0; }
 
-  .sidebar-right.menu-open {
-    display: block !important;
-    position: relative;
-    margin-top: 0.35rem;
-    width: 100%;
-    max-height: 60vh;
-    overflow-y: auto;
-    background: #ffffff;
-    color: #000;
-    padding: 0.6rem 1rem;
-    z-index: 1150;
-    border-top: 1px solid rgba(0,0,0,0.05);
-    transition: max-height 240ms ease, opacity 180ms ease;
-  }
-
-  .content {
-    padding-top: 0.5rem;
-  }
-
-  .mobile-topbar {
-    display: flex;
-    position: sticky;
-    top: 0;
-    left: 0;
-  }
-
-  .sidebar-right.menu-open .cv-content,
-  .sidebar-right.menu-open .sidebar-bottom {
-    color: #222;
-  }
-
-  /* left sidebar becomes a full-screen overlay (hidden by default) */
   .sidebar { display: none; }
   .sidebar.menu-open {
     display: block;
     position: fixed;
-    inset: 0; /* cover the viewport */
+    inset: 0;
     width: 100vw;
     height: 100vh;
     background: #ffffff;
     z-index: 1300;
     overflow-y: auto;
-    padding: var(--page-pad); /* same top/left padding as index page */
+    padding: var(--page-pad);
   }
 
-  /* show the tiny X when the left overlay is open */
-  .sidebar.menu-open .close-menu {
-    display: block;
-  }
-
-  /* allow the page to size naturally under the overlay */
-  .container {
-    height: auto;
-  }
+  .sidebar.menu-open .close-menu { display: block; }
+  .container { height: auto; }
 }
 
-/* very small screens */
-@media (max-width:420px) {
-  .sidebar-right.menu-open {
-    max-height: 50vh;
-    padding: 0.5rem;
-  }
+@media (max-width: 420px) {
+  .sidebar-right.menu-open { max-height: 50vh; padding: 0.5rem; }
 }
 
-/* Disable special cursor on touch devices */
 @media (hover: none) and (pointer: coarse) {
   #custom-cursor { display: none !important; }
   * { cursor: auto !important; }
 }
 
-/* JS will also add .is-touch for broader support; use it as a fallback */
 html.is-touch #custom-cursor { display: none !important; }
 html.is-touch * { cursor: auto !important; }
 
-
 /* -----------------------
-   Responsive Grid Masonry (tight, equal gaps)
-   -----------------------
-   Desktop: 3 columns
-   Tablet: 2 columns
-   Mobile: 1 column (centered, capped width)
-*/
+   Responsive Grid Masonry
+----------------------- */
 .masonry,
 .masonry-video {
   display: grid;
   grid-auto-flow: dense;
   grid-template-columns: repeat(var(--masonry-columns-desktop), 1fr);
-  grid-auto-rows: var(--masonry-row-height); /* small virtual row used by JS span calc */
+  grid-auto-rows: var(--masonry-row-height);
   gap: var(--masonry-gap);
   align-items: start;
   width: 100%;
 }
 
-/* ensure media fills the grid cell and never overflows */
 .masonry-item {
   break-inside: avoid;
   -webkit-column-break-inside: avoid;
@@ -531,9 +495,10 @@ html.is-touch * { cursor: auto !important; }
   height: auto;
   display: block;
   object-fit: contain;
+  border: 1px solid #000000; 
+  border-radius: 4px; 
 }
 
-/* tablet breakpoint */
 @media (max-width: 900px) {
   .masonry,
   .masonry-video {
@@ -541,22 +506,19 @@ html.is-touch * { cursor: auto !important; }
   }
 }
 
-/* mobile breakpoint: single column, capped width, centered */
 @media (max-width: 1024px) {
   .masonry,
   .masonry-video {
     grid-template-columns: 1fr;
-    gap: calc(var(--masonry-gap) * 1);
+    gap: var(--masonry-gap);
     max-width: var(--masonry-mobile-max);
     margin-left: auto;
     margin-right: auto;
-    width: 100%;
   }
 
   .masonry-item img,
   .masonry-item video {
     width: 100%;
     height: auto;
-    display: block;
   }
 }

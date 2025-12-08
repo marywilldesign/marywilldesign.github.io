@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blackbox VJ tool</title>
+  <link rel="icon" type="mw.svg" href="mw.svg" />
+  <link rel="stylesheet" href="../style.css" />
+  <script src="../script.js" defer></script>
+</head>
+
+<body>
+  <div class="container">
+
+    <!-- left sidebar -->
+    <aside class="sidebar">
+      <a href="/" class="breadcrumb">← home / blackbox VJ</a>
+      
+      <div class="other-cases">
+        <ul>
+          <button class="view-cs" onclick="window.location.href='/vancouverartgallery/'">Vancouver Art Gallery</button>
+          <button class="view-cs" onclick="window.location.href='/telus/'">Telus Internet Sales</button>
+          <button class="view-cs" onclick="window.location.href='/modo/'">Modo Carsharing Site</button>
+          <button class="view-cs" onclick="window.location.href='/postertriennial/'">Poster Triennial, Lahti</button>
+          <button class="view-cs" onclick="window.location.href='/twotruths/'">Two Truths and AI game</button>
+          <button class="view-cs" onclick="window.location.href='/friendsfest/'">Friends Fest branding</button>
+          <button class="view-cs" onclick="window.location.href='/speleo/'">Speleo Record Label</button>
+          <button class="view-cs" onclick="window.location.href='/papercut/'">Paper Cut Poster folio</button>
+          <!--<button class="view-cs" onclick="window.location.href='/ibm/'">IBM: Volunteerism</button>-->
+          <button class="view-cs" onclick="window.location.href='/subtext/'">Subtext Movie Poster</button>
+          <button class="view-cs" onclick="window.location.href='/risographposters/'">Risograph Poster Exhibit</button>
+          <button class="view-cs" onclick="window.location.href='/wellflip/'">Well, Flip!: Coptic Book</button>
+          <button class="view-cs active" onclick="window.location.href='/blackbox/'">Web-based Blackbox VJ</button>
+          <button class="view-cs" onclick="window.location.href='/collaborativesentence/'">Longest Sentence site</button>         
+          <button class="view-cs" onclick="window.location.href='/glyphscorrupted/'">Glyphs: Corrupted</button>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- middle content -->
+    <main class="content">
+
+      <!-- clock -->
+      <div class="clock" id="clock">00:00</div>
+
+      <!-- project header -->
+      <h2>Blackbox VJ tool</h2>
+      <div class="tags">
+        <span class="tag">UX</span>
+        <span class="tag">graphic design</span>
+        <span class="tag">web dev</span>
+        <span class="tag">personal project</span>
+      </div>
+        <h4>
+          2025
+        </h4>
+      <p class="quick-desc">
+        This (very much WIP) Visual Jockey web tool is a collaborative online space where anyone can play with text, visuals, and ideas without needing any special software. It’s designed so people can experiment freely from home—mixing, censoring, revealing, or reshaping content however they like. 
+      </p>
+
+      <p class="quick-desc">
+       The controller UI still needs some tinkering in terms of functionality and form... but the visual output is always surprising, especially since I added the ability to upload a photo, meaning users can really insert their own style into it.
+      </p>
+
+      <p class="quick-desc">
+       <i>Feature list (so far)</i>
+      </p>
+
+      <ul>
+        <li>
+          gradient
+        </li>
+        <li>
+          grain
+        </li>
+        <li>
+          image upload
+        </li>
+        <li>
+          shape / object definer
+        </li>
+        <li>
+          movement direction
+        </li>
+        <li>
+          colour selection
+        </li>
+        <li>
+          connect to external camera (web cam or external camera)
+        </li>
+        <li>
+          grid definer
+        </li>
+        <li>
+          shape warp
+        </li>
+      </ul>
+
+      <h4>
+         Visual outputs:
+        </h4>
+
+      <!-- masonry gallery -->
+      <div class="masonry">
+
+        <div class="masonry-item">
+          <video
+            src="../blackbox/vj14.webm"
+            autoplay
+            loop
+            muted
+            playsinline
+            class="video-item">
+          </video>
+        </div>
+        
+        <div class="masonry-item">
+          <video
+            src="../blackbox/vj1.webm"
+            autoplay
+            loop
+            muted
+            playsinline
+            class="video-item">
+          </video>
+        </div>
+
+        <div class="masonry-item">
+          <video
+            src="../blackbox/vj2.webm"
+            autoplay
+            loop
+            muted
+            playsinline
+            class="video-item">
+          </video>
+        </div>
+
+        <div class="masonry-item">
+          <video
+            src="../blackbox/vj3.webm"
+            autoplay
+            loop
+            muted
+            playsinline
+            class="video-item">
+          </video>
+        </div>
+
+        <div class="masonry-item">
+          <video
+            src="../blackbox/vj6.webm"
+            autoplay
+            loop
+            muted
+            playsinline
+            class="video-item">
+          </video>
+        </div>
+        
+        <div class="masonry-item">
+          <video
+            src="../blackbox/vj7.webm"
+            autoplay
+            loop
+            muted
+            playsinline
+            class="video-item">
+          </video>
+        </div>
+
+        <div class="masonry-item">
+          <video
+            src="../blackbox/vj8.webm"
+            autoplay
+            loop
+            muted
+            playsinline
+            class="video-item">
+          </video>
+        </div>
+        
+        
+             
+
+      </div>
+
+    </main>
+  </div>
+
+  <!-- custom cursor -->
+  <div id="custom-cursor"></div>
+</body>
+</html>

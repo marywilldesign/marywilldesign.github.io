@@ -3,134 +3,230 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Telus – Case Study</title>
-  <link rel="icon" type="mw.svg" href="mw.svg" />
+  <title>Telus</title>
+  <link rel="icon" type="image/svg+xml" href="mw.svg" />
   <link rel="stylesheet" href="../style.css" />
   <script src="../script.js" defer></script>
+
+  <style>
+    /* Grid masonry caption */
+    .caption {
+      font-size: 0.8rem;
+      margin-top: 0.4rem;
+      color: #444;
+    }
+
+    /* Lightbox overlay */
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.85);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border: 2px solid white;
+      border-radius: 8px;
+    }
+
+    .lightbox.active {
+      display: flex;
+    }
+  </style>
 </head>
 
 <body>
   <div class="container">
 
-    <!-- left sidebar -->
+    <!-- Sidebar -->
     <aside class="sidebar">
-      <!-- FIXED breadcrumb path: go up one folder -->
-      <a href="/" class="breadcrumb">← home / Telus</a>
-      
+      <a href="../index.html" class="breadcrumb">← home / telus</a>
+      <button class="menu-btn close-menu" aria-label="close menu">close</button>
+
       <div class="other-cases">
-        <h4>PROJECTS</h4>
         <ul>
-          <button class="view-cs" onclick="window.location.href='ibm.html'">IBM</button>
-          <button class="view-cs active" onclick="window.location.href='telus.html'">Telus ←</button>
-          <button class="view-cs" onclick="window.location.href='modo.html'">Modo</button>
-          <button class="view-cs" onclick="window.location.href='speleo.html'">Speleo</button>
-          <button class="view-cs" onclick="window.location.href='subtext.html'">Subtext</button>
-          <button class="view-cs" onclick="window.location.href='wellflip.html'">Well, Flip!</button>
-          <button class="view-cs" onclick="window.location.href='blackbox.html'">Blackbox VJ</button>
-          <button class="view-cs" onclick="window.location.href='friendsfest.html'">Friends Fest</button>
-          <button class="view-cs" onclick="window.location.href='scannerartly.html'">Scanner Artly</button>
-          <button class="view-cs" onclick="window.location.href='grafiahelsinki.html'">Poster Triennial</button>
-          <button class="view-cs" onclick="window.location.href='twotruths.html'">Two Truths and AI</button>
-          <button class="view-cs" onclick="window.location.href='papercut.html'">Paper Cut Posters</button>
-          <button class="view-cs" onclick="window.location.href='vag.html'">Vancouver Art Gallery</button>
-          <button class="view-cs" onclick="window.location.href='kunstnerneshus.html'">Kunstnernes Hus Gallery</button>
+          <button class="view-cs" onclick="window.location.href='/vancouverartgallery/'">Vancouver Art Gallery</button>
+          <button class="view-cs active" onclick="window.location.href='/telus/'">Telus Internet Sales</button>
+          <button class="view-cs" onclick="window.location.href='/modo/'">Modo Carsharing Site</button>
+          <button class="view-cs" onclick="window.location.href='/postertriennial/'">Poster Triennial, Lahti</button>
+          <button class="view-cs" onclick="window.location.href='/twotruths/'">Two Truths and AI game</button>
+          <button class="view-cs" onclick="window.location.href='/friendsfest/'">Friends Fest branding</button>
+          <button class="view-cs" onclick="window.location.href='/speleo/'">Speleo Record Label</button>
+          <button class="view-cs" onclick="window.location.href='/papercut/'">Paper Cut Poster folio</button>
+               <!--<button class="view-cs" onclick="window.location.href='/ibm/'">IBM: Volunteerism</button>-->
+          <button class="view-cs" onclick="window.location.href='/subtext/'">Subtext Movie Poster</button>
+          <button class="view-cs" onclick="window.location.href='/risographposters/'">Risograph Poster Exhibit</button>
+          <button class="view-cs" onclick="window.location.href='/wellflip/'">Well, Flip!: Coptic Book</button>
+          <button class="view-cs" onclick="window.location.href='/blackbox/'">Web-based Blackbox VJ</button>
+          <button class="view-cs" onclick="window.location.href='/collaborativesentence/'">Longest Sentence site</button>
+          <button class="view-cs" onclick="window.location.href='/glyphscorrupted/'">Glyphs: Corrupted</button>
         </ul>
       </div>
     </aside>
 
-    <!-- middle content -->
+    <!-- Main content -->
     <main class="content">
+      <!-- Mobile topbar -->
+      <div class="mobile-topbar" aria-hidden="true">
+        <button class="menu-btn mobile-menu-toggle" aria-label="Open menu">menu</button>
+      </div>
 
-      <!-- clock -->
       <div class="clock" id="clock">00:00</div>
 
-      <!-- project header -->
-      <h2>Modo – Carsharing Website Restructuring</h2>
+      <h2>Telus Internet Sales Journey</h2>
       <div class="tags">
         <span class="tag">UX</span>
-        <span class="tag">Web Dev</span>
-        <span class="tag">Graphic Design</span>
       </div>
 
-      <p class="quick-desc">
-        This project aimed to restructure Modo's marketing site to simplify navigation, align branding with the mobile app, and reduce support inquiries from prospective members.
+      <p><strong>2022 – 2024</strong></p>
+      <p>
+        Navigation redesign for a large Canadian internet service provider’s e-Comm website (telus.com) which saw a 42% increase in desired page visits. This project was part of a larger initiative to increase Telus internet sales. We were tasked to design an effective way-finding system to help convert prospective customers to Telus internet products. 
+        We outlined a clear design strategy, supported frequent A/B tests, and specced out a redesign for a more effective navigation system.
+        <i>Note: some of the images are blurred out / obscured as they remain under NDA.</i>
       </p>
 
-      <!-- full-width hero image -->
-      <div class="hero-image">
-        <img src="https://via.placeholder.com/1600x700" alt="Modo Case Study Hero" />
+      <div class="masonry-item">
+        <img src="../telus/telus.png" alt="telus homepage">
+        <div class="caption">Internet plans page for Telus</div>
       </div>
 
-      <!-- roles & timeline -->
       <div class="project-meta">
-        <p><strong>Roles:</strong> Content Strategy, Visual Identity, Web Design, Web Development, User Research, R&D</p>
-        <p><strong>Timeline:</strong> Nov 2022 – Present</p>
+        <p><strong>Roles:</strong> R&D, ideation, Scrum Master, UX/UI design, Project Manager, User Tester and Researcher</p>
       </div>
 
-      <!-- challenge -->
-      <section class="content-block challenge image-left">
-        <div class="text">
-          <h3>The Challenge</h3>
-          <p>
-            Modo’s marketing site had evolved into a ‘franken-site’ as many stakeholders updated content independently...
-          </p>
-          <p>
-            We needed to simplify the overall site experience, ensure branding was consistent with the mobile app, and streamline help content to reduce support inquiries.
-          </p>
-        </div>
-        <div class="image">
-          <img src="https://via.placeholder.com/600x400" alt="Challenge Image Placeholder" />
-        </div>
-      </section>
+      <div class="text">
+        <p><strong>The Challenge</strong></p>
+        <p>
+          With the aim to help orient users within a vast set of offerings, Telus’ mega navigation menu was considered prime real estate. 
+          When conducting the site audit, the other designer and I identified many pages surfaced in the 'mega menu' which could serve a better purpose elsewhere.
+        </p>
+      </div>
 
-      <!-- key objectives -->
-      <section class="content-block objectives image-right">
-        <div class="text">
-          <h3>Key Objectives</h3>
-          <ul>
-            <li>Refresh the website branding to match the Modo mobile app</li>
-            <li>Rethink page hierarchy, user flows, and site map</li>
-            <li>Evaluate and implement clear copy with consistent voice and tone</li>
-          </ul>
-        </div>
-        <div class="image">
-          <img src="https://via.placeholder.com/600x400" alt="Objectives Image Placeholder" />
-        </div>
-      </section>
+      <div class="text">
+        <p><strong>Objectives</strong></p>
+        <ul>
+          <li>Increase Telus's internet sales conversation rates (ideally double the baseline sales to traffic conversion rate)</li>
+          <li>Maintain or increase customer click-through rate (CTR) to key points in the journey</li>
+          <li>Lead user traffic down the conversion funnel and a lower bounce rate</li>
+        </ul>
+      </div>
 
-      <!-- approach -->
-      <section class="content-block approach image-left">
-        <div class="text">
-          <h3>Our Approach</h3>
-          <p>Context statement linking mission to project...</p>
-          <h4>User Research</h4>
-          <p>Details of research methods and insights gained...</p>
-          <h4>UX/UI</h4>
-          <p>Wireframes, flows, and interface design rationale...</p>
-          <h4>Content Strategy</h4>
-          <p>How content planning and copywriting shaped the voice...</p>
-        </div>
-        <div class="image">
-          <img src="https://via.placeholder.com/600x400" alt="Approach Image Placeholder" />
-        </div>
-      </section>
+      <img src="../telus/originalsite.png" alt="telus homepage" style="max-width:100ch;width:100%;display:block;border: 1px solid #000000; border-radius: 4px;">
+      <div class="caption">Site when we joined the project (prior to work)</div>
 
-      <!-- impact -->
-      <section class="content-block impact image-right">
-        <div class="text">
-          <h3>Impact & Results</h3>
-          <p>
-            After launch, we observed improved usability metrics, a reduction in support requests, and positive client feedback.
-          </p>
+      <p>When conducting the site audit, the other designer and I identified many pages surfaced in the mega menu which could serve a better purpose elsewhere, including:</p>
+      <p><i>‘Dead-end’ pages:</i> Where a significant amount of pages with low engagement fail to loop customers back through the funnel surfaced on mega nav;</p>
+      <p><i>Poor performing pages:</i> A number of pages, which have low conversion rates, are surfaced in the meganav</p>
+
+      <div class="text">
+        <p>From this initial research, it was clear what we needed to do.<i> How might we...</i> restructure the navigation so prospective user needs are met and they have a more streamlined purchase journey?</p>
+        <ul>
+          <li>Recognizable labeling: customers need to know what they are ‘getting themselves into’ when clicking on a menu item</li>
+          <li>Easy to use: seeking an intuitive experience on desktop and mobile, rather than flipping between pages to wayfind</li>
+          <li>Match expectations: they are satisfied with the info on the page that is linked to the menu item they select</li>
+        </ul>
+        <p>After extensive research (card sorting, user interviews, A/B tests), we restructured the menu and tweaked the content, so the flow was simplified. This meant the pages were more purposeful for the audience they are trying to attract (like prospective internet customers identifying more with the Learn menu items compared to the Manage section.) </p>
+
+        <img src="../telus/menudraft.png" alt="telus menu draft" style="max-width:100ch;width:100%;display:block;border: 1px solid #000000; border-radius: 4px;">
+        <div class="caption">Initial UX exploration of menu item restructuring</div>
+
+        <p>I synthesized findings from research the client had provided, as well as the analytics. From doing this, it was clear the project may expand into a few different areas for improvement, aside from the meganav.</p>
+        <p>The aim was to orient the stakeholder in the pain points in the user journey which we aimed to address. During the workshop, I carefully went through each of these subject areas and we triaged key areas for us to focus on, aside from the mega menu.</p>
+
+        <img src="../telus/synthesis.png" alt="telus synthesis" style="max-width:150ch;width:100%;display:block;">
+        <div class="caption">Synthesis of findings which later informed a workshop I facilitated</div>
+
+        <p>After reviewing the existing client research as well as the analytics, I synthesized and specced out this user journey, which made use of Telus’s outlined behavioural segments. This helped the team better understand each user type’s journey when making a purchase.</p>
+
+        <img src="../telus/bsegments.png" alt="telus behavioral segments" style="max-width:100ch;width:100%;display:block; border: 1px solid #000000; border-radius: 4px;">
+        <div class="caption">Outlining each user segment's journey from pre Telus visit to purchasing a plan</div>
+      </div>
+
+      <div class="text">
+        <p><strong>Lo- to Hi-Fi</strong></p>
+        <p>
+          Using a mixture of applying their Allium Design System and designing fresh components, the designers divided and conquered different pages accessible from the mega menu. Here are some examples of my work, starting with low fidelity explorations.
+        </p>
+      </div>
+
+      <div>
+        <img src="../telus/lowfi.png" alt="low-fi exploration" style="max-width:100ch;width:100%;display:block; border-radius: 4px;">
+        <div class="caption">Outlining each user segment's journey from pre Telus visit to purchasing a plan</div>
+      </div>
+
+      <div class="text">
+        <p>
+          Here I applied their design system to a few different card options, each targeting different behavioural segments.
+        </p>
+      </div>
+
+      <div class="masonry">
+        <div class="masonry-item">
+          <img src="../telus/card1.png" alt="card example" style="border: none;">
         </div>
-        <div class="image">
-          <img src="https://via.placeholder.com/600x400" alt="Results Image Placeholder" />
+
+        <div class="masonry-item">
+          <img src="../telus/card2.png" alt="card example"  style="border: none;">
         </div>
-      </section>
+
+        <div class="masonry-item">
+          <img src="../telus/card3.png" alt="card example" style="border: none;">
+        </div>
+
+      </div>
+
+    <div class="text">
+        <p><strong>Results</strong></p>
+        <p>
+          Throughout the project, the researcher and I were tracking Decibel analytics. We were frequently testing and iterating based on the metrics. At the project wrap, the refreshed nav we devised saw:
+        </p>
+
+        <ul>
+          <li>
+            42% increase in visits to the internet home page (PureFibre Internet)
+          </li>
+          <li>
+            4% increase in clickthrough rate from the menu (compared to control version)
+         </li>
+         <li>
+          .5% decrease in overall engagement which we rationalized as users getting the information they need in the context of other data.
+         </li>
+        </ul>
+      </div>
+
+      <img src="../telus/meganav.png" alt="meganav" style="max-width:150ch;width:100%;display:block;">
+        <div class="caption">Final deployment from our engagement with Telus (live as of July, 2025)</div>
+
     </main>
+
   </div>
 
-  <!-- custom cursor -->
+  <!-- Lightbox overlay -->
+  <div class="lightbox" id="lightbox">
+    <img src="" alt="zoomed image">
+  </div>
+
+  <!-- Lightbox script -->
+  <script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('img');
+    document.querySelectorAll('.masonry-item img').forEach(img => {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightbox.classList.add('active');
+      });
+    });
+    lightbox.addEventListener('click', () => lightbox.classList.remove('active'));
+  </script>
+
   <div id="custom-cursor"></div>
 </body>
 </html>

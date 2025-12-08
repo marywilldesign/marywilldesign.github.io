@@ -3,135 +3,179 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Modo – Case Study</title>
+  <title>2Truths&AI</title>
+  <link rel="icon" type="mw.svg" href="mw.svg" />
   <link rel="stylesheet" href="../style.css" />
   <script src="../script.js" defer></script>
-  <link rel="icon" type="mw.svg" href="mw.svg" />
 
+  <style>
+  /* grid masonry */
+
+  .caption {
+    font-size: 0.8rem;
+    margin-top: 0.4rem;
+    color: #444;
+  }
+
+  /* Lightbox viewfinder overlay */
+  .lightbox {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.85);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    border: 2px solid white;
+    border-radius: 8px;
+  }
+
+  .lightbox.active {
+    display: flex;
+  }
+</style>
 </head>
 
 <body>
   <div class="container">
 
-    <!-- left sidebar -->
+    <!-- sidebar -->
     <aside class="sidebar">
-      <!-- breadcrumb path: go up one folder -->
-      <a href="/" class="breadcrumb">← home / Modo</a>
+      <a href="../index.html" class="breadcrumb">← home / two truths & AI</a>
+      <button class="menu-btn close-menu" aria-label="close menu">close</button>
+      
       
       <div class="other-cases">
-        <h4>PROJECTS</h4>
         <ul>
-          <button class="view-cs" onclick="window.location.href='ibm.html'">IBM</button>
-          <button class="view-cs" onclick="window.location.href='telus.html'">Telus</button>
-          <button class="view-cs" onclick="window.location.href='modo.html'">Modo</button>
-          <button class="view-cs" onclick="window.location.href='speleo.html'">Speleo</button>
-          <button class="view-cs" onclick="window.location.href='subtext.html'">Subtext</button>
-          <button class="view-cs" onclick="window.location.href='wellflip.html'">Well, Flip!</button>
-          <button class="view-cs" onclick="window.location.href='blackbox.html'">Blackbox VJ</button>
-          <button class="view-cs" onclick="window.location.href='friendsfest.html'">Friends Fest</button>
-          <button class="view-cs" onclick="window.location.href='scannerartly.html'">Scanner Artly</button>
-          <button class="view-cs" onclick="window.location.href='grafiahelsinki.html'">Poster Triennial</button>
-          <button class="view-cs active" onclick="window.location.href='twotruths.html'">Two Truths and AI ←</button>
-          <button class="view-cs" onclick="window.location.href='papercut.html'">Paper Cut Posters</button>
-          <button class="view-cs" onclick="window.location.href='vag.html'">Vancouver Art Gallery</button>
-          <button class="view-cs" onclick="window.location.href='kunstnerneshus.html'">Kunstnernes Hus Gallery</button>
+          <button class="view-cs" onclick="window.location.href='/vancouverartgallery/'">Vancouver Art Gallery</button>
+          <button class="view-cs" onclick="window.location.href='/telus/'">Telus Internet Sales</button>
+          <button class="view-cs" onclick="window.location.href='/modo/'">Modo Carsharing Site</button>
+          <button class="view-cs" onclick="window.location.href='/postertriennial/'">Poster Triennial, Lahti</button>
+          <button class="view-cs active" onclick="window.location.href='/twotruths/'">Two Truths and AI game</button>
+          <button class="view-cs" onclick="window.location.href='/friendsfest/'">Friends Fest branding</button>
+          <button class="view-cs" onclick="window.location.href='/speleo/'">Speleo Record Label</button>
+          <button class="view-cs" onclick="window.location.href='/papercut/'">Paper Cut Poster folio</button>
+               <!--<button class="view-cs" onclick="window.location.href='/ibm/'">IBM: Volunteerism</button>-->
+          <button class="view-cs" onclick="window.location.href='/subtext/'">Subtext Movie Poster</button>
+          <button class="view-cs" onclick="window.location.href='/risographposters/'">Risograph Poster Exhibit</button>
+          <button class="view-cs" onclick="window.location.href='/wellflip/'">Well, Flip!: Coptic Book</button>
+          <button class="view-cs" onclick="window.location.href='/blackbox/'">Web-based Blackbox VJ</button>
+          <button class="view-cs" onclick="window.location.href='/collaborativesentence/'">Longest Sentence site</button>         
+          <button class="view-cs" onclick="window.location.href='/glyphscorrupted/'">Glyphs: Corrupted</button>
         </ul>
       </div>
     </aside>
 
-    <!-- middle content -->
+    <!-- main content -->
     <main class="content">
+      <!-- MOBILE TOPBAR (appears on <=1024px) -->
+      <div class="mobile-topbar" aria-hidden="true">
+        <button class="menu-btn mobile-menu-toggle" aria-label="Open menu">menu</button> 
+      </div>
 
-      <!-- clock -->
       <div class="clock" id="clock">00:00</div>
 
-      <!-- project header -->
-      <h2>Modo – Carsharing Website Restructuring</h2>
+      <h2>Two Truths & AI game</h2>
       <div class="tags">
         <span class="tag">UX</span>
-        <span class="tag">Web Dev</span>
-        <span class="tag">Graphic Design</span>
+        <span class="tag">graphic design</span>
+        <span class="tag">web dev</span>
+        <span class="tag">personal project</span>
       </div>
-
-      <p class="quick-desc">
-        This project aimed to restructure Modo's marketing site to simplify navigation, align branding with the mobile app, and reduce support inquiries from prospective members.
+    <p><strong>2025</strong> </p>
+      <p>
+        In the theme of lying and having recently played “two truths and a lie”, I thought it would be a fun exercise to make a web-based experienced which harnessed AI to churn out statements, with one being a lie.
       </p>
 
-      <!-- full-width hero image -->
-      <div class="hero-image">
-        <img src="https://via.placeholder.com/1600x700" alt="Modo Case Study Hero" />
+      <div class="masonry-item">
+          <img src="../twotruths/twotruthsai_hero.png" alt="twotruthsaiwebgame">
+          <div class="caption">Home page where the eye is animated to blink and look around the page.</div>
       </div>
+        
+        <div class="project-meta">
+        <p><strong>Roles:</strong> Ideation, UX design, Web Development, Graphic Design</p>
+        
+        </div>
 
-      <!-- roles & timeline -->
-      <div class="project-meta">
-        <p><strong>Roles:</strong> Content Strategy, Visual Identity, Web Design, Web Development, User Research, R&D</p>
-        <p><strong>Timeline:</strong> Nov 2022 – Present</p>
-      </div>
-
-      <!-- challenge -->
-      <section class="content-block challenge image-left">
-        <div class="text">
-          <h3>The Challenge</h3>
+          <div class="text">
+          <p><strong>The Challenge</strong></p>
           <p>
-            Modo’s marketing site had evolved into a ‘franken-site’ as many stakeholders updated content independently...
-          </p>
-          <p>
-            We needed to simplify the overall site experience, ensure branding was consistent with the mobile app, and streamline help content to reduce support inquiries.
+            I am lucky to be a confident frontend developer but, given my limited backend experience, from old portfolio and for-fun-sites, it was nice to have AI on my side. After lots of trial and error, asking a some dev friends and chatGPT, I landed on a neat little solution. 
           </p>
         </div>
-        <div class="image">
-          <img src="https://via.placeholder.com/600x400" alt="Challenge Image Placeholder" />
-        </div>
-      </section>
 
-      <!-- key objectives -->
-      <section class="content-block objectives image-right">
+        <div class="masonry-item">
+          <img src="../twotruths/apikey.png" alt="apikeypic">
+          <div class="caption">Snapshot of .json script</div>
+      </div>
+
+      <div class="text">
+          <p>
+            This allowed me to generate a large number of 'two truths' and one lie for each group en masse. The themes which I focused on ranged from Oslo-based art and Swiss design to fun facts about Australia and Fluxus design.
+          </p>
+        </div>
+
         <div class="text">
-          <h3>Key Objectives</h3>
+          <p><strong>Objectives</strong></p>
           <ul>
-            <li>Refresh the website branding to match the Modo mobile app</li>
-            <li>Rethink page hierarchy, user flows, and site map</li>
-            <li>Evaluate and implement clear copy with consistent voice and tone</li>
+            <li>Create a game which harnesses AI, where users need to select the lie from the list</li>
+            <li>The site itself must be simple and intuitive</li>
+            <li>Explore the idea of 'tricking' users, what is AI and what is not?</li>
           </ul>
         </div>
-        <div class="image">
-          <img src="https://via.placeholder.com/600x400" alt="Objectives Image Placeholder" />
-        </div>
-      </section>
 
-      <!-- approach -->
-      <section class="content-block approach image-left">
-        <div class="text">
-          <h3>Our Approach</h3>
-          <p>Context statement linking mission to project...</p>
-          <h4>User Research</h4>
-          <p>Details of research methods and insights gained...</p>
-          <h4>UX/UI</h4>
-          <p>Wireframes, flows, and interface design rationale...</p>
-          <h4>Content Strategy</h4>
-          <p>How content planning and copywriting shaped the voice...</p>
-        </div>
-        <div class="image">
-          <img src="https://via.placeholder.com/600x400" alt="Approach Image Placeholder" />
-        </div>
-      </section>
+        <!-- masonry gallery -->
+      <div class="masonry">
 
-      <!-- impact -->
-      <section class="content-block impact image-right">
-        <div class="text">
-          <h3>Impact & Results</h3>
-          <p>
-            After launch, we observed improved usability metrics, a reduction in support requests, and positive client feedback.
-          </p>
+        <div class="masonry-item">
+          <video
+            src="../twotruths/screenrec.webm"
+            autoplay
+            loop
+            muted
+            playsinline
+            class="video-item"
+            style="width: 200%;">
+          </video>
         </div>
-        <div class="image">
-          <img src="https://via.placeholder.com/600x400" alt="Results Image Placeholder" />
-        </div>
-      </section>
+
+      </div>
+
+      <div class="desc-buttons">
+                <p>If you are interested in exploring this site, feel free to check it out:</p> 
+                <a class="view-cs" href="https://twotruthsai.live" target="_blank" rel="noopener noreferrer">view site ↗</a>
+              </div>
+
     </main>
+
   </div>
 
-  <!-- custom cursor -->
+  <!-- Lightbox overlay -->
+  <div class="lightbox" id="lightbox">
+    <img src="" alt="zoomed image">
+  </div>
+
+  <!-- Lightbox script -->
+  <script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('img');
+    document.querySelectorAll('.masonry-item img').forEach(img => {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightbox.classList.add('active');
+      });
+    });
+    lightbox.addEventListener('click', () => lightbox.classList.remove('active'));
+  </script>
+
   <div id="custom-cursor"></div>
 </body>
 </html>
