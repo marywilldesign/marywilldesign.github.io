@@ -1,3 +1,6 @@
+// --- enforce custom cursor globally ---
+document.documentElement.style.cursor = 'none';
+
 // --- custom cursor (disabled on touch devices) ---
 const cursor = document.getElementById('custom-cursor');
 
@@ -33,22 +36,19 @@ startClock();
 // --- filtering case cards ---
 const filterButtons = document.querySelectorAll('.filter-btn');
 const caseCards = document.querySelectorAll('.case-card');
-const originalOrder = Array.from(caseCards); // Fixed original HTML order (indices 0-15)
+const originalOrder = Array.from(caseCards);
 
-// Fixed permutations per filter (indices of matching cards, in desired consistent order)
 const filterOrders = {
   'all': [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
-  'ux': [2,4,13,8,14,1,0],
-  'graphic-design': [6,5,15,10,7,3,2,14,4,13,9,11,12],
-  'web-dev': [4,13,14],
+  'ux': [4,13,14,8,2,1],
+  'graphic-design': [6,10,7,0,3,2,4,13,14,5,9,11,12,15],
+  'web-dev': [13,4,14],
   'print': [12,15,5,9,11],
-  'exhibits': [11,0,3],
-  'personal-project': [4,7,9,12,13,14,15]
+  'exhibits': [11,0,3]
 };
 
 filterButtons.forEach((btn) => {
   btn.addEventListener('click', () => {
-    // Remove active state from all
     filterButtons.forEach((b) => b.classList.remove('active'));
     btn.classList.add('active');
 
@@ -61,7 +61,7 @@ filterButtons.forEach((btn) => {
     });
 
     const container = document.querySelector('.cards');
-    const indices = filterOrders[filter] || Array.from({length: 16}, (_, i) => i); // Fallback to orig
+    const indices = filterOrders[filter] || Array.from({length: 16}, (_, i) => i);
     const visibleSet = new Set(indices);
 
     const orderedVisibleCards = indices.map(idx => originalOrder[idx]);
@@ -83,7 +83,6 @@ const overlayTags = document.getElementById('overlay-tags');
 const overlayDesc = document.getElementById('overlay-desc');
 const overlayClose = document.getElementById('close-overlay');
 
-// Open overlay from a card (support .view-btn and .view-cs)
 function openOverlayFromCard(card) {
   const img = card.querySelector('img');
   const captionP = card.querySelector('.caption > p');
@@ -102,7 +101,6 @@ function openOverlayFromCard(card) {
   }
 }
 
-// Attach to possible trigger buttons (view-btn, .view-cs)
 document.querySelectorAll('.view-btn, .view-cs').forEach((btn) => {
   btn.addEventListener('click', (e) => {
     const card = e.currentTarget.closest('.case-card');
@@ -111,7 +109,6 @@ document.querySelectorAll('.view-btn, .view-cs').forEach((btn) => {
   });
 });
 
-// Close overlay
 if (overlayClose) {
   overlayClose.addEventListener('click', () => {
     if (!overlay) return;
@@ -121,7 +118,7 @@ if (overlayClose) {
   });
 }
 
-// --- mobile menu toggle + close (left-aligned, same position/size) ---
+// --- mobile menu toggle + close ---
 const menuToggle = document.querySelector('.mobile-menu-toggle');
 const leftSidebar = document.querySelector('.sidebar');
 const closeMenuButton = document.querySelector('.close-menu');
@@ -131,7 +128,7 @@ function setMenuOpen(open) {
   leftSidebar.classList.toggle('menu-open', open);
   document.documentElement.classList.toggle('no-scroll', open);
   document.body.classList.toggle('no-scroll', open);
-  // Do not change menuToggle text; keep it as 'menu'
+  menuToggle.textContent = open ? '✕' : '↦';
 }
 
 if (menuToggle && leftSidebar) {
@@ -153,15 +150,12 @@ function computeMasonrySpans() {
   containers.forEach((container) => {
     const styles = getComputedStyle(container);
     const rowHeight = parseFloat(styles.getPropertyValue('grid-auto-rows')) || 1;
-    // gap can be single value or row/col; parse first number
     const gapValue = styles.getPropertyValue('gap') || styles.getPropertyValue('grid-row-gap') || '0';
     const gap = parseFloat(gapValue) || 0;
 
     container.querySelectorAll('.masonry-item').forEach((item) => {
-      // reset so we measure natural height
       item.style.gridRowEnd = null;
       const itemHeight = item.getBoundingClientRect().height;
-      // compute span: account for gaps between rows
       const span = Math.max(1, Math.ceil((itemHeight + gap) / (rowHeight + gap)));
       item.style.gridRowEnd = `span ${span}`;
     });
@@ -169,18 +163,15 @@ function computeMasonrySpans() {
 }
 
 function bindMasonryMedia() {
-  // images
   document.querySelectorAll('.masonry-item img').forEach((img) => {
     if (img.complete) return;
     img.addEventListener('load', computeMasonrySpans, { once: true });
     img.addEventListener('error', computeMasonrySpans, { once: true });
   });
 
-  // videos
   document.querySelectorAll('.masonry-item video').forEach((video) => {
     const ready = () => computeMasonrySpans();
     if (video.readyState >= 1) {
-      // metadata loaded
       computeMasonrySpans();
     } else {
       video.addEventListener('loadedmetadata', ready, { once: true });
@@ -194,7 +185,34 @@ window.addEventListener('load', () => {
   bindMasonryMedia();
 });
 window.addEventListener('resize', () => {
-  // debounce small resize bursts
   clearTimeout(window.__masonryResizeTimeout);
   window.__masonryResizeTimeout = setTimeout(computeMasonrySpans, 120);
 });
+
+// --- global lightbox for all .masonry images ---
+(function() {
+  const lightbox = document.getElementById('lightbox');
+  if (!lightbox) return;
+  const lightboxImg = lightbox.querySelector('img');
+
+  function bindLightbox() {
+    document.querySelectorAll('.masonry img').forEach((img) => {
+      if (img.dataset.lightboxBound) return;
+      img.dataset.lightboxBound = true;
+
+      img.addEventListener('click', (e) => {
+        e.preventDefault(); // Prevent default cursor effect
+        lightboxImg.src = img.src;
+        lightbox.classList.add('active');
+      });
+    });
+  }
+
+  lightbox.addEventListener('click', () => {
+    lightbox.classList.remove('active');
+    lightboxImg.src = '';
+  });
+
+  window.addEventListener('load', bindLightbox);
+  window.addEventListener('resize', bindLightbox);
+})();
