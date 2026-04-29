@@ -4,194 +4,161 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Well, Flip</title>
+
   <link rel="icon" type="mw.svg" href="mw.svg" />
   <link rel="stylesheet" href="../style.css" />
   <script src="../script.js" defer></script>
 
   <style>
-  /* grid masonry */
+    .caption {
+      font-size: 0.8rem;
+      margin-top: 0.4rem;
+      color: #444;
+    }
 
-  .caption {
-    font-size: 0.8rem;
-    margin-top: 0.4rem;
-    color: #444;
-  }
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      justify-content: center;
+      align-items: center;
+    }
 
-  /* Lightbox viewfinder overlay */
-  .lightbox {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.85);
-    justify-content: center;
-    align-items: center;
-  }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border: 2px solid white;
+      border-radius: 8px;
+    }
 
-  .lightbox img {
-    max-width: 90%;
-    max-height: 90%;
-    border: 2px solid white;
-    border-radius: 8px;
-  }
-
-  .lightbox.active {
-    display: flex;
-  }
-</style>
+    .lightbox.active {
+      display: flex;
+    }
+  </style>
 </head>
 
-<body>
-  <div class="container">
+<body class="case-page">
 
-    <!-- sidebar -->
-    <aside class="sidebar">
-      
-      <a href="../index.html" class="breadcrumb">← home / well flip</a>
-      <button class="menu-btn close-menu" aria-label="close menu">close menu</button>
-      
-      <div class="other-cases">
-        <ul>
-          <button class="view-cs" onclick="window.location.href='/vancouverartgallery/'">Vancouver Art Gallery</button>
-          <button class="view-cs" onclick="window.location.href='/telus/'">Telus Internet Sales</button>
-          <button class="view-cs" onclick="window.location.href='/modo/'">Modo Carsharing Site</button>
-          <button class="view-cs" onclick="window.location.href='/postertriennial/'">Poster Triennial, Lahti</button>
-          <button class="view-cs" onclick="window.location.href='/twotruths/'">Two Truths and AI game</button>
-          <button class="view-cs" onclick="window.location.href='/friendsfest/'">Friends Fest branding</button>
-          <button class="view-cs" onclick="window.location.href='/speleo/'">Speleo Record Label</button>
-          <button class="view-cs" onclick="window.location.href='/papercut/'">Paper Cut Poster folio</button>
-               <!--<button class="view-cs" onclick="window.location.href='/ibm/'">IBM: Volunteerism</button>-->
-          <button class="view-cs" onclick="window.location.href='/subtext/'">Subtext Movie Poster</button>
-          <button class="view-cs" onclick="window.location.href='/risographposters/'">Risograph Poster Exhibit</button>
-          <button class="view-cs active" onclick="window.location.href='/wellflip/'">Well, Flip!: Coptic Book</button>
-          <button class="view-cs" onclick="window.location.href='/blackbox/'">Web-based Blackbox VJ</button>
-          <button class="view-cs" onclick="window.location.href='/collaborativesentence/'">Longest Sentence site</button>   
-                
-          <button class="view-cs" onclick="window.location.href='/glyphscorrupted/'">Glyphs: Corrupted</button>
-        </ul>
-      </div>
-    </aside>
+<div class="layout">
 
-    <!-- main content -->
-    <main class="content">
-      <!-- MOBILE TOPBAR (appears on <=1024px) -->
-      <div class="mobile-topbar" aria-hidden="true">
-        <button class="menu-btn mobile-menu-toggle" aria-label="Open menu">menu</button> 
-      </div>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
 
-      <div class="clock" id="clock">00:00</div>
+    <button class="sidebar-close" aria-label="Close menu">✕</button>
+
+    <a href="/" class="breadcrumb">← home / well flip</a>
+
+    <nav class="project-nav">
+      <h4>Other Projects</h4>
+      <ul>
+        <li><a href="../vancouverartgallery/">Vancouver Art Gallery</a></li>
+        <li><a href="../telus/">Telus Internet Sales</a></li>
+        <li><a href="../modo/">Modo Carsharing Site</a></li>
+        <li><a href="../postertriennial/">Poster Triennial, Lahti</a></li>
+        <li><a href="../twotruths/">Two Truths & AI</a></li>
+        <li><a href="../friendsfest/">Friends Fest branding</a></li>
+        <li><a href="../speleo/">Speleo Record Label</a></li>
+        <li><a href="../papercut/">Paper Cut Poster folio</a></li>
+        <li><a href="../subtext/">Subtext Movie Poster</a></li>
+        <li><a href="../risographposters/">Risograph Poster Exhibit</a></li>
+        <li><a href="../wellflip/" class="active">Well, Flip!: Coptic Book</a></li>
+        <li><a href="../blackbox/">Web-based Blackbox VJ</a></li>
+        <li><a href="../collaborativesentence/">Longest Sentence site</a></li>
+        <li><a href="../liveopencall/">Live Open Call</a></li>
+        <li><a href="../glyphscorrupted/">Glyphs: Corrupted</a></li>
+      </ul>
+    </nav>
+
+  </aside>
+
+  <div class="menu-backdrop" id="menu-backdrop"></div>
+
+  <!-- MAIN -->
+  <main class="content">
+
+    <div class="topbar">
+      <button class="topbar-menu" id="menu-toggle">menu</button>
+      <a href="/" class="topbar-back">← Back to home</a>
+      <span class="clock" id="clock"></span>
+    </div>
+
+    <!-- HEADER -->
+    <div class="case-header">
 
       <h2>Well, Flip: coptic-bound book</h2>
+
       <div class="tags">
-        <span class="tag">Graphic Design</span>
-        <span class="tag">Print</span>
+        <span class="tag">graphic design</span>
+        <span class="tag">print</span>
+        <span class="tag">creative coding</span>
       </div>
-    
+
+      <p class="case-meta"><strong>2025</strong></p>
+
       <p>
-        'Well, Flip!' harnesses p5.js to animate text falling and gathering itself up in a different form. Each frame was then extracted using Python and placed in InDesign for printing. The goal was to combine a traditional media format (a flipbook) with code as I wanted to explore creative coding.
+        'Well, Flip!' uses p5.js to animate text as it falls and recomposes into new forms. Each frame was exported using Python and assembled in InDesign to create a printed flipbook.
       </p>
+
+      <p>
+        The project explores the tension between computational generation and physical print — combining creative coding with traditional bookbinding formats.
+      </p>
+
+    </div>
+
+    <!-- MASONRY -->
+    <div class="masonry">
+
+      <div class="masonry-item">
+        <video src="../wellflip/scrn.webm" autoplay loop muted playsinline></video>
+      </div>
+
+      <div class="masonry-item">
+        <video src="../wellflip/7.webm" autoplay loop muted playsinline></video>
+      </div>
+
+      <div class="masonry-item">
+        <video src="../wellflip/4.webm" autoplay loop muted playsinline></video>
+      </div>
+
+      <div class="masonry-item">
+        <video src="../wellflip/8.webm" autoplay loop muted playsinline></video>
+      </div>
+
+      <div class="masonry-item">
+        <video src="../wellflip/20.webm" autoplay loop muted playsinline></video>
+      </div>
+
       
-    
-      <!-- masonry gallery -->
-      <div class="masonry-video">
 
-        <div class="masonry-item">
-          <video
-            src="../wellflip/scrn.webm"
-            autoplay
-            loop
-            muted
-            playsinline
-            class="video-item">
-          </video>
-        </div>
+    </div>
 
-        <div class="masonry-item">
-          <video
-            src="../wellflip/4.webm"
-            autoplay
-            loop
-            muted
-            playsinline
-            class="video-item">
-          </video>
-        </div>
+  </main>
+</div>
 
-        <div class="masonry-item">
-          <video
-            src="../wellflip/8.webm"
-            autoplay
-            loop
-            muted
-            playsinline
-            class="video-item">
-          </video>
-        </div>
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <img src="" alt="zoomed media">
+</div>
 
-        <div class="masonry-item">
-          <video
-            src="../wellflip/20.webm"
-            autoplay
-            loop
-            muted
-            playsinline
-            class="video-item">
-          </video>
-        </div>
+<script>
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = lightbox.querySelector('img');
 
-        <div class="masonry-item">
-          <video
-            src="../wellflip/18.webm"
-            autoplay
-            loop
-            muted
-            playsinline
-            class="video-item">
-          </video>
-        </div>
-
-        <div class="masonry-item">
-          <video
-            src="../wellflip/7.webm"
-            autoplay
-            loop
-            muted
-            playsinline
-            class="video-item">
-          </video>
-        </div>
-
-      </div>
-    </main>
-
-
-      </div>
-    </main>
-
-  </div>
-
-  <!-- Lightbox overlay -->
-  <div class="lightbox" id="lightbox">
-    <img src="" alt="zoomed image">
-  </div>
-
-  <!-- Lightbox script -->
-  <script>
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = lightbox.querySelector('img');
-    document.querySelectorAll('.masonry-item img').forEach(img => {
-      img.addEventListener('click', () => {
-        lightboxImg.src = img.src;
-        lightbox.classList.add('active');
-      });
+  document.querySelectorAll('.masonry-item img').forEach(img => {
+    img.addEventListener('click', () => {
+      lightboxImg.src = img.src;
+      lightbox.classList.add('active');
     });
-    lightbox.addEventListener('click', () => lightbox.classList.remove('active'));
-  </script>
+  });
 
-  <div id="custom-cursor"></div>
+  lightbox.addEventListener('click', () => {
+    lightbox.classList.remove('active');
+  });
+</script>
+
+<div id="custom-cursor"></div>
+
 </body>
 </html>
-

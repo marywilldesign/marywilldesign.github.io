@@ -4,162 +4,170 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Poster Triennial</title>
+
   <link rel="icon" type="mw.svg" href="mw.svg" />
   <link rel="stylesheet" href="../style.css" />
   <script src="../script.js" defer></script>
 
   <style>
-  /* grid masonry */
+    .caption {
+      font-size: 0.8rem;
+      margin-top: 0.4rem;
+      color: #444;
+    }
 
-  .caption {
-    font-size: 0.8rem;
-    margin-top: 0.4rem;
-    color: #444;
-  }
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      justify-content: center;
+      align-items: center;
+    }
 
-  /* Lightbox viewfinder overlay */
-  .lightbox {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.85);
-    justify-content: center;
-    align-items: center;
-  }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border: 2px solid white;
+      border-radius: 8px;
+    }
 
-  .lightbox img {
-    max-width: 90%;
-    max-height: 90%;
-    border: 2px solid white;
-    border-radius: 8px;
-  }
-
-  .lightbox.active {
-    display: flex;
-  }
-</style>
+    .lightbox.active {
+      display: flex;
+    }
+  </style>
 </head>
 
-<body>
-  <div class="container">
+<body class="case-page">
 
-    <!-- sidebar -->
-    <aside class="sidebar">
-      <a href="../index.html" class="breadcrumb">← home / poster triennial</a>
-      <button class="menu-btn close-menu" aria-label="close menu">close</button>
-      
-      
-      <div class="other-cases">
-        <ul>
-          <button class="view-cs" onclick="window.location.href='/vancouverartgallery/'">Vancouver Art Gallery</button>
-          <button class="view-cs" onclick="window.location.href='/telus/'">Telus Internet Sales</button>
-          <button class="view-cs" onclick="window.location.href='/modo/'">Modo Carsharing Site</button>
-          <button class="view-cs active" onclick="window.location.href='/postertriennial/'">Poster Triennial, Lahti</button>
-          <button class="view-cs" onclick="window.location.href='/twotruths/'">Two Truths and AI game</button>
-          <button class="view-cs" onclick="window.location.href='/friendsfest/'">Friends Fest branding</button>
-          <button class="view-cs" onclick="window.location.href='/speleo/'">Speleo Record Label</button>
-          <button class="view-cs" onclick="window.location.href='/papercut/'">Paper Cut Poster folio</button>
-               <!--<button class="view-cs" onclick="window.location.href='/ibm/'">IBM: Volunteerism</button>-->
-          <button class="view-cs" onclick="window.location.href='/subtext/'">Subtext Movie Poster</button>
-          <button class="view-cs" onclick="window.location.href='/risographposters/'">Risograph Poster Exhibit</button>
-          <button class="view-cs" onclick="window.location.href='/wellflip/'">Well, Flip!: Coptic Book</button>
-          <button class="view-cs" onclick="window.location.href='/blackbox/'">Web-based Blackbox VJ</button>
-          <button class="view-cs" onclick="window.location.href='/collaborativesentence/'">Longest Sentence site</button>         
-          <button class="view-cs" onclick="window.location.href='/glyphscorrupted/'">Glyphs: Corrupted</button>
-        </ul>
-      </div>
-    </aside>
+<div class="layout">
 
-    <!-- main content -->
-    <main class="content">
-      <!-- MOBILE TOPBAR (appears on <=1024px) -->
-      <div class="mobile-topbar" aria-hidden="true">
-        <button class="menu-btn mobile-menu-toggle" aria-label="Open menu">menu</button> 
-      </div>
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar">
 
-      <div class="clock" id="clock">00:00</div>
+    <button class="sidebar-close" aria-label="Close menu">✕</button>
+
+    <a href="../index.html" class="breadcrumb">← home / poster triennial</a>
+
+    <nav class="project-nav">
+      <h4>Other Projects</h4>
+      <ul>
+        <li><a href="../vancouverartgallery/">Vancouver Art Gallery</a></li>
+        <li><a href="../telus/">Telus Internet Sales</a></li>
+        <li><a href="../modo/">Modo Carsharing Site</a></li>
+        <li><a href="../postertriennial/" class="active">Poster Triennial, Lahti</a></li>
+        <li><a href="../twotruths/">Two Truths & AI</a></li>
+        <li><a href="../friendsfest/">Friends Fest branding</a></li>
+        <li><a href="../speleo/">Speleo Record Label</a></li>
+        <li><a href="../papercut/">Paper Cut Poster folio</a></li>
+        <li><a href="../subtext/">Subtext Movie Poster</a></li>
+        <li><a href="../risographposters/">Risograph Poster Exhibit</a></li>
+        <li><a href="../wellflip/">Well, Flip!: Coptic Book</a></li>
+        <li><a href="../blackbox/">Web-based Blackbox VJ</a></li>
+        <li><a href="../collaborativesentence/">Longest Sentence site</a></li>
+        <li><a href="../liveopencall/">Live Open Call</a></li>
+        <li><a href="../glyphscorrupted/">Glyphs: Corrupted</a></li>
+      </ul>
+    </nav>
+
+  </aside>
+
+  <!-- ================= MAIN ================= -->
+  <main class="content">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <button class="topbar-menu" id="menu-toggle">menu</button>
+      <a href="../index.html" class="topbar-back">← Back to home</a>
+      <span class="clock" id="clock"></span>
+    </div>
+
+    <!-- HEADER (Telus-style consistency) -->
+    <div class="case-header">
 
       <h2>Poster Triennial @ Grafia</h2>
-      <h3>2025 </h4>
+
       <div class="tags">
         <span class="tag">graphic design</span>
         <span class="tag">exhibits</span>
       </div>
-    
+
+      <p class="case-meta"><strong>2025</strong></p>
+
       <p>
-        I was selected as part of the Poster Triennial in Lahti, Finland, to take part in a week long poster-a-thon where the theme was 'Freedom of Expression'.
-        The poster which was selected (Free Speech >< Hate Speech) represents the fine line between freedom of expression and harmful rhetoric. What begins as open discourse gradually distorts into divisive,
-        inflammatory speech, highlighting how unchecked freedom of speech can evolve into hate speech when empathy, accountability, and critical awareness are neglected. Where do we draw the line, and who gets to draw it?
+        I was selected as part of the Poster Triennial in Lahti, Finland, to take part in a week long poster-a-thon focused on the theme ‘Freedom of Expression’. 
+        The selected poster (Free Speech >< Hate Speech) explores the fragile boundary between open discourse and harmful rhetoric.
       </p>
-      
-    
-      <!-- masonry gallery -->
-      <div class="masonry">
 
-        <div class="masonry-item">
-          <img src="../postertriennial/finalposter.png" alt="selected poster">
-          <div class="caption">Poster selected to be in situ at Association of Visual Communication Designers in Finland</div>
-        </div>
+    </div>
 
-        <div class="masonry-item">
-          <img src="../postertriennial/lab_window.png" alt="window of poster">
-          <div class="caption">In Helsinki, the selected posters were displayed for Summer 2025 to celebrate the Poster Triennial</div>
-        </div>
+    <!-- MASONRY -->
+    <div class="masonry">
 
-        <div class="masonry-item">
-          <img src="../postertriennial/attenionpaid.jpg" alt="me working">
-          <div class="caption">[Taken by Nikita Gavrilenko]</div>
-        </div>
-
-        <div class="masonry-item">
-          <img src="../postertriennial/manyell.png" alt="poster">
-          <div class="caption">A direction I considered: text filled within a visual outline of hate speech.</div>
-        </div>
-
-        <div class="masonry-item">
-          <img src="../postertriennial/list.png" alt="listoffreespeech">
-          <div class="caption">A warped list of conditions representing the nuances of what types of free speech is 'allowed'
-          </div>
-        </div>
-
-        <div class="masonry-item">
-          <img src="../postertriennial/freedomofspeech.png" alt="focusing on work">
-          <div class="caption">Some loose exploration of colours and placement and composition</div>
-        </div>
-
-        <div class="masonry-item">
-          <img src="../postertriennial/laptopwork.jpg" alt="working">
-          <div class="caption">Me, locked in. [Taken by Nikita Gavrilenko]</div>
-        </div>
-
-
+      <div class="masonry-item">
+        <img src="../postertriennial/finalposter.png" alt="selected poster">
+        <div class="caption">Poster selected for exhibition in Finland</div>
       </div>
-    </main>
 
-  </div>
+      <div class="masonry-item">
+        <img src="../postertriennial/lab_window.png" alt="window display">
+        <div class="caption">Public exhibition in Helsinki</div>
+      </div>
 
-  <!-- Lightbox overlay -->
-  <div class="lightbox" id="lightbox">
-    <img src="" alt="zoomed image">
-  </div>
+      <div class="masonry-item">
+        <img src="../postertriennial/attenionpaid.jpg" alt="process work">
+        <div class="caption">[Taken by Nikita Gavrilenko]</div>
+      </div>
 
-  <!-- Lightbox script -->
-  <script>
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = lightbox.querySelector('img');
-    document.querySelectorAll('.masonry-item img').forEach(img => {
-      img.addEventListener('click', () => {
-        lightboxImg.src = img.src;
-        lightbox.classList.add('active');
-      });
+      <div class="masonry-item">
+        <img src="../postertriennial/manyell.png" alt="exploration">
+        <div class="caption">Typographic containment studies</div>
+      </div>
+
+      <div class="masonry-item">
+        <img src="../postertriennial/list.png" alt="list study">
+        <div class="caption">Structural limits of expression</div>
+      </div>
+
+      <div class="masonry-item">
+        <img src="../postertriennial/freedomofspeech.png" alt="composition tests">
+        <div class="caption">Early composition exploration</div>
+      </div>
+
+      <div class="masonry-item">
+        <img src="../postertriennial/laptopwork.jpg" alt="working">
+        <div class="caption">Me, locked in. [Taken by Nikita Gavrilenko]</div>
+      </div>
+
+    </div>
+
+  </main>
+
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <img src="" alt="zoomed image">
+</div>
+
+<script>
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = lightbox.querySelector('img');
+
+  document.querySelectorAll('.masonry-item img').forEach(img => {
+    img.addEventListener('click', () => {
+      lightboxImg.src = img.src;
+      lightbox.classList.add('active');
     });
-    lightbox.addEventListener('click', () => lightbox.classList.remove('active'));
-  </script>
+  });
 
-  <div id="custom-cursor"></div>
+  lightbox.addEventListener('click', () => {
+    lightbox.classList.remove('active');
+  });
+</script>
+
+<div id="custom-cursor"></div>
+
 </body>
 </html>

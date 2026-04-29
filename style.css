@@ -2,7 +2,6 @@
    Mary Wil Design – Portfolio Styles (Consolidated)
    ======================================== */
 
-/* --- Reset (merged: modern + original) --- */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -725,23 +724,28 @@ html.is-touch [data-href] { cursor: pointer !important; }
 }
 
 /* ========================================
-   FEATURED MASONRY ITEMS (LARGER WEBM)
+   FEATURED MASONRY ITEMS (CLEAN VERSION)
    ======================================== */
 
 .masonry-item--featured {
-  /* makes it feel like it spans visually wider */
-  width: 100%;
-  margin-left: -8%;
-  margin-right: -8%;
+  /* spans visually wider via column span simulation */
+  break-inside: avoid;
 }
 
-/* actual media scaling */
-.masonry-item--featured video,
-.masonry-item--featured img {
-  width: 116%;
-  max-width: 116%;
-  transform: scale(1.02);
+/* Make featured media feel larger without breaking layout */
+.masonry-item--featured img,
+.masonry-item--featured video {
+  width: 100%;
+  height: auto;
+  transform: none;
   border-radius: var(--radius);
+}
+
+/* Make featured items behave like 2-column width on desktop */
+@media (min-width: 1025px) {
+  .masonry-item--featured {
+    column-span: all;
+  }
 }
 
 /* mobile fallback (VERY IMPORTANT) */
@@ -801,7 +805,7 @@ html.is-touch [data-href] { cursor: pointer !important; }
   height: 32px;
   border-radius: 50%;
   background: transparent;
-  border-width: 4px, #0000a0;
+  border-width: 4px, #0040FF;
 }
 
 /* NO cursor rules here */
@@ -816,5 +820,5 @@ html.is-touch [data-href] { cursor: pointer !important; }
   border-radius: 50%;
   border: none;
   background-color: transparent;
-  color: #000000;
+  color: #0040FF;
 }
