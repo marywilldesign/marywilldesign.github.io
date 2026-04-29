@@ -3,133 +3,166 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Glyphs: corrupted</title>
-  <link rel="icon" type="mw.svg" href="mw.svg" />
+  <title>Glyphs: Corrupted</title>
+
+  <link rel="icon" type="image/svg+xml" href="../mw.svg" />
   <link rel="stylesheet" href="../style.css" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+
   <script src="../script.js" defer></script>
 </head>
 
-<body>
-  <div class="container">
+<body class="case-page">
 
-    <!-- left sidebar -->
+  <div class="layout">
+
+    <!-- SIDEBAR -->
     <aside class="sidebar">
+
+      <button class="sidebar-close" id="sidebar-close" aria-label="Close menu">✕</button>
+
       <a href="../index.html" class="breadcrumb">← home / glyphs corrupted</a>
-      
-      <div class="other-cases">
+
+      <nav class="project-nav">
+        <h4>Other Projects</h4>
         <ul>
-          <button class="view-cs" onclick="window.location.href='/vancouverartgallery/'">Vancouver Art Gallery</button>
-          <button class="view-cs" onclick="window.location.href='/telus/'">Telus Internet Sales</button>
-          <button class="view-cs" onclick="window.location.href='/modo/'">Modo Carsharing Site</button>
-          <button class="view-cs" onclick="window.location.href='/postertriennial/'">Poster Triennial, Lahti</button>
-          <button class="view-cs" onclick="window.location.href='/twotruths/'">Two Truths and AI game</button>
-          <button class="view-cs" onclick="window.location.href='/friendsfest/'">Friends Fest branding</button>
-          <button class="view-cs" onclick="window.location.href='/speleo/'">Speleo Record Label</button>
-          <button class="view-cs" onclick="window.location.href='/papercut/'">Paper Cut Poster folio</button>
-               <!--<button class="view-cs" onclick="window.location.href='/ibm/'">IBM: Volunteerism</button>-->
-          <button class="view-cs" onclick="window.location.href='/subtext/'">Subtext Movie Poster</button>
-          <button class="view-cs" onclick="window.location.href='/risographposters/'">Risograph Poster Exhibit</button>
-          <button class="view-cs" onclick="window.location.href='/wellflip/'">Well, Flip!: Coptic Book</button>
-          <button class="view-cs" onclick="window.location.href='/blackbox/'">Web-based Blackbox VJ</button>
-          <button class="view-cs" onclick="window.location.href='/collaborativesentence/'">Longest Sentence site</button>         
-          <button class="view-cs active" onclick="window.location.href='/glyphscorrupted/'">Glyphs: Corrupted</button>
+          <li><a href="../vancouverartgallery/">Vancouver Art Gallery</a></li>
+          <li><a href="../telus/">Telus Internet Sales</a></li>
+          <li><a href="../modo/">Modo Carsharing Site</a></li>
+          <li><a href="../postertriennial/">Poster Triennial, Lahti</a></li>
+          <li><a href="../twotruths/">Two Truths and AI game</a></li>
+          <li><a href="../friendsfest/">Friends Fest branding</a></li>
+          <li><a href="../speleo/">Speleo Record Label</a></li>
+          <li><a href="../papercut/">Paper Cut Poster folio</a></li>
+          <li><a href="../subtext/">Subtext Movie Poster</a></li>
+          <li><a href="../risographposters/">Risograph Poster Exhibit</a></li>
+          <li><a href="../wellflip/">Well, Flip!: Coptic Book</a></li>
+          <li><a href="../blackbox/">Web-based Blackbox VJ</a></li>
+          <li><a href="../collaborativesentence/">Longest Sentence site</a></li>
+          <li><a href="../glyphscorrupted/" class="active">Glyphs: Corrupted</a></li>
         </ul>
-      </div>
+      </nav>
+
     </aside>
 
-    <!-- middle content -->
+    <!-- MAIN CONTENT -->
     <main class="content">
 
-      <!-- clock -->
-      <div class="clock" id="clock">00:00</div>
-
-      <!-- project header -->
-      <h2>Glyphs: corrupted</h2>
-      <div class="tags">
-        <span class="tag">graphic design</span>
-        <span class="tag">print</span>
-        <span class="tag">personal project</span>
+      <div class="topbar">
+        <button class="topbar-menu" id="menu-toggle">menu</button>
+        <a href="../index.html" class="topbar-back">← Back to home</a>
+        <span class="clock" id="clock"></span>
       </div>
 
-      <p class="quick-desc">
-        This project considered how we obscure and censor text, especially when people are left to their own devices. Using web scraping and conditional programming, remixed this art piece originally intended to be a collaborative piece.
-      </p>
+      <div class="case-header">
 
-      <div class="masonry-item">
-          <video
-            src="../glyphscorrupted/glyphsdotdottype.webm"
-            autoplay
-            loop
-            muted
-            playsinline
-            class="video-item" style="width: 80%;">
-          </video>
+        <h2>Glyphs: Corrupted</h2>
+
+        <div class="tags">
+          <span class="tag">graphic design</span>
+          <span class="tag">print</span> 
+          <span class="tag">personal project</span>
         </div>
+
+        <p class="case-meta"><strong>2025</strong></p>
+
         <p>
-        The text which I was censoring realtes to my other project, a website which I made by scraping the text from The Longest Collaborative Sentence and autoscrolling it using frontend development. The need for censorship came after I was seeing the sheer amount of profanities and every type of 'ism' you could imagine.
-      </p>
-     
-      <div class="masonry-item">
-          <video
-            src="../glyphscorrupted/glyphssticks.webm"
-            autoplay
-            loop
-            muted
-            playsinline
-            class="video-item" style="width: 80%;">
-          </video>
-        </div>
-      
+          This project explored how text can be obscured, distorted, and visually censored when placed in uncontrolled systems.
+          Using scraping and generative manipulation, I reworked language drawn from a larger experimental text system.
+        </p>
+
         <p>
-      My aim was to create type that had movement and, similar to asemic writing, could mimic written forms from afar but, up close, bares no resemblance.   
-      </p>
+          The work examines how legibility breaks down under transformation, shifting between readable type and abstract visual form.
+        </p>
 
-      <p>
-      Through my research, I came across a number of different types of ways to obscure text. One which kept coming up was 'Zalgo', which is associated with horror from its diacritical marks (making the text seem corrupted in some way).
-      </p>
+      </div>
 
-      <div class="masonry-item">
-          <video
-            src="../glyphscorrupted/glyphszalg.webm"
-            autoplay
-            loop
-            muted
-            playsinline
-            class="video-item" style="width: 80%;">
-          </video>
-        </div>
-
-      <p>
-      Once I had come up with a number of directions, I wanted to explore how these would look printed, away from the digital space – so I made a fontbook.
-      </p>
-
-      <div class="masonry-item">
-          <img src="../glyphscorrupted/A-exploration.png" alt="window of poster" style="border: none; padding: 2rem;">
-        </div>
-
-      <!-- masonry gallery -->
+      <!-- FEATURED VIDEO 1 -->
       <div class="masonry">
-        
+        <div class="masonry-item masonry-item--large">
+          <video class="js-lightbox-item video-item"
+            src="../glyphscorrupted/glyphsdotdottype.webm"
+            autoplay loop muted playsinline></video>
+        </div>
+      </div>
+
+      <p>
+        The text relates to an earlier system that scraped and auto-scrolled a large collaborative sentence dataset.
+      </p>
+
+      <!-- FEATURED VIDEO 2 -->
+      <div class="masonry">
+        <div class="masonry-item masonry-item--large">
+          <video class="js-lightbox-item video-item"
+            src="../glyphscorrupted/glyphssticks.webm"
+            autoplay loop muted playsinline></video>
+        </div>
+      </div>
+
+      <p>
+        The aim was to create type that behaves like asemic writing — readable as form, but not as language.
+      </p>
+
+      <p>
+        One key reference was “Zalgo” text.
+      </p>
+
+      <!-- FEATURED VIDEO 3 -->
+      <div class="masonry">
+        <div class="masonry-item masonry-item--large">
+          <video class="js-lightbox-item video-item"
+            src="../glyphscorrupted/glyphszalg.webm"
+            autoplay loop muted playsinline></video>
+        </div>
+      </div>
+
+      <p>
+        These explorations eventually moved into print outcomes, including a typographic book format.
+      </p>
+
+      <!-- IMAGE -->
+      <div class="masonry">
         <div class="masonry-item">
-          <img src="../glyphscorrupted/full.png" alt="window of poster">
+          <img class="js-lightbox-item" src="../glyphscorrupted/A-exploration.png" alt="exploration">
+        </div>
+      </div>
+
+      <!-- FINAL GRID -->
+      <div class="masonry">
+
+        <div class="masonry-item">
+          <img class="js-lightbox-item" src="../glyphscorrupted/full.png" alt="">
         </div>
 
         <div class="masonry-item">
-          <img src="../glyphscorrupted/front.png" alt="window of poster">
+          <img class="js-lightbox-item" src="../glyphscorrupted/front.png" alt="">
         </div>
 
         <div class="masonry-item">
-          <img src="../glyphscorrupted/a.png" alt="window of poster">
+          <img class="js-lightbox-item" src="../glyphscorrupted/a.png" alt="">
         </div>
 
         <div class="masonry-item">
-          <img src="../glyphscorrupted/letters.png" alt="window of poster">
+          <img class="js-lightbox-item" src="../glyphscorrupted/letters.png" alt="">
         </div>
 
       </div>
-    </main>
 
-  <!-- custom cursor -->
+    </main>
+  </div>
+
   <div id="custom-cursor"></div>
+
+<!-- MEDIA LIGHTBOX -->
+<div class="media-lightbox" id="media-lightbox">
+  <button class="lightbox-close" id="lightbox-close">✕</button>
+
+  <button class="lightbox-nav left" id="lightbox-prev"></button>
+  <button class="lightbox-nav right" id="lightbox-next"></button>
+
+  <div class="media-lightbox-content" id="lightbox-content"></div>
+</div>
+
 </body>
 </html>

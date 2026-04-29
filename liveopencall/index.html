@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Live Open Call</title>
+
+  <link rel="icon" type="image/svg+xml" href="../mw.svg" />
+  <link rel="stylesheet" href="../style.css" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+
+  <script src="../script.js" defer></script>
+</head>
+
+<body class="case-page">
+
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <button class="sidebar-close" id="sidebar-close" aria-label="Close menu">✕</button>
+
+      <a href="../index.html" class="breadcrumb">← home / live open call</a>
+
+      <nav class="project-nav">
+        <h4>Other Projects</h4>
+        <ul>
+          <li><a href="../vancouverartgallery/">Vancouver Art Gallery</a></li>
+          <li><a href="../telus/">Telus Internet Sales</a></li>
+          <li><a href="../modo/">Modo Carsharing Site</a></li>
+          <li><a href="../postertriennial/">Poster Triennial, Lahti</a></li>
+          <li><a href="../twotruths/">Two Truths and AI game</a></li>
+          <li><a href="../friendsfest/">Friends Fest branding</a></li>
+          <li><a href="../speleo/">Speleo Record Label</a></li>
+          <li><a href="../papercut/">Paper Cut Poster folio</a></li>
+          <li><a href="../subtext/">Subtext Movie Poster</a></li>
+          <li><a href="../risographposters/">Risograph Poster Exhibit</a></li>
+          <li><a href="../wellflip/">Well, Flip!: Coptic Book</a></li>
+          <li><a href="../blackbox/">Web-based Blackbox VJ</a></li>
+          <li><a href="../collaborativesentence/">Longest Sentence site</a></li>
+          <li><a href="../liveopencall/" class="active">Live Open Call</a></li>
+          <li><a href="../glyphscorrupted/">Glyphs: Corrupted</a></li>
+        </ul>
+      </nav>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+
+      <div class="topbar">
+        <button class="topbar-menu" id="menu-toggle">menu</button>
+        <a href="../index.html" class="topbar-back">← Back to home</a>
+        <span class="clock" id="clock"></span>
+      </div>
+
+      <div class="case-header">
+
+        <h2>Live Open Call</h2>
+
+        <div class="tags">
+          <span class="tag">graphic design</span>
+          <span class="tag">web dev</span>
+          <span class="tag">print</span>
+        </div>
+
+        <p class="case-meta"><strong>2025</strong></p>
+
+        <p>
+          Along with some other designers, we were given a space to work with the idea of mail art publishing (think: El Djarida). Given that mail art is very much a collaborative art form, with many people sending things in, my focus was on open calls. I was curious about the idea of running a very open, open call. To spread the word, I made a quick poster with the idea that people can just send whatever they are working on from random files. I hung this poster around London and Oslo. 
+        </p>
+
+        <p>
+          I unified the submissions into one long receipt and began to think about the prospect of doing this live, given the curiousity I had around the visual output. 
+        </p>
+
+      </div>
+
+      <!--images-->
+
+      <div class="masonry">
+        <div class="masonry-item">
+          <img class="js-lightbox-item" src="../liveopencall/opencall.png" alt="exploration">
+        </div>
+      </div>
+
+      <div class="masonry">
+        
+        <div class="masonry-item">
+          <img class="js-lightbox-item" src="../liveopencall/opencall1.png" alt="exploration">
+        </div>
+        
+      </div>
+
+      <div class="masonry-item masonry-item--large">
+          <video class="js-lightbox-item video-item"
+            src="../liveopencall/siterecording.webm"
+            autoplay loop muted playsinline></video>
+        </div>
+
+      <p>
+        It was an interesting experiment to compare the more 'premediated' open call, that is on the art-kive website, against the live open call. Here, whatever people sent to print would immediately be viewed by surrounding gallery goers. This led to interesting conversations; the ouput was a mix of old photo uploads, poems, and documenting their surroundings.
+      </p>
+
+      
+        <div class="masonry-item masonry-item--large">
+          <video class="js-lightbox-item video-item"
+            src="../liveopencall/video.webm"
+            autoplay loop muted playsinline></video>
+        </div>
+
+        <div class="masonry-item masonry-item--large">
+          <video class="js-lightbox-item video-item"
+            src="../liveopencall/liveopencall.webm"
+            autoplay loop muted playsinline></video>
+        </div>
+        
+      <p>Unfortunately, there was not much footage of the live open call in action!</p>
+
+
+    </main>
+  </div>
+
+  <div id="custom-cursor"></div>
+
+<!-- MEDIA LIGHTBOX -->
+<div class="media-lightbox" id="media-lightbox">
+  <button class="lightbox-close" id="lightbox-close">✕</button>
+
+  <button class="lightbox-nav left" id="lightbox-prev"></button>
+  <button class="lightbox-nav right" id="lightbox-next"></button>
+
+  <div class="media-lightbox-content" id="lightbox-content"></div>
+</div>
+
+</body>
+</html>

@@ -4,20 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Longest Collaborative Sentence – Case Study</title>
-  <link rel="icon" type="mw.svg" href="mw.svg" />
+
+  <link rel="icon" type="image/svg+xml" href="mw.svg" />
   <link rel="stylesheet" href="../style.css" />
   <script src="../script.js" defer></script>
 </head>
 
-<body>
-  <div class="container">
+<body class="case-page">
 
-    <!-- left sidebar -->
+  <div class="layout">
+
+    <!-- SIDEBAR -->
     <aside class="sidebar">
       <a href="/" class="breadcrumb">← home / Longest Collab Sentence</a>
-      
+
       <div class="other-cases">
-         <h4>PROJECTS</h4>
+        <h4>PROJECTS</h4>
         <ul>
           <button class="view-cs" onclick="window.location.href='ibm.html'">IBM</button>
           <button class="view-cs" onclick="window.location.href='telus.html'">Telus</button>
@@ -37,14 +39,13 @@
       </div>
     </aside>
 
-    <!-- middle content -->
+    <!-- MAIN -->
     <main class="content">
 
-      <!-- clock -->
       <div class="clock" id="clock">00:00</div>
 
-      <!-- project header -->
       <h2>Longest Collaborative Sentence – Remixed</h2>
+
       <div class="tags">
         <span class="tag">UX</span>
         <span class="tag">Web Dev</span>
@@ -52,84 +53,67 @@
       </div>
 
       <p class="quick-desc">
-        This project considered how we obscure and censor text, especially when people are left to their own devices. Using web scraping and conditional programming, remixed this art piece originally intended to be a collaborative piece.
+        This project considered how we obscure and censor text...
       </p>
 
-      <!-- full-width hero image -->
+      <!-- HERO -->
       <div class="hero-image">
-        <img src="https://via.placeholder.com/1600x700" alt="Modo Case Study Hero" />
+        <img class="js-lightbox-item"
+             src="https://via.placeholder.com/1600x700"
+             alt="Case Study Hero" />
       </div>
 
-      <!-- roles & timeline -->
       <div class="project-meta">
-        <p><strong>Roles:</strong> Content Strategy, Visual Identity, Web Design, Web Development, User Research, R&D</p>
+        <p><strong>Roles:</strong> Content Strategy, Visual Identity, Web Design...</p>
         <p><strong>Timeline:</strong> Nov 2022 – Present</p>
       </div>
 
-      <!-- challenge -->
-      <section class="content-block challenge image-left">
-        <div class="text">
-          <h3>The Challenge</h3>
-          <p>
-            Modo’s marketing site had evolved into a ‘franken-site’ as many stakeholders updated content independently...
-          </p>
-          <p>
-            We needed to simplify the overall site experience, ensure branding was consistent with the mobile app, and streamline help content to reduce support inquiries.
-          </p>
-        </div>
-        <div class="image">
-          <img src="https://via.placeholder.com/600x400" alt="Challenge Image Placeholder" />
-        </div>
+      <!-- SECTIONS -->
+      <section class="content-block">
+        <h3>The Challenge</h3>
+        <p>Modo’s marketing site had evolved into a ‘franken-site’...</p>
+
+        <img class="js-lightbox-item"
+             src="https://via.placeholder.com/600x400"
+             alt="Challenge Image" />
       </section>
 
-      <!-- key objectives -->
-      <section class="content-block objectives image-right">
-        <div class="text">
-          <h3>Key Objectives</h3>
-          <ul>
-            <li>Refresh the website branding to match the Modo mobile app</li>
-            <li>Rethink page hierarchy, user flows, and site map</li>
-            <li>Evaluate and implement clear copy with consistent voice and tone</li>
-          </ul>
-        </div>
-        <div class="image">
-          <img src="https://via.placeholder.com/600x400" alt="Objectives Image Placeholder" />
-        </div>
+      <section class="content-block">
+        <h3>Objectives</h3>
+
+        <img class="js-lightbox-item"
+             src="https://via.placeholder.com/600x400"
+             alt="Objectives Image" />
       </section>
 
-      <!-- approach -->
-      <section class="content-block approach image-left">
-        <div class="text">
-          <h3>Our Approach</h3>
-          <p>Context statement linking mission to project...</p>
-          <h4>User Research</h4>
-          <p>Details of research methods and insights gained...</p>
-          <h4>UX/UI</h4>
-          <p>Wireframes, flows, and interface design rationale...</p>
-          <h4>Content Strategy</h4>
-          <p>How content planning and copywriting shaped the voice...</p>
-        </div>
-        <div class="image">
-          <img src="https://via.placeholder.com/600x400" alt="Approach Image Placeholder" />
-        </div>
+      <section class="content-block">
+        <h3>Approach</h3>
+
+        <img class="js-lightbox-item"
+             src="https://via.placeholder.com/600x400"
+             alt="Approach Image" />
       </section>
 
-      <!-- impact -->
-      <section class="content-block impact image-right">
-        <div class="text">
-          <h3>Impact & Results</h3>
-          <p>
-            After launch, we observed improved usability metrics, a reduction in support requests, and positive client feedback.
-          </p>
-        </div>
-        <div class="image">
-          <img src="https://via.placeholder.com/600x400" alt="Results Image Placeholder" />
-        </div>
+      <section class="content-block">
+        <h3>Impact</h3>
+
+        <img class="js-lightbox-item"
+             src="https://via.placeholder.com/600x400"
+             alt="Results Image" />
       </section>
+
     </main>
   </div>
 
-  <!-- custom cursor -->
+  <!-- LIGHTBOX ROOT (REQUIRED) -->
+  <div class="media-lightbox" id="media-lightbox">
+    <button class="lightbox-close" id="lightbox-close">✕</button>
+    <button class="lightbox-nav left" id="lightbox-prev"></button>
+    <button class="lightbox-nav right" id="lightbox-next"></button>
+    <div class="media-lightbox-content" id="lightbox-content"></div>
+  </div>
+
   <div id="custom-cursor"></div>
+
 </body>
 </html>
