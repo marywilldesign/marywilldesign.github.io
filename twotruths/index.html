@@ -4,178 +4,194 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>2Truths&AI</title>
-  <link rel="icon" type="mw.svg" href="mw.svg" />
+
+  <link rel="icon" type="image/svg+xml" href="../mw.svg" />
   <link rel="stylesheet" href="../style.css" />
   <script src="../script.js" defer></script>
 
   <style>
-  /* grid masonry */
+    .caption {
+      font-size: 0.8rem;
+      margin-top: 0.4rem;
+      color: #444;
+    }
 
-  .caption {
-    font-size: 0.8rem;
-    margin-top: 0.4rem;
-    color: #444;
-  }
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.85);
+      justify-content: center;
+      align-items: center;
+    }
 
-  /* Lightbox viewfinder overlay */
-  .lightbox {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.85);
-    justify-content: center;
-    align-items: center;
-  }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border: 2px solid white;
+      border-radius: 8px;
+    }
 
-  .lightbox img {
-    max-width: 90%;
-    max-height: 90%;
-    border: 2px solid white;
-    border-radius: 8px;
-  }
-
-  .lightbox.active {
-    display: flex;
-  }
-</style>
+    .lightbox.active {
+      display: flex;
+    }
+  </style>
 </head>
 
-<body>
-  <div class="container">
+<body class="case-page">
 
-    <!-- sidebar -->
-    <aside class="sidebar">
-      <a href="../index.html" class="breadcrumb">← home / two truths & AI</a>
-      <button class="menu-btn close-menu" aria-label="close menu">close</button>
-      
-      
-      <div class="other-cases">
-        <ul>
-          <button class="view-cs" onclick="window.location.href='/vancouverartgallery/'">Vancouver Art Gallery</button>
-          <button class="view-cs" onclick="window.location.href='/telus/'">Telus Internet Sales</button>
-          <button class="view-cs" onclick="window.location.href='/modo/'">Modo Carsharing Site</button>
-          <button class="view-cs" onclick="window.location.href='/postertriennial/'">Poster Triennial, Lahti</button>
-          <button class="view-cs active" onclick="window.location.href='/twotruths/'">Two Truths and AI game</button>
-          <button class="view-cs" onclick="window.location.href='/friendsfest/'">Friends Fest branding</button>
-          <button class="view-cs" onclick="window.location.href='/speleo/'">Speleo Record Label</button>
-          <button class="view-cs" onclick="window.location.href='/papercut/'">Paper Cut Poster folio</button>
-               <!--<button class="view-cs" onclick="window.location.href='/ibm/'">IBM: Volunteerism</button>-->
-          <button class="view-cs" onclick="window.location.href='/subtext/'">Subtext Movie Poster</button>
-          <button class="view-cs" onclick="window.location.href='/risographposters/'">Risograph Poster Exhibit</button>
-          <button class="view-cs" onclick="window.location.href='/wellflip/'">Well, Flip!: Coptic Book</button>
-          <button class="view-cs" onclick="window.location.href='/blackbox/'">Web-based Blackbox VJ</button>
-          <button class="view-cs" onclick="window.location.href='/collaborativesentence/'">Longest Sentence site</button>         
-          <button class="view-cs" onclick="window.location.href='/glyphscorrupted/'">Glyphs: Corrupted</button>
-        </ul>
-      </div>
-    </aside>
+<div class="layout">
 
-    <!-- main content -->
-    <main class="content">
-      <!-- MOBILE TOPBAR (appears on <=1024px) -->
-      <div class="mobile-topbar" aria-hidden="true">
-        <button class="menu-btn mobile-menu-toggle" aria-label="Open menu">menu</button> 
-      </div>
+  <!-- ─── Sidebar (SYSTEM-COMPATIBLE) ─── -->
+  <aside class="sidebar" id="sidebar">
 
-      <div class="clock" id="clock">00:00</div>
+    <button class="sidebar-close" id="sidebar-close" aria-label="Close menu">✕</button>
+
+    <a href="../index.html" class="breadcrumb">← home / two truths & AI</a>
+
+    <nav class="project-nav">
+      <h4>Other Projects</h4>
+      <ul>
+        <li><a href="../vancouverartgallery/">Vancouver Art Gallery</a></li>
+        <li><a href="../telus/">Telus Internet Sales</a></li>
+        <li><a href="../modo/">Modo Carsharing Site</a></li>
+        <li><a href="../postertriennial/">Poster Triennial, Lahti</a></li>
+        <li><a href="../twotruths/" class="active">Two Truths & AI</a></li>
+        <li><a href="../friendsfest/">Friends Fest branding</a></li>
+        <li><a href="../speleo/">Speleo Record Label</a></li>
+        <li><a href="../papercut/">Paper Cut Poster folio</a></li>
+        <li><a href="../subtext/">Subtext Movie Poster</a></li>
+        <li><a href="../risographposters/">Risograph Poster Exhibit</a></li>
+        <li><a href="../wellflip/">Well, Flip!: Coptic Book</a></li>
+        <li><a href="../blackbox/">Web-based Blackbox VJ</a></li>
+        <li><a href="../collaborativesentence/">Longest Sentence site</a></li>
+        <li><a href="../liveopencall/">Live Open Call</a></li>
+        <li><a href="../glyphscorrupted/">Glyphs: Corrupted</a></li>
+      </ul>
+    </nav>
+
+  </aside>
+
+  <!-- Mobile backdrop -->
+  <div class="menu-backdrop" id="menu-backdrop"></div>
+
+  <!-- ─── MAIN CONTENT ─── -->
+  <main class="content" id="content">
+
+    <!-- Topbar (MATCHES TELUS SYSTEM) -->
+    <div class="topbar">
+      <button class="topbar-menu" id="menu-toggle" aria-label="Open menu">menu</button>
+      <a href="../index.html" class="topbar-back">← Back to home</a>
+      <span class="clock" id="clock"></span>
+    </div>
+
+    <!-- ─── CASE HEADER (NOW CONSISTENT) ─── -->
+    <div class="case-header">
 
       <h2>Two Truths & AI game</h2>
+
       <div class="tags">
         <span class="tag">UX</span>
         <span class="tag">graphic design</span>
         <span class="tag">web dev</span>
         <span class="tag">personal project</span>
       </div>
-    <p><strong>2025</strong> </p>
+
+      <p class="case-meta"><strong>2025</strong></p>
+
       <p>
         In the theme of lying and having recently played “two truths and a lie”, I thought it would be a fun exercise to make a web-based experienced which harnessed AI to churn out statements, with one being a lie.
       </p>
 
+    </div>
+
+    <!-- ─── CONTENT (UNCHANGED BELOW) ─── -->
+
+    <div class="masonry-item">
+      <img src="../twotruths/twotruthsai_hero.png" alt="twotruthsaiwebgame">
+      <div class="caption">Home page where the eye is animated to blink and look around the page.</div>
+    </div>
+
+    <div class="project-meta">
+      <p><strong>Roles:</strong> Ideation, UX design, Web Development, Graphic Design</p>
+    </div>
+
+    <div class="text">
+      <p><strong>The Challenge</strong></p>
+      <p>
+        I am lucky to be a confident frontend developer but, given my limited backend experience, from old portfolio and for-fun-sites, it was nice to have AI on my side. After lots of trial and error, asking a some dev friends and chatGPT, I landed on a neat little solution. 
+      </p>
+    </div>
+
+    <div class="masonry-item">
+      <img src="../twotruths/apikey.png" alt="apikeypic">
+      <div class="caption">Snapshot of .json script</div>
+    </div>
+
+    <div class="text">
+      <p>
+        This allowed me to generate a large number of 'two truths' and one lie for each group en masse. The themes which I focused on ranged from Oslo-based art and Swiss design to fun facts about Australia and Fluxus design.
+      </p>
+    </div>
+
+    <div class="text">
+      <p><strong>Objectives</strong></p>
+      <ul>
+        <li>Create a game which harnesses AI, where users need to select the lie</li>
+        <li>The site itself must be simple and intuitive</li>
+        <li>Explore the idea of 'tricking' users, what is AI and what is not?</li>
+      </ul>
+    </div>
+
+    <div class="masonry">
       <div class="masonry-item">
-          <img src="../twotruths/twotruthsai_hero.png" alt="twotruthsaiwebgame">
-          <div class="caption">Home page where the eye is animated to blink and look around the page.</div>
+        <video
+          src="../twotruths/screenrec.webm"
+          autoplay
+          loop
+          muted
+          playsinline
+          class="video-item"
+          style="width: 200%;">
+        </video>
       </div>
-        
-        <div class="project-meta">
-        <p><strong>Roles:</strong> Ideation, UX design, Web Development, Graphic Design</p>
-        
-        </div>
+    </div>
 
-          <div class="text">
-          <p><strong>The Challenge</strong></p>
-          <p>
-            I am lucky to be a confident frontend developer but, given my limited backend experience, from old portfolio and for-fun-sites, it was nice to have AI on my side. After lots of trial and error, asking a some dev friends and chatGPT, I landed on a neat little solution. 
-          </p>
-        </div>
+    <div class="desc-buttons">
+      <p>If you are interested in exploring this site, feel free to check it out:</p> 
+      <a class="view-cs" href="https://twotruthsai.live" target="_blank" rel="noopener noreferrer">view site ↗</a>
+    </div>
 
-        <div class="masonry-item">
-          <img src="../twotruths/apikey.png" alt="apikeypic">
-          <div class="caption">Snapshot of .json script</div>
-      </div>
+  </main>
 
-      <div class="text">
-          <p>
-            This allowed me to generate a large number of 'two truths' and one lie for each group en masse. The themes which I focused on ranged from Oslo-based art and Swiss design to fun facts about Australia and Fluxus design.
-          </p>
-        </div>
+</div>
 
-        <div class="text">
-          <p><strong>Objectives</strong></p>
-          <ul>
-            <li>Create a game which harnesses AI, where users need to select the lie from the list</li>
-            <li>The site itself must be simple and intuitive</li>
-            <li>Explore the idea of 'tricking' users, what is AI and what is not?</li>
-          </ul>
-        </div>
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <img src="" alt="zoomed image">
+</div>
 
-        <!-- masonry gallery -->
-      <div class="masonry">
+<script>
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = lightbox.querySelector('img');
 
-        <div class="masonry-item">
-          <video
-            src="../twotruths/screenrec.webm"
-            autoplay
-            loop
-            muted
-            playsinline
-            class="video-item"
-            style="width: 200%;">
-          </video>
-        </div>
-
-      </div>
-
-      <div class="desc-buttons">
-                <p>If you are interested in exploring this site, feel free to check it out:</p> 
-                <a class="view-cs" href="https://twotruthsai.live" target="_blank" rel="noopener noreferrer">view site ↗</a>
-              </div>
-
-    </main>
-
-  </div>
-
-  <!-- Lightbox overlay -->
-  <div class="lightbox" id="lightbox">
-    <img src="" alt="zoomed image">
-  </div>
-
-  <!-- Lightbox script -->
-  <script>
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = lightbox.querySelector('img');
-    document.querySelectorAll('.masonry-item img').forEach(img => {
-      img.addEventListener('click', () => {
-        lightboxImg.src = img.src;
-        lightbox.classList.add('active');
-      });
+  document.querySelectorAll('.masonry-item img').forEach(img => {
+    img.addEventListener('click', () => {
+      lightboxImg.src = img.src;
+      lightbox.classList.add('active');
     });
-    lightbox.addEventListener('click', () => lightbox.classList.remove('active'));
-  </script>
+  });
 
-  <div id="custom-cursor"></div>
+  lightbox.addEventListener('click', () => {
+    lightbox.classList.remove('active');
+  });
+</script>
+
+<div id="custom-cursor"></div>
+
 </body>
 </html>

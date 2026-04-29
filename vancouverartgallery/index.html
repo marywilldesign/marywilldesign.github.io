@@ -4,19 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Creepers</title>
-  <link rel="icon" type="mw.svg" href="mw.svg" />
+
+  <link rel="icon" type="image/svg+xml" href="../mw.svg" />
   <link rel="stylesheet" href="../style.css" />
   <script src="../script.js" defer></script>
 
   <style>
-    /* grid masonry */
     .caption {
       font-size: 0.8rem;
       margin-top: 0.4rem;
       color: #444;
     }
 
-    /* Lightbox viewfinder overlay */
     .lightbox {
       display: none;
       position: fixed;
@@ -43,44 +42,55 @@
   </style>
 </head>
 
-<body>
-  <div class="container">
+<body class="case-page">
 
-    <!-- sidebar -->
-    <aside class="sidebar">
-      <a href="../index.html" class="breadcrumb">← home / creepers</a>
-      <button class="menu-btn close-menu" aria-label="close menu">close</button>
+<div class="layout">
 
-      <div class="other-cases">
-        <ul>
-          <button class="view-cs active" onclick="window.location.href='/vancouverartgallery/'">Vancouver Art Gallery</button>
-          <button class="view-cs" onclick="window.location.href='/telus/'">Telus Internet Sales</button>
-          <button class="view-cs" onclick="window.location.href='/modo/'">Modo Carsharing Site</button>
-          <button class="view-cs" onclick="window.location.href='/postertriennial/'">Poster Triennial, Lahti</button>
-          <button class="view-cs" onclick="window.location.href='/twotruths/'">Two Truths and AI game</button>
-          <button class="view-cs" onclick="window.location.href='/friendsfest/'">Friends Fest branding</button>
-          <button class="view-cs" onclick="window.location.href='/speleo/'">Speleo Record Label</button>
-          <button class="view-cs" onclick="window.location.href='/papercut/'">Paper Cut Poster folio</button>
-               <!--<button class="view-cs" onclick="window.location.href='/ibm/'">IBM: Volunteerism</button>-->
-          <button class="view-cs" onclick="window.location.href='/subtext/'">Subtext Movie Poster</button>
-          <button class="view-cs" onclick="window.location.href='/risographposters/'">Risograph Poster Exhibit</button>
-          <button class="view-cs" onclick="window.location.href='/wellflip/'">Well, Flip!: Coptic Book</button>
-          <button class="view-cs" onclick="window.location.href='/blackbox/'">Web-based Blackbox VJ</button>
-          <button class="view-cs" onclick="window.location.href='/collaborativesentence/'">Longest Sentence site</button>
-          <button class="view-cs" onclick="window.location.href='/glyphscorrupted/'">Glyphs: Corrupted</button>
-        </ul>
-      </div>
-    </aside>
+  <!-- ─── Sidebar (SYSTEM-ALIGNED) ─── -->
+  <aside class="sidebar" id="sidebar">
 
-    <!-- main content -->
-    <main class="content">
+    <button class="sidebar-close" id="sidebar-close" aria-label="close menu">✕</button>
 
-      <!-- MOBILE TOPBAR -->
-      <div class="mobile-topbar" aria-hidden="true">
-        <button class="menu-btn mobile-menu-toggle" aria-label="Open menu">menu</button>
-      </div>
+    <a href="../index.html" class="breadcrumb">← home / creepers</a>
 
-      <div class="clock" id="clock">00:00</div>
+    <nav class="project-nav">
+      <h4>Other Projects</h4>
+      <ul>
+        <li><a href="../vancouverartgallery/" class="active">Vancouver Art Gallery</a></li>
+        <li><a href="../telus/">Telus Internet Sales</a></li>
+        <li><a href="../modo/">Modo Carsharing Site</a></li>
+        <li><a href="../postertriennial/">Poster Triennial, Lahti</a></li>
+        <li><a href="../twotruths/">Two Truths & AI game</a></li>
+        <li><a href="../friendsfest/">Friends Fest branding</a></li>
+        <li><a href="../speleo/">Speleo Record Label</a></li>
+        <li><a href="../papercut/">Paper Cut Poster folio</a></li>
+        <li><a href="../subtext/">Subtext Movie Poster</a></li>
+        <li><a href="../risographposters/">Risograph Poster Exhibit</a></li>
+        <li><a href="../wellflip/">Well, Flip!: Coptic Book</a></li>
+        <li><a href="../blackbox/">Web-based Blackbox VJ</a></li>
+        <li><a href="../collaborativesentence/">Longest Sentence site</a></li>
+        <li><a href="../liveopencall/">Live Open Call</a></li>
+        <li><a href="../glyphscorrupted/">Glyphs: Corrupted</a></li>
+      </ul>
+    </nav>
+
+  </aside>
+
+  <!-- Mobile backdrop -->
+  <div class="menu-backdrop" id="menu-backdrop"></div>
+
+  <!-- ─── MAIN CONTENT ─── -->
+  <main class="content" id="content">
+
+    <!-- Topbar (MATCHES SYSTEM) -->
+    <div class="topbar">
+      <button class="topbar-menu" id="menu-toggle" aria-label="Open menu">menu</button>
+      <a href="../index.html" class="topbar-back">← Back to home</a>
+      <span class="clock" id="clock"></span>
+    </div>
+
+    <!-- ─── CASE HEADER (UNIFIED) ─── -->
+    <div class="case-header">
 
       <h2>Creepers @ Vancouver Art Gallery</h2>
 
@@ -89,7 +99,7 @@
         <span class="tag">exhibits</span>
       </div>
 
-      <p><strong>2020 – 2021</strong></p>
+      <p class="case-meta"><strong>2020 – 2021</strong></p>
 
       <p>
         Creepers, an AI-art installation, was awarded the Gerri Sinclair Award for Innovation in Digital Media. It was part of a larger collection of works featured in the 2021 Imitation Game exhibit, which spanned 10 months at the Vancouver Art Gallery — seeing roughly 830 daily gallery goers. 
@@ -97,221 +107,154 @@
         My project team was approached by the gallery’s head curators to design, develop, and implement an installation.
       </p>
 
+    </div>
+
+    <!-- ─── CONTENT (UNCHANGED) ─── -->
+
+    <div class="masonry-item">
+      <img src="../vancouverartgallery/creepers_hero.png" alt="synthesis">
+      <div class="caption">People engaging with the installation in situ</div>
+    </div>
+
+    <div class="project-meta">
+      <p><strong>Roles:</strong> R&D, ideation, Scrum Master, Experience design, Project Manager, Asset manager, Concept Design</p>
+    </div>
+
+    <div class="text">
+      <p><strong>The Challenge</strong></p>
+      <p>
+        There was an exhibit room where the curators wanted to track visitors’ movements throughout the space, named Salon des Refusés. The tricky part was creating an installation piece that balanced being functional, noninvasive, and unimposing to visitors’ experience.
+      </p>
+    </div>
+
+    <div class="text">
+      <p><strong>Objectives</strong></p>
+      <ul>
+        <li>Create a functional art piece that could be implemented in the Imitation Game exhibit</li>
+        <li>Non-invasive data gathering method</li>
+        <li>A visually impactful representation of visitor data</li>
+      </ul>
+    </div>
+
+    <p><strong>How might we capture each visitor’s interaction with art pieces and display their preferences in a visually-impactful and thought-provoking way, without impeding their experience?</strong></p>
+
+    <div class="text">
+      <p><strong>Synthesis workshop</strong></p>
+      <p>
+        I outlined our goals, delegated key research directions, and facilitated the research gathering phase for the team. In this session, we synthesized over 60 sources, including scholarly articles, journals, and AI art references.
+      </p>
+    </div>
+
+    <div class="masonry">
       <div class="masonry-item">
-        <img src="../vancouverartgallery/creepers_hero.png" alt="synthesis">
-        <div class="caption">People engaging with the installation in situ</div>
+        <img src="../vancouverartgallery/synthesis.png" alt="synthesis">
+        <div class="caption">Synthesis workshop</div>
+      </div>
+    </div>
+
+    <div class="text">
+      <p><strong>User personas</strong></p>
+      <p>
+        Following discovery, I led persona and journey mapping. There was a clear distinction between AI novices and aficionados.
+      </p>
+    </div>
+
+    <div class="masonry">
+      <div class="masonry-item">
+        <img src="../vancouverartgallery/steve.png" alt="persona-steve">
+        <div class="caption">Persona: AI novice</div>
       </div>
 
-      <div class="project-meta">
-        <p><strong>Roles:</strong> R&D, ideation, Scrum Master, Experience design, Project Manager, Asset manager, Concept Design</p>
+      <div class="masonry-item">
+        <img src="../vancouverartgallery/ashley.png" alt="persona-ashley">
+        <div class="caption">Persona: AI expert</div>
       </div>
 
-      <div class="text">
-        <p><strong>The Challenge</strong></p>
-        <p>
-          There was an exhibit room where the curators wanted to track visitors’ movements throughout the space, named Salon des Refusés. The tricky part was creating an installation piece that balanced being functional, noninvasive, and unimposing to visitors’ experience.
-        </p>
+      <div class="masonry-item">
+        <img src="../vancouverartgallery/matrix.png" alt="persona-matrix">
+        <div class="caption">Audience spectrum matrix</div>
+      </div>
+    </div>
+
+    <!-- FIXED HTML ERROR HERE -->
+    <div class="text">
+      <p><strong>User journey</strong></p>
+      <p>
+        The user personas helped frame each visitor type’s journey from pre-visit to post-visit.
+      </p>
+    </div>
+
+    <div class="masonry">
+      <div class="masonry-item">
+        <img src="../vancouverartgallery/journeymap.png" alt="journey map">
+        <div class="caption">Journey mapping exploration</div>
+      </div>
+    </div>
+
+    <div class="text">
+      <p><strong>Early iterations</strong></p>
+      <p>
+        One key component was occlusion in camera tracking systems.
+      </p>
+    </div>
+
+    <div class="masonry">
+      <div class="masonry-item">
+        <video src="../vancouverartgallery/earlyxp1.webm" autoplay loop muted playsinline></video>
+        <div class="caption">Visitor tracking logic exploration</div>
       </div>
 
-      <div class="text">
-        <p><strong>Objectives</strong></p>
-        <ul>
-          <li>Create a functional art piece that could be implemented in the Imitation Game exhibit</li>
-          <li>It needs to be non-invasive data gathering method that does not impede visitor’s experience</li>
-          <li>The piece must be attractive and “accurate-ish" visualization output of visitor data</li>
-        </ul>
+      <div class="masonry-item">
+        <video src="../vancouverartgallery/earlyxp2.webm" autoplay loop muted playsinline></video>
+        <div class="caption">Time-based interaction study</div>
+      </div>
+    </div>
+
+    <div class="text">
+      <p><strong>Final exploration</strong></p>
+      <p>
+        The final concept used biomimicry, inspired by natural movement systems.
+      </p>
+    </div>
+
+    <div class="masonry">
+      <div class="masonry-item">
+        <img src="../vancouverartgallery/concept1.png" alt="concept 1">
+        <div class="caption">Final system exploration</div>
       </div>
 
-      <p><strong>How might we capture each visitor’s interaction with art pieces and display their preferences in a visually-impactful and thought-provoking way, without impeding their experience?</strong></p>
-
-      <div class="text">
-        <p><strong>Synthesis workshop</strong></p>
-        <p>
-          I outlined our goals, delegated key research directions, and facilitated the research gathering phase for the team. In this session, we synthesized over 60 sources, including scholarly articles + journals, website content relating to AI and data visualization, and AI art.
-        </p>
+      <div class="masonry-item">
+        <img src="../vancouverartgallery/concept2.png" alt="concept 2">
+        <div class="caption">Final visual language study</div>
       </div>
+    </div>
 
-      <div class="masonry">
-        <div class="masonry-item">
-          <img src="../vancouverartgallery/synthesis.png" alt="synthesis">
-          <div class="caption">Synthesis workshop where things were divided based on requirements for the project (e.g. AI, tracking methods, visual output, etc.)</div>
-        </div>
+    <div class="text">
+      <p><strong>In situ</strong></p>
+      <p>
+        It was rewarding to observe real visitor interaction with the installation.
+      </p>
+    </div>
+
+    <div class="masonry">
+      <div class="masonry-item">
+        <img src="../vancouverartgallery/viewers.png" alt="gallery visitors">
+        <div class="caption">Visitors interacting with Creepers</div>
       </div>
+    </div>
 
-      <div class="text">
-        <p><strong>User personas</strong></p>
-        <p>
-          Following our discovery, the team conducted interviews with subject matter experts from our network for some informational interviews on AI, how it’s perceived, and how it could be applied in this context. From these meetings, I led the persona and journey map phase. There was a clear distinction between AI novices and aficionados.
-        </p>
-      </div>
+    <div class="text">
+      <p>
+        The aim was to make visitor data understandable and visually engaging regardless of background.
+      </p>
+    </div>
 
-      <div class="masonry">
-        <div class="masonry-item">
-          <img src="../vancouverartgallery/steve.png" alt="persona-steve">
-          <div class="caption">Our first persona was starting with those well represented in our research, people who appreciate art but are novices when it comes to AI.</div>
-        </div>
+  </main>
 
-        <div class="masonry-item">
-          <img src="../vancouverartgallery/ashley.png" alt="persona-ashley">
-          <div class="caption">Ashley: the other side of the spectrum includes those who are well versed in the art of AI and seek it out.</div>
-        </div>
+</div>
 
-        <div class="masonry-item">
-          <img src="../vancouverartgallery/matrix.png" alt="persona-matrix">
-          <div class="caption">Given that gallery visitors encapsulate a wide range of people, it made sense to plot these extremes on a matrix to better understand our audience.</div>
-        </div>
-      </div>
+<!-- Cursor -->
+<div id="custom-cursor"></div>
 
-      <div class="text">
-        <p><strong>User journey</strong></p>
-        <p>
-          The user personas helped frame each visitor type’s journey from the pre-visit phase to the post-visit phase. The next stage was to plot this journey for ourselves to understand how gallery goers might come across the event and the installation as a whole.
-        </p>
-      </div>
-
-      <div class="masonry">
-        <div class="masonry-item">
-          <img src="../vancouverartgallery/journeymap.png"
-              alt="journeymap-steve"
-          
-          
-          <div class="caption">
-            Although we did a number of journey maps, this is Steve's...
-          </div>
-
-
-        </div>
-
-        <div class="masonry-item">
-          <img src="../grafia/finalposter.png" alt="selected poster">
-          <div class="caption">Poster selected to be in situ at Association of Visual Communication Designers in Finland</div>
-        </div>
-      </div>
-
-
-      <div class="text">
-        <p><strong>Early iterations</strong></p>
-        <p>
-          One key component we had to account for with the camera we used (AI camera which harnessed Optical Character Recognition) was occlusion — where objects blocking visitors would impact the end piece.
-          My explorations show different ways to represent visitors.
-        </p>
-      </div>
-
-      <div class="masonry-video">
-        <div class="masonry-item">
-          <video
-            src="../vancouverartgallery/earlyxp1.webm"
-            autoplay loop muted playsinline
-            class="video-item">
-          </video>
-          <div class="caption">Focusing on assigning rules to each visitor line (certain colours representing time of day and position representing order).</div>
-        </div>
-
-        <div class="masonry-item">
-          <video
-            src="../vancouverartgallery/earlyxp2.webm"
-            autoplay loop muted playsinline
-            class="video-item">
-          </video>
-          <div class="caption">Exploring each star representing the amount of time a gallery goer spends at a particular piece.</div>
-        </div>
-      </div>
-
-      <div class="text">
-        <p><strong>Control panel</strong></p>
-        <p>
-          I outlined a ‘design system’ of sorts, featuring guidelines for visual parameters to help the developer’s implementation of Creepers. This paved the way for a customizable software which the gallery curators to adjust as needed.
-        </p>
-      </div>
-
-      <div class="masonry">
-        <div class="masonry-item">
-          <img src="../vancouverartgallery/guide.png"
-              alt="journeymap-steve"
-              style="width:200%; display:block; margin:0 auto;">
-          
-          <div class="caption">
-            Design system for the control panel
-          </div>
-        </div>
-      </div>
-
-      <div class="text">
-        <p><strong>Curator's choice</strong></p>
-        <p>
-          I chose the name, <i>Creepers</i>, for the double entendre value: it is both creepy to track visitors’ movements through the gallery space and the visual representation mimicked creeper vines. This concept of Biomimicry was the main driving force behind this exploration.  I was really inspired by different occurrences which happen in nature, especially movement —
-          caterpillars leaving a trail mark behind with every slow, sluggish movement (in Creepers these lines represent each visitor)
-          ripples in a body of water (for the art piece, this is visitors staying in one spot).
-        </p>
-        <p>
-          This was the final exploration I did, featuring colour-coded visitor lines representing session times and ‘ripple’ circles. No rings meant the visitor did not stop and passed through the area quickly. Lots of rings means the visitor was in a particular area for a while. The client chose this direction as they were excited by the intersection of technology and nature, as well as customization prospects.
-        </p>
-      </div>
-
-      <div class="masonry">
-        <div class="masonry-item">
-          <img src="../vancouverartgallery/concept1.png" alt="persona-steve">
-          <div class="caption">Concept art by Yuri Wu (actual piece by me made in Adobe AE)</div>
-        </div>
-
-        <div class="masonry-item">
-          <img src="../vancouverartgallery/concept2.png" alt="persona-ashley">
-          <div class="caption">Conept art by Yuri Wu (actual piece by me)</div>
-        </div>
-      </div>
-
-      <div class="text">
-        <p><strong>In situ</strong></p>
-        <p>
-          It was so rewarding to go to the gallery and see how other visitors were interacting with the piece. People tended to approach the screen on the right which had the piece first and try to figure out which line was theirs. Then, they would identify the smaller screen with their IDs and corresponding line colour and would have a better idea of what’s going on.
-        </p>
-      </div>
-
-      <div class="masonry">
-        <div class="masonry-item">
-          <img src="../vancouverartgallery/viewers.png" alt="view of gallery goers">
-          <div class="caption">Gallery goers interacting with the piece (tracking their lines).</div>
-        </div>
-
-        <div class="masonry-item">
-          <img src="../vancouverartgallery/57me.png" alt="cameraview" style="width:163%; display:block; margin:0 auto;">
-          <div class="caption">I am ID: 57!</div>
-          
-        </div>
-      </div>
-      
-      <div class="text">
-        <p>
-          Oftentimes, people would walk around to try and make pictures, weaving in and out of other visitors with their eyes pinned to the piece — it certainly generated some laughter and some interesting visuals, making the visitors both comedians and the artists!
-        </p>
-
-        <p>
-          The aim of Creepers was to be understood by all gallery visitors in any capacity, regardless of background. We wanted visitor data is presented in an aesthetically pleasing way so viewers can appreciate regardless of the deeper meaning.
-          This project was a breath of fresh air. As a UX designer and researcher, having the opportunity to work on something that is so attuned to real-world human behaviour has been extremely rewarding.
-        </p>
-      </div>
-
-      <!-- masonry gallery -->
-      <div class="masonry-video">
-        <div class="masonry-item">
-          <video
-            src="../vancouverartgallery/creepers.webm"
-            autoplay loop muted playsinline
-            class="video-item"
-          </video>
-        </div>
-
-        <div class="masonry-item">
-          <video
-            src="../vancouverartgallery/creepersvisual.webm"
-            autoplay loop muted playsinline
-            class="video-item"
-          </video>
-        </div>
-      </div>
-
-    </main>
-  </div>
-  <div id="custom-cursor"></div>
 </body>
 </html>

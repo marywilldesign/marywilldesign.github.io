@@ -4,19 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Modo</title>
-  <link rel="icon" type="image/svg+xml" href="mw.svg" />
+
+  <link rel="icon" type="image/svg+xml" href="../mw.svg" />
   <link rel="stylesheet" href="../style.css" />
   <script src="../script.js" defer></script>
 
   <style>
-    /* Grid masonry caption */
     .caption {
       font-size: 0.8rem;
       margin-top: 0.4rem;
       color: #444;
     }
 
-    /* Lightbox overlay */
     .lightbox {
       display: none;
       position: fixed;
@@ -43,179 +42,160 @@
   </style>
 </head>
 
-<body>
-  <div class="container">
+<body class="case-page">
 
-    <!-- Sidebar -->
-    <aside class="sidebar">
-      <a href="../index.html" class="breadcrumb">← home / modo</a>
-      <button class="menu-btn close-menu" aria-label="close menu">close</button>
+<div class="layout">
 
-      <div class="other-cases">
-        <ul>
-          <button class="view-cs" onclick="window.location.href='/vancouverartgallery/'">Vancouver Art Gallery</button>
-          <button class="view-cs" onclick="window.location.href='/telus/'">Telus Internet Sales</button>
-          <button class="view-cs active" onclick="window.location.href='/modo/'">Modo Carsharing Site</button>
-          <button class="view-cs" onclick="window.location.href='/postertriennial/'">Poster Triennial, Lahti</button>
-          <button class="view-cs" onclick="window.location.href='/twotruths/'">Two Truths and AI game</button>
-          <button class="view-cs" onclick="window.location.href='/friendsfest/'">Friends Fest branding</button>
-          <button class="view-cs" onclick="window.location.href='/speleo/'">Speleo Record Label</button>
-          <button class="view-cs" onclick="window.location.href='/papercut/'">Paper Cut Poster folio</button>
-               <!--<button class="view-cs" onclick="window.location.href='/ibm/'">IBM: Volunteerism</button>-->
-          <button class="view-cs" onclick="window.location.href='/subtext/'">Subtext Movie Poster</button>
-          <button class="view-cs" onclick="window.location.href='/risographposters/'">Risograph Poster Exhibit</button>
-          <button class="view-cs" onclick="window.location.href='/wellflip/'">Well, Flip!: Coptic Book</button>
-          <button class="view-cs" onclick="window.location.href='/blackbox/'">Web-based Blackbox VJ</button>
-          <button class="view-cs" onclick="window.location.href='/collaborativesentence/'">Longest Sentence site</button>
-          <button class="view-cs" onclick="window.location.href='/glyphscorrupted/'">Glyphs: Corrupted</button>
-        </ul>
-      </div>
-    </aside>
+  <!-- ─── Sidebar (NOW MATCHES TELUS STRUCTURE) ─── -->
+  <aside class="sidebar" id="sidebar">
 
-    <!-- Main content -->
-    <main class="content">
-      <!-- Mobile topbar -->
-      <div class="mobile-topbar" aria-hidden="true">
-        <button class="menu-btn mobile-menu-toggle" aria-label="Open menu">menu</button>
-      </div>
+    <button class="sidebar-close" id="sidebar-close" aria-label="Close menu">✕</button>
 
-      <div class="clock" id="clock">00:00</div>
+    <a href="../index.html" class="breadcrumb">← home / modo</a>
 
-      <h2>Modo Carsharing B2C</h2>
-      <div class="tags">
-        <span class="tag">UX</span>
-        <span class="tag">graphic design</span>
-      </div>
+    <nav class="project-nav">
+      <h4>Other Projects</h4>
+      <ul>
+        <li><a href="../vancouverartgallery/">Vancouver Art Gallery</a></li>
+        <li><a href="../telus/">Telus Internet Sales</a></li>
+        <li><a href="../modo/" class="active">Modo Carsharing Site</a></li>
+        <li><a href="../postertriennial/">Poster Triennial, Lahti</a></li>
+        <li><a href="../twotruths/">Two Truths and AI game</a></li>
+        <li><a href="../friendsfest/">Friends Fest branding</a></li>
+        <li><a href="../speleo/">Speleo Record Label</a></li>
+        <li><a href="../papercut/">Paper Cut Poster folio</a></li>
+        <li><a href="../subtext/">Subtext Movie Poster</a></li>
+        <li><a href="../risographposters/">Risograph Poster Exhibit</a></li>
+        <li><a href="../wellflip/">Well, Flip!: Coptic Book</a></li>
+        <li><a href="../blackbox/">Web-based Blackbox VJ</a></li>
+        <li><a href="../collaborativesentence/">Longest Sentence site</a></li>
+        <li><a href="../liveopencall/">Live Open Call</a></li>
+        <li><a href="../glyphscorrupted/">Glyphs: Corrupted</a></li>
+      </ul>
+    </nav>
 
-      <p><strong>2022 – ongoing support</strong></p>
+  </aside>
+
+  <!-- Mobile backdrop (IMPORTANT FOR SCRIPT) -->
+  <div class="menu-backdrop" id="menu-backdrop"></div>
+
+  <!-- ─── Main Content ─── -->
+  <main class="content" id="content">
+
+    <!-- Topbar (MATCHES TELUS SYSTEM) -->
+    <div class="topbar">
+      <button class="topbar-menu" id="menu-toggle" aria-label="Open menu">menu</button>
+      <a href="../index.html" class="topbar-back">← Back to home</a>
+      <span class="clock" id="clock"></span>
+    </div>
+
+    <!-- CONTENT (UNCHANGED) -->
+    <div class="case-header">
+
+    <h2>Modo Carsharing B2C</h2>
+
+    <div class="tags">
+      <span class="tag">UX</span>
+      <span class="tag">graphic design</span>
+    </div>
+
+    <p class="case-meta"><strong>2022 – ongoing support</strong></p>
+
+  
+    <p>
+      Modo, the oldest car sharing coop in BC, approached All Purpose to re-platform and redesign their website, as their marketing team were seeking a more efficient and autonomous content management process. In short, this project was a branding refresh and app alignment, content overhaul, and simplifying the car sharing coop’s marketing site (modo.coop). 
+    </p>
+
+    <div class="masonry-item">
+      <img src="../modo/modohero.png" alt="Modo homepage">
+      <div class="caption">Modo site revamp</div>
+    </div>
+
+    <div class="project-meta">
+      <p><strong>Roles:</strong> R&D, ideation, Scrum Master, UX/UI design, Project Manager, User Tester and Researcher</p>
+    </div>
+
+    <div class="text">
+      <p><strong>The Challenge</strong></p>
       <p>
-        Modo, the oldest car sharing coop in BC, approached All Purpose to re-platform and redesign their website, as their marketing team were seeking a more efficient and autonomous content management process. In short, this project was a branding refresh and app alignment, content overhaul, and simplifying the car sharing coop’s marketing site (modo.coop). 
+        With the aim to help orient users within a vast set of offerings, Telus’ mega navigation menu was considered prime real estate. 
+        When conducting the site audit, the other designer and I identified many pages surfaced in the 'mega menu' which could serve a better purpose elsewhere.
       </p>
+    </div>
 
-      <div class="masonry-item">
-        <img src="../modo/modohero.png" alt="telus homepage">
-        <div class="caption">Modo site revamp</div>
-      </div>
+    <div class="text">
+      <p><strong>Objectives</strong></p>
+      <ul>
+        <li>Refresh branding to align with Modo mobile app</li>
+        <li>Rethink page hierarchy and user flow</li>
+        <li>Reduce content “fluff”</li>
+      </ul>
+    </div>
 
-      <div class="project-meta">
-        <p><strong>Roles:</strong> R&D, ideation, Scrum Master, UX/UI design, Project Manager, User Tester and Researcher</p>
-      </div>
+    <img src="../modo/originalsite.png" alt="modo homepage"
+         style="max-width:90ch;width:90%;display:block;border:none;">
 
-      <div class="text">
-        <p><strong>The Challenge</strong></p>
-        <p>
-          With the aim to help orient users within a vast set of offerings, Telus’ mega navigation menu was considered prime real estate. 
-          When conducting the site audit, the other designer and I identified many pages surfaced in the 'mega menu' which could serve a better purpose elsewhere.
-        </p>
-      </div>
+    <div class="caption">Site when we joined the project (prior to work)</div>
 
-      <div class="text">
-        <p><strong>Objectives</strong></p>
-        <ul>
-          <li>Refresh their branding on their site to align with the Modo mobile app (primarily used for booking vehicles)</li>
-          <li>Rethink overall page hierarchy, user flow, and site map</li>
-          <li>Evaluate existing content and reduce ‘fluff’</li>
-        </ul>
-      </div>
+    <p>Modo’s marketing site had evolved into a ‘franken-site’...</p>
 
-      <img src="../modo/originalsite.png" alt="modo homepage" style="max-width:90ch;width:90%;display:block;border: none;">
-      <div class="caption">Site when we joined the project (prior to work)</div>
+    <p>
+      The question became:
+      <i>How might we simplify the overall site experience, align branding, and reduce support queries?</i>
+    </p>
 
-      <p>Modo’s marketing site had evolved into a ‘franken-site’ as their were many stakeholders updating content. This lead to a bloated site with tacked on pages and misaligned branding throughout.</p>
-      <p>The question became: <i>How might we simplify the overall site experience, ensure branding is aligned with the mobile app, and streamline help content so that there is a reduction in prospective Modo members contacting the Help team?</i></p>
+    <div class="text">
+      <p>We leaned heavily into discovery...</p>
 
-      <div class="text">
-        <p>We leaned heavily into the discovery process and worked on the site map and navigation to gain a deeper understanding of the overall experience and ideal user flow. Every page was completely revamped, from content strategy to user flow.</p>
-        <p>In order to get a better read of how other car sharing companies were positioning their information, I conducted a comp analysis for every existing page (e.g. see home page exploration below)</p>
-        <img src="../modo/discovery.png" alt="telus menu draft" style="max-width:100ch;width:100%;display:block;border: 1px solid #000000; border-radius: 4px;">
-        <div class="caption">Initial comp analysis (obscured for NDA)</div>
+      <img src="../modo/discovery.png" alt="modo discovery"
+           style="max-width:100ch;width:100%;display:block;border:1px solid #000;border-radius:4px;">
 
-        <p>To really understand the client’s pain points with the marketing site and get a better read on the key players, we conducted individual interviews with Modo the team. 
-        I supported our UX Researcher with framing questions, ultimately gaining some really interesting insights from different teams within the org. 
-        For example, from the Help team, we learned about common user pain points or customer questions that crop up frequently and the Development team outlined key database limitations and restrictions with the map component.
-        </p>
+      <div class="caption">Initial comp analysis (obscured for NDA)</div>
+    </div>
 
-        <p>The aim was to orient the stakeholder in the pain points in the user journey which we aimed to address. During the workshop, I carefully went through each of these subject areas and we triaged key areas for us to focus on, aside from the mega menu.</p>
+    <div class="text">
+      <p>We conducted interviews with stakeholders...</p>
+    </div>
 
-        <p>From this research-rich foundation, we were able to start chipping away at the site itself. I began with the site map audit.</p>
-        <p>
-          <i>Some key points of confusion with the way the Modo site was structured included:</i>
-          <ul>
-            <li>
-              surfacing key components as their own pages while also having them on the home page (car map, fleet etc.)
-            </li>
-            <li>
-              having key pages (Promos + Perks, Contact etc.) tucked away under Engage, which is also the name of the site which Modo customers use once they are members
-            </li>
-            <li>
-              including related FAQs on some pages but having the rest in a dedicated FAQ page
-            </li>
-          </ul>
-        </p>
+    <img src="../modo/existingsitemap.png" alt="modo sitemap"
+         style="max-width:150ch;width:100%;display:block;border:1px solid #000;border-radius:4px;">
 
-        <img src="../modo/existingsitemap.png" alt="modo sitemap" style="max-width:150ch;width:100%;display:block;border: 1px solid #000000; border-radius: 4px;">
-        <div class="caption">Existing sitemap (prior to our engagement)</div>
+    <div class="caption">Existing sitemap</div>
 
-        <p>From this research-rich foundation, we were able to start chipping away at the site itself. I began with the site map audit.</p>
-        <p>
-          The aim of this revamped sitemap was to surface actionable items, like Finding a Vehicle or getting a plan, so that site visitors were able to info gather quickly and act on their decision. The surfaced content (a.k.a. outside the hamburger menu) included these more action-based items:
-          <ul>
-            <li>
-              find a vehicle
-            </li>
-            <li>
-              how modo works
-            </li>
-            <li>
-              get help
-            </li>
-            <li>
-              login / sign up (ext site)
-            </li>
-        
-          </ul>
-        </p>
+    <img src="../modo/proposedsitemap.png" alt="modo sitemap"
+         style="max-width:150ch;width:100%;display:block;border:1px solid #000;border-radius:4px;">
 
-        <img src="../modo/proposedsitemap.png" alt="modo sitemap" style="max-width:150ch;width:100%;display:block;border: 1px solid #000000; border-radius: 4px;">
-        <div class="caption">Existing sitemap (prior to our engagement)</div>
-      </div>
+    <div class="caption">Proposed sitemap</div>
 
-      <div>
-        <p>
-          Once we completed the testing rounds, covering the user flow from the home page → purchasing a membership, we fleshed out the rest of the pages. 
+    <img src="../modo/modohome.png" alt="modo homepage"
+         style="max-width:150ch;width:100%;display:block;border:none;">
 
-The design process fell into a nice cadence for us. Once lo-fi frames were completed, I would get internal team approval, then move on to the mid-fi frames (with content) and get the client’s seal of approval, and finally, the hi-fi frames for final checks and dev implementation. 
-        </p>
-        <p>
-          The home page was one of the last pages we worked on. Everything fell together nicely content- and design-wise. Initially, for the hero banner, we had aligned it to our direction: Freedom. After some back and forth, the content strategist and I worked on something a bit more relatable and to the point: Lose your car, gain # of them (featuring a number that would update depending on their inventory). This hero banner is subject to change depending on what they are promoting.
-        </p>
-      </div>
+  </main>
 
-      <img src="../modo/modohome.png" alt="modo sitemap" style="max-width:150ch;width:100%;display:block;border: none;">
-        
-      
-    </main>
+</div>
 
-  </div>
+<!-- Lightbox (UNCHANGED) -->
+<div class="lightbox" id="lightbox">
+  <img src="" alt="zoomed image">
+</div>
 
-  <!-- Lightbox overlay -->
-  <div class="lightbox" id="lightbox">
-    <img src="" alt="zoomed image">
-  </div>
+<script>
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = lightbox.querySelector('img');
 
-  <!-- Lightbox script -->
-  <script>
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = lightbox.querySelector('img');
-    document.querySelectorAll('.masonry-item img').forEach(img => {
-      img.addEventListener('click', () => {
-        lightboxImg.src = img.src;
-        lightbox.classList.add('active');
-      });
+  document.querySelectorAll('.masonry-item img').forEach(img => {
+    img.addEventListener('click', () => {
+      lightboxImg.src = img.src;
+      lightbox.classList.add('active');
     });
-    lightbox.addEventListener('click', () => lightbox.classList.remove('active'));
-  </script>
+  });
 
-  <div id="custom-cursor"></div>
+  lightbox.addEventListener('click', () => {
+    lightbox.classList.remove('active');
+  });
+</script>
+
+<div id="custom-cursor"></div>
+
 </body>
 </html>

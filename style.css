@@ -12,7 +12,7 @@
 :root {
   /* Colour (modern vars) */
   --blue: #000000;
-  --blue-hover: #0000a0;
+  --blue-hover: #0040FF;
   --blue-light: #ededff;
   --white: #ffffff;
   --gray-50: #f9fafb;
@@ -155,7 +155,7 @@ button, a, [data-href] { cursor: pointer; }
 }
 
 .sidebar-links a {
-  color: #0000a0;
+  color: #0040FF;
   font-size: 0.8rem;
   font-weight: 500;
   text-decoration: none;
@@ -189,14 +189,14 @@ button, a, [data-href] { cursor: pointer; }
   list-style: none;
   padding: 0;
   margin: 0;
-  color: #0000a0;
+  color: #0040FF;
 }
 
 .project-nav a,
 .sidebar .other-cases .view-cs { /* .view-cs support */
   display: block;
   font-size: 0.78rem;
-  color: #0000a0;
+  color: #0040FF;
   padding: var(--sp-1) 0;
   text-decoration: none;
   transition: color var(--transition);
@@ -208,7 +208,7 @@ button, a, [data-href] { cursor: pointer; }
 .sidebar .other-cases .view-cs:hover,
 .project-nav a.active,
 .sidebar .other-cases .view-cs.active {
-  color: #0000a0;
+  color: #0040FF;
   text-decoration: line-through;
 }
 
@@ -218,7 +218,7 @@ button, a, [data-href] { cursor: pointer; }
   padding-left: 0;
   font-size: 0.8rem;
   font-weight: 500;
-  color: #0000a0;
+  color: #0040FF;
   margin-bottom: var(--sp-3);
 }
 .sidebar .breadcrumb:hover { text-decoration: underline; }
@@ -307,7 +307,7 @@ button, a, [data-href] { cursor: pointer; }
 .clock {
   font-family: var(--font-mono);
   font-size: 0.78rem;
-  color: #0000a0;
+  color: #0040FF;
   margin-left: auto;
 }
 
@@ -332,14 +332,14 @@ button, a, [data-href] { cursor: pointer; }
   white-space: nowrap;
 }
 .filter-btn:hover {
-  border-color: #0000a0;
-  background: #0000a0;
+  border-color: #0040FF;
+  background: #0040FF;
   color:#ffffff;
 }
 .filter-btn.active {
-  background: #0000a0;
+  background: #0040FF;
   color: var(--white);
-  border-color: #0000a0;
+  border-color: #0040FF;
 }
 
 /* Hide filters on case studies (add [data-page="case"] to <body> or JS) */
@@ -412,7 +412,7 @@ body.case-page .filters { display: none; }
 .ext-link {
   font-size: 0.7rem;
   font-weight: 500;
-  color: #0000a0;
+  color: #0040FF;
   white-space: nowrap;
   flex-shrink: 0;
   line-height: 1;
@@ -431,9 +431,9 @@ body.case-page .filters { display: none; }
   font-size: 0.65rem;
   font-weight: 500;
   padding: 2px 8px;
-  border: 1px solid #0000a0;
+  border: 1px solid #0040FF;
   border-radius: var(--radius-sm);
-  color: #0000a0;
+  color: #0040FF;
   background: var(--blue-light);
   white-space: nowrap;
 }
@@ -578,7 +578,7 @@ video {
   left: 0;
   width: 10px;
   height: 10px;
-  background: #0000a0;
+  background: #0040FF;
   border: 1px solid var(--white);
   border-radius: 50%;
   pointer-events: none;
