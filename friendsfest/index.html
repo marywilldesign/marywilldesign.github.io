@@ -4,162 +4,166 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Friends Fest branding</title>
+
   <link rel="icon" type="mw.svg" href="mw.svg" />
   <link rel="stylesheet" href="../style.css" />
   <script src="../script.js" defer></script>
 
   <style>
-  /* grid masonry */
+    .caption {
+      font-size: 0.8rem;
+      margin-top: 0.4rem;
+      color: #444;
+    }
 
-  .caption {
-    font-size: 0.8rem;
-    margin-top: 0.4rem;
-    color: #444;
-  }
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      justify-content: center;
+      align-items: center;
+    }
 
-  /* Lightbox viewfinder overlay */
-  .lightbox {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.85);
-    justify-content: center;
-    align-items: center;
-  }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border: 2px solid white;
+      border-radius: 8px;
+    }
 
-  .lightbox img {
-    max-width: 90%;
-    max-height: 90%;
-    border: 2px solid white;
-    border-radius: 8px;
-  }
-
-  .lightbox.active {
-    display: flex;
-  }
-</style>
+    .lightbox.active {
+      display: flex;
+    }
+  </style>
 </head>
 
-<body>
-  <div class="container">
+<body class="case-page">
 
-    <!-- sidebar -->
-    <aside class="sidebar">
-      <a href="../index.html" class="breadcrumb">← home / friends fest</a>
-      <button class="menu-btn close-menu" aria-label="close menu">close</button>
-      
-      
-      <div class="other-cases">
-        <ul>
-          <button class="view-cs" onclick="window.location.href='/vancouverartgallery/'">Vancouver Art Gallery</button>
-          <button class="view-cs" onclick="window.location.href='/telus/'">Telus Internet Sales</button>
-          <button class="view-cs" onclick="window.location.href='/modo/'">Modo Carsharing Site</button>
-          <button class="view-cs" onclick="window.location.href='/postertriennial/'">Poster Triennial, Lahti</button>
-          <button class="view-cs" onclick="window.location.href='/twotruths/'">Two Truths and AI game</button>
-          <button class="view-cs active" onclick="window.location.href='/friendsfest/'">Friends Fest branding</button>
-          <button class="view-cs" onclick="window.location.href='/speleo/'">Speleo Record Label</button>
-          <button class="view-cs" onclick="window.location.href='/papercut/'">Paper Cut Poster folio</button>
-               <!--<button class="view-cs" onclick="window.location.href='/ibm/'">IBM: Volunteerism</button>-->
-          <button class="view-cs" onclick="window.location.href='/subtext/'">Subtext Movie Poster</button>
-          <button class="view-cs" onclick="window.location.href='/risographposters/'">Risograph Poster Exhibit</button>
-          <button class="view-cs" onclick="window.location.href='/wellflip/'">Well, Flip!: Coptic Book</button>
-          <button class="view-cs" onclick="window.location.href='/blackbox/'">Web-based Blackbox VJ</button>
-          <button class="view-cs" onclick="window.location.href='/collaborativesentence/'">Longest Sentence site</button>         
-          <button class="view-cs" onclick="window.location.href='/glyphscorrupted/'">Glyphs: Corrupted</button>
-        </ul>
-      </div>
-    </aside>
+<div class="layout">
 
-    <!-- main content -->
-    <main class="content">
-      <!-- MOBILE TOPBAR (appears on <=1024px) -->
-      <div class="mobile-topbar" aria-hidden="true">
-        <button class="menu-btn mobile-menu-toggle" aria-label="Open menu">menu</button> 
-      </div>
+  <!-- ================= LEFT SIDEBAR (NOW MATCHES TELUS EXACTLY) ================= -->
+  <aside class="sidebar">
 
+    <button class="sidebar-close" aria-label="Close menu">✕</button>
+
+    <a href="/" class="breadcrumb">← home / friends fest</a>
+
+    <nav class="project-nav">
+      <h4>Other Projects</h4>
+      <ul>
+        <li><a href="../vancouverartgallery/">Vancouver Art Gallery</a></li>
+        <li><a href="../telus/">Telus Internet Sales</a></li>
+        <li><a href="../modo/">Modo Carsharing Site</a></li>
+        <li><a href="../postertriennial/">Poster Triennial, Lahti</a></li>
+        <li><a href="../twotruths/">Two Truths & AI game</a></li>
+        <li><a href="../friendsfest/" class="active">Friends Fest branding</a></li>
+        <li><a href="../speleo/">Speleo Record Label</a></li>
+        <li><a href="../papercut/">Paper Cut Poster folio</a></li>
+        <li><a href="../subtext/">Subtext Movie Poster</a></li>
+        <li><a href="../risographposters/">Risograph Poster Exhibit</a></li>
+        <li><a href="../wellflip/">Well, Flip!: Coptic Book</a></li>
+        <li><a href="../blackbox/">Web-based Blackbox VJ</a></li>
+        <li><a href="../collaborativesentence/">Longest Sentence site</a></li>
+        <li><a href="../glyphscorrupted/">Glyphs: Corrupted</a></li>
+      </ul>
+    </nav>
+
+  </aside>
+
+  <!-- ================= MAIN ================= -->
+  <main class="content">
+
+    <!-- CLOCK (now identical behaviour across all case pages) -->
+    <div class="topbar">
       <div class="clock" id="clock">00:00</div>
+    </div>
+
+    <!-- HEADER (consistent Telus-style structure) -->
+    <div class="case-header">
 
       <h2>Friends Fest branding</h2>
+
       <div class="tags">
         <span class="tag">graphic design</span>
         <span class="tag">print</span>
       </div>
 
-      <h3>2024 </h4>
-    
+      <p class="case-meta"><strong>2024</strong></p>
+
       <p>
-        I worked with the organisers of Friends Fest, a small community festival in Squamish, British Columbia, focused on arts, DJs, and live sets by the river. They asked me to create a mascot that captured the cosy, handmade character of the event, with the intention of screen-printing it across their materials (tote bags, shirts etc.). I ensured the colours I worked with were Pantone so that they were easily colour matched at the printer.</p>
-
-      <p>After a few iterations, <i>Marcel the Mushroom</i> came to be — a simple walking mushroom character wearing cowboy boots. The aim was to create something friendly and distinctive, but also practical for screen-printing: clear shapes, limited details, and strong silhouettes. I produced several colour variations to allow flexibility across posters, merchandise, and signage, while still keeping the overall identity consistent. The result was a mascot that fit naturally into the festival’s informal, community-driven aesthetic.
+        I worked with the organisers of Friends Fest, a small community festival in Squamish, British Columbia, focused on arts, DJs, and live sets by the river. They asked me to create a mascot that captured the cosy, handmade character of the event, with the intention of screen-printing it across their materials (tote bags, shirts etc.).
       </p>
-      
-    
-      <!-- masonry gallery -->
-      <div class="masonry">
 
-        <div class="masonry-item">
-          <img src="../friendsfest/marcel3.png" alt="red and black">
-          
-        </div>
-        
-        <div class="masonry-item">
-          <img src="../friendsfest/marcel2.png" alt="orange and white combination">
-        
-        </div>
+      <p>
+        After a few iterations, <i>Marcel the Mushroom</i> came to be — a simple walking mushroom character wearing cowboy boots. The aim was to create something friendly and distinctive, but also practical for screen-printing: clear shapes, limited details, and strong silhouettes.
+      </p>
 
-        <div class="masonry-item">
-          <img src="../friendsfest/marcel5.png" alt="blue and white">
-        
-        </div>
+    </div>
 
-        <div class="masonry-item">
-          <img src="../friendsfest/marcel6.png" alt="blue and white combination">
-          
-        </div>
+    <!-- MASONRY -->
+    <div class="masonry">
 
-          
-        <div class="masonry-item">
-          <img src="../friendsfest/marcel4.png" alt="black and pink">
-          
-        </div>
-
-        <div class="masonry-item">
-          <img src="../friendsfest/marcel1.png" alt="blue and red">
-         
-        </div>
-
-        <div class="masonry-item">
-          <img src="../friendsfest/friendsfest_tote.jpg" alt="selected tote">
-           <div class="caption">Tote, gettings some riverside action at the festival (2025)</div>
-        </div>
-
+      <div class="masonry-item">
+        <img src="../friendsfest/marcel3.png" alt="red and black">
       </div>
-    </main>
 
-  </div>
+      <div class="masonry-item">
+        <img src="../friendsfest/marcel2.png" alt="orange and white">
+      </div>
 
-  <!-- Lightbox overlay -->
-  <div class="lightbox" id="lightbox">
-    <img src="" alt="zoomed image">
-  </div>
+      <div class="masonry-item">
+        <img src="../friendsfest/marcel5.png" alt="blue and white">
+      </div>
 
-  <!-- Lightbox script -->
-  <script>
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = lightbox.querySelector('img');
-    document.querySelectorAll('.masonry-item img').forEach(img => {
-      img.addEventListener('click', () => {
-        lightboxImg.src = img.src;
-        lightbox.classList.add('active');
-      });
+      <div class="masonry-item">
+        <img src="../friendsfest/marcel6.png" alt="blue and white combination">
+      </div>
+
+      <div class="masonry-item">
+        <img src="../friendsfest/marcel4.png" alt="black and pink">
+      </div>
+
+      <div class="masonry-item">
+        <img src="../friendsfest/marcel1.png" alt="blue and red">
+      </div>
+
+      <div class="masonry-item">
+        <img src="../friendsfest/friendsfest_tote.jpg" alt="selected tote">
+        <div class="caption">
+          Tote, getting some riverside action at the festival (2025)
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <img src="" alt="zoomed image">
+</div>
+
+<script>
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = lightbox.querySelector('img');
+
+  document.querySelectorAll('.masonry-item img').forEach(img => {
+    img.addEventListener('click', () => {
+      lightboxImg.src = img.src;
+      lightbox.classList.add('active');
     });
-    lightbox.addEventListener('click', () => lightbox.classList.remove('active'));
-  </script>
+  });
 
-  <div id="custom-cursor"></div>
+  lightbox.addEventListener('click', () => {
+    lightbox.classList.remove('active');
+  });
+</script>
+
+<div id="custom-cursor"></div>
+
 </body>
 </html>

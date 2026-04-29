@@ -4,191 +4,144 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Blackbox VJ tool</title>
-  <link rel="icon" type="mw.svg" href="mw.svg" />
+
+  <link rel="icon" type="image/svg+xml" href="../mw.svg" />
   <link rel="stylesheet" href="../style.css" />
   <script src="../script.js" defer></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 </head>
 
-<body>
-  <div class="container">
+<body class="case-page">
 
-    <!-- left sidebar -->
+  <div class="layout">
+
+    <!-- LEFT SIDEBAR (consistent with Telus system) -->
     <aside class="sidebar">
-      <a href="/" class="breadcrumb">← home / blackbox VJ</a>
-      
-      <div class="other-cases">
+
+      <button class="sidebar-close" id="sidebar-close" aria-label="Close menu">✕</button>
+
+      <a href="../index.html" class="breadcrumb">← home / blackbox VJ</a>
+
+      <!-- UNIFIED NAV STRUCTURE -->
+      <nav class="project-nav">
+        <h4>Other Projects</h4>
         <ul>
-          <button class="view-cs" onclick="window.location.href='/vancouverartgallery/'">Vancouver Art Gallery</button>
-          <button class="view-cs" onclick="window.location.href='/telus/'">Telus Internet Sales</button>
-          <button class="view-cs" onclick="window.location.href='/modo/'">Modo Carsharing Site</button>
-          <button class="view-cs" onclick="window.location.href='/postertriennial/'">Poster Triennial, Lahti</button>
-          <button class="view-cs" onclick="window.location.href='/twotruths/'">Two Truths and AI game</button>
-          <button class="view-cs" onclick="window.location.href='/friendsfest/'">Friends Fest branding</button>
-          <button class="view-cs" onclick="window.location.href='/speleo/'">Speleo Record Label</button>
-          <button class="view-cs" onclick="window.location.href='/papercut/'">Paper Cut Poster folio</button>
-          <!--<button class="view-cs" onclick="window.location.href='/ibm/'">IBM: Volunteerism</button>-->
-          <button class="view-cs" onclick="window.location.href='/subtext/'">Subtext Movie Poster</button>
-          <button class="view-cs" onclick="window.location.href='/risographposters/'">Risograph Poster Exhibit</button>
-          <button class="view-cs" onclick="window.location.href='/wellflip/'">Well, Flip!: Coptic Book</button>
-          <button class="view-cs active" onclick="window.location.href='/blackbox/'">Web-based Blackbox VJ</button>
-          <button class="view-cs" onclick="window.location.href='/collaborativesentence/'">Longest Sentence site</button>         
-          <button class="view-cs" onclick="window.location.href='/glyphscorrupted/'">Glyphs: Corrupted</button>
+          <li><a href="../vancouverartgallery/">Vancouver Art Gallery</a></li>
+          <li><a href="../telus/">Telus Internet Sales</a></li>
+          <li><a href="../modo/">Modo Carsharing Site</a></li>
+          <li><a href="../postertriennial/">Poster Triennial, Lahti</a></li>
+          <li><a href="../twotruths/">Two Truths and AI game</a></li>
+          <li><a href="../friendsfest/">Friends Fest branding</a></li>
+          <li><a href="../speleo/">Speleo Record Label</a></li>
+          <li><a href="../papercut/">Paper Cut Poster folio</a></li>
+          <li><a href="../subtext/">Subtext Movie Poster</a></li>
+          <li><a href="../risographposters/">Risograph Poster Exhibit</a></li>
+          <li><a href="../wellflip/">Well, Flip!: Coptic Book</a></li>
+          <li><a href="../blackbox/" class="active">Web-based Blackbox VJ</a></li>
+          <li><a href="../collaborativesentence/">Longest Sentence site</a></li>
+          <li><a href="../receiptprinter/">Receipt printer - live open call</a></li>
+          <li><a href="../glyphscorrupted/">Glyphs: Corrupted</a></li>
         </ul>
-      </div>
+      </nav>
+
     </aside>
 
-    <!-- middle content -->
+    <!-- BACKDROP -->
+    <div class="menu-backdrop" id="menu-backdrop"></div>
+
+    <!-- MAIN CONTENT -->
     <main class="content">
 
-      <!-- clock -->
-      <div class="clock" id="clock">00:00</div>
-
-      <!-- project header -->
-      <h2>Blackbox VJ tool</h2>
-      <div class="tags">
-        <span class="tag">UX</span>
-        <span class="tag">graphic design</span>
-        <span class="tag">web dev</span>
-        <span class="tag">personal project</span>
+      <!-- TOPBAR (consistent across case studies) -->
+      <div class="topbar">
+        <button class="topbar-menu" id="menu-toggle" aria-label="Open menu">menu</button>
+        <a href="../index.html" class="topbar-back">← Back to home</a>
+        <span class="clock" id="clock"></span>
       </div>
-        <h4>
-          2025
-        </h4>
-      <p class="quick-desc">
-        This (very much WIP) Visual Jockey web tool is a collaborative online space where anyone can play with text, visuals, and ideas without needing any special software. It’s designed so people can experiment freely from home—mixing, censoring, revealing, or reshaping content however they like. 
-      </p>
 
-      <p class="quick-desc">
-       The controller UI still needs some tinkering in terms of functionality and form... but the visual output is always surprising, especially since I added the ability to upload a photo, meaning users can really insert their own style into it.
-      </p>
+      <!-- UNIFIED CASE HEADER (matches Telus / Friends Fest style) -->
+      <div class="case-header">
 
-      <p class="quick-desc">
-       <i>Feature list (so far)</i>
-      </p>
+        <h2>Blackbox VJ tool</h2>
 
-      <ul>
-        <li>
-          gradient
-        </li>
-        <li>
-          grain
-        </li>
-        <li>
-          image upload
-        </li>
-        <li>
-          shape / object definer
-        </li>
-        <li>
-          movement direction
-        </li>
-        <li>
-          colour selection
-        </li>
-        <li>
-          connect to external camera (web cam or external camera)
-        </li>
-        <li>
-          grid definer
-        </li>
-        <li>
-          shape warp
-        </li>
-      </ul>
+        <div class="tags">
+          <span class="tag">UX</span>
+          <span class="tag">graphic design</span>
+          <span class="tag">web dev</span>
+          <span class="tag">personal project</span>
+        </div>
 
-      <h4>
-         Visual outputs:
-        </h4>
+        <p class="case-meta"><strong>2025</strong></p>
 
-      <!-- masonry gallery -->
+        <p>
+          This (very much WIP) Visual Jockey web tool is a collaborative online space where anyone can play with text,
+          visuals, and ideas without needing special software. It’s designed for experimentation—mixing, censoring,
+          revealing, or reshaping content freely.
+        </p>
+
+        <p>
+          The controller UI is still evolving, but the visual output is intentionally unpredictable. Users can upload images,
+          allowing personal input to directly shape generative results.
+        </p>
+
+        <p><em>Feature list (so far)</em></p>
+
+        <ul>
+          <li>gradient</li>
+          <li>grain</li>
+          <li>image upload</li>
+          <li>shape / object definer</li>
+          <li>movement direction</li>
+          <li>colour selection</li>
+          <li>webcam / external camera input</li>
+          <li>grid definer</li>
+          <li>shape warp</li>
+        </ul>
+
+      </div>
+
+      <!-- VISUAL OUTPUTS -->
+      <h3>Visual outputs</h3>
+
       <div class="masonry">
 
         <div class="masonry-item">
-          <video
-            src="../blackbox/vj14.webm"
-            autoplay
-            loop
-            muted
-            playsinline
-            class="video-item">
-          </video>
-        </div>
-        
-        <div class="masonry-item">
-          <video
-            src="../blackbox/vj1.webm"
-            autoplay
-            loop
-            muted
-            playsinline
-            class="video-item">
-          </video>
+          <video src="../blackbox/vj14.webm" autoplay loop muted playsinline class="video-item"></video>
         </div>
 
         <div class="masonry-item">
-          <video
-            src="../blackbox/vj2.webm"
-            autoplay
-            loop
-            muted
-            playsinline
-            class="video-item">
-          </video>
+          <video src="../blackbox/vj1.webm" autoplay loop muted playsinline class="video-item"></video>
         </div>
 
         <div class="masonry-item">
-          <video
-            src="../blackbox/vj3.webm"
-            autoplay
-            loop
-            muted
-            playsinline
-            class="video-item">
-          </video>
+          <video src="../blackbox/vj2.webm" autoplay loop muted playsinline class="video-item"></video>
         </div>
 
         <div class="masonry-item">
-          <video
-            src="../blackbox/vj6.webm"
-            autoplay
-            loop
-            muted
-            playsinline
-            class="video-item">
-          </video>
-        </div>
-        
-        <div class="masonry-item">
-          <video
-            src="../blackbox/vj7.webm"
-            autoplay
-            loop
-            muted
-            playsinline
-            class="video-item">
-          </video>
+          <video src="../blackbox/vj3.webm" autoplay loop muted playsinline class="video-item"></video>
         </div>
 
         <div class="masonry-item">
-          <video
-            src="../blackbox/vj8.webm"
-            autoplay
-            loop
-            muted
-            playsinline
-            class="video-item">
-          </video>
+          <video src="../blackbox/vj6.webm" autoplay loop muted playsinline class="video-item"></video>
         </div>
-        
-        
-             
+
+        <div class="masonry-item">
+          <video src="../blackbox/vj7.webm" autoplay loop muted playsinline class="video-item"></video>
+        </div>
+
+        <div class="masonry-item">
+          <video src="../blackbox/vj8.webm" autoplay loop muted playsinline class="video-item"></video>
+        </div>
 
       </div>
 
     </main>
   </div>
 
-  <!-- custom cursor -->
   <div id="custom-cursor"></div>
+
+  <script src="../script.js"></script>
+
 </body>
 </html>
