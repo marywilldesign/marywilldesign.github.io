@@ -1,23 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Modern head (fonts/theme; copy from index.html) -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <meta name="description" content="Mary Wil – UX/UI designer and researcher with 10 years of user-centred design experience.">
   <meta name="theme-color" content="#0000cd">
-
   <title>Telus – Mary Wil Design</title>
-
   <link rel="icon" type="image/svg+xml" href="../mw.svg">
-
-  <!-- FONT (ensure consistency across ALL pages) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="../style.css">
-
+  <!-- Overrides: remove borders; masonry columns (no overlap); results as 3 stat cards (large numbers + desc) -->
   <style>
-    /* Remove visual inconsistencies from legacy overrides */
+    /* Remove borders/shadows */
     figure.case-image,
     figure.case-image-wide,
     figcaption.caption,
@@ -26,188 +23,295 @@
       box-shadow: none !important;
       background: none !important;
     }
+    figure.case-image img,
+    figure.case-image-wide img {
+      border: none !important;
+      box-shadow: none !important;
+    }
 
-    /* Masonry consistency layer */
+    /* Masonry: CSS columns for reliable layout (balances heights, prevents overlap) */
     .masonry {
       columns: 3;
       column-gap: var(--masonry-gap);
       column-fill: balance;
+      width: 100%;
+      margin: var(--sp-4) 0;
     }
-
     .masonry-item {
       display: inline-block;
       width: 100%;
       margin-bottom: var(--masonry-gap);
       break-inside: avoid;
     }
-
     .masonry-item img {
       width: 100%;
+      height: auto;
       display: block;
       border-radius: var(--radius);
       cursor: pointer;
+      transition: opacity 0.2s ease;
     }
+    .masonry-item img:hover { opacity: 0.92; }
 
+    /* Responsive columns */
     @media (max-width: 1024px) {
       .masonry { columns: 2; }
     }
-
     @media (max-width: 640px) {
       .masonry { columns: 1; }
     }
 
-    /* Results system */
+    /* Results: light bg section with 3 stat cards (inspired by modern portfolios) */
     .results-highlight {
+      background: none;
       border: 1px solid var(--blue);
       border-radius: var(--radius);
-      padding: var(--sp-8);
+      padding: var(--sp-8) var(--sp-6);
       margin: var(--sp-6) 0;
     }
-
+    .results-highlight h3 {
+      margin-bottom: var(--sp-2);
+      color: var(--gray-900);
+      text-align: center;
+    }
+    .results-highlight p {
+      color: var(--gray-600);
+      text-align: center;
+      font-size: 0.9rem;
+      margin-bottom: var(--sp-8);
+    }
     .results-cards {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: var(--sp-6);
-      margin-top: var(--sp-6);
     }
-
     .result-card {
       text-align: center;
+      padding: var(--sp-6);
     }
-
     .result-card strong {
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-family: var(--font-mono);
-      font-weight: 300;
-      color: var(--blue);
       display: block;
-      margin-bottom: var(--sp-2);
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-family: monospace;
+      font-weight: 200;
+      color: var(--blue);
+      line-height: 1;
+      margin-bottom: var(--sp-3);
     }
-
     .result-card span {
+      display: block;
       font-size: 0.85rem;
       color: var(--gray-600);
+      line-height: 1.5;
+      font-weight: 500;
     }
 
+    /* Responsive: stack cards on tablet/mobile */
     @media (max-width: 1024px) {
-      .results-cards { grid-template-columns: repeat(2, 1fr); }
+      .results-cards { grid-template-columns: repeat(2, 1fr); gap: var(--sp-5); }
     }
-
     @media (max-width: 640px) {
-      .results-cards { grid-template-columns: 1fr; }
+      .results-cards { grid-template-columns: 1fr; gap: var(--sp-4); }
+      .results-highlight { padding: var(--sp-6); }
     }
+
+    /* Disable hover opacity on masonry images when in case sections (prevents grey overlay bleed) */
+    .case-section .masonry-item img:hover { opacity: 1; }
   </style>
-
-  <!-- ONLY ONE SCRIPT LOAD -->
-  <script src="../script.js" defer></script>
 </head>
+<body class="case-page"> <!-- Hides home extras like filters/CV -->
 
-<body class="case-page">
+  <div class="layout"> <!-- Flex layout: sidebar left, content scrolls -->
 
-<div class="layout">
+    <!-- ─── Minimal Left Sidebar ─── -->
+    <aside class="sidebar" id="sidebar">
+      <button class="sidebar-close" id="sidebar-close" aria-label="Close menu">✕</button>
 
-  <!-- SIDEBAR -->
-  <aside class="sidebar" id="sidebar">
+      <!-- Breadcrumb -->
+      <a href="../index.html" class="breadcrumb">← home / telus</a>
 
-    <button class="sidebar-close" id="sidebar-close" aria-label="Close menu">✕</button>
+      <!-- Project list (bottom-aligned via CSS) -->
+      <nav class="project-nav">
+        <h4>Other Projects</h4>
+        <ul>
+          <li><a href="../vancouverartgallery/">Vancouver Art Gallery</a></li>
+          <li><a href="../telus/" class="active">Telus Internet Sales</a></li>
+          <li><a href="../modo/">Modo Carsharing Site</a></li>
+          <li><a href="../postertriennial/">Poster Triennial, Lahti</a></li>
+          <li><a href="../twotruths/">Two Truths & AI </a></li>
+          <li><a href="../friendsfest/">Friends Fest branding</a></li>
+          <li><a href="../speleo/">Speleo Record Label</a></li>
+          <li><a href="../papercut/">Paper Cut Poster folio</a></li>
+          <li><a href="../subtext/">Subtext Movie Poster</a></li>
+          <li><a href="../risographposters/">Risograph Poster Exhibit</a></li>
+          <li><a href="../wellflip/">Well, Flip!: Coptic Book</a></li>
+          <li><a href="../blackbox/">Web-based Blackbox VJ</a></li>
+          <li><a href="../collaborativesentence/">Longest Sentence site</a></li>
+          <li><a href="../liveopencall/">Live Open Call</a></li>
+          <li><a href="../glyphscorrupted/">Glyphs: Corrupted</a></li>
+        </ul>
+      </nav>
+    </aside>
 
-    <a href="../index.html" class="breadcrumb">← home / telus</a>
+    <!-- Mobile backdrop -->
+    <div class="menu-backdrop" id="menu-backdrop"></div>
 
-    <nav class="project-nav">
-      <h4>Other Projects</h4>
-      <ul>
-        <li><a href="../vancouverartgallery/">Vancouver Art Gallery</a></li>
-        <li><a href="../telus/" class="active">Telus Internet Sales</a></li>
-        <li><a href="../modo/">Modo Carsharing Site</a></li>
-        <li><a href="../postertriennial/">Poster Triennial, Lahti</a></li>
-        <li><a href="../twotruths/">Two Truths & AI game</a></li>
-        <li><a href="../friendsfest/">Friends Fest branding</a></li>
-        <li><a href="../speleo/">Speleo Record Label</a></li>
-        <li><a href="../papercut/">Paper Cut Poster folio</a></li>
-        <li><a href="../subtext/">Subtext Movie Poster</a></li>
-        <li><a href="../risographposters/">Risograph Poster Exhibit</a></li>
-        <li><a href="../wellflip/">Well, Flip!: Coptic Book</a></li>
-        <li><a href="../blackbox/">Web-based Blackbox VJ</a></li>
-        <li><a href="../collaborativesentence/">Longest Sentence site</a></li>
-        <li><a href="../liveopencall/">Live Open Call</a></li>
-        <li><a href="../glyphscorrupted/">Glyphs: Corrupted</a></li>
-      </ul>
-    </nav>
-  </aside>
-
-  <div class="menu-backdrop" id="menu-backdrop"></div>
-
-  <!-- MAIN -->
-  <main class="content">
-
-    <div class="topbar">
-      <button class="topbar-menu" id="menu-toggle">menu</button>
-      <a href="../index.html" class="topbar-back">← Back to home</a>
-      <span class="clock" id="clock"></span>
-    </div>
-
-    <!-- HEADER -->
-    <div class="case-header">
-      <h2>Telus Internet Sales Journey</h2>
-
-      <div class="tags">
-        <span class="tag">UX</span>
+    <!-- ─── Main Content ─── -->
+    <main class="content" id="content">
+      <!-- Topbar with clock (kept) -->
+      <div class="topbar">
+        <button class="topbar-menu" id="menu-toggle" aria-label="Open menu">menu</button>
+        <a href="../index.html" class="topbar-back">← Back to home</a>
+        <span class="clock" id="clock"></span>
       </div>
 
-      <p class="case-meta"><strong>2022 – 2024</strong></p>
-
-      <p>
-        Navigation redesign for Canada's second-largest telco, delivering a <strong>42% increase in desired page visits</strong>.
-        We simplified mega navigation into clearer decision pathways for conversion.
-      </p>
-    </div>
-
-    <!-- CONTENT (unchanged structure) -->
-    <div class="project-meta">
-      <p><strong>Roles:</strong> UX, R&D, Scrum Master, Research</p>
-    </div>
-
-    <figure class="case-image-wide">
-      <img src="../telus/telus.png" alt="Telus internet plans page">
-    </figure>
-
-    <div class="case-section">
-      <h3>The Challenge</h3>
-      <p>Cluttered navigation reduced conversion efficiency.</p>
-    </div>
-
-    <div class="case-section">
-      <h3>Objectives</h3>
-      <ul>
-        <li>Increase conversions</li>
-        <li>Improve CTR</li>
-        <li>Reduce bounce rate</li>
-      </ul>
-    </div>
-
-    <div class="results-highlight">
-      <h3>Results</h3>
-
-      <div class="results-cards">
-        <div class="result-card">
-          <strong>+42%</strong>
-          <span>internet homepage visits</span>
+      <!-- ─── ENGAGING CASE STUDY CONTENT (refined structure/readability) ─── -->
+      <div class="case-header">
+        <h2>Telus Internet Sales Journey</h2>
+        <div class="tags">
+          <span class="tag">UX</span>
         </div>
-        <div class="result-card">
-          <strong>+4%</strong>
-          <span>menu CTR</span>
+        <p class="case-meta"><strong>2022 – 2024</strong></p>
+        <p>
+          Navigation redesign for Canada's second-largest telco (telus.com), delivering a <strong>42% increase in desired page visits</strong>. 
+          Part of a broader initiative to boost internet sales, we designed an intuitive way-finding system to guide users toward conversion.
+          <em>Note: Some images blurred under NDA.</em>
+        </p>
+      </div>
+
+      <!-- Roles -->
+      <div class="project-meta">
+        <p><strong>Roles:</strong> R&D, ideation, Scrum Master, UX/UI design, Project Manager, User Tester & Researcher</p>
+      </div>
+
+      <!-- First hero image -->
+      <figure class="case-image-wide">
+        <img src="../telus/telus.png" alt="Telus internet plans page">
+        <figcaption class="caption">Current internet plans page</figcaption>
+      </figure>
+
+      <!-- Challenge -->
+      <div class="case-section">
+        <h3>The Challenge</h3>
+        <p>
+          Telus' mega navigation was prime real estate but cluttered with low-engagement "dead-end" pages and poor performers. 
+          Our site audit revealed opportunities to streamline for prospective customers.
+        </p>
+      </div>
+
+      <!-- Objectives -->
+      <div class="case-section">
+        <h3>Objectives</h3>
+        <ul class="results-list">
+          <li>Double internet sales conversion rates</li>
+          <li>Maintain/increase CTR to key journey points</li>
+          <li>Reduce bounce rates via clearer funnels</li>
+        </ul>
+      </div>
+
+      <!-- Before image -->
+      <figure class="case-image">
+        <img src="../telus/originalsite.png" alt="Original Telus site navigation">
+        <figcaption class="caption">Site as inherited (pre-redesign)</figcaption>
+      </figure>
+
+      <!-- HMW + Research -->
+      <div class="case-section">
+        <p><em>How might we restructure navigation for intuitive, expectation-matching journeys?</em></p>
+        <ul>
+          <li>Recognisable labelling</li>
+          <li>Seamless desktop/mobile use</li>
+          <li>Content that satisfies on arrival</li>
+        </ul>
+        <p>
+          Card sorting, user interviews, and A/B tests informed a simplified flow—e.g., prioritising "Learn" for prospects over "Manage".
+        </p>
+      </div>
+
+      <!-- Menu draft -->
+      <figure class="case-image">
+        <img src="../telus/menudraft.png" alt="Initial menu restructuring wireframes">
+        <figcaption class="caption">Early UX explorations for menu items</figcaption>
+      </figure>
+
+      <!-- Synthesis -->
+      <figure class="case-image-wide">
+        <img src="../telus/synthesis.png" alt="Research synthesis workshop map">
+        <figcaption class="caption">Synthesised findings from analytics/client research, informing stakeholder workshop</figcaption>
+      </figure>
+
+      <!-- Behavioural segments -->
+      <figure class="case-image">
+        <img src="../telus/bsegments.png" alt="User journey map by behavioural segments">
+        <figcaption class="caption">Journeys mapped for Telus' behavioural segments (pre-purchase to conversion)</figcaption>
+      </figure>
+
+      <!-- Lo-HiFi -->
+      <div class="case-section">
+        <h3>Lo- to Hi-Fi</h3>
+        <p>
+          Blending Telus' Allium Design System with custom components, we iterated key pages from mega nav.
+        </p>
+      </div>
+
+      <!-- Lowfi -->
+      <figure class="case-image">
+        <img src="../telus/lowfi.png" alt="Low-fidelity wireframes for Telus pages">
+        <figcaption class="caption">Low-fi explorations of redesigned pages</figcaption>
+      </figure>
+
+      <!-- Hi-fi cards masonry -->
+      <div class="case-section">
+        <h3>Hi-fi cards targeting behavioural segments</h3>
+        <div class="masonry">
+          <div class="masonry-item">
+            <img src="../telus/card1.png" alt="Hi-fi card design variant 1">
+          </div>
+          <div class="masonry-item">
+            <img src="../telus/card2.png" alt="Hi-fi card design variant 2">
+          </div>
+          <div class="masonry-item">
+            <img src="../telus/card3.png" alt="Hi-fi card design variant 3">
+          </div>
         </div>
-        <div class="result-card">
-          <strong>-0.5%</strong>
-          <span>faster decision paths</span>
+        <p>
+          These high-fidelity cards were tailored to Telus' behavioural segments, using quizzes and personalised messaging to guide users from awareness ("Internet Wizard?") to informed decision-making and conversion.
+        </p>
+      </div>
+
+      <!-- Live mega nav (moved before Results) -->
+      <figure class="case-image-wide">
+        <img src="../telus/meganav.png" alt="Final deployed mega navigation">
+        <figcaption class="caption">Live mega nav (deployed July 2025)</figcaption>
+      </figure>
+
+      <!-- Results (3 stat cards: large numbers + desc underneath) -->
+      <div class="case-section results-highlight">
+        <h3>Results</h3>
+        <div class="results-cards">
+          <div class="result-card">
+            <strong>+42%</strong>
+            <span>visits to PureFibre Internet homepage</span>
+          </div>
+          <div class="result-card">
+            <strong>+4%</strong>
+            <span>menu CTR (vs. control)</span>
+          </div>
+          <div class="result-card">
+            <strong>-0.5%</strong>
+            <span>engagement (users satisfied faster)</span>
+          </div>
         </div>
       </div>
-    </div>
 
-  </main>
-</div>
+    </main>
 
-<div id="custom-cursor"></div>
+    <!-- NO RIGHT SIDEBAR -->
+
+  </div>
+
+  <div id="custom-cursor"></div>
+  <script src="../script.js"></script> <!-- Handles clock, masonry spans, lightbox, menu -->
 
 </body>
 </html>
