@@ -288,7 +288,7 @@ button, a, [data-href] { cursor: pointer; }
   font-family: var(--font-sans);
   font-size: 0.9rem;
   font-weight: 500;
-  color: var(--blue);
+  color: #0040FF;
   padding: var(--sp-2) 0;
   line-height: 1;
 }
@@ -610,6 +610,8 @@ video {
     z-index: 1300;
     border-right: 1px solid var(--gray-200);
   }
+
+  
   .sidebar.open,
   .sidebar.menu-open { /* Alias */
     transform: translateX(0);

@@ -14,8 +14,11 @@
 
   <div class="layout">
 
-      <!-- SIDEBAR -->
-    <aside class="sidebar">
+    <!-- ─── LEFT SIDEBAR (FIXED: Telus pattern) ─── -->
+    <aside class="sidebar" id="sidebar">
+
+      <button class="sidebar-close" id="sidebar-close" aria-label="Close menu">✕</button>
+
       <a href="/" class="breadcrumb">← home / longest sentence</a>
 
       <nav class="project-nav">
@@ -38,22 +41,25 @@
           <li><a href="../glyphscorrupted/">Glyphs: Corrupted</a></li>
         </ul>
       </nav>
+
     </aside>
 
-    <!-- MAIN CONTENT -->
-    <main class="content">
+    <!-- ─── REQUIRED BACKDROP ─── -->
+    <div class="menu-backdrop" id="menu-backdrop"></div>
 
-      <!-- UNIFIED TOPBAR -->
+    <!-- ─── MAIN CONTENT ─── -->
+    <main class="content" id="content">
+
+      <!-- TOPBAR (fixed for menu toggle consistency) -->
       <div class="topbar">
         <button class="topbar-menu" id="menu-toggle" aria-label="Open menu">menu</button>
-        <a href="../index.html" class="topbar-back">← Back to home</a>
         <span class="clock" id="clock">00:00</span>
       </div>
 
-      <!-- UNIFIED CASE HEADER -->
+      <!-- HEADER -->
       <div class="case-header">
 
-        <h2>Longest Collaborative Sentence – Remixed</h2>
+        <h2>Longest Collaborative Sentence</h2>
 
         <div class="tags">
           <span class="tag">UX</span>
@@ -69,6 +75,8 @@
           Using web scraping and conditional programming, I remixed an art piece originally intended to be collaborative.
         </p>
 
+        <br>
+
         <p>
           The toughest part of the project was not pushing technical boundaries, but having to sit through large datasets
           to identify words that could be deemed problematic — including nuanced cases.
@@ -77,9 +85,7 @@
       </div>
 
       <!-- MASONRY -->
-      <div class="masonry">
-
-        <div class="masonry-item">
+      <div class="masonry-item">
           <video
             src="../collaborativesentence/longestsentence.webm"
             autoplay
@@ -100,8 +106,6 @@
             class="video-item">
           </video>
         </div>
-
-      </div>
 
       <p class="case-meta">
         So far, I have permission from the Whitney Museum of American Art but not yet from the Douglas Davis estate,

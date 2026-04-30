@@ -17,8 +17,8 @@
 
   <div class="layout">
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
+    <!-- ─── LEFT SIDEBAR (FIXED: Telus pattern) ─── -->
+    <aside class="sidebar" id="sidebar">
 
       <button class="sidebar-close" id="sidebar-close" aria-label="Close menu">✕</button>
 
@@ -39,23 +39,27 @@
           <li><a href="../risographposters/">Risograph Poster Exhibit</a></li>
           <li><a href="../wellflip/">Well, Flip!: Coptic Book</a></li>
           <li><a href="../blackbox/">Web-based Blackbox VJ</a></li>
-          <li><a href="../collaborativesentence/">Longest Sentence</a></li>
-          <li><a href="../liveopencall/" class="active">Live Open Call site</a></li>
+          <li><a href="../collaborativesentence/">Longest Sentence site</a></li>
+          <li><a href="../liveopencall/" class="active">Live Open Call</a></li>
           <li><a href="../glyphscorrupted/">Glyphs: Corrupted</a></li>
         </ul>
       </nav>
 
     </aside>
 
-    <!-- MAIN CONTENT -->
-    <main class="content">
+    <!-- ─── REQUIRED BACKDROP ─── -->
+    <div class="menu-backdrop" id="menu-backdrop"></div>
 
+    <!-- ─── MAIN CONTENT ─── -->
+    <main class="content" id="content">
+
+      <!-- TOPBAR -->
       <div class="topbar">
-        <button class="topbar-menu" id="menu-toggle">menu</button>
-        <a href="../index.html" class="topbar-back">← Back to home</a>
+        <button class="topbar-menu" id="menu-toggle" aria-label="Open menu">menu</button>
         <span class="clock" id="clock"></span>
       </div>
 
+      <!-- HEADER -->
       <div class="case-header">
 
         <h2>Live Open Call</h2>
@@ -71,7 +75,7 @@
         <p>
           Along with some other designers, we were given a space to work with the idea of mail art publishing (think: El Djarida). Given that mail art is very much a collaborative art form, with many people sending things in, my focus was on open calls. I was curious about the idea of running a very open, open call. To spread the word, I made a quick poster with the idea that people can just send whatever they are working on from random files. I hung this poster around London and Oslo. 
         </p>
-
+        <br>
         <p>
           I unified the submissions into one long receipt and began to think about the prospect of doing this live, given the curiosity I had around the visual output. 
         </p>
@@ -80,43 +84,41 @@
 
       <!-- MEDIA GRID -->
 
-      <!--images-->
+      <div class="masonry">
+        <div class="masonry-item">
+          <img class="js-lightbox-item" src="../liveopencall/opencall.png" alt="">
+        </div>
 
-<div class="masonry">
-  <div class="masonry-item">
-    <img class="js-lightbox-item" src="../liveopencall/opencall.png" alt="">
-  </div>
+        <div class="masonry-item">
+          <img class="js-lightbox-item" src="../liveopencall/opencall1.png" alt="">
+        </div>
 
-  <div class="masonry-item">
-    <img class="js-lightbox-item" src="../liveopencall/opencall1.png" alt="">
-  </div>
+        <div class="masonry-item">
+          <video class="js-lightbox-item video-item"
+            src="../liveopencall/siterecording.webm"
+            autoplay loop muted playsinline></video>
+        </div>
+      </div>
 
-  <div class="masonry-item">
-    <video class="js-lightbox-item video-item"
-      src="../liveopencall/siterecording.webm"
-      autoplay loop muted playsinline></video>
-  </div>
-</div>
+      <p>
+        It was an interesting experiment to compare the more 'premediated' open call...
+      </p>
 
-<p>
-  It was an interesting experiment to compare the more 'premediated' open call...
-</p>
+      <div class="masonry">
+        <div class="masonry-item">
+          <video class="js-lightbox-item video-item"
+            src="../liveopencall/video.webm"
+            autoplay loop muted playsinline></video>
+        </div>
 
-<div class="masonry">
-  <div class="masonry-item">
-    <video class="js-lightbox-item video-item"
-      src="../liveopencall/video.webm"
-      autoplay loop muted playsinline></video>
-  </div>
+        <div class="masonry-item">
+          <video class="js-lightbox-item video-item"
+            src="../liveopencall/liveopencall.webm"
+            autoplay loop muted playsinline></video>
+        </div>
+      </div>
 
-  <div class="masonry-item">
-    <video class="js-lightbox-item video-item"
-      src="../liveopencall/liveopencall.webm"
-      autoplay loop muted playsinline></video>
-  </div>
-</div>
-
-<p>Unfortunately, there was not much footage of the live open call in action!</p>
+      <p>Unfortunately, there was not much footage of the live open call in action!</p>
 
     </main>
   </div>

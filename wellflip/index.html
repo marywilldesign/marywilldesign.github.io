@@ -43,10 +43,10 @@
 
 <div class="layout">
 
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
+  <!-- SIDEBAR (FIXED: TELUS PATTERN MATCH) -->
+  <aside class="sidebar" id="sidebar">
 
-    <button class="sidebar-close" aria-label="Close menu">✕</button>
+    <button class="sidebar-close" id="sidebar-close" aria-label="Close menu">✕</button>
 
     <a href="/" class="breadcrumb">← home / well flip</a>
 
@@ -73,14 +73,14 @@
 
   </aside>
 
+  <!-- REQUIRED BACKDROP -->
   <div class="menu-backdrop" id="menu-backdrop"></div>
 
   <!-- MAIN -->
-  <main class="content">
+  <main class="content" id="content">
 
     <div class="topbar">
-      <button class="topbar-menu" id="menu-toggle">menu</button>
-      <a href="/" class="topbar-back">← Back to home</a>
+      <button class="topbar-menu" id="menu-toggle" aria-label="Open menu">menu</button>
       <span class="clock" id="clock"></span>
     </div>
 
@@ -107,7 +107,7 @@
 
     </div>
 
-    <!-- MASONRY -->
+    <!-- MASONRY (UNCHANGED) -->
     <div class="masonry">
 
       <div class="masonry-item">
@@ -130,14 +130,13 @@
         <video src="../wellflip/20.webm" autoplay loop muted playsinline></video>
       </div>
 
-      
-
     </div>
 
   </main>
+
 </div>
 
-<!-- LIGHTBOX -->
+<!-- LIGHTBOX (UNCHANGED) -->
 <div class="lightbox" id="lightbox">
   <img src="" alt="zoomed media">
 </div>
