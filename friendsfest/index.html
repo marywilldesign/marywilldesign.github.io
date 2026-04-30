@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Friends Fest branding</title>
 
-  <link rel="icon" type="mw.svg" href="mw.svg" />
+  <link rel="icon" type="image/svg+xml" href="../mw.svg" />
   <link rel="stylesheet" href="../style.css" />
   <script src="../script.js" defer></script>
 
@@ -43,12 +43,12 @@
 
 <div class="layout">
 
-  <!-- ================= LEFT SIDEBAR (NOW MATCHES TELUS EXACTLY) ================= -->
-  <aside class="sidebar">
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar" id="sidebar">
 
-    <button class="sidebar-close" aria-label="Close menu">✕</button>
+    <button class="sidebar-close" id="sidebar-close" aria-label="Close menu">✕</button>
 
-    <a href="/" class="breadcrumb">← home / friends fest</a>
+    <a href="../index.html" class="breadcrumb">← home / friends fest</a>
 
     <nav class="project-nav">
       <h4>Other Projects</h4>
@@ -73,15 +73,19 @@
 
   </aside>
 
-  <!-- ================= MAIN ================= -->
-  <main class="content">
+  <!-- ✅ REQUIRED backdrop -->
+  <div class="menu-backdrop" id="menu-backdrop"></div>
 
-    <!-- CLOCK (now identical behaviour across all case pages) -->
+  <!-- ================= MAIN ================= -->
+  <main class="content" id="content">
+
+    <!-- ✅ FIXED topbar (menu toggle added) -->
     <div class="topbar">
-      <div class="clock" id="clock">00:00</div>
+      <button class="topbar-menu" id="menu-toggle" aria-label="Open menu">menu</button>
+      <span class="clock" id="clock"></span>
     </div>
 
-    <!-- HEADER (consistent Telus-style structure) -->
+    <!-- HEADER -->
     <div class="case-header">
 
       <h2>Friends Fest branding</h2>

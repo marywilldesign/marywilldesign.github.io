@@ -12,18 +12,31 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 </head>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VJ tool (Blackbox)</title>
+
+  <link rel="icon" type="image/svg+xml" href="../mw.svg" />
+  <link rel="stylesheet" href="../style.css" />
+  <script src="../script.js" defer></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+</head>
+
 <body class="case-page">
 
   <div class="layout">
 
-    <!-- LEFT SIDEBAR (consistent with Telus system) -->
-    <aside class="sidebar">
+    <!-- ─── LEFT SIDEBAR (FIXED: Telus pattern) ─── -->
+    <aside class="sidebar" id="sidebar">
 
       <button class="sidebar-close" id="sidebar-close" aria-label="Close menu">✕</button>
 
       <a href="../index.html" class="breadcrumb">← home / blackbox</a>
 
-      <!-- UNIFIED NAV STRUCTURE -->
       <nav class="project-nav">
         <h4>Other Projects</h4>
         <ul>
@@ -47,20 +60,19 @@
 
     </aside>
 
-    <!-- BACKDROP -->
+    <!-- ─── REQUIRED BACKDROP (THIS WAS MISSING) ─── -->
     <div class="menu-backdrop" id="menu-backdrop"></div>
 
-    <!-- MAIN CONTENT -->
-    <main class="content">
+    <!-- ─── MAIN CONTENT ─── -->
+    <main class="content" id="content">
 
-      <!-- TOPBAR (consistent across case studies) -->
+      <!-- TOPBAR (FIXED IDs for JS hook consistency) -->
       <div class="topbar">
         <button class="topbar-menu" id="menu-toggle" aria-label="Open menu">menu</button>
-        <a href="../index.html" class="topbar-back">← Back to home</a>
         <span class="clock" id="clock"></span>
       </div>
 
-      <!-- UNIFIED CASE HEADER (matches Telus / Friends Fest style) -->
+      <!-- HEADER (unchanged content) -->
       <div class="case-header">
 
         <h2>VJ tool (Blackbox)</h2>
@@ -72,37 +84,28 @@
           <span class="tag">personal project</span>
         </div>
 
-        <p class="case-meta"><strong>2025</strong></p>
+        <p class="case-meta"><strong>2025 - 2026</strong></p>
 
         <p>
-          This (very much WIP) Visual Jockey web tool is a collaborative online space where anyone can play with text,
-          visuals, and ideas without needing special software. It’s designed for experimentation—mixing, censoring,
-          revealing, or reshaping content freely.
+          BLACKBOX explores the paradox of control in design systems. It examines how input and output shift between digital and analogue media. The project takes visual jockeying (VJing) as its starting point, using it as a framework to compare analogue unpredictability and noise with digital precision.
         </p>
+
+        <br>
 
         <p>
-          The controller UI is still evolving, but the visual output is intentionally unpredictable. Users can upload images,
-          allowing personal input to directly shape generative results.
+          The project oscillates between digital input to analogue output. A web-based controller generates visuals which have been distilled into silkscreen, risograph, digital knitting, and thermal prints, while a physical controller, with handcrafted circuitry, enables tactile input with direct visual output, tightening the control loop.
         </p>
 
-        <p><em>Feature list (so far)</em></p>
+        <br>
 
-        <ul>
-          <li>gradient</li>
-          <li>grain</li>
-          <li>image upload</li>
-          <li>shape / object definer</li>
-          <li>movement direction</li>
-          <li>colour selection</li>
-          <li>webcam / external camera input</li>
-          <li>grid definer</li>
-          <li>shape warp</li>
-        </ul>
+        <p>
+          Each direction allows the material to ‘talk back’ in the form of analogue misprints and digital glitches. This ultimately shows how control is distributed across system, material, and user. Rather than resolving control, the project asks: does having more controls necessarily mean more control?
+        </p>
 
       </div>
 
       <!-- VISUAL OUTPUTS -->
-      <h3>Visual outputs</h3>
+      <h3>Digital visual outputs</h3>
 
       <div class="masonry">
 
@@ -115,23 +118,7 @@
         </div>
 
         <div class="masonry-item">
-          <video src="../blackbox/vj2.webm" autoplay loop muted playsinline class="video-item"></video>
-        </div>
-
-        <div class="masonry-item">
-          <video src="../blackbox/vj3.webm" autoplay loop muted playsinline class="video-item"></video>
-        </div>
-
-        <div class="masonry-item">
-          <video src="../blackbox/vj6.webm" autoplay loop muted playsinline class="video-item"></video>
-        </div>
-
-        <div class="masonry-item">
           <video src="../blackbox/vj7.webm" autoplay loop muted playsinline class="video-item"></video>
-        </div>
-
-        <div class="masonry-item">
-          <video src="../blackbox/vj8.webm" autoplay loop muted playsinline class="video-item"></video>
         </div>
 
       </div>
@@ -140,8 +127,6 @@
   </div>
 
   <div id="custom-cursor"></div>
-
-  <script src="../script.js"></script>
 
 </body>
 </html>

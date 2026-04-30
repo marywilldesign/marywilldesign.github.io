@@ -17,8 +17,8 @@
 
   <div class="layout">
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
+    <!-- ─── LEFT SIDEBAR (FIXED: mobile menu support) ─── -->
+    <aside class="sidebar" id="sidebar">
 
       <button class="sidebar-close" id="sidebar-close" aria-label="Close menu">✕</button>
 
@@ -47,12 +47,15 @@
 
     </aside>
 
-    <!-- MAIN CONTENT -->
-    <main class="content">
+    <!-- ─── REQUIRED BACKDROP ─── -->
+    <div class="menu-backdrop" id="menu-backdrop"></div>
 
+    <!-- ─── MAIN CONTENT ─── -->
+    <main class="content" id="content">
+
+      <!-- TOPBAR (fixed menu toggle consistency) -->
       <div class="topbar">
-        <button class="topbar-menu" id="menu-toggle">menu</button>
-        <a href="../index.html" class="topbar-back">← Back to home</a>
+        <button class="topbar-menu" id="menu-toggle" aria-label="Open menu">menu</button>
         <span class="clock" id="clock"></span>
       </div>
 
@@ -73,6 +76,8 @@
           Using scraping and generative manipulation, I reworked language drawn from a larger experimental text system.
         </p>
 
+        <br>
+
         <p>
           The work examines how legibility breaks down under transformation, shifting between readable type and abstract visual form.
         </p>
@@ -80,54 +85,45 @@
       </div>
 
       <!-- FEATURED VIDEO 1 -->
-      <div class="masonry">
-        <div class="masonry-item masonry-item--large">
-          <video class="js-lightbox-item video-item"
-            src="../glyphscorrupted/glyphsdotdottype.webm"
-            autoplay loop muted playsinline></video>
-        </div>
+      <div class="masonry-item masonry-item--large">
+        <video class="js-lightbox-item video-item"
+          src="../glyphscorrupted/glyphsdotdottype.webm"
+          autoplay loop muted playsinline></video>
       </div>
+
+      <br>
 
       <p>
         The text relates to an earlier system that scraped and auto-scrolled a large collaborative sentence dataset.
       </p>
 
+      <br>
+
       <!-- FEATURED VIDEO 2 -->
-      <div class="masonry">
-        <div class="masonry-item masonry-item--large">
-          <video class="js-lightbox-item video-item"
-            src="../glyphscorrupted/glyphssticks.webm"
-            autoplay loop muted playsinline></video>
-        </div>
+      <div class="masonry-item masonry-item--large">
+        <video class="js-lightbox-item video-item"
+          src="../glyphscorrupted/glyphssticks.webm"
+          autoplay loop muted playsinline></video>
       </div>
 
-      <p>
-        The aim was to create type that behaves like asemic writing — readable as form, but not as language.
-      </p>
+      <br>
 
       <p>
-        One key reference was “Zalgo” text.
+        The aim was to create type that behaves like asemic writing — readable as form, but not as language. One key reference was “Zalgo” text and how it is often legible but with diacretics obscuring certain elements.
       </p>
+
+      <br>
 
       <!-- FEATURED VIDEO 3 -->
-      <div class="masonry">
-        <div class="masonry-item masonry-item--large">
-          <video class="js-lightbox-item video-item"
-            src="../glyphscorrupted/glyphszalg.webm"
-            autoplay loop muted playsinline></video>
-        </div>
+      <div class="masonry-item masonry-item--large">
+        <video class="js-lightbox-item video-item"
+          src="../glyphscorrupted/glyphszalg.webm"
+          autoplay loop muted playsinline></video>
       </div>
 
       <p>
         These explorations eventually moved into print outcomes, including a typographic book format.
       </p>
-
-      <!-- IMAGE -->
-      <div class="masonry">
-        <div class="masonry-item">
-          <img class="js-lightbox-item" src="../glyphscorrupted/A-exploration.png" alt="exploration">
-        </div>
-      </div>
 
       <!-- FINAL GRID -->
       <div class="masonry">
@@ -155,15 +151,15 @@
 
   <div id="custom-cursor"></div>
 
-<!-- MEDIA LIGHTBOX -->
-<div class="media-lightbox" id="media-lightbox">
-  <button class="lightbox-close" id="lightbox-close">✕</button>
+  <!-- MEDIA LIGHTBOX -->
+  <div class="media-lightbox" id="media-lightbox">
+    <button class="lightbox-close" id="lightbox-close">✕</button>
 
-  <button class="lightbox-nav left" id="lightbox-prev"></button>
-  <button class="lightbox-nav right" id="lightbox-next"></button>
+    <button class="lightbox-nav left" id="lightbox-prev"></button>
+    <button class="lightbox-nav right" id="lightbox-next"></button>
 
-  <div class="media-lightbox-content" id="lightbox-content"></div>
-</div>
+    <div class="media-lightbox-content" id="lightbox-content"></div>
+  </div>
 
 </body>
 </html>

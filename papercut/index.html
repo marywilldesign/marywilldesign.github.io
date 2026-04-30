@@ -37,10 +37,9 @@
 
 <div class="layout">
 
-  <!-- SIDEBAR (MATCHED TO FRIENDS FEST / TELUS STYLE) -->
-  <aside class="sidebar">
-
-    <button class="sidebar-close" aria-label="Close menu">✕</button>
+  <!-- ─── LEFT SIDEBAR ─── -->
+  <aside class="sidebar" id="sidebar">
+    <button class="sidebar-close" id="sidebar-close" aria-label="Close menu">✕</button>
 
     <a href="../index.html" class="breadcrumb">← home / paper cut</a>
 
@@ -51,7 +50,7 @@
         <li><a href="../telus/">Telus Internet Sales</a></li>
         <li><a href="../modo/">Modo Carsharing Site</a></li>
         <li><a href="../postertriennial/">Poster Triennial, Lahti</a></li>
-        <li><a href="../twotruths/">Two Truths & AI </a></li>
+        <li><a href="../twotruths/">Two Truths & AI</a></li>
         <li><a href="../friendsfest/">Friends Fest branding</a></li>
         <li><a href="../speleo/">Speleo Record Label</a></li>
         <li><a href="../papercut/" class="active">Paper Cut Poster folio</a></li>
@@ -64,17 +63,21 @@
         <li><a href="../glyphscorrupted/">Glyphs: Corrupted</a></li>
       </ul>
     </nav>
-
   </aside>
 
-  <!-- MAIN -->
-  <main class="content">
+  <!-- ─── MOBILE BACKDROP ─── -->
+  <div class="menu-backdrop" id="menu-backdrop"></div>
 
+  <!-- ─── MAIN CONTENT ─── -->
+  <main class="content" id="content">
+
+    <!-- TOPBAR -->
     <div class="topbar">
-      <div class="clock" id="clock">00:00</div>
+      <button class="topbar-menu" id="menu-toggle" aria-label="Open menu">menu</button>
+      <span class="clock" id="clock">00:00</span>
     </div>
 
-    <!-- HEADER (MATCHED STRUCTURE) -->
+    <!-- HEADER -->
     <div class="case-header">
 
       <h2>Paper cut</h2>
@@ -99,13 +102,7 @@
     <div class="masonry">
 
       <div class="masonry-item">
-        <video
-          src="../papercut/face.webm"
-          autoplay
-          loop
-          muted
-          playsinline>
-        </video>
+        <video src="../papercut/face.webm" autoplay loop muted playsinline></video>
       </div>
 
       <div class="masonry-item">

@@ -6,7 +6,7 @@
   <title>Subtext - Movie Poster</title>
 
   <link rel="stylesheet" href="../style.css" />
-  <link rel="icon" type="mw.svg" href="mw.svg" />
+  <link rel="icon" type="image/svg+xml" href="../mw.svg" />
   <script src="../script.js" defer></script>
 
   <style>
@@ -44,9 +44,9 @@
 <div class="layout">
 
   <!-- ================= SIDEBAR ================= -->
-  <aside class="sidebar">
+  <aside class="sidebar" id="sidebar">
 
-    <button class="sidebar-close" aria-label="Close menu">✕</button>
+    <button class="sidebar-close" id="sidebar-close" aria-label="Close menu">✕</button>
 
     <a href="../index.html" class="breadcrumb">← home / subtext</a>
 
@@ -65,7 +65,7 @@
         <li><a href="../risographposters/">Risograph Poster Exhibit</a></li>
         <li><a href="../wellflip/">Well, Flip!: Coptic Book</a></li>
         <li><a href="../blackbox/">Web-based Blackbox VJ</a></li>
-        <li><a href="../collaborativesentence/">Longest Sentence </a></li>
+        <li><a href="../collaborativesentence/">Longest Sentence site</a></li>
         <li><a href="../liveopencall/">Live Open Call</a></li>
         <li><a href="../glyphscorrupted/">Glyphs: Corrupted</a></li>
       </ul>
@@ -73,12 +73,16 @@
 
   </aside>
 
-  <!-- ================= MAIN ================= -->
-  <main class="content">
+  <!-- Mobile backdrop -->
+  <div class="menu-backdrop" id="menu-backdrop"></div>
 
-    <!-- TOPBAR -->
+  <!-- ─── MAIN CONTENT ─── -->
+  <main class="content" id="content">
+
+    <!-- Topbar -->
     <div class="topbar">
-      <div class="clock" id="clock">00:00</div>
+      <button class="topbar-menu" id="menu-toggle" aria-label="Open menu">menu</button>
+      <span class="clock" id="clock"></span>
     </div>
 
     <!-- HEADER -->
