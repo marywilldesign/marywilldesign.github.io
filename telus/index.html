@@ -4,7 +4,7 @@
   <!-- Modern head (fonts/theme; copy from index.html) -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Mary Wil – UX/UI designer and researcher with 10 years of user-centred design experience.">
+  <meta name="description" content="Mary Wil – UX/UI designer crafting thoughtful digital experiences through research, storytelling, and visual experimentation.">
   <meta name="theme-color" content="#0000cd">
   <title>Telus – Mary Wil Design</title>
   <link rel="icon" type="image/svg+xml" href="../mw.svg">
@@ -12,24 +12,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../style.css">
-  <!-- Overrides: remove borders; masonry columns (no overlap); results as 3 stat cards (large numbers + desc) -->
+  <!-- Overrides: masonry columns; results cards -->
   <style>
-    /* Remove borders/shadows */
-    figure.case-image,
-    figure.case-image-wide,
-    figcaption.caption,
-    .masonry-item img {
-      border: none !important;
-      box-shadow: none !important;
-      background: none !important;
-    }
-    figure.case-image img,
-    figure.case-image-wide img {
-      border: none !important;
-      box-shadow: none !important;
-    }
-
-    /* Masonry: CSS columns for reliable layout (balances heights, prevents overlap) */
+    /* Masonry: CSS columns for reliable layout */
+    .masonry {
     .masonry {
       columns: 3;
       column-gap: var(--masonry-gap);
@@ -61,60 +47,6 @@
       .masonry { columns: 1; }
     }
 
-    /* Results: light bg section with 3 stat cards (inspired by modern portfolios) */
-    .results-highlight {
-      background: none;
-      border: 1px solid var(--blue);
-      border-radius: var(--radius);
-      padding: var(--sp-8) var(--sp-6);
-      margin: var(--sp-6) 0;
-    }
-    .results-highlight h3 {
-      margin-bottom: var(--sp-2);
-      color: var(--gray-900);
-      text-align: center;
-    }
-    .results-highlight p {
-      color: var(--gray-600);
-      text-align: center;
-      font-size: 0.9rem;
-      margin-bottom: var(--sp-8);
-    }
-    .results-cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--sp-6);
-    }
-    .result-card {
-      text-align: center;
-      padding: var(--sp-6);
-    }
-    .result-card strong {
-      display: block;
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-family: monospace;
-      font-weight: 200;
-      color: var(--blue);
-      line-height: 1;
-      margin-bottom: var(--sp-3);
-    }
-    .result-card span {
-      display: block;
-      font-size: 0.85rem;
-      color: var(--gray-600);
-      line-height: 1.5;
-      font-weight: 500;
-    }
-
-    /* Responsive: stack cards on tablet/mobile */
-    @media (max-width: 1024px) {
-      .results-cards { grid-template-columns: repeat(2, 1fr); gap: var(--sp-5); }
-    }
-    @media (max-width: 640px) {
-      .results-cards { grid-template-columns: 1fr; gap: var(--sp-4); }
-      .results-highlight { padding: var(--sp-6); }
-    }
-
     /* Disable hover opacity on masonry images when in case sections (prevents grey overlay bleed) */
     .case-section .masonry-item img:hover { opacity: 1; }
   </style>
@@ -129,6 +61,24 @@
 
       <!-- Breadcrumb -->
       <a href="../index.html" class="breadcrumb">← home / telus</a>
+
+      <!-- mobile-only: avatar + bio + links -->
+      <div class="sidebar-mobile-top">
+        <img class="avatar" src="../mw_profile.svg" alt="Mary Wil" width="200" height="200">
+        <p class="bio">
+          UX/UI designer crafting thoughtful digital experiences through research, storytelling, and visual experimentation. Spanning client work (Telus, IBM, Modo) and self-initiated projects that blend design with code.
+        </p>
+      </div>
+
+      <nav class="sidebar-links sidebar-mobile-links">
+        <a href="https://drive.google.com/file/d/1vJQT7nzT0Jh-cYgugH08rDDmF4s7uFco/view?usp=sharing" target="_blank" rel="noopener noreferrer">resume.pdf ↗</a>
+        <a href="https://drive.google.com/file/d/154rOSybpMvjC_LpU055DL15ylRA56IEj/view?usp=sharing" target="_blank" rel="noopener noreferrer">portfolio.pdf ↗</a>
+        <a href="https://www.linkedin.com/in/marygracewilson/" target="_blank" rel="noopener noreferrer">linkedin ↗</a>
+        <a href="https://www.instagram.com/marywildesign/" target="_blank" rel="noopener noreferrer">instagram ↗</a>
+        <a href="https://www.lomography.com/homes/marycastawayball/photos" target="_blank" rel="noopener noreferrer">photography ↗</a>
+      </nav>
+
+      <p class="made sidebar-mobile-made">★ made by mary ★</p>
 
       <!-- Project list (bottom-aligned via CSS) -->
       <nav class="project-nav">
@@ -171,11 +121,14 @@
         <div class="tags">
           <span class="tag">UX</span>
         </div>
-        <p class="case-meta"><strong>2022 – 2024</strong></p>
+        <p class="case-meta"><strong>2022 – 2024</strong> · <span class="role">role:</span> <span class="role-title">Lead UX Designer</span></p>
         <p>
           Navigation redesign for Canada's second-largest telco (telus.com), delivering a <strong>42% increase in desired page visits</strong>. 
           Part of a broader initiative to boost internet sales, we designed an intuitive way-finding system to guide users toward conversion.
           <em>Note: Some images blurred under NDA.</em>
+        </p>
+        <p style="margin-top: var(--sp-4);">
+          <a href="https://drive.google.com/file/d/154rOSybpMvjC_LpU055DL15ylRA56IEj/view?usp=sharing" class="card-cta" target="_blank" rel="noopener noreferrer">full case study (pdf) →</a>
         </p>
       </div>
 
@@ -186,7 +139,7 @@
 
       <!-- First hero image -->
       <figure class="case-image-wide">
-        <img src="../telus/telus.png" alt="Telus internet plans page">
+        <img src="../telus/telus.png" alt="Telus internet plans page" class="js-lightbox-item" >
         <figcaption class="caption">Current internet plans page</figcaption>
       </figure>
 
@@ -209,12 +162,6 @@
         </ul>
       </div>
 
-      <!-- Before image -->
-      <figure class="case-image">
-        <img src="../telus/originalsite.png" alt="Original Telus site navigation">
-        <figcaption class="caption">Site as inherited (pre-redesign)</figcaption>
-      </figure>
-
       <!-- HMW + Research -->
       <div class="case-section">
         <p><em>How might we restructure navigation for intuitive, expectation-matching journeys?</em></p>
@@ -230,19 +177,19 @@
 
       <!-- Menu draft -->
       <figure class="case-image">
-        <img src="../telus/menudraft.png" alt="Initial menu restructuring wireframes">
+        <img src="../telus/menudraft.png" alt="Initial menu restructuring wireframes" class="js-lightbox-item" >
         <figcaption class="caption">Early UX explorations for menu items</figcaption>
       </figure>
 
       <!-- Synthesis -->
       <figure class="case-image-wide">
-        <img src="../telus/synthesis.png" alt="Research synthesis workshop map">
+        <img src="../telus/synthesis.png" alt="Research synthesis workshop map" class="js-lightbox-item" >
         <figcaption class="caption">Synthesised findings from analytics/client research, informing stakeholder workshop</figcaption>
       </figure>
 
       <!-- Behavioural segments -->
       <figure class="case-image">
-        <img src="../telus/bsegments.png" alt="User journey map by behavioural segments">
+        <img src="../telus/bsegments.png" alt="User journey map by behavioural segments" class="js-lightbox-item" >
         <figcaption class="caption">Journeys mapped for Telus' behavioural segments (pre-purchase to conversion)</figcaption>
       </figure>
 
@@ -256,7 +203,7 @@
 
       <!-- Lowfi -->
       <figure class="case-image">
-        <img src="../telus/lowfi.png" alt="Low-fidelity wireframes for Telus pages">
+        <img src="../telus/lowfi.png" alt="Low-fidelity wireframes for Telus pages" class="js-lightbox-item" >
         <figcaption class="caption">Low-fi explorations of redesigned pages</figcaption>
       </figure>
 
@@ -265,13 +212,13 @@
         <h3>Hi-fi cards targeting behavioural segments</h3>
         <div class="masonry">
           <div class="masonry-item">
-            <img src="../telus/card1.png" alt="Hi-fi card design variant 1">
+            <img src="../telus/card1.png" alt="Hi-fi card design variant 1" class="js-lightbox-item" >
           </div>
           <div class="masonry-item">
-            <img src="../telus/card2.png" alt="Hi-fi card design variant 2">
+            <img src="../telus/card2.png" alt="Hi-fi card design variant 2" class="js-lightbox-item" >
           </div>
           <div class="masonry-item">
-            <img src="../telus/card3.png" alt="Hi-fi card design variant 3">
+            <img src="../telus/card3.png" alt="Hi-fi card design variant 3" class="js-lightbox-item" >
           </div>
         </div>
         <p>
@@ -281,25 +228,25 @@
 
       <!-- Live mega nav (moved before Results) -->
       <figure class="case-image-wide">
-        <img src="../telus/meganav.png" alt="Final deployed mega navigation">
+        <img src="../telus/meganav.png" alt="Final deployed mega navigation" class="js-lightbox-item" >
         <figcaption class="caption">Live mega nav (deployed July 2025)</figcaption>
       </figure>
 
-      <!-- Results (3 stat cards: large numbers + desc underneath) -->
-      <div class="case-section results-highlight">
+      <!-- Results -->
+      <div class="results-highlight">
         <h3>Results</h3>
         <div class="results-cards">
           <div class="result-card">
             <strong>+42%</strong>
-            <span>visits to PureFibre Internet homepage</span>
+            <span>visits to PureFibre<br>Internet homepage</span>
           </div>
           <div class="result-card">
             <strong>+4%</strong>
-            <span>menu CTR (vs. control)</span>
+            <span>menu CTR<br>(vs. control)</span>
           </div>
           <div class="result-card">
             <strong>-0.5%</strong>
-            <span>engagement (users satisfied faster)</span>
+            <span>engagement<br>(users satisfied faster)</span>
           </div>
         </div>
       </div>
@@ -311,6 +258,14 @@
   </div>
 
   <div id="custom-cursor"></div>
+
+  <div class="media-lightbox" id="media-lightbox">
+    <button class="lightbox-close" id="lightbox-close">✕</button>
+    <button class="lightbox-nav left" id="lightbox-prev">‹</button>
+    <button class="lightbox-nav right" id="lightbox-next">›</button>
+    <div class="media-lightbox-content" id="lightbox-content"></div>
+  </div>
+
   <script src="../script.js"></script> <!-- Handles clock, masonry spans, lightbox, menu -->
 
 </body>

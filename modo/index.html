@@ -16,29 +16,7 @@
       color: #444;
     }
 
-    .lightbox {
-      display: none;
-      position: fixed;
-      z-index: 9999;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.85);
-      justify-content: center;
-      align-items: center;
-    }
 
-    .lightbox img {
-      max-width: 90%;
-      max-height: 90%;
-      border: 2px solid white;
-      border-radius: 8px;
-    }
-
-    .lightbox.active {
-      display: flex;
-    }
   </style>
 </head>
 
@@ -52,6 +30,24 @@
     <button class="sidebar-close" id="sidebar-close" aria-label="Close menu">✕</button>
 
     <a href="../index.html" class="breadcrumb">← home / modo</a>
+
+      <!-- mobile-only: avatar + bio + links -->
+      <div class="sidebar-mobile-top">
+        <img class="avatar" src="../mw_profile.svg" alt="Mary Wil" width="200" height="200">
+        <p class="bio">
+          UX/UI designer crafting thoughtful digital experiences through research, storytelling, and visual experimentation. Spanning client work (Telus, IBM, Modo) and self-initiated projects that blend design with code.
+        </p>
+      </div>
+
+      <nav class="sidebar-links sidebar-mobile-links">
+        <a href="https://drive.google.com/file/d/1vJQT7nzT0Jh-cYgugH08rDDmF4s7uFco/view?usp=sharing" target="_blank" rel="noopener noreferrer">resume.pdf ↗</a>
+        <a href="https://drive.google.com/file/d/154rOSybpMvjC_LpU055DL15ylRA56IEj/view?usp=sharing" target="_blank" rel="noopener noreferrer">portfolio.pdf ↗</a>
+        <a href="https://www.linkedin.com/in/marygracewilson/" target="_blank" rel="noopener noreferrer">linkedin ↗</a>
+        <a href="https://www.instagram.com/marywildesign/" target="_blank" rel="noopener noreferrer">instagram ↗</a>
+        <a href="https://www.lomography.com/homes/marycastawayball/photos" target="_blank" rel="noopener noreferrer">photography ↗</a>
+      </nav>
+
+      <p class="made sidebar-mobile-made">★ made by mary ★</p>
 
     <nav class="project-nav">
       <h4>Other Projects</h4>
@@ -98,15 +94,18 @@
       <span class="tag">graphic design</span>
     </div>
 
-    <p class="case-meta"><strong>2022 – ongoing support</strong></p>
+    <p class="case-meta"><strong>2022 – ongoing support</strong> · <span class="role">role:</span> <span class="role-title">UX/UI Designer & Scrum Master</span></p>
 
   
     <p>
       Modo, the oldest car sharing coop in BC, approached All Purpose to re-platform and redesign their website, as their marketing team were seeking a more efficient and autonomous content management process. In short, this project was a branding refresh and app alignment, content overhaul, and simplifying the car sharing coop’s marketing site (modo.coop). 
     </p>
+    <p style="margin-top: var(--sp-4);">
+      <a href="https://drive.google.com/file/d/154rOSybpMvjC_LpU055DL15ylRA56IEj/view?usp=sharing" class="card-cta" target="_blank" rel="noopener noreferrer">full case study (pdf) →</a>
+    </p>
 
     <div class="masonry-item">
-      <img src="../modo/modohero.png" alt="Modo homepage">
+      <img src="../modo/modohero.png" alt="Modo homepage" class="js-lightbox-item" >
       <div class="caption">Modo site revamp</div>
     </div>
 
@@ -114,87 +113,72 @@
       <p><strong>Roles:</strong> R&D, ideation, Scrum Master, UX/UI design, Project Manager, User Tester and Researcher</p>
     </div>
 
-    <div class="text">
-      <p><strong>The Challenge</strong></p>
+    <div class="case-section">
+      <h3>The Challenge</h3>
       <p>
-        With the aim to help orient users within a vast set of offerings, Telus’ mega navigation menu was considered prime real estate. 
-        When conducting the site audit, the other designer and I identified many pages surfaced in the 'mega menu' which could serve a better purpose elsewhere.
+        Modo's marketing site had evolved into a 'franken-site' — a patchwork of pages and content that didn't reflect the brand or serve users effectively.
+        The marketing team needed a more efficient and autonomous content management process, and the site needed a full re-platform and redesign.
       </p>
     </div>
 
-    <div class="text">
-      <p><strong>Objectives</strong></p>
+    <div class="case-section">
+      <h3>Objectives</h3>
       <ul>
         <li>Refresh branding to align with Modo mobile app</li>
         <li>Rethink page hierarchy and user flow</li>
-        <li>Reduce content “fluff”</li>
+        <li>Reduce content "fluff"</li>
       </ul>
     </div>
 
-    <img src="../modo/originalsite.png" alt="modo homepage"
-         style="max-width:90ch;width:90%;display:block;border:none;">
-
-    <div class="caption">Site when we joined the project (prior to work)</div>
-
-    <p>Modo’s marketing site had evolved into a ‘franken-site’...</p>
-
-    <p>
-      The question became:
-      <i>How might we simplify the overall site experience, align branding, and reduce support queries?</i>
-    </p>
-
-    <div class="text">
-      <p>We leaned heavily into discovery...</p>
-
-      <img src="../modo/discovery.png" alt="modo discovery"
-           style="max-width:100ch;width:100%;display:block;border:1px solid #000;border-radius:4px;">
-
-      <div class="caption">Initial comp analysis (obscured for NDA)</div>
+    <div class="case-section">
+      <h3>Approach</h3>
+      <p>
+        The question became:
+        <i>How might we simplify the overall site experience, align branding, and reduce support queries?</i>
+      </p>
+      <p>We leaned heavily into discovery — conducting stakeholder interviews and analysing the existing content architecture to understand where the friction points were.</p>
     </div>
 
-    <div class="text">
-      <p>We conducted interviews with stakeholders...</p>
+    <div class="case-section">
+      <h3>Discovery & research</h3>
+      <p>We conducted interviews with stakeholders and analysed the existing sitemap to identify redundancies and opportunities for consolidation.</p>
+      <img src="../modo/discovery.png" alt="modo discovery" style="max-width:100%;display:block;" class="js-lightbox-item" >
+      <figcaption class="caption">Initial comp analysis (obscured for NDA)</figcaption>
     </div>
 
-    <img src="../modo/existingsitemap.png" alt="modo sitemap"
-         style="max-width:150ch;width:100%;display:block;border:1px solid #000;border-radius:4px;">
+    <figure class="case-image">
+      <img src="../modo/existingsitemap.png" alt="modo sitemap" class="js-lightbox-item" >
+      <figcaption class="caption">Existing sitemap</figcaption>
+    </figure>
 
-    <div class="caption">Existing sitemap</div>
+    <figure class="case-image">
+      <img src="../modo/proposedsitemap.png" alt="modo sitemap" class="js-lightbox-item" >
+      <figcaption class="caption">Proposed sitemap — restructuring information architecture</figcaption>
+    </figure>
 
-    <img src="../modo/proposedsitemap.png" alt="modo sitemap"
-         style="max-width:150ch;width:100%;display:block;border:1px solid #000;border-radius:4px;">
-
-    <div class="caption">Proposed sitemap</div>
-
-    <img src="../modo/modohome.png" alt="modo homepage"
-         style="max-width:150ch;width:100%;display:block;border:none;">
+    <figure class="case-image-wide">
+      <img src="../modo/modohome.png" alt="modo homepage" class="js-lightbox-item" >
+    </figure>
 
   </main>
 
 </div>
 
-<!-- lightbox -->
-<div class="lightbox" id="lightbox">
-  <img src="" alt="zoomed image">
+<div id="custom-cursor"></div>
+
+<div class="media-lightbox" id="media-lightbox">
+  <button class="lightbox-close" id="lightbox-close">✕</button>
+  <button class="lightbox-nav left" id="lightbox-prev">‹</button>
+  <button class="lightbox-nav right" id="lightbox-next">›</button>
+  <div class="media-lightbox-content" id="lightbox-content"></div>
 </div>
 
-<script>
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImg = lightbox.querySelector('img');
-
-  document.querySelectorAll('.masonry-item img').forEach(img => {
-    img.addEventListener('click', () => {
-      lightboxImg.src = img.src;
-      lightbox.classList.add('active');
-    });
-  });
-
-  lightbox.addEventListener('click', () => {
-    lightbox.classList.remove('active');
-  });
-</script>
-
-<div id="custom-cursor"></div>
+<div class="media-lightbox" id="media-lightbox">
+  <button class="lightbox-close" id="lightbox-close">✕</button>
+  <button class="lightbox-nav left" id="lightbox-prev">‹</button>
+  <button class="lightbox-nav right" id="lightbox-next">›</button>
+  <div class="media-lightbox-content" id="lightbox-content"></div>
+</div>
 
 </body>
 </html>

@@ -16,26 +16,7 @@
       color: #444;
     }
 
-    .lightbox {
-      display: none;
-      position: fixed;
-      z-index: 9999;
-      inset: 0;
-      background: rgba(0,0,0,0.85);
-      justify-content: center;
-      align-items: center;
-    }
 
-    .lightbox img {
-      max-width: 90%;
-      max-height: 90%;
-      border: 2px solid white;
-      border-radius: 8px;
-    }
-
-    .lightbox.active {
-      display: flex;
-    }
   </style>
 </head>
 
@@ -49,6 +30,24 @@
     <button class="sidebar-close" id="sidebar-close" aria-label="Close menu">✕</button>
 
     <a href="/" class="breadcrumb">← home / well flip</a>
+
+      <!-- mobile-only: avatar + bio + links -->
+      <div class="sidebar-mobile-top">
+        <img class="avatar" src="../mw_profile.svg" alt="Mary Wil" width="200" height="200">
+        <p class="bio">
+          UX/UI designer crafting thoughtful digital experiences through research, storytelling, and visual experimentation. Spanning client work (Telus, IBM, Modo) and self-initiated projects that blend design with code.
+        </p>
+      </div>
+
+      <nav class="sidebar-links sidebar-mobile-links">
+        <a href="https://drive.google.com/file/d/1vJQT7nzT0Jh-cYgugH08rDDmF4s7uFco/view?usp=sharing" target="_blank" rel="noopener noreferrer">resume.pdf ↗</a>
+        <a href="https://drive.google.com/file/d/154rOSybpMvjC_LpU055DL15ylRA56IEj/view?usp=sharing" target="_blank" rel="noopener noreferrer">portfolio.pdf ↗</a>
+        <a href="https://www.linkedin.com/in/marygracewilson/" target="_blank" rel="noopener noreferrer">linkedin ↗</a>
+        <a href="https://www.instagram.com/marywildesign/" target="_blank" rel="noopener noreferrer">instagram ↗</a>
+        <a href="https://www.lomography.com/homes/marycastawayball/photos" target="_blank" rel="noopener noreferrer">photography ↗</a>
+      </nav>
+
+      <p class="made sidebar-mobile-made">★ made by mary ★</p>
 
     <nav class="project-nav">
       <h4>Other Projects</h4>
@@ -95,7 +94,7 @@
         <span class="tag">creative coding</span>
       </div>
 
-      <p class="case-meta"><strong>2025</strong></p>
+      <p class="case-meta"><strong>2025</strong> · <span class="role">role:</span> <span class="role-title">Graphic Designer</span></p>
 
       <p>
         'Well, Flip!' uses p5.js to animate text as it falls and recomposes into new forms. Each frame was exported using Python and assembled in InDesign to create a printed flipbook.
@@ -111,23 +110,23 @@
     <div class="masonry">
 
       <div class="masonry-item">
-        <video src="../wellflip/scrn.webm" autoplay loop muted playsinline></video>
+        <video src="../wellflip/scrn.webm" autoplay loop muted playsinline class="js-lightbox-item" ></video>
       </div>
 
       <div class="masonry-item">
-        <video src="../wellflip/7.webm" autoplay loop muted playsinline></video>
+        <video src="../wellflip/7.webm" autoplay loop muted playsinline class="js-lightbox-item" ></video>
       </div>
 
       <div class="masonry-item">
-        <video src="../wellflip/4.webm" autoplay loop muted playsinline></video>
+        <video src="../wellflip/4.webm" autoplay loop muted playsinline class="js-lightbox-item" ></video>
       </div>
 
       <div class="masonry-item">
-        <video src="../wellflip/8.webm" autoplay loop muted playsinline></video>
+        <video src="../wellflip/8.webm" autoplay loop muted playsinline class="js-lightbox-item" ></video>
       </div>
 
       <div class="masonry-item">
-        <video src="../wellflip/20.webm" autoplay loop muted playsinline></video>
+        <video src="../wellflip/20.webm" autoplay loop muted playsinline class="js-lightbox-item" ></video>
       </div>
 
     </div>
@@ -136,28 +135,16 @@
 
 </div>
 
-<!-- lightbox -->
-<div class="lightbox" id="lightbox">
-  <img src="" alt="zoomed media">
-</div>
 
-<script>
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImg = lightbox.querySelector('img');
-
-  document.querySelectorAll('.masonry-item img').forEach(img => {
-    img.addEventListener('click', () => {
-      lightboxImg.src = img.src;
-      lightbox.classList.add('active');
-    });
-  });
-
-  lightbox.addEventListener('click', () => {
-    lightbox.classList.remove('active');
-  });
-</script>
 
 <div id="custom-cursor"></div>
+
+<div class="media-lightbox" id="media-lightbox">
+  <button class="lightbox-close" id="lightbox-close">✕</button>
+  <button class="lightbox-nav left" id="lightbox-prev">‹</button>
+  <button class="lightbox-nav right" id="lightbox-next">›</button>
+  <div class="media-lightbox-content" id="lightbox-content"></div>
+</div>
 
 </body>
 </html>

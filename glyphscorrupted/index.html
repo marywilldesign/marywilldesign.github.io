@@ -7,7 +7,8 @@
 
   <link rel="icon" type="image/svg+xml" href="../mw.svg" />
   <link rel="stylesheet" href="../style.css" />
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 
   <script src="../script.js" defer></script>
@@ -23,6 +24,24 @@
       <button class="sidebar-close" id="sidebar-close" aria-label="Close menu">✕</button>
 
       <a href="../index.html" class="breadcrumb">← home / glyphs corrupted</a>
+
+      <!-- mobile-only: avatar + bio + links -->
+      <div class="sidebar-mobile-top">
+        <img class="avatar" src="../mw_profile.svg" alt="Mary Wil" width="200" height="200">
+        <p class="bio">
+          UX/UI designer crafting thoughtful digital experiences through research, storytelling, and visual experimentation. Spanning client work (Telus, IBM, Modo) and self-initiated projects that blend design with code.
+        </p>
+      </div>
+
+      <nav class="sidebar-links sidebar-mobile-links">
+        <a href="https://drive.google.com/file/d/1vJQT7nzT0Jh-cYgugH08rDDmF4s7uFco/view?usp=sharing" target="_blank" rel="noopener noreferrer">resume.pdf ↗</a>
+        <a href="https://drive.google.com/file/d/154rOSybpMvjC_LpU055DL15ylRA56IEj/view?usp=sharing" target="_blank" rel="noopener noreferrer">portfolio.pdf ↗</a>
+        <a href="https://www.linkedin.com/in/marygracewilson/" target="_blank" rel="noopener noreferrer">linkedin ↗</a>
+        <a href="https://www.instagram.com/marywildesign/" target="_blank" rel="noopener noreferrer">instagram ↗</a>
+        <a href="https://www.lomography.com/homes/marycastawayball/photos" target="_blank" rel="noopener noreferrer">photography ↗</a>
+      </nav>
+
+      <p class="made sidebar-mobile-made">★ made by mary ★</p>
 
       <nav class="project-nav">
         <h4>Other Projects</h4>
@@ -69,19 +88,26 @@
           <span class="tag">personal project</span>
         </div>
 
-        <p class="case-meta"><strong>2025</strong></p>
+        <p class="case-meta"><strong>2025</strong> · <span class="role">role:</span> <span class="role-title">Designer</span></p>
 
+      </div>
+
+      <div class="case-section">
+        <h3>Concept</h3>
         <p>
           This project explored how text can be obscured, distorted, and visually censored when placed in uncontrolled systems.
           Using scraping and generative manipulation, I reworked language drawn from a larger experimental text system.
         </p>
+      </div>
 
-        <br>
-
+      <div class="case-section">
+        <h3>Process</h3>
         <p>
           The work examines how legibility breaks down under transformation, shifting between readable type and abstract visual form.
         </p>
-
+        <p style="margin-top: var(--sp-4);">
+          <a href="https://drive.google.com/file/d/154rOSybpMvjC_LpU055DL15ylRA56IEj/view?usp=sharing" class="card-cta" target="_blank" rel="noopener noreferrer">full case study (pdf) →</a>
+        </p>
       </div>
 
       <!-- featured video 1 -->
@@ -155,8 +181,8 @@
   <div class="media-lightbox" id="media-lightbox">
     <button class="lightbox-close" id="lightbox-close">✕</button>
 
-    <button class="lightbox-nav left" id="lightbox-prev"></button>
-    <button class="lightbox-nav right" id="lightbox-next"></button>
+    <button class="lightbox-nav left" id="lightbox-prev">‹</button>
+    <button class="lightbox-nav right" id="lightbox-next">›</button>
 
     <div class="media-lightbox-content" id="lightbox-content"></div>
   </div>

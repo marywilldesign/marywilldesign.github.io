@@ -54,6 +54,24 @@
 
     <a href="../index.html" class="breadcrumb">← home / speleo</a>
 
+      <!-- mobile-only: avatar + bio + links -->
+      <div class="sidebar-mobile-top">
+        <img class="avatar" src="../mw_profile.svg" alt="Mary Wil" width="200" height="200">
+        <p class="bio">
+          UX/UI designer crafting thoughtful digital experiences through research, storytelling, and visual experimentation. Spanning client work (Telus, IBM, Modo) and self-initiated projects that blend design with code.
+        </p>
+      </div>
+
+      <nav class="sidebar-links sidebar-mobile-links">
+        <a href="https://drive.google.com/file/d/1vJQT7nzT0Jh-cYgugH08rDDmF4s7uFco/view?usp=sharing" target="_blank" rel="noopener noreferrer">resume.pdf ↗</a>
+        <a href="https://drive.google.com/file/d/154rOSybpMvjC_LpU055DL15ylRA56IEj/view?usp=sharing" target="_blank" rel="noopener noreferrer">portfolio.pdf ↗</a>
+        <a href="https://www.linkedin.com/in/marygracewilson/" target="_blank" rel="noopener noreferrer">linkedin ↗</a>
+        <a href="https://www.instagram.com/marywildesign/" target="_blank" rel="noopener noreferrer">instagram ↗</a>
+        <a href="https://www.lomography.com/homes/marycastawayball/photos" target="_blank" rel="noopener noreferrer">photography ↗</a>
+      </nav>
+
+      <p class="made sidebar-mobile-made">★ made by mary ★</p>
+
     <nav class="project-nav">
       <h4>Other Projects</h4>
       <ul>
@@ -94,7 +112,7 @@
         <span class="tag">graphic design</span>
       </div>
 
-      <p class="case-meta"><strong>2025</strong></p>
+      <p class="case-meta"><strong>2025</strong> · <span class="role">role:</span> <span class="role-title">Graphic Designer</span></p>
 
     <p>
       I always enjoy working with someone from my network. I was brought on to come up with ideas for a record label that somehow incorporated a vinyl record but was experimental and “zesty”.
@@ -108,7 +126,7 @@
     <div class="masonry">
 
       <div class="masonry-item">
-        <img src="../speleo/speleo_blue.svg" alt="blue speleo variation">
+        <img src="../speleo/speleo_blue.svg" alt="blue speleo variation" class="js-lightbox-item" >
       </div>
 
       <div class="masonry-item">
@@ -117,19 +135,19 @@
       </div>
 
       <div class="masonry-item">
-        <img src="../speleo/speleo_black.svg" alt="black speleo variation">
+        <img src="../speleo/speleo_black.svg" alt="black speleo variation" class="js-lightbox-item" >
       </div>
 
       <div class="masonry-item">
-        <img src="../speleo/speleo_green.svg" alt="green speleo variation">
+        <img src="../speleo/speleo_green.svg" alt="green speleo variation" class="js-lightbox-item" >
       </div>
 
       <div class="masonry-item">
-        <img src="../speleo/speleo_record.svg" alt="record system exploration">
+        <img src="../speleo/speleo_record.svg" alt="record system exploration" class="js-lightbox-item" >
       </div>
 
       <div class="masonry-item">
-        <img src="../speleo/speleo_yellow.svg" alt="yellow speleo variation">
+        <img src="../speleo/speleo_yellow.svg" alt="yellow speleo variation" class="js-lightbox-item" >
       </div>
 
     </div>
@@ -137,28 +155,16 @@
   </main>
 </div>
 
-<!-- lightbox -->
-<div class="lightbox" id="lightbox">
-  <img src="" alt="zoomed image">
-</div>
 
-<script>
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImg = lightbox.querySelector('img');
-
-  document.querySelectorAll('.masonry-item img').forEach(img => {
-    img.addEventListener('click', () => {
-      lightboxImg.src = img.src;
-      lightbox.classList.add('active');
-    });
-  });
-
-  lightbox.addEventListener('click', () => {
-    lightbox.classList.remove('active');
-  });
-</script>
 
 <div id="custom-cursor"></div>
+
+<div class="media-lightbox" id="media-lightbox">
+  <button class="lightbox-close" id="lightbox-close">✕</button>
+  <button class="lightbox-nav left" id="lightbox-prev">‹</button>
+  <button class="lightbox-nav right" id="lightbox-next">›</button>
+  <div class="media-lightbox-content" id="lightbox-content"></div>
+</div>
 
 </body>
 </html>

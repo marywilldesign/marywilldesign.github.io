@@ -16,29 +16,7 @@
       color: #444;
     }
 
-    .lightbox {
-      display: none;
-      position: fixed;
-      z-index: 9999;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.85);
-      justify-content: center;
-      align-items: center;
-    }
 
-    .lightbox img {
-      max-width: 90%;
-      max-height: 90%;
-      border: 2px solid white;
-      border-radius: 8px;
-    }
-
-    .lightbox.active {
-      display: flex;
-    }
   </style>
 </head>
 
@@ -52,6 +30,24 @@
     <button class="sidebar-close" id="sidebar-close" aria-label="Close menu">✕</button>
 
     <a href="../index.html" class="breadcrumb">← home / two truths & AI</a>
+
+      <!-- mobile-only: avatar + bio + links -->
+      <div class="sidebar-mobile-top">
+        <img class="avatar" src="../mw_profile.svg" alt="Mary Wil" width="200" height="200">
+        <p class="bio">
+          UX/UI designer crafting thoughtful digital experiences through research, storytelling, and visual experimentation. Spanning client work (Telus, IBM, Modo) and self-initiated projects that blend design with code.
+        </p>
+      </div>
+
+      <nav class="sidebar-links sidebar-mobile-links">
+        <a href="https://drive.google.com/file/d/1vJQT7nzT0Jh-cYgugH08rDDmF4s7uFco/view?usp=sharing" target="_blank" rel="noopener noreferrer">resume.pdf ↗</a>
+        <a href="https://drive.google.com/file/d/154rOSybpMvjC_LpU055DL15ylRA56IEj/view?usp=sharing" target="_blank" rel="noopener noreferrer">portfolio.pdf ↗</a>
+        <a href="https://www.linkedin.com/in/marygracewilson/" target="_blank" rel="noopener noreferrer">linkedin ↗</a>
+        <a href="https://www.instagram.com/marywildesign/" target="_blank" rel="noopener noreferrer">instagram ↗</a>
+        <a href="https://www.lomography.com/homes/marycastawayball/photos" target="_blank" rel="noopener noreferrer">photography ↗</a>
+      </nav>
+
+      <p class="made sidebar-mobile-made">★ made by mary ★</p>
 
     <nav class="project-nav">
       <h4>Other Projects</h4>
@@ -100,10 +96,13 @@
         <span class="tag">personal project</span>
       </div>
 
-      <p class="case-meta"><strong>2025</strong></p>
+      <p class="case-meta"><strong>2025</strong> · <span class="role">role:</span> <span class="role-title">Designer & Developer</span></p>
 
       <p>
         In the theme of lying and having recently played “two truths and a lie”, I thought it would be a fun exercise to make a web-based experienced which harnessed AI to churn out statements, with one being a lie.
+      </p>
+      <p style="margin-top: var(--sp-4);">
+        <a href="https://drive.google.com/file/d/154rOSybpMvjC_LpU055DL15ylRA56IEj/view?usp=sharing" class="card-cta" target="_blank" rel="noopener noreferrer">full case study (pdf) →</a>
       </p>
 
     </div>
@@ -111,7 +110,7 @@
     <!-- content -->
 
     <div class="masonry-item">
-      <img src="../twotruths/twotruthsai_hero.png" alt="twotruthsaiwebgame">
+      <img src="../twotruths/twotruthsai_hero.png" alt="twotruthsaiwebgame" class="js-lightbox-item" >
       <div class="caption">Home page where the eye is animated to blink and look around the page.</div>
     </div>
 
@@ -119,26 +118,26 @@
       <p><strong>Roles:</strong> Ideation, UX design, Web Development, Graphic Design</p>
     </div>
 
-    <div class="text">
-      <p><strong>The Challenge</strong></p>
+    <div class="case-section">
+      <h3>The Challenge</h3>
       <p>
         I am lucky to be a confident frontend developer but, given my limited backend experience, from old portfolio and for-fun-sites, it was nice to have AI on my side. After lots of trial and error, asking a some dev friends and chatGPT, I landed on a neat little solution. 
       </p>
     </div>
 
-    <div class="masonry-item">
-      <img src="../twotruths/apikey.png" alt="apikeypic">
-      <div class="caption">Snapshot of .json script</div>
-    </div>
+    <figure class="case-image">
+      <img src="../twotruths/apikey.png" alt="apikeypic" class="js-lightbox-item" >
+      <figcaption class="caption">Snapshot of .json script</figcaption>
+    </figure>
 
-    <div class="text">
+    <div class="case-section">
       <p>
         This allowed me to generate a large number of 'two truths' and one lie for each group en masse. The themes which I focused on ranged from Oslo-based art and Swiss design to fun facts about Australia and Fluxus design.
       </p>
     </div>
 
-    <div class="text">
-      <p><strong>Objectives</strong></p>
+    <div class="case-section">
+      <h3>Objectives</h3>
       <ul>
         <li>Create a game which harnesses AI, where users need to select the lie</li>
         <li>The site itself must be simple and intuitive</li>
@@ -169,28 +168,16 @@
 
 </div>
 
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox">
-  <img src="" alt="zoomed image">
-</div>
 
-<script>
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImg = lightbox.querySelector('img');
-
-  document.querySelectorAll('.masonry-item img').forEach(img => {
-    img.addEventListener('click', () => {
-      lightboxImg.src = img.src;
-      lightbox.classList.add('active');
-    });
-  });
-
-  lightbox.addEventListener('click', () => {
-    lightbox.classList.remove('active');
-  });
-</script>
 
 <div id="custom-cursor"></div>
+
+<div class="media-lightbox" id="media-lightbox">
+  <button class="lightbox-close" id="lightbox-close">✕</button>
+  <button class="lightbox-nav left" id="lightbox-prev">‹</button>
+  <button class="lightbox-nav right" id="lightbox-next">›</button>
+  <div class="media-lightbox-content" id="lightbox-content"></div>
+</div>
 
 </body>
 </html>
