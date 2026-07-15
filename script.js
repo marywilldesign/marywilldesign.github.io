@@ -1,8 +1,6 @@
-/* ========================================
-   Mary Wil Design – Portfolio Scripts
-   ======================================== */
+/* mary wil design — portfolio scripts */
 
-// ─── Custom Cursor ───
+// custom cursor
 (function () {
   const cursor = document.getElementById('custom-cursor');
   const isTouch =
@@ -21,7 +19,7 @@
   }
 })();
 
-// ─── Clock ───
+// clock
 (function () {
   const el = document.getElementById('clock');
   if (!el) return;
@@ -32,7 +30,7 @@
   setInterval(tick, 1000);
 })();
 
-// ─── Card click → navigate ───
+// card click → navigate
 document.addEventListener('click', (e) => {
   const card = e.target.closest('.case-card[data-href]');
   if (!card) return;
@@ -43,14 +41,14 @@ document.addEventListener('click', (e) => {
   if (url) window.location.href = url;
 });
 
-// ─── Filtering ───
+// filtering
 (function () {
   const buttons = document.querySelectorAll('.filter-btn');
   const cards = document.querySelectorAll('.case-card');
   if (!buttons.length || !cards.length) return;
 
-  // Preferred display-order per filter (by data-id).
-  // Cards not listed keep their natural order after the listed ones.
+  // preferred display order per filter (by data-id)
+  // cards not listed keep their natural order after the listed ones
   const sortOrders = {
     ux: ['telus', 'modo', 'twotruths', 'ibm', 'creepers', 'blackbox', 'collaborative'],
     'graphic-design': [
@@ -77,7 +75,7 @@ document.addEventListener('click', (e) => {
       card.classList.toggle('hidden', !visible);
 
       if (visible) {
-        // Determine visual order
+        // determine visual order
         if (order) {
           const idx = order.indexOf(card.dataset.id);
           card.style.order = idx >= 0 ? idx : overflow++;
@@ -85,14 +83,14 @@ document.addEventListener('click', (e) => {
           card.style.order = '';
         }
 
-        // Trigger entrance animation
+        // trigger entrance animation
         card.classList.remove('card-animate');
         void card.offsetWidth; // force reflow
         card.classList.add('card-animate');
       }
     });
 
-    // Stagger delays based on visual order
+    // stagger delays based on visual order
     const visible = Array.from(cards)
       .filter((c) => !c.classList.contains('hidden'))
       .sort((a, b) => (parseInt(a.style.order) || 0) - (parseInt(b.style.order) || 0));
@@ -110,7 +108,7 @@ document.addEventListener('click', (e) => {
   });
 })();
 
-// ─── Mobile Menu ───
+// mobile menu
 (function () {
   const toggle = document.getElementById('menu-toggle');
   const sidebar = document.getElementById('sidebar');
@@ -139,52 +137,54 @@ document.addEventListener('click', (e) => {
   });
 })();
 
-// ─── Masonry Span Calculation ───
-function computeMasonrySpans() {
-  document.querySelectorAll('.masonry').forEach((container) => {
-    const styles = getComputedStyle(container);
-    const rowH = parseFloat(styles.getPropertyValue('grid-auto-rows')) || 1;
-    const gap =
-      parseFloat(
-        styles.getPropertyValue('gap') ||
-          styles.getPropertyValue('grid-row-gap') ||
-          '0'
-      ) || 0;
+// masonry span calculation
+(function () {
+  function computeMasonrySpans() {
+    document.querySelectorAll('.masonry').forEach((container) => {
+      const styles = getComputedStyle(container);
+      const rowH = parseFloat(styles.getPropertyValue('grid-auto-rows')) || 1;
+      const gap =
+        parseFloat(
+          styles.getPropertyValue('gap') ||
+            styles.getPropertyValue('grid-row-gap') ||
+            '0'
+        ) || 0;
 
-    container.querySelectorAll('.masonry-item').forEach((item) => {
-      item.style.gridRowEnd = '';
-      const h = item.getBoundingClientRect().height;
-      const span = Math.max(1, Math.ceil((h + gap) / (rowH + gap)));
-      item.style.gridRowEnd = `span ${span}`;
+      container.querySelectorAll('.masonry-item').forEach((item) => {
+        item.style.gridRowEnd = '';
+        const h = item.getBoundingClientRect().height;
+        const span = Math.max(1, Math.ceil((h + gap) / (rowH + gap)));
+        item.style.gridRowEnd = `span ${span}`;
+      });
     });
+  }
+
+  function bindMasonryMedia() {
+    document.querySelectorAll('.masonry-item img').forEach((img) => {
+      if (!img.complete) {
+        img.addEventListener('load', computeMasonrySpans, { once: true });
+        img.addEventListener('error', computeMasonrySpans, { once: true });
+      }
+    });
+    document.querySelectorAll('.masonry-item video').forEach((vid) => {
+      if (vid.readyState >= 1) computeMasonrySpans();
+      else vid.addEventListener('loadedmetadata', computeMasonrySpans, { once: true });
+    });
+  }
+
+  window.addEventListener('load', () => {
+    computeMasonrySpans();
+    bindMasonryMedia();
   });
-}
 
-function bindMasonryMedia() {
-  document.querySelectorAll('.masonry-item img').forEach((img) => {
-    if (!img.complete) {
-      img.addEventListener('load', computeMasonrySpans, { once: true });
-      img.addEventListener('error', computeMasonrySpans, { once: true });
-    }
+  let timer;
+  window.addEventListener('resize', () => {
+    clearTimeout(timer);
+    timer = setTimeout(computeMasonrySpans, 150);
   });
-  document.querySelectorAll('.masonry-item video').forEach((vid) => {
-    if (vid.readyState >= 1) computeMasonrySpans();
-    else vid.addEventListener('loadedmetadata', computeMasonrySpans, { once: true });
-  });
-}
+})();
 
-window.addEventListener('load', () => {
-  computeMasonrySpans();
-  bindMasonryMedia();
-});
-
-let _masonryTimer;
-window.addEventListener('resize', () => {
-  clearTimeout(_masonryTimer);
-  _masonryTimer = setTimeout(computeMasonrySpans, 150);
-});
-
-// ─── MEDIA LIGHTBOX (IMAGES + VIDEOS + CAROUSEL) ───
+// media lightbox (images + videos + carousel)
 (function () {
   const lightbox = document.getElementById('media-lightbox');
   const content = document.getElementById('lightbox-content');
@@ -212,9 +212,7 @@ window.addEventListener('resize', () => {
       const img = document.createElement('img');
       img.src = el.src;
       content.appendChild(img);
-    }
-
-    if (el.tagName === 'VIDEO') {
+    } else if (el.tagName === 'VIDEO') {
       const vid = document.createElement('video');
       vid.src = el.src;
       vid.autoplay = true;
@@ -250,7 +248,7 @@ window.addEventListener('resize', () => {
     render();
   }
 
-  // bind click
+  // bind click on lightbox items
   function bind() {
     getItems().forEach((el, i) => {
       if (el.dataset.lbBound) return;
@@ -260,7 +258,7 @@ window.addEventListener('resize', () => {
     });
   }
 
-  // nav
+  // nav buttons
   btnNext?.addEventListener('click', (e) => {
     e.stopPropagation();
     next();
