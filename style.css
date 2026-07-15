@@ -1,6 +1,4 @@
-/* ========================================
-   Mary Wil Design – Portfolio Styles (Consolidated)
-   ======================================== */
+/* mary wil design — portfolio styles */
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -9,7 +7,6 @@
 }
 
 :root {
-  /* Colour (modern vars) */
   --blue: #000000;
   --blue-hover: #0040FF;
   --blue-light: #ededff;
@@ -25,11 +22,9 @@
   --gray-800: #1f2937;
   --gray-900: #111827;
 
-  /* Type (modern: Inter/JetBrains Mono) */
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  /* Spacing (modern) */
   --sp-1: 0.25rem;
   --sp-2: 0.5rem;
   --sp-3: 0.75rem;
@@ -38,23 +33,21 @@
   --sp-6: 1.5rem;
   --sp-8: 2rem;
 
-  /* Layout (modern + original pad) */
   --sidebar-w: 240px;
   --sidebar-right-w: 220px;
-  --page-pad: 2rem; /* From original */
+  --page-pad: 2rem;
   --radius: 3px;
   --radius-sm: 3px;
   --transition: 200ms ease;
   --transition-slow: 300ms ease;
 
-  /* Masonry (merged vars) */
   --masonry-gap: 12px;
   --masonry-row: 4px;
   --masonry-cols-lg: 3;
   --masonry-cols-md: 2;
 }
 
-/* --- Base (merged) --- */
+/* base */
 html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
@@ -86,21 +79,16 @@ p { max-width: 72ch; }
 ul, ol { padding-left: 1.5rem; }
 li { margin: 0.3rem 0; max-width: 72ch; }
 
-/* Interactive cursors (merged: modern + original none) */
 button, a, [data-href] { cursor: pointer; }
 
-/* ================
-   LAYOUT (unified: .layout from modern, supports both home/cases)
-   ================ */
-.layout { /* Renamed from .container */
+/* layout */
+.layout {
   display: flex;
   height: 100vh;
   overflow: hidden;
 }
 
-/* ================
-   LEFT SIDEBAR (modern + original case nav)
-   ================ */
+/* left sidebar */
 .sidebar {
   width: var(--sidebar-w);
   min-width: var(--sidebar-w);
@@ -128,7 +116,7 @@ button, a, [data-href] { cursor: pointer; }
 }
 .sidebar-close:hover { color: var(--gray-900); }
 
-.avatar { /* .profile-picture */
+.avatar {
   width: 100%;
   height: auto;
   border: 1px dotted var(--blue);
@@ -167,15 +155,12 @@ button, a, [data-href] { cursor: pointer; }
   margin-top: var(--sp-6);
 }
 
-
-/* Case study nav (merged .other-cases + modern .project-nav) */
-.project-nav,
-.sidebar .other-cases { /* Alias for compatibility */
+/* case study nav */
+.project-nav {
   margin-top: var(--sp-6);
 }
 
-.project-nav h4,
-.sidebar .other-cases h4 {
+.project-nav h4 {
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -183,35 +168,29 @@ button, a, [data-href] { cursor: pointer; }
   margin-bottom: var(--sp-3);
 }
 
-.project-nav ul,
-.sidebar .other-cases ul {
+.project-nav ul {
   list-style: none;
   padding: 0;
   margin: 0;
   color: #0040FF;
 }
 
-.project-nav a,
-.sidebar .other-cases .view-cs { /* .view-cs support */
+.project-nav a {
   display: block;
   font-size: 0.78rem;
   color: #0040FF;
   padding: var(--sp-1) 0;
   text-decoration: none;
-  transition: color var(--transition);
-  all: unset; /* From original */
   font-weight: 500;
   text-align: left;
 }
 .project-nav a:hover,
-.sidebar .other-cases .view-cs:hover,
-.project-nav a.active,
-.sidebar .other-cases .view-cs.active {
+.project-nav a.active {
   color: #0040FF;
   text-decoration: line-through;
 }
 
-/* Breadcrumb in sidebar (from original) */
+/* breadcrumb in sidebar */
 .sidebar .breadcrumb {
   margin-left: 0;
   padding-left: 0;
@@ -222,9 +201,7 @@ button, a, [data-href] { cursor: pointer; }
 }
 .sidebar .breadcrumb:hover { text-decoration: underline; }
 
-/* ================
-   RIGHT SIDEBAR (modern CV, hide on cases via JS/CSS if needed)
-   ================ */
+/* right sidebar (cv) */
 .sidebar-right {
   width: var(--sidebar-right-w);
   min-width: var(--sidebar-right-w);
@@ -259,20 +236,17 @@ button, a, [data-href] { cursor: pointer; }
 .cv-org  { font-size: 0.75rem; opacity: 0.9; }
 .cv-date { font-size: 0.65rem; opacity: 0.6; }
 
-/* ================
-   MAIN CONTENT (unified)
-   ================ */
+/* main content */
 .content {
   flex: 1;
   background: var(--white);
-  padding: var(--page-pad); /* From original */
+  padding: var(--page-pad);
   overflow-y: auto;
   min-width: 0;
 }
 
-/* --- Top bar (modern + original mobile) --- */
-.topbar,
-.mobile-topbar { /* Alias */
+/* top bar */
+.topbar {
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -280,8 +254,7 @@ button, a, [data-href] { cursor: pointer; }
   gap: var(--sp-4);
 }
 
-.topbar-menu,
-.menu-btn.mobile-menu-toggle { /* Alias */
+.topbar-menu {
   display: none;
   background: none;
   border: none;
@@ -293,8 +266,7 @@ button, a, [data-href] { cursor: pointer; }
   line-height: 1;
 }
 
-.topbar-back,
-.close-menu { /* Back + close */
+.topbar-back {
   display: none;
   font-size: 0.8rem;
   color: var(--blue);
@@ -310,7 +282,7 @@ button, a, [data-href] { cursor: pointer; }
   margin-left: auto;
 }
 
-/* --- Filters (home-only; hide on cases) --- */
+/* filters — home only, hidden on case pages */
 .filters {
   display: flex;
   flex-wrap: wrap;
@@ -341,12 +313,9 @@ button, a, [data-href] { cursor: pointer; }
   border-color: #0040FF;
 }
 
-/* Hide filters on case studies (add [data-page="case"] to <body> or JS) */
 body.case-page .filters { display: none; }
 
-/* ================
-   HOME: CARD GRID
-   ================ */
+/* home: card grid */
 .cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -418,7 +387,7 @@ body.case-page .filters { display: none; }
 }
 .ext-link:hover { text-decoration: line-through; }
 
-/* Tags (shared home/case) */
+/* tags */
 .tags {
   display: flex;
   flex-wrap: wrap;
@@ -437,7 +406,7 @@ body.case-page .filters { display: none; }
   white-space: nowrap;
 }
 
-/* Card animation */
+/* card animation */
 @keyframes cardFadeIn {
   from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: none; }
@@ -447,28 +416,22 @@ body.case-page .filters { display: none; }
 }
 .case-card.hidden { display: none; }
 
-/* ================
-   CASE STUDY PAGES (modern + original .case-detail, .project-meta, .text)
-   ================ */
-.case-header,
-.case-detail { /* Alias */
+/* case study pages */
+.case-header {
   margin-bottom: var(--sp-8);
 }
-.case-header h2,
-.case-detail h2 { margin-bottom: var(--sp-2); }
-.case-header .tags,
-.case-detail #detail-tags { margin-bottom: var(--sp-4); }
+.case-header h2 { margin-bottom: var(--sp-2); }
+.case-header .tags { margin-bottom: var(--sp-4); }
 
 .case-meta,
-.project-meta,
-.case-detail p { /* Original support */
+.project-meta {
   font-size: 0.8rem;
   color: var(--gray-500);
   margin-bottom: var(--sp-4);
 }
 
 .case-section,
-.text { /* Original .text */
+.text {
   margin-bottom: var(--sp-8);
 }
 .case-section h3,
@@ -482,8 +445,7 @@ body.case-page .filters { display: none; }
 }
 
 .case-image,
-.case-image-wide,
-.detail-content img { /* Original */
+.case-image-wide {
   width: 100%;
   max-width: 72ch;
   border: 1px solid var(--gray-200);
@@ -503,7 +465,7 @@ body.case-page .filters { display: none; }
 .results-list li { margin-bottom: var(--sp-2); }
 .results-list strong { color: var(--blue); }
 
-/* Breadcrumb (shared, modern + original) */
+/* breadcrumb */
 .breadcrumb,
 .breadcrumb-mobile {
   display: inline-block;
@@ -516,16 +478,13 @@ body.case-page .filters { display: none; }
 .breadcrumb-mobile:hover { text-decoration: underline; }
 .breadcrumb-mobile { display: none; }
 
-/* ================
-   MASONRY GALLERY (modern + original tweaks)
-   ================ */
+/* masonry gallery */
 .masonry {
   column-count: var(--masonry-cols-lg);
   column-gap: var(--masonry-gap);
   width: 100%;
   margin: var(--sp-4) 0;
 }
-
 
 .masonry-item {
   break-inside: avoid;
@@ -551,26 +510,10 @@ body.case-page .filters { display: none; }
 
 .masonry-item .caption { margin-bottom: 0; }
 
-
-video {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* ================
-   MOBILE MENU / BACKDROP
-   ================ */
+/* mobile menu / backdrop */
 .menu-backdrop { display: none; }
 
-.close-menu:focus {
-  outline: 2px solid rgba(19, 23, 31, 0.15);
-  outline-offset: 2px;
-}
-
-/* ================
-   CUSTOM CURSOR (merged)
-   ================ */
+/* custom cursor */
 #custom-cursor {
   position: fixed;
   top: 0;
@@ -586,20 +529,17 @@ video {
 }
 
 
-/* ========================================
-   RESPONSIVE (harmonized modern + original)
-   ======================================== */
+/* responsive */
 
-/* Tablet: 2-column grid */
 @media (max-width: 1200px) {
   .cards { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* ≤ 1024 px — hide right sidebar, mobile menu */
+/* ≤ 1024 — hide right sidebar, show mobile menu */
 @media (max-width: 1024px) {
   .sidebar-right { display: none; }
 
-  /* Sidebar off-canvas (modern + original .menu-open) */
+  /* sidebar slides in from left */
   .sidebar {
     position: fixed;
     inset: 0 auto 0 0;
@@ -611,15 +551,12 @@ video {
     border-right: 1px solid var(--gray-200);
   }
 
-  
-  .sidebar.open,
-  .sidebar.menu-open { /* Alias */
+  .sidebar.open {
     transform: translateX(0);
   }
-  .sidebar.open .sidebar-close,
-  .sidebar.menu-open .close-menu { display: block; }
+  .sidebar.open .sidebar-close { display: block; }
 
-  /* CV in mobile sidebar */
+  /* cv info inside mobile menu */
   .sidebar-cv-mobile {
     display: block;
     border-top: 1px solid var(--gray-200);
@@ -641,7 +578,7 @@ video {
     margin-bottom: var(--sp-1);
   }
 
-  /* Backdrop */
+  /* backdrop */
   .menu-backdrop {
     display: block;
     position: fixed;
@@ -654,13 +591,10 @@ video {
   }
   .menu-backdrop.visible { opacity: 1; pointer-events: auto; }
 
-  /* Topbar */
-  .topbar,
-  .mobile-topbar { justify-content: flex-start; }
-  .topbar-menu,
-  .menu-btn { display: block; }
-  .topbar-back,
-  .close-menu { display: block; }
+  /* topbar */
+  .topbar { justify-content: flex-start; }
+  .topbar-menu { display: block; }
+  .topbar-back { display: block; }
   .clock { display: none; }
 
   .breadcrumb-mobile { display: block; margin-bottom: var(--sp-4); }
@@ -672,7 +606,7 @@ video {
   .layout { height: auto; min-height: 100vh; }
 }
 
-/* Small mobile */
+/* small mobile */
 @media (max-width: 640px) {
   .cards { grid-template-columns: 1fr; }
 
@@ -692,9 +626,7 @@ video {
   .masonry { grid-template-columns: 1fr; }
 }
 
-/* ================
-   CURSOR HANDLING (merged)
-   ================ */
+/* cursor handling */
 @media (hover: hover) and (pointer: fine) {
   html:not(.is-touch) * { cursor: none !important; }
 }
@@ -709,9 +641,7 @@ html.is-touch button,
 html.is-touch a,
 html.is-touch [data-href] { cursor: pointer !important; }
 
-/* ================
-   PRINT
-   ================ */
+/* print */
 @media print {
   .sidebar, .sidebar-right, .filters, .topbar,
   #custom-cursor, .menu-backdrop { display: none !important; }
@@ -725,16 +655,11 @@ html.is-touch [data-href] { cursor: pointer !important; }
   justify-content: space-between;
 }
 
-/* ========================================
-   FEATURED MASONRY ITEMS (CLEAN VERSION)
-   ======================================== */
-
+/* featured masonry items — wider span */
 .masonry-item--featured {
-  /* spans visually wider via column span simulation */
   break-inside: avoid;
 }
 
-/* Make featured media feel larger without breaking layout */
 .masonry-item--featured img,
 .masonry-item--featured video {
   width: 100%;
@@ -743,14 +668,12 @@ html.is-touch [data-href] { cursor: pointer !important; }
   border-radius: var(--radius);
 }
 
-/* Make featured items behave like 2-column width on desktop */
 @media (min-width: 1025px) {
   .masonry-item--featured {
     column-span: all;
   }
 }
 
-/* mobile fallback (VERY IMPORTANT) */
 @media (max-width: 640px) {
   .masonry-item--featured {
     margin-left: 0;
@@ -765,29 +688,16 @@ html.is-touch [data-href] { cursor: pointer !important; }
   }
 }
 
-/* ========================================
-   CLICKABLE MEDIA LIGHTBOX (NEW SYSTEM)
-   ======================================== */
-
-/* make all media feel interactive */
-.masonry-item img,
-.masonry-item video {
-  cursor: pointer;
-}
-
-/* ---------- LIGHTBOX BACKDROP ---------- */
+/* media lightbox */
 .media-lightbox {
   position: fixed;
   inset: 0;
   z-index: 10000;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(14px);
-
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.25s ease, visibility 0.25s ease;
@@ -798,21 +708,46 @@ html.is-touch [data-href] { cursor: pointer !important; }
   visibility: visible;
 }
 
-/* NAV */
+.media-lightbox-content {
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.media-lightbox-content img,
+.media-lightbox-content video {
+  max-width: 100%;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: var(--radius);
+}
+
 .lightbox-nav {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
+  border: 2px solid #0040FF;
   background: transparent;
-  border-width: 4px, #0040FF;
+  color: #0040FF;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* NO cursor rules here */
+.lightbox-nav.left { left: 16px; }
+.lightbox-nav.right { right: 16px; }
 
-/* CLOSE */
+.lightbox-nav:hover {
+  background: var(--blue-light);
+}
+
 .lightbox-close {
   position: absolute;
   top: 24px;
@@ -821,6 +756,15 @@ html.is-touch [data-href] { cursor: pointer !important; }
   height: 40px;
   border-radius: 50%;
   border: none;
-  background-color: transparent;
+  background: transparent;
   color: #0040FF;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox-close:hover {
+  background: var(--blue-light);
 }
