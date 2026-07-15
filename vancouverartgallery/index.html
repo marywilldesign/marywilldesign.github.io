@@ -16,29 +16,6 @@
       color: #444;
     }
 
-    .lightbox {
-      display: none;
-      position: fixed;
-      z-index: 9999;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.85);
-      justify-content: center;
-      align-items: center;
-    }
-
-    .lightbox img {
-      max-width: 90%;
-      max-height: 90%;
-      border: 2px solid white;
-      border-radius: 8px;
-    }
-
-    .lightbox.active {
-      display: flex;
-    }
   </style>
 </head>
 
@@ -52,6 +29,24 @@
     <button class="sidebar-close" id="sidebar-close" aria-label="close menu">✕</button>
 
     <a href="../index.html" class="breadcrumb">← home / creepers</a>
+
+      <!-- mobile-only: avatar + bio + links -->
+      <div class="sidebar-mobile-top">
+        <img class="avatar" src="../mw_profile.svg" alt="Mary Wil" width="200" height="200">
+        <p class="bio">
+          UX/UI designer crafting thoughtful digital experiences through research, storytelling, and visual experimentation. Spanning client work (Telus, IBM, Modo) and self-initiated projects that blend design with code.
+        </p>
+      </div>
+
+      <nav class="sidebar-links sidebar-mobile-links">
+        <a href="https://drive.google.com/file/d/1vJQT7nzT0Jh-cYgugH08rDDmF4s7uFco/view?usp=sharing" target="_blank" rel="noopener noreferrer">resume.pdf ↗</a>
+        <a href="https://drive.google.com/file/d/154rOSybpMvjC_LpU055DL15ylRA56IEj/view?usp=sharing" target="_blank" rel="noopener noreferrer">portfolio.pdf ↗</a>
+        <a href="https://www.linkedin.com/in/marygracewilson/" target="_blank" rel="noopener noreferrer">linkedin ↗</a>
+        <a href="https://www.instagram.com/marywildesign/" target="_blank" rel="noopener noreferrer">instagram ↗</a>
+        <a href="https://www.lomography.com/homes/marycastawayball/photos" target="_blank" rel="noopener noreferrer">photography ↗</a>
+      </nav>
+
+      <p class="made sidebar-mobile-made">★ made by mary ★</p>
 
     <nav class="project-nav">
       <h4>Other Projects</h4>
@@ -98,36 +93,39 @@
         <span class="tag">exhibits</span>
       </div>
 
-      <p class="case-meta"><strong>2020 – 2021</strong></p>
+      <p class="case-meta"><strong>2020 – 2021</strong> · <span class="role">role:</span> <span class="role-title">UX & Interaction Designer</span></p>
 
       <p>
         Creepers, an AI-art installation, was awarded the Gerri Sinclair Award for Innovation in Digital Media. It was part of a larger collection of works featured in the 2021 Imitation Game exhibit, which spanned 10 months at the Vancouver Art Gallery — seeing roughly 830 daily gallery goers. 
         The exhibit explored the transformative influence of Artificial Intelligence (AI) on the development and production of visual culture.
         My project team was approached by the gallery’s head curators to design, develop, and implement an installation.
       </p>
+      <p style="margin-top: var(--sp-4);">
+        <a href="https://drive.google.com/file/d/154rOSybpMvjC_LpU055DL15ylRA56IEj/view?usp=sharing" class="card-cta" target="_blank" rel="noopener noreferrer">full case study (pdf) →</a>
+      </p>
 
     </div>
 
     <!-- content -->
 
-    <div class="masonry-item">
-      <img src="../vancouverartgallery/creepers_hero.png" alt="synthesis">
-      <div class="caption">People engaging with the installation in situ</div>
-    </div>
+    <figure class="case-image-wide">
+      <img src="../vancouverartgallery/creepers_hero.png" alt="synthesis" class="js-lightbox-item" >
+      <figcaption class="caption">People engaging with the installation in situ</figcaption>
+    </figure>
 
     <div class="project-meta">
       <p><strong>Roles:</strong> R&D, ideation, Scrum Master, Experience design, Project Manager, Asset manager, Concept Design</p>
     </div>
 
-    <div class="text">
-      <p><strong>The Challenge</strong></p>
+    <div class="case-section">
+      <h3>The Challenge</h3>
       <p>
-        There was an exhibit room where the curators wanted to track visitors’ movements throughout the space, named Salon des Refusés. The tricky part was creating an installation piece that balanced being functional, noninvasive, and unimposing to visitors’ experience.
+        There was an exhibit room where the curators wanted to track visitors' movements throughout the space, named Salon des Refusés. The tricky part was creating an installation piece that balanced being functional, noninvasive, and unimposing to visitors' experience.
       </p>
     </div>
 
-    <div class="text">
-      <p><strong>Objectives</strong></p>
+    <div class="case-section">
+      <h3>Objectives</h3>
       <ul>
         <li>Create a functional art piece that could be implemented in the Imitation Game exhibit</li>
         <li>Non-invasive data gathering method</li>
@@ -135,24 +133,24 @@
       </ul>
     </div>
 
-    <p><strong>How might we capture each visitor’s interaction with art pieces and display their preferences in a visually-impactful and thought-provoking way, without impeding their experience?</strong></p>
+    <div class="case-section">
+      <h3>Research question</h3>
+      <p><em>How might we capture each visitor's interaction with art pieces and display their preferences in a visually-impactful and thought-provoking way, without impeding their experience?</em></p>
+    </div>
 
-    <div class="text">
-      <p><strong>Synthesis workshop</strong></p>
+    <div class="case-section">
+      <h3>Synthesis workshop</h3>
       <p>
         I outlined our goals, delegated key research directions, and facilitated the research gathering phase for the team. In this session, we synthesized over 60 sources, including scholarly articles, journals, and AI art references.
       </p>
+      <figure>
+        <img src="../vancouverartgallery/synthesis.png" alt="synthesis" style="width:100%;" class="js-lightbox-item" >
+        <figcaption class="caption">Synthesis workshop</figcaption>
+      </figure>
     </div>
 
-    <div class="masonry">
-      <div class="masonry-item">
-        <img src="../vancouverartgallery/synthesis.png" alt="synthesis">
-        <div class="caption">Synthesis workshop</div>
-      </div>
-    </div>
-
-    <div class="text">
-      <p><strong>User personas</strong></p>
+    <div class="case-section">
+      <h3>User personas</h3>
       <p>
         Following discovery, I led persona and journey mapping. There was a clear distinction between AI novices and aficionados.
       </p>
@@ -160,38 +158,34 @@
 
     <div class="masonry">
       <div class="masonry-item">
-        <img src="../vancouverartgallery/steve.png" alt="persona-steve">
+        <img src="../vancouverartgallery/steve.png" alt="persona-steve" class="js-lightbox-item" >
         <div class="caption">Persona: AI novice</div>
       </div>
 
       <div class="masonry-item">
-        <img src="../vancouverartgallery/ashley.png" alt="persona-ashley">
+        <img src="../vancouverartgallery/ashley.png" alt="persona-ashley" class="js-lightbox-item" >
         <div class="caption">Persona: AI expert</div>
       </div>
 
       <div class="masonry-item">
-        <img src="../vancouverartgallery/matrix.png" alt="persona-matrix">
+        <img src="../vancouverartgallery/matrix.png" alt="persona-matrix" class="js-lightbox-item" >
         <div class="caption">Audience spectrum matrix</div>
       </div>
     </div>
 
-    <!-- fixed html error here -->
-    <div class="text">
-      <p><strong>User journey</strong></p>
+    <div class="case-section">
+      <h3>User journey</h3>
       <p>
-        The user personas helped frame each visitor type’s journey from pre-visit to post-visit.
+        The user personas helped frame each visitor type's journey from pre-visit to post-visit.
       </p>
+      <figure>
+        <img src="../vancouverartgallery/journeymap.png" alt="journey map" style="width:100%;" class="js-lightbox-item" >
+        <figcaption class="caption">Journey mapping exploration</figcaption>
+      </figure>
     </div>
 
-    <div class="masonry">
-      <div class="masonry-item">
-        <img src="../vancouverartgallery/journeymap.png" alt="journey map">
-        <div class="caption">Journey mapping exploration</div>
-      </div>
-    </div>
-
-    <div class="text">
-      <p><strong>Early iterations</strong></p>
+    <div class="case-section">
+      <h3>Early iterations</h3>
       <p>
         One key component was occlusion in camera tracking systems.
       </p>
@@ -199,18 +193,18 @@
 
     <div class="masonry">
       <div class="masonry-item">
-        <video src="../vancouverartgallery/earlyxp1.webm" autoplay loop muted playsinline></video>
+        <video src="../vancouverartgallery/earlyxp1.webm" autoplay loop muted playsinline class="js-lightbox-item" ></video>
         <div class="caption">Visitor tracking logic exploration</div>
       </div>
 
       <div class="masonry-item">
-        <video src="../vancouverartgallery/earlyxp2.webm" autoplay loop muted playsinline></video>
+        <video src="../vancouverartgallery/earlyxp2.webm" autoplay loop muted playsinline class="js-lightbox-item" ></video>
         <div class="caption">Time-based interaction study</div>
       </div>
     </div>
 
-    <div class="text">
-      <p><strong>Final exploration</strong></p>
+    <div class="case-section">
+      <h3>Final exploration</h3>
       <p>
         The final concept used biomimicry, inspired by natural movement systems.
       </p>
@@ -218,18 +212,18 @@
 
     <div class="masonry">
       <div class="masonry-item">
-        <img src="../vancouverartgallery/concept1.png" alt="concept 1">
+        <img src="../vancouverartgallery/concept1.png" alt="concept 1" class="js-lightbox-item" >
         <div class="caption">Final system exploration</div>
       </div>
 
       <div class="masonry-item">
-        <img src="../vancouverartgallery/concept2.png" alt="concept 2">
+        <img src="../vancouverartgallery/concept2.png" alt="concept 2" class="js-lightbox-item" >
         <div class="caption">Final visual language study</div>
       </div>
     </div>
 
-    <div class="text">
-      <p><strong>In situ</strong></p>
+    <div class="case-section">
+      <h3>In situ</h3>
       <p>
         It was rewarding to observe real visitor interaction with the installation.
       </p>
@@ -237,12 +231,12 @@
 
     <div class="masonry">
       <div class="masonry-item">
-        <img src="../vancouverartgallery/viewers.png" alt="gallery visitors">
+        <img src="../vancouverartgallery/viewers.png" alt="gallery visitors" class="js-lightbox-item" >
         <div class="caption">Visitors interacting with Creepers</div>
       </div>
     </div>
 
-    <div class="text">
+    <div class="case-section">
       <p>
         The aim was to make visitor data understandable and visually engaging regardless of background.
       </p>
@@ -252,8 +246,14 @@
 
 </div>
 
-<!-- cursor -->
 <div id="custom-cursor"></div>
+
+<div class="media-lightbox" id="media-lightbox">
+  <button class="lightbox-close" id="lightbox-close">✕</button>
+  <button class="lightbox-nav left" id="lightbox-prev">‹</button>
+  <button class="lightbox-nav right" id="lightbox-next">›</button>
+  <div class="media-lightbox-content" id="lightbox-content"></div>
+</div>
 
 </body>
 </html>

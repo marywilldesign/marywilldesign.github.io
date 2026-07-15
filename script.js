@@ -20,26 +20,115 @@
 })();
 
 // clock
-(function () {
+let clockInterval = null;
+function initClock() {
   const el = document.getElementById('clock');
   if (!el) return;
+  if (clockInterval) clearInterval(clockInterval);
   const tick = () => {
     el.textContent = new Date().toLocaleTimeString('en-GB', { hour12: false });
   };
   tick();
-  setInterval(tick, 1000);
+  clockInterval = setInterval(tick, 1000);
+}
+initClock();
+
+// card click → slide-in case study
+(function () {
+  const content = document.getElementById('content');
+  if (!content) return;
+
+  // save original grid content for restoration
+  let gridContent = null;
+  let scrollPos = 0;
+
+  function saveGrid() {
+    if (!gridContent) {
+      gridContent = content.innerHTML;
+    }
+    scrollPos = window.scrollY;
+  }
+
+  function showGrid() {
+    if (!gridContent) return;
+    content.innerHTML = gridContent;
+    gridContent = null;
+    window.scrollTo(0, scrollPos);
+    bindCards();
+    initClock();
+    removeBackFromSidebar();
+    bindMobileMenu();
+  }
+
+  async function loadCaseStudy(url) {
+    try {
+      const res = await fetch(url);
+      const html = await res.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      const caseContent = doc.querySelector('.content');
+      if (!caseContent) return;
+
+      saveGrid();
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'case-study-view';
+      wrapper.innerHTML = caseContent.innerHTML;
+
+      content.innerHTML = '';
+      content.appendChild(wrapper);
+      content.scrollTop = 0;
+      window.scrollTo(0, 0);
+
+      // add back button to sidebar menu instead
+      addBackToSidebar();
+
+      // re-init clock + menu
+      initClock();
+      bindMobileMenu();
+    } catch (e) {
+      // fallback: navigate directly
+      window.location.href = url;
+    }
+  }
+
+  function addBackToSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    if (!sidebar) return;
+    removeBackFromSidebar();
+    const btn = document.createElement('button');
+    btn.className = 'back-btn sidebar-back-btn';
+    btn.textContent = '← back to projects';
+    btn.addEventListener('click', showGrid);
+    sidebar.insertBefore(btn, sidebar.firstChild.nextSibling);
+  }
+
+  function removeBackFromSidebar() {
+    const existing = document.querySelector('.sidebar-back-btn');
+    if (existing) existing.remove();
+  }
+
+  function bindCards() {
+    document.querySelectorAll('.case-card[data-href]').forEach((card) => {
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('a, button, .card-cta, .ext-link')) return;
+        e.preventDefault();
+        loadCaseStudy(card.dataset.href);
+      });
+    });
+    // also handle .card-cta clicks as case study loads
+    document.querySelectorAll('.card-cta').forEach((link) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const card = e.target.closest('.case-card[data-href]');
+        if (card) loadCaseStudy(card.dataset.href);
+        else if (link.getAttribute('href')) loadCaseStudy(link.getAttribute('href'));
+      });
+    });
+  }
+
+  bindCards();
 })();
-
-// card click → navigate
-document.addEventListener('click', (e) => {
-  const card = e.target.closest('.case-card[data-href]');
-  if (!card) return;
-
-  if (e.target.closest('a, button')) return;
-
-  const url = card.dataset.href;
-  if (url) window.location.href = url;
-});
 
 // filtering
 (function () {
@@ -109,33 +198,55 @@ document.addEventListener('click', (e) => {
 })();
 
 // mobile menu
-(function () {
+let menuBound = false;
+function bindMobileMenu() {
   const toggle = document.getElementById('menu-toggle');
   const sidebar = document.getElementById('sidebar');
   const close = document.getElementById('sidebar-close');
   const backdrop = document.getElementById('menu-backdrop');
   if (!toggle || !sidebar) return;
 
+  // remove old listeners by cloning
+  if (menuBound) {
+    const newToggle = toggle.cloneNode(true);
+    toggle.parentNode.replaceChild(newToggle, toggle);
+  }
+
+  const t = document.getElementById('menu-toggle');
+  const s = document.getElementById('sidebar');
+  const c = document.getElementById('sidebar-close');
+  const b = document.getElementById('menu-backdrop');
+  if (!t || !s) return;
+
   function openMenu() {
-    sidebar.classList.add('open');
-    if (backdrop) backdrop.classList.add('visible');
+    s.classList.add('open');
+    if (b) b.classList.add('visible');
     document.documentElement.classList.add('no-scroll');
   }
 
   function closeMenu() {
-    sidebar.classList.remove('open');
-    if (backdrop) backdrop.classList.remove('visible');
+    s.classList.remove('open');
+    if (b) b.classList.remove('visible');
     document.documentElement.classList.remove('no-scroll');
   }
 
-  toggle.addEventListener('click', openMenu);
-  if (close) close.addEventListener('click', closeMenu);
-  if (backdrop) backdrop.addEventListener('click', closeMenu);
+  t.addEventListener('click', openMenu);
+  if (c) c.addEventListener('click', closeMenu);
+  if (b) b.addEventListener('click', closeMenu);
+  menuBound = true;
+}
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && sidebar.classList.contains('open')) closeMenu();
-  });
-})();
+document.addEventListener('keydown', (e) => {
+  const sidebar = document.getElementById('sidebar');
+  if (e.key === 'Escape' && sidebar && sidebar.classList.contains('open')) {
+    sidebar.classList.remove('open');
+    const backdrop = document.getElementById('menu-backdrop');
+    if (backdrop) backdrop.classList.remove('visible');
+    document.documentElement.classList.remove('no-scroll');
+  }
+});
+
+bindMobileMenu();
 
 // masonry span calculation
 (function () {
@@ -283,5 +394,10 @@ document.addEventListener('click', (e) => {
     if (e.key === 'ArrowLeft') prev();
   });
 
-  window.addEventListener('load', bind);
+  // bind click — runs immediately if lightbox exists, otherwise on load
+  if (document.getElementById('media-lightbox')) {
+    bind();
+  } else {
+    window.addEventListener('load', bind);
+  }
 })();

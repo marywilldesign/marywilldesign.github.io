@@ -16,26 +16,7 @@
       color: #444;
     }
 
-    .lightbox {
-      display: none;
-      position: fixed;
-      z-index: 9999;
-      inset: 0;
-      background: rgba(0,0,0,0.85);
-      justify-content: center;
-      align-items: center;
-    }
 
-    .lightbox img {
-      max-width: 90%;
-      max-height: 90%;
-      border: 2px solid white;
-      border-radius: 8px;
-    }
-
-    .lightbox.active {
-      display: flex;
-    }
   </style>
 </head>
 
@@ -48,6 +29,24 @@
     <button class="sidebar-close" id="sidebar-close" aria-label="Close menu">✕</button>
 
     <a href="../index.html" class="breadcrumb">← home / risograph exhibit</a>
+
+      <!-- mobile-only: avatar + bio + links -->
+      <div class="sidebar-mobile-top">
+        <img class="avatar" src="../mw_profile.svg" alt="Mary Wil" width="200" height="200">
+        <p class="bio">
+          UX/UI designer crafting thoughtful digital experiences through research, storytelling, and visual experimentation. Spanning client work (Telus, IBM, Modo) and self-initiated projects that blend design with code.
+        </p>
+      </div>
+
+      <nav class="sidebar-links sidebar-mobile-links">
+        <a href="https://drive.google.com/file/d/1vJQT7nzT0Jh-cYgugH08rDDmF4s7uFco/view?usp=sharing" target="_blank" rel="noopener noreferrer">resume.pdf ↗</a>
+        <a href="https://drive.google.com/file/d/154rOSybpMvjC_LpU055DL15ylRA56IEj/view?usp=sharing" target="_blank" rel="noopener noreferrer">portfolio.pdf ↗</a>
+        <a href="https://www.linkedin.com/in/marygracewilson/" target="_blank" rel="noopener noreferrer">linkedin ↗</a>
+        <a href="https://www.instagram.com/marywildesign/" target="_blank" rel="noopener noreferrer">instagram ↗</a>
+        <a href="https://www.lomography.com/homes/marycastawayball/photos" target="_blank" rel="noopener noreferrer">photography ↗</a>
+      </nav>
+
+      <p class="made sidebar-mobile-made">★ made by mary ★</p>
 
     <nav class="project-nav">
       <h4>Other Projects</h4>
@@ -94,7 +93,7 @@
         <span class="tag">exhibits</span>
       </div>
 
-      <p class="case-meta"><strong>2025</strong></p>
+      <p class="case-meta"><strong>2025</strong> · <span class="role">role:</span> <span class="role-title">Graphic Designer</span></p>
 
       <p>
         In conjunction with the 2Truths&AI web game, I created a series of risograph posters exhibited at Kunstnernes Hus in Oslo as part of the <i>There is no exhibit, it's not happening</i> show.
@@ -107,17 +106,17 @@
     <div class="masonry">
 
       <div class="masonry-item">
-        <img src="../risographposters/mahjong.png" alt="mahjong poster">
+        <img src="../risographposters/mahjong.png" alt="mahjong poster" class="js-lightbox-item" >
         <div class="caption">A fictional Mahjong event at Joker convenience store in Oslo</div>
       </div>
 
       <div class="masonry-item">
-        <img src="../risographposters/thejoker.png" alt="joker poster">
+        <img src="../risographposters/thejoker.png" alt="joker poster" class="js-lightbox-item" >
         <div class="caption">Exploration of game logic and narrative framing</div>
       </div>
 
       <div class="masonry-item">
-        <img src="../risographposters/lieswetell.png" alt="lies poster">
+        <img src="../risographposters/lieswetell.png" alt="lies poster" class="js-lightbox-item" >
         <div class="caption">Common lies we tend to tell</div>
       </div>
 
@@ -127,28 +126,16 @@
 
 </div>
 
-<!-- lightbox -->
-<div class="lightbox" id="lightbox">
-  <img src="" alt="zoomed image">
-</div>
 
-<script>
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImg = lightbox.querySelector('img');
-
-  document.querySelectorAll('.masonry-item img').forEach(img => {
-    img.addEventListener('click', () => {
-      lightboxImg.src = img.src;
-      lightbox.classList.add('active');
-    });
-  });
-
-  lightbox.addEventListener('click', () => {
-    lightbox.classList.remove('active');
-  });
-</script>
 
 <div id="custom-cursor"></div>
+
+<div class="media-lightbox" id="media-lightbox">
+  <button class="lightbox-close" id="lightbox-close">✕</button>
+  <button class="lightbox-nav left" id="lightbox-prev">‹</button>
+  <button class="lightbox-nav right" id="lightbox-next">›</button>
+  <div class="media-lightbox-content" id="lightbox-content"></div>
+</div>
 
 </body>
 </html>
