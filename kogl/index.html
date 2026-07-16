@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KOGL – Web Design</title>
+
+  <link rel="icon" type="image/svg+xml" href="../mw.svg" />
+  <link rel="stylesheet" href="../style.css" />
+  <script src="../script.js" defer></script>
+
+  <style>
+    .caption {
+      font-size: 0.8rem;
+      margin-top: 0.4rem;
+      color: #444;
+    }
+  </style>
+</head>
+
+<body class="case-page">
+
+<div class="layout">
+
+  <!-- sidebar -->
+  <aside class="sidebar" id="sidebar">
+
+    <button class="sidebar-close" id="sidebar-close" aria-label="Close menu">✕</button>
+
+    <a href="../index.html" class="breadcrumb">← home / kogl</a>
+
+      <!-- mobile-only: avatar + bio + links -->
+      <div class="sidebar-mobile-top">
+        <img class="avatar" src="../mw_profile.svg" alt="Mary Wil" width="200" height="200">
+        <img class="avatar-photo" src="../mw_profile.png" alt="Mary Wil" width="200" height="200">
+        <p class="bio">
+          User Experience designer with nearly ten years experience from startups to consulting agencies. Master's degrees in UX/UI and Graphic design. Demonstrated project leadership from ideation to launch with full-stack teams. Cross-sector experience from consumer goods to telecomms and enterprise clients. Spanning client work (Telus, IBM, Modo) and self-initiated projects that blend design with code.
+        </p>
+      </div>
+
+      <nav class="sidebar-links sidebar-mobile-links">
+        <a href="https://drive.google.com/file/d/1vJQT7nzT0Jh-cYgugH08rDDmF4s7uFco/view?usp=sharing" target="_blank" rel="noopener noreferrer">resume.pdf ↗</a>
+        <a href="https://drive.google.com/file/d/154rOSybpMvjC_LpU055DL15ylRA56IEj/view?usp=sharing" target="_blank" rel="noopener noreferrer">portfolio.pdf ↗</a>
+        <a href="https://www.linkedin.com/in/marygracewilson/" target="_blank" rel="noopener noreferrer">linkedin ↗</a>
+        <a href="https://www.instagram.com/marywildesign/" target="_blank" rel="noopener noreferrer">instagram ↗</a>
+        <a href="https://www.lomography.com/homes/marycastawayball/photos" target="_blank" rel="noopener noreferrer">photography ↗</a>
+      </nav>
+
+      <p class="made sidebar-mobile-made">★ made by mary ★</p>
+
+    <nav class="project-nav">
+      <h4>Other Projects</h4>
+      <ul>
+        <li><a href="../vancouverartgallery/">Vancouver Art Gallery</a></li>
+        <li><a href="../telus/">Telus Internet Sales</a></li>
+        <li><a href="../modo/">Modo Carsharing Site</a></li>
+        <li><a href="../postertriennial/">Poster Triennial, Lahti</a></li>
+        <li><a href="../twotruths/">Two Truths & AI</a></li>
+        <li><a href="../friendsfest/">Friends Fest branding</a></li>
+        <li><a href="../speleo/">Speleo Record Label</a></li>
+        <li><a href="../papercut/">Paper Cut Poster folio</a></li>
+        <li><a href="../subtext/">Subtext Movie Poster</a></li>
+        <li><a href="../risographposters/">Risograph Poster Exhibit</a></li>
+        <li><a href="../wellflip/">Well, Flip!: Coptic Book</a></li>
+        <li><a href="../blackbox/">Web-based Blackbox VJ</a></li>
+        <li><a href="../collaborativesentence/">Longest Sentence site</a></li>
+        <li><a href="../liveopencall/">Live Open Call</a></li>
+        <li><a href="../glyphscorrupted/">Glyphs: Corrupted</a></li>
+        <li><a href="../ibm/">IBM Volunteerism</a></li>
+        <li><a class="active" href="../kogl/">KOGL</a></li>
+      </ul>
+    </nav>
+
+  </aside>
+
+  <!-- Mobile backdrop -->
+  <div class="menu-backdrop" id="menu-backdrop"></div>
+
+  <!-- main content -->
+  <main class="content" id="content">
+
+    <!-- Topbar -->
+    <div class="topbar">
+      <button class="topbar-menu" id="menu-toggle" aria-label="Open menu">menu</button>
+      <span class="clock" id="clock"></span>
+    </div>
+
+    <!-- header -->
+    <div class="case-header-grid">
+      <div class="case-header-text">
+        <h2>KOGL Web Design</h2>
+        <div class="tags">
+          <span class="tag">UX</span>
+          <span class="tag">graphic design</span>
+        </div>
+        <p>
+          A premium e-commerce and product listing site for a contemporary Scandinavian furniture design studio, designed to showcase handcrafted pieces and attract collaborations with manufacturers and industry partners. The site uses minimalist product listing with streamlined navigation and a curated project index, with a splash page type animation to establish a memorable first impression. Delivered ahead of schedule for Milan Design Week 2026.
+        </p>
+      </div>
+      <div class="snapshot-box">
+        <p><strong>2026</strong> · UX and Graphic Designer</p>
+        <p>Web Development: Maria Tan</p>
+        <p><a href="https://kogl.no" target="_blank" rel="noopener noreferrer">view live site ↗</a></p>
+        <p><a href="https://drive.google.com/file/d/154rOSybpMvjC_LpU055DL15ylRA56IEj/view?usp=sharing" target="_blank" rel="noopener noreferrer">full case study (pdf) →</a></p>
+      </div>
+    </div>
+
+    <div class="masonry">
+      <div class="masonry-item">
+        <img src="../kogl/result.png" alt="KOGL site result" class="js-lightbox-item" >
+        <div class="caption">Final KOGL site</div>
+      </div>
+    </div>
+
+    <div class="side-by-side three-up">
+      <div class="sbs-item">
+        <img src="../kogl/option1.png" alt="Card showing full image height" class="js-lightbox-item" >
+        <div class="caption">Card showing full extent of image height</div>
+      </div>
+      <div class="sbs-item">
+        <img src="../kogl/option1a.png" alt="Card design option" class="js-lightbox-item" >
+        <div class="caption">Card design option informed by image height study</div>
+      </div>
+      <div class="sbs-item">
+        <img src="../kogl/option2card.png" alt="Selected card design" class="js-lightbox-item" >
+        <div class="caption">Card design option 2 (selected)</div>
+      </div>
+    </div>
+
+    <div class="masonry">
+      <div class="masonry-item">
+        <img src="../kogl/logomarkoption1.png" alt="Logomark hover" class="js-lightbox-item" >
+        <div class="caption">Splash animation option: logomark hover</div>
+      </div>
+      <div class="masonry-item">
+        <img src="../kogl/typeanimation.png" alt="Type animation" class="js-lightbox-item" >
+        <div class="caption">Splash animation option: type phonetics (selected)</div>
+      </div>
+    </div>
+
+  <nav id="project-nav" class="project-nav-footer" style="display:none">
+    <a class="nav-prev" href="#"></a>
+    <button class="back-to-top">back to top ↑</button>
+    <a class="nav-next" href="#"></a>
+  </nav>
+
+  </main>
+
+</div>
+
+<div id="custom-cursor"></div>
+
+<div class="media-lightbox" id="media-lightbox">
+  <button class="lightbox-close" id="lightbox-close">✕</button>
+  <button class="lightbox-nav left" id="lightbox-prev">‹</button>
+  <button class="lightbox-nav right" id="lightbox-next">›</button>
+  <div class="media-lightbox-content" id="lightbox-content"></div>
+</div>
+
+</body>
+</html>
