@@ -77,13 +77,13 @@ initClock();
     return map[filter] || filter;
   }
 
-  function addBreadcrumbToSidebar(category, title) {
+  function addBreadcrumbToCaseView(category, title) {
     // remove any existing dynamic breadcrumb first
     const existing = document.getElementById('dynamic-breadcrumb');
     if (existing) existing.remove();
 
-    const sidebar = document.getElementById('sidebar');
-    if (!sidebar) return;
+    const wrapper = document.querySelector('.case-study-view');
+    if (!wrapper) return;
 
     const activeBtn = document.querySelector('.filter-btn.active');
     const filter = activeBtn ? activeBtn.dataset.filter : 'all';
@@ -95,12 +95,12 @@ initClock();
     bc.href = './index.html';
     bc.textContent = 'projects / ' + filterDisplay + ' / ' + title;
 
-    // insert right after the sidebar-close button, or at the top
-    const closeBtn = sidebar.querySelector('.sidebar-close');
-    if (closeBtn && closeBtn.nextSibling) {
-      sidebar.insertBefore(bc, closeBtn.nextSibling);
+    // insert right before the case-header-grid
+    const header = wrapper.querySelector('.case-header-grid');
+    if (header) {
+      wrapper.insertBefore(bc, header);
     } else {
-      sidebar.prepend(bc);
+      wrapper.prepend(bc);
     }
   }
 
@@ -124,9 +124,9 @@ initClock();
       content.scrollTop = 0;
       window.scrollTo(0, 0);
 
-      // desktop breadcrumb in sidebar
+      // desktop breadcrumb above case header
       if (cardTitle) {
-        addBreadcrumbToSidebar(cardCategory, cardTitle);
+        addBreadcrumbToCaseView(cardCategory, cardTitle);
       }
 
       // mobile "projects" button in topbar (right side)
