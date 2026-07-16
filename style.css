@@ -1082,6 +1082,7 @@ html.is-touch #custom-cursor { display: none !important; }
   .content { padding: var(--sp-3); }
 
   .masonry { column-count: 1; }
+  .side-by-side { flex-direction: column; }
 }
 
 /* cursor handling */
