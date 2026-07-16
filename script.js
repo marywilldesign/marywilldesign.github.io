@@ -58,6 +58,7 @@ initClock();
     initClock();
     removeBackButtons();
     bindMobileMenu();
+    if (window.rebindFilters) window.rebindFilters();
   }
 
   async function loadCaseStudy(url) {
@@ -147,10 +148,6 @@ initClock();
 
 // filtering
 (function () {
-  const buttons = document.querySelectorAll('.filter-btn');
-  const cards = document.querySelectorAll('.case-card');
-  if (!buttons.length || !cards.length) return;
-
   function shuffle(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -160,6 +157,7 @@ initClock();
   }
 
   function applyFilter(filter) {
+    const cards = document.querySelectorAll('.case-card');
     const visible = [];
 
     cards.forEach((card) => {
@@ -173,7 +171,8 @@ initClock();
     });
 
     // randomize order - physically reorder DOM nodes
-    const container = cards[0].parentNode;
+    const container = document.querySelector('.cards');
+    if (!container) return;
     shuffle(visible);
     visible.forEach((card) => {
       container.appendChild(card);
@@ -192,13 +191,23 @@ initClock();
     });
   }
 
-  buttons.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      buttons.forEach((b) => b.classList.remove('active'));
-      btn.classList.add('active');
-      applyFilter(btn.dataset.filter);
+  function bindFilterButtons() {
+    const buttons = document.querySelectorAll('.filter-btn');
+    if (!buttons.length) return;
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        buttons.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        applyFilter(btn.dataset.filter);
+      });
     });
-  });
+  }
+
+  bindFilterButtons();
+
+  // expose so showGrid() can re-bind after restoring the DOM
+  window.rebindFilters = bindFilterButtons;
 })();
 
 // mobile menu
