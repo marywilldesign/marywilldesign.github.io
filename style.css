@@ -872,6 +872,15 @@ body.case-page .filters { display: none; }
 /* mobile menu / backdrop */
 .menu-backdrop { display: none; }
 
+/* profile photo — desktop only */
+.profile-photo {
+  width: 100%;
+  height: auto;
+  border: 1px dotted var(--blue);
+  padding: var(--sp-2);
+  margin-top: var(--sp-3);
+}
+
 /* custom cursor — blue dot, white outline */
 #custom-cursor {
   position: fixed;
@@ -911,6 +920,9 @@ html.is-touch #custom-cursor { display: none !important; }
 
 @media (max-width: 1024px) {
   .sidebar-right { display: none; }
+
+  /* hide profile photo on mobile */
+  .profile-photo { display: none; }
 
   .sidebar-mobile-top,
   .sidebar-mobile-links,
