@@ -14,12 +14,11 @@
   <link rel="stylesheet" href="../style.css">
   <!-- Overrides: masonry columns; results cards -->
   <style>
-    /* Masonry: CSS columns for reliable layout */
+    /* Masonry: single column, full width */
     .masonry {
     .masonry {
-      columns: 2;
+      columns: 1;
       column-gap: var(--masonry-gap);
-      column-fill: balance;
       width: 100%;
       margin: var(--sp-4) 0;
     }
@@ -38,14 +37,6 @@
       transition: opacity 0.2s ease;
     }
     .masonry-item img:hover { opacity: 0.92; }
-
-    /* Responsive columns */
-    @media (max-width: 1024px) {
-      .masonry { columns: 2; }
-    }
-    @media (max-width: 640px) {
-      .masonry { columns: 1; }
-    }
 
     /* Disable hover opacity on masonry images when in case sections (prevents grey overlay bleed) */
     .case-section .masonry-item img:hover { opacity: 1; }

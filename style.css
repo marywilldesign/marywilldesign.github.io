@@ -69,7 +69,7 @@
 
   --masonry-gap: 12px;
   --masonry-row: 4px;
-  --masonry-cols-lg: 2;
+  --masonry-cols-lg: 1;
   --masonry-cols-md: 2;
 }
 
@@ -317,11 +317,19 @@ button, a, [data-href] { cursor: pointer; }
 
 .topbar-back {
   display: none;
-  font-size: 0.8rem;
-  color: var(--blue);
+  font-size: 0.9rem;
   font-weight: 500;
+  color: #0040FF;
   background: none;
   border: none;
+  padding: var(--sp-2) 0;
+  margin-left: auto;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  line-height: 1;
+}
+.topbar-back:hover {
+  text-decoration: line-through;
 }
 
 .clock {
@@ -833,6 +841,7 @@ body.case-page .filters { display: none; }
 /* side-by-side image comparison */
 .side-by-side {
   display: flex;
+  flex-direction: column;
   gap: var(--masonry-gap);
   width: 100%;
   margin: var(--sp-4) 0;
@@ -1047,8 +1056,6 @@ html.is-touch #custom-cursor { display: none !important; }
 
   .content { padding: var(--sp-4); }
 
-  .masonry { grid-template-columns: repeat(var(--masonry-cols-md), 1fr); }
-
   .layout { height: auto; min-height: 100vh; }
 }
 
@@ -1069,7 +1076,7 @@ html.is-touch #custom-cursor { display: none !important; }
 
   .content { padding: var(--sp-3); }
 
-  .masonry { grid-template-columns: 1fr; }
+  /* masonry is already single-column via --masonry-cols-lg */
 }
 
 /* cursor handling */

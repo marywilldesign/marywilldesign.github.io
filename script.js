@@ -80,7 +80,7 @@ initClock();
       content.scrollTop = 0;
       window.scrollTo(0, 0);
 
-      // sidebar back button
+      // sidebar back button (desktop)
       document.querySelectorAll('.sidebar-back-btn').forEach(el => el.remove());
       const sb = document.getElementById('sidebar');
       if (sb) {
@@ -89,6 +89,33 @@ initClock();
         sbBtn.textContent = '← back to projects';
         sbBtn.addEventListener('click', showGrid);
         sb.insertBefore(sbBtn, sb.firstChild.nextSibling);
+      }
+
+      // mobile "projects" button in topbar (right side)
+      document.querySelectorAll('.topbar-back').forEach(el => el.remove());
+      const topbar = wrapper.querySelector('.topbar');
+      if (topbar) {
+        const projectsBtn = document.createElement('button');
+        projectsBtn.className = 'topbar-back';
+        projectsBtn.textContent = 'projects';
+        projectsBtn.addEventListener('click', showGrid);
+        topbar.appendChild(projectsBtn);
+      }
+
+      // mobile reorder: title → tags → snapshot → paragraph
+      if (window.innerWidth <= 768) {
+        const headerGrid = wrapper.querySelector('.case-header-grid');
+        if (headerGrid) {
+          const headerText = headerGrid.querySelector('.case-header-text');
+          const snapshot = headerGrid.querySelector('.snapshot-box');
+          const p = headerText ? headerText.querySelector('p:last-of-type') : null;
+          if (headerText && snapshot && p) {
+            // move snapshot right after header-text (which holds h2 + tags)
+            headerGrid.insertBefore(snapshot, headerText.nextSibling);
+            // move paragraph after snapshot
+            headerGrid.insertBefore(p, snapshot.nextSibling);
+          }
+        }
       }
 
       // re-init clock + menu
@@ -102,6 +129,7 @@ initClock();
 
   function removeBackButtons() {
     document.querySelectorAll('.sidebar-back-btn').forEach(el => el.remove());
+    document.querySelectorAll('.topbar-back').forEach(el => el.remove());
   }
 
   function bindCards() {
@@ -144,10 +172,11 @@ initClock();
       }
     });
 
-    // randomize order
+    // randomize order - physically reorder DOM nodes
+    const container = cards[0].parentNode;
     shuffle(visible);
-    visible.forEach((card, i) => {
-      card.style.order = i;
+    visible.forEach((card) => {
+      container.appendChild(card);
     });
 
     // trigger entrance animation
