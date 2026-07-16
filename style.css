@@ -137,24 +137,25 @@ button, a, [data-href] { cursor: pointer; }
   font-size: 1.2rem;
   color: var(--gray-400);
   padding: var(--sp-1);
-  margin-bottom: var(--sp-4);
-  align-self: flex-end;
+  margin-bottom: 0;
+  align-self: center;
+  flex-shrink: 0;
 }
 .sidebar-close:hover { color: var(--gray-900); }
 
+.sidebar-top {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-4);
+}
+
 .avatar {
-  width: 100%;
+  width: 40px;
   height: auto;
   border: 1px dotted var(--blue);
-  padding: var(--sp-2);
-  margin-bottom: var(--sp-3);
-}
-.avatar-photo {
-  width: 100%;
-  height: auto;
-  border-radius: 4px;
-  margin-bottom: var(--sp-4);
-  display: block;
+  padding: var(--sp-1);
+  flex-shrink: 0;
 }
 
 .bio {
@@ -926,9 +927,20 @@ html.is-touch #custom-cursor { display: none !important; }
     color: var(--gray-400);
     margin-top: var(--sp-2);
   }
-.sidebar-mobile-top .avatar {
-    width: 60px;
+.sidebar-mobile-top {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
     margin-bottom: var(--sp-2);
+  }
+.sidebar-mobile-top .avatar {
+    width: 40px;
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+.sidebar-mobile-top .sidebar-close {
+    display: block;
+    margin-left: auto;
   }
   .sidebar-mobile-top .bio {
     font-size: 0.72rem;
