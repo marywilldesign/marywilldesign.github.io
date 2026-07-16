@@ -69,7 +69,7 @@
 
   --masonry-gap: 12px;
   --masonry-row: 4px;
-  --masonry-cols-lg: 1;
+  --masonry-cols-lg: 2;
   --masonry-cols-md: 2;
 }
 
@@ -838,10 +838,15 @@ body.case-page .filters { display: none; }
   opacity: 0.92;
 }
 
+/* single-item masonry blocks span full width */
+.masonry:has(.masonry-item:only-child) {
+  column-count: 1;
+}
+
 /* side-by-side image comparison */
 .side-by-side {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: var(--masonry-gap);
   width: 100%;
   margin: var(--sp-4) 0;
@@ -1076,7 +1081,7 @@ html.is-touch #custom-cursor { display: none !important; }
 
   .content { padding: var(--sp-3); }
 
-  /* masonry is already single-column via --masonry-cols-lg */
+  .masonry { column-count: 1; }
 }
 
 /* cursor handling */
