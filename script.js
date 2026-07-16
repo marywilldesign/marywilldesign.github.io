@@ -54,6 +54,9 @@ initClock();
     content.innerHTML = gridContent;
     gridContent = null;
     window.scrollTo(0, scrollPos);
+    // remove dynamic breadcrumb added by slide-in
+    const db = document.getElementById('dynamic-breadcrumb');
+    if (db) db.remove();
     bindCards();
     initClock();
     removeBackButtons();
@@ -61,7 +64,47 @@ initClock();
     if (window.rebindFilters) window.rebindFilters();
   }
 
-  async function loadCaseStudy(url) {
+  function getFilterDisplay(filter) {
+    const map = {
+      'all': 'all',
+      'ux': 'ux',
+      'graphic-design': 'graphic design',
+      'web-dev': 'web dev',
+      'print': 'print',
+      'exhibits': 'exhibits',
+      'personal-project': 'personal projects'
+    };
+    return map[filter] || filter;
+  }
+
+  function addBreadcrumbToSidebar(category, title) {
+    // remove any existing dynamic breadcrumb first
+    const existing = document.getElementById('dynamic-breadcrumb');
+    if (existing) existing.remove();
+
+    const sidebar = document.getElementById('sidebar');
+    if (!sidebar) return;
+
+    const activeBtn = document.querySelector('.filter-btn.active');
+    const filter = activeBtn ? activeBtn.dataset.filter : 'all';
+    const filterDisplay = getFilterDisplay(filter);
+
+    const bc = document.createElement('a');
+    bc.id = 'dynamic-breadcrumb';
+    bc.className = 'breadcrumb';
+    bc.href = './index.html';
+    bc.textContent = 'projects / ' + filterDisplay + ' / ' + title;
+
+    // insert right after the sidebar-close button, or at the top
+    const closeBtn = sidebar.querySelector('.sidebar-close');
+    if (closeBtn && closeBtn.nextSibling) {
+      sidebar.insertBefore(bc, closeBtn.nextSibling);
+    } else {
+      sidebar.prepend(bc);
+    }
+  }
+
+  async function loadCaseStudy(url, cardTitle, cardCategory) {
     try {
       const res = await fetch(url);
       const html = await res.text();
@@ -80,6 +123,11 @@ initClock();
       content.appendChild(wrapper);
       content.scrollTop = 0;
       window.scrollTo(0, 0);
+
+      // desktop breadcrumb in sidebar
+      if (cardTitle) {
+        addBreadcrumbToSidebar(cardCategory, cardTitle);
+      }
 
       // mobile "projects" button in topbar (right side)
       document.querySelectorAll('.topbar-back').forEach(el => el.remove());
@@ -126,7 +174,9 @@ initClock();
       card.addEventListener('click', (e) => {
         if (e.target.closest('a, button, .ext-link')) return;
         e.preventDefault();
-        loadCaseStudy(card.dataset.href);
+        const titleEl = card.querySelector('.card-title');
+        const title = titleEl ? titleEl.textContent.trim() : '';
+        loadCaseStudy(card.dataset.href, title, card.dataset.category);
       });
     });
   }
