@@ -339,6 +339,15 @@ button, a, [data-href] { cursor: pointer; }
   margin-left: auto;
 }
 
+/* bridging line — intro text above filters */
+.bridging-line {
+  font-size: 0.85rem;
+  color: var(--gray-500);
+  line-height: 1.6;
+  margin-bottom: var(--sp-4);
+  max-width: 65ch;
+}
+
 /* filters — home only, hidden on case pages */
 .filters {
   display: flex;
@@ -624,6 +633,15 @@ body.case-page .filters { display: none; }
   color: var(--gray-800);
 }
 
+.hero-image {
+  margin-bottom: var(--sp-10);
+}
+.hero-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 .case-section,
 .text {
   margin-bottom: var(--sp-10);
@@ -637,17 +655,14 @@ body.case-page .filters { display: none; }
 }
 .case-section h3,
 .text h3 {
-  font-family: var(--font-serif);
-  font-size: 1.3rem;
-  font-weight: 400;
-  color: var(--gray-900);
-  letter-spacing: -0.01em;
-  margin-bottom: var(--sp-3);
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gray-500);
+  margin-bottom: var(--sp-2);
   padding-top: 0;
-}
-.case-section h3 strong,
-.text h3 strong {
-  font-weight: 400;
 }
 
 .case-section p,
@@ -969,11 +984,7 @@ html.is-touch #custom-cursor { display: none !important; }
     font-size: 0.72rem;
     margin-bottom: var(--sp-2);
   }
-  .sidebar-back-btn {
-    display: block;
-    margin-bottom: var(--sp-3);
-    font-size: 0.8rem;
-  }
+
 
   /* sidebar slides in from left — fits without scrolling */
   .sidebar {
