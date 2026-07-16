@@ -636,7 +636,8 @@ body.case-page .filters { display: none; }
 .hero-image {
   margin-bottom: var(--sp-10);
 }
-.hero-image img {
+.hero-image img,
+.hero-image video {
   width: 100%;
   height: auto;
   display: block;
