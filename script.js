@@ -87,22 +87,30 @@ initClock();
       }
     });
 
-    const activeBtn = document.querySelector('.filter-btn.active');
-    const filter = activeBtn ? activeBtn.dataset.filter : 'all';
+    const filter = category ? category.split(' ')[0] : 'all';
     const filterDisplay = getFilterDisplay(filter);
 
-    // build: <span class="breadcrumb"><a href="./index.html">projects</a> / <a href="./index.html">filter</a> / <span class="breadcrumb-current">title</span></span>
+    // build: <span class="breadcrumb">...</span>
+    // links use showGrid() so the active filter is preserved on return
     const container = document.createElement('span');
     container.id = 'dynamic-breadcrumb';
     container.className = 'breadcrumb';
 
     const link1 = document.createElement('a');
-    link1.href = './index.html';
+    link1.href = '#';
     link1.textContent = 'projects';
+    link1.addEventListener('click', function(e) {
+      e.preventDefault();
+      showGrid();
+    });
 
     const link2 = document.createElement('a');
-    link2.href = './index.html';
+    link2.href = '#';
     link2.textContent = filterDisplay;
+    link2.addEventListener('click', function(e) {
+      e.preventDefault();
+      showGrid();
+    });
 
     const current = document.createElement('span');
     current.className = 'breadcrumb-current';
