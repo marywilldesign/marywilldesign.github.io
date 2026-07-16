@@ -77,7 +77,7 @@ initClock();
     return map[filter] || filter;
   }
 
-  function addBreadcrumbToCaseView(category, title) {
+  function addBreadcrumbToCaseView(category, title, activeFilter) {
     // remove any existing breadcrumb from wrapper (fixes duplicate)
     const wrapper = document.querySelector('.case-study-view');
     if (!wrapper) return;
@@ -87,8 +87,7 @@ initClock();
       }
     });
 
-    const filter = category ? category.split(' ')[0] : 'all';
-    const filterDisplay = getFilterDisplay(filter);
+    const filterDisplay = getFilterDisplay(activeFilter);
 
     // build: <span class="breadcrumb">...</span>
     // links use showGrid() so the active filter is preserved on return
@@ -131,7 +130,7 @@ initClock();
     }
   }
 
-  async function loadCaseStudy(url, cardTitle, cardCategory) {
+  async function loadCaseStudy(url, cardTitle, cardCategory, activeFilter) {
     try {
       const res = await fetch(url);
       const html = await res.text();
@@ -153,7 +152,7 @@ initClock();
 
       // desktop breadcrumb above case header
       if (cardTitle) {
-        addBreadcrumbToCaseView(cardCategory, cardTitle);
+        addBreadcrumbToCaseView(cardCategory, cardTitle, activeFilter);
       }
 
       // mobile "projects" button in topbar (right side)
@@ -203,7 +202,10 @@ initClock();
         e.preventDefault();
         const titleEl = card.querySelector('.card-title');
         const title = titleEl ? titleEl.textContent.trim() : '';
-        loadCaseStudy(card.dataset.href, title, card.dataset.category);
+        // capture the active filter before content is cleared
+        const activeBtn = document.querySelector('.filter-btn.active');
+        const activeFilter = activeBtn ? activeBtn.dataset.filter : 'all';
+        loadCaseStudy(card.dataset.href, title, card.dataset.category, activeFilter);
       });
     });
   }
