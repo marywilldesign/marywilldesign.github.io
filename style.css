@@ -816,13 +816,21 @@ body.case-page .filters { display: none; }
 .breadcrumb,
 .breadcrumb-mobile {
   display: inline-block;
-  color: var(--blue);
   font-size: 0.8rem;
   font-weight: 500;
   margin-bottom: var(--sp-6);
+  color: var(--gray-400);
 }
-.breadcrumb:hover,
-.breadcrumb-mobile:hover { text-decoration: underline; }
+.breadcrumb a {
+  color: #0040FF;
+  text-decoration: none;
+}
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+.breadcrumb-current {
+  color: var(--gray-400);
+}
 .breadcrumb-mobile { display: none; }
 
 /* masonry gallery */

@@ -78,29 +78,48 @@ initClock();
   }
 
   function addBreadcrumbToCaseView(category, title) {
-    // remove any existing dynamic breadcrumb first
-    const existing = document.getElementById('dynamic-breadcrumb');
-    if (existing) existing.remove();
-
+    // remove any existing breadcrumb from wrapper (fixes duplicate)
     const wrapper = document.querySelector('.case-study-view');
     if (!wrapper) return;
+    wrapper.querySelectorAll('.breadcrumb').forEach(function(el) {
+      if (el.id === 'dynamic-breadcrumb' || !el.closest('.sidebar')) {
+        el.remove();
+      }
+    });
 
     const activeBtn = document.querySelector('.filter-btn.active');
     const filter = activeBtn ? activeBtn.dataset.filter : 'all';
     const filterDisplay = getFilterDisplay(filter);
 
-    const bc = document.createElement('a');
-    bc.id = 'dynamic-breadcrumb';
-    bc.className = 'breadcrumb';
-    bc.href = './index.html';
-    bc.textContent = 'projects / ' + filterDisplay + ' / ' + title;
+    // build: <span class="breadcrumb"><a href="./index.html">projects</a> / <a href="./index.html">filter</a> / <span class="breadcrumb-current">title</span></span>
+    const container = document.createElement('span');
+    container.id = 'dynamic-breadcrumb';
+    container.className = 'breadcrumb';
+
+    const link1 = document.createElement('a');
+    link1.href = './index.html';
+    link1.textContent = 'projects';
+
+    const link2 = document.createElement('a');
+    link2.href = './index.html';
+    link2.textContent = filterDisplay;
+
+    const current = document.createElement('span');
+    current.className = 'breadcrumb-current';
+    current.textContent = title;
+
+    container.appendChild(link1);
+    container.appendChild(document.createTextNode(' / '));
+    container.appendChild(link2);
+    container.appendChild(document.createTextNode(' / '));
+    container.appendChild(current);
 
     // insert right before the case-header-grid
     const header = wrapper.querySelector('.case-header-grid');
     if (header) {
-      wrapper.insertBefore(bc, header);
+      wrapper.insertBefore(container, header);
     } else {
-      wrapper.prepend(bc);
+      wrapper.prepend(container);
     }
   }
 
