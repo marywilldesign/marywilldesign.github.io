@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="../style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 
   <script src="../script.js" defer></script>
 </head>
@@ -28,8 +28,9 @@
       <!-- mobile-only: avatar + bio + links -->
       <div class="sidebar-mobile-top">
         <img class="avatar" src="../mw_profile.svg" alt="Mary Wil" width="200" height="200">
+        <img class="avatar-photo" src="../mw_profile.png" alt="Mary Wil" width="200" height="200">
         <p class="bio">
-          UX/UI designer crafting thoughtful digital experiences through research, storytelling, and visual experimentation. Spanning client work (Telus, IBM, Modo) and self-initiated projects that blend design with code.
+          User Experience designer with nearly ten years experience from startups to consulting agencies. Master's degrees in UX/UI and Graphic design. Demonstrated project leadership from ideation to launch with full-stack teams. Cross-sector experience from consumer goods to telecomms and enterprise clients. Spanning client work (Telus, IBM, Modo) and self-initiated projects that blend design with code.
         </p>
       </div>
 
@@ -79,77 +80,58 @@
       </div>
 
       <!-- header -->
-      <div class="case-header">
-
+    <div class="case-header-grid">
+      <div class="case-header-text">
         <h2>Live Open Call</h2>
-
         <div class="tags">
           <span class="tag">graphic design</span>
           <span class="tag">web dev</span>
           <span class="tag">print</span>
         </div>
-
-        <p class="case-meta"><strong>2025</strong> · <span class="role">role:</span> <span class="role-title">Designer & Developer</span></p>
-
-      </div>
-
-      <div class="case-section">
-        <h3>Concept</h3>
         <p>
-          Along with some other designers, we were given a space to work with the idea of mail art publishing (think: El Djarida). Given that mail art is very much a collaborative art form, with many people sending things in, my focus was on open calls. I was curious about the idea of running a very open, open call. To spread the word, I made a quick poster with the idea that people can just send whatever they are working on from random files. I hung this poster around London and Oslo. 
+          Designed and built an interface for gallery visitors to scan a QR code and send text and images to a live receipt printer, bridging digital and physical interaction. The project started as an open call experiment in mail art publishing, with posters hung around London and Oslo inviting people to submit whatever they were working on. Submissions were unified into a long receipt format, evolving into a live interactive installation.
         </p>
       </div>
-
-      <div class="case-section">
-        <h3>Execution</h3>
-        <p>
-          I unified the submissions into one long receipt and began to think about the prospect of doing this live, given the curiosity I had around the visual output. 
-        </p>
-        <p style="margin-top: var(--sp-4);">
-          <a href="https://drive.google.com/file/d/154rOSybpMvjC_LpU055DL15ylRA56IEj/view?usp=sharing" class="card-cta" target="_blank" rel="noopener noreferrer">full case study (pdf) →</a>
-        </p>
+      <div class="snapshot-box">
+        <p><strong>2025</strong> · Designer and Developer</p>
+        <p><a href="https://marywilldesign.github.io/liveopencall/" target="_blank" rel="noopener noreferrer">view site ↗</a></p>
       </div>
+    </div>
 
-      <!-- media grid -->
-
-      <div class="masonry">
-        <div class="masonry-item">
-          <img class="js-lightbox-item" src="../liveopencall/opencall.png" alt="">
-        </div>
-
-        <div class="masonry-item">
-          <img class="js-lightbox-item" src="../liveopencall/opencall1.png" alt="">
-        </div>
-
-        <div class="masonry-item">
-          <video class="js-lightbox-item video-item"
-            src="../liveopencall/siterecording.webm"
-            autoplay loop muted playsinline></video>
-        </div>
+    <div class="masonry">
+      <div class="masonry-item">
+        <img class="js-lightbox-item" src="../liveopencall/2.png" alt="">
+        <div class="caption">Open call poster</div>
       </div>
-
-      <p>
-        It was an interesting experiment to compare the more 'premediated' open call...
-      </p>
-
-      <div class="masonry">
-        <div class="masonry-item">
-          <video class="js-lightbox-item video-item"
-            src="../liveopencall/video.webm"
-            autoplay loop muted playsinline></video>
-        </div>
-
-        <div class="masonry-item">
-          <video class="js-lightbox-item video-item"
-            src="../liveopencall/liveopencall.webm"
-            autoplay loop muted playsinline></video>
-        </div>
+      <div class="masonry-item">
+        <img class="js-lightbox-item" src="../liveopencall/3.png" alt="">
+        <div class="caption">Receipt output from submissions</div>
       </div>
+      <div class="masonry-item">
+        <video class="js-lightbox-item video-item" src="../liveopencall/6.webm" autoplay loop muted playsinline></video>
+        <div class="caption">Site interface recording</div>
+      </div>
+    </div>
 
-      <p>Unfortunately, there was not much footage of the live open call in action!</p>
+    <div class="masonry">
+      <div class="masonry-item">
+        <video class="js-lightbox-item video-item" src="../liveopencall/7.webm" autoplay loop muted playsinline></video>
+        <div class="caption">Live open call in action</div>
+      </div>
+      <div class="masonry-item">
+        <video class="js-lightbox-item video-item" src="../liveopencall/1.webm" autoplay loop muted playsinline></video>
+        <div class="caption">Receipt printer output</div>
+      </div>
+    </div>
 
-    </main>
-  </div>
+  <nav id="project-nav" class="project-nav-footer" style="display:none">
+    <a class="nav-prev" href="#"></a>
+    <button class="back-to-top">back to top ↑</button>
+    <a class="nav-next" href="#"></a>
+  </nav>
+
+  </main>
+</div>
 
   <div id="custom-cursor"></div>
 

@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Mary Wil – UX/UI designer crafting thoughtful digital experiences through research, storytelling, and visual experimentation.">
+  <meta name="description" content="Mary Wil – User Experience designer with nearly ten years experience from startups to consulting agencies.">
   <meta name="theme-color" content="#0000cd">
   <title>Mary Wilson Portfolio</title>
   <link rel="icon" type="image/svg+xml" href="mw.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -22,8 +22,9 @@
 
       <div class="sidebar-top">
         <img class="avatar" src="./mw_profile.svg" alt="Mary Wil" width="200" height="200">
+        <img class="avatar-photo" src="./mw_profile.png" alt="Mary Wil" width="200" height="200">
         <p class="bio">
-          UX/UI designer crafting thoughtful digital experiences through research, storytelling, and visual experimentation. Spanning client work (Telus, IBM, Modo) and self-initiated projects that blend design with code.
+          User Experience designer with nearly ten years experience from startups to consulting agencies. Master's degrees in UX/UI and Graphic design. Demonstrated project leadership from ideation to launch with full-stack teams. Cross-sector experience from consumer goods to telecomms and enterprise clients. Spanning client work (Telus, IBM, Modo) and self-initiated projects that blend design with code.
         </p>
       </div>
 
@@ -74,17 +75,32 @@
       <!-- project card grid -->
       <div class="cards">
 
+        <!-- kogl -->
+        <article class="case-card" data-id="kogl" data-category="ux graphic-design" data-href="/kogl/">
+          <div class="card-image">
+            <img src="./kogl/card.png" alt="KOGL furniture design studio" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">KOGL – Web Design</h3>
+            <p class="card-summary">Premium e-commerce and product listing site for a contemporary Scandinavian furniture design studio &mdash; balancing craftsmanship, materiality, and minimalist identity.</p>
+            <div class="card-meta">
+              <div class="tags"><span class="tag">UX</span><span class="tag">graphic design</span></div>
+              <a href="https://kogl.no" class="ext-link" target="_blank" rel="noopener noreferrer">view site ↗</a>
+            </div>
+          </div>
+        </article>
+
           <!-- telus -->
         <article class="case-card" data-id="telus" data-category="ux" data-href="/telus/">
           <div class="card-image">
-            <img src="./telus/telus.png" alt="Telus Internet Sales redesign" loading="lazy">
+            <img src="./telus/card.png" alt="Telus Internet Sales redesign" loading="lazy">
           </div>
           <div class="card-body">
             <h3 class="card-title">Internet Sales – Telus</h3>
             <p class="card-summary">Navigation redesign for Canada's second-largest telco &mdash; <strong>42% increase</strong> in desired page visits through improved information architecture and mobile-first flows.</p>
             <div class="card-meta">
               <div class="tags"><span class="tag">UX</span></div>
-              <a href="/telus/" class="card-cta" onclick="event.stopPropagation()">view case study →</a>
+              <a href="https://www.telus.com/en/internet" class="ext-link" target="_blank" rel="noopener noreferrer">view site ↗</a>
             </div>
           </div>
         </article>
@@ -92,7 +108,7 @@
         <!-- modo -->
         <article class="case-card" data-id="modo" data-category="ux graphic-design" data-href="/modo/">
           <div class="card-image">
-            <img src="./modo/modohero.png" alt="Modo website redesign" loading="lazy">
+            <img src="./modo/card.png" alt="Modo website redesign" loading="lazy">
           </div>
           <div class="card-body">
             <h3 class="card-title">B2C Website Redesign – Modo</h3>
@@ -102,7 +118,7 @@
                 <span class="tag">UX</span>
                 <span class="tag">graphic design</span>
               </div>
-              <a href="/modo/" class="card-cta" onclick="event.stopPropagation()">view case study →</a>
+              <a href="https://www.modo.coop/" class="ext-link" target="_blank" rel="noopener noreferrer">view site ↗</a>
             </div>
           </div>
         </article>
@@ -110,7 +126,7 @@
         <!-- two truths & ai -->
         <article class="case-card" data-id="twotruths" data-category="ux graphic-design web-dev personal-project" data-href="/twotruths/">
           <div class="card-image">
-            <img src="./twotruths/twotruthsai_hero.png" alt="Two Truths &amp; AI game" loading="lazy">
+            <img src="./twotruths/card.png" alt="Two Truths &amp; AI game" loading="lazy">
           </div>
           <div class="card-body">
             <h3 class="card-title">Two Truths & AI – web game</h3>
@@ -121,7 +137,7 @@
                 <span class="tag">graphic design</span>
                 <span class="tag">web dev</span>
               </div>
-              <a href="/twotruths/" class="card-cta" onclick="event.stopPropagation()">view case study →</a>
+              <a href="https://marywildesign.github.io/two-truths-ai/" class="ext-link" target="_blank" rel="noopener noreferrer">view site ↗</a>
             </div>
           </div>
         </article>
@@ -129,7 +145,7 @@
         <!-- poster triennial -->
         <article class="case-card" data-id="postertriennial" data-category="graphic-design exhibits" data-href="/postertriennial/">
           <div class="card-image">
-            <img src="./postertriennial/window.png" alt="Poster Triennial exhibit" loading="lazy">
+            <img src="./postertriennial/card.png" alt="Poster Triennial exhibit" loading="lazy">
           </div>
           <div class="card-body">
             <h3 class="card-title">Lahti's Poster Triennial</h3>
@@ -139,7 +155,7 @@
                 <span class="tag">graphic design</span>
                 <span class="tag">exhibits</span>
               </div>
-              <a href="/postertriennial/" class="card-cta" onclick="event.stopPropagation()">view case study →</a>
+              <a href="https://www.malvamuseo.fi/en/lahti-international-poster-triennial/poster-triennial-2025/" class="ext-link" target="_blank" rel="noopener noreferrer">view site ↗</a>
             </div>
           </div>
         </article>
@@ -147,7 +163,7 @@
         <!-- creepers – vag -->
         <article class="case-card" data-id="creepers" data-category="ux exhibits" data-href="/vancouverartgallery/">
           <div class="card-image">
-            <img src="./vancouverartgallery/creepers_hero.png" alt="Creepers – Vancouver Art Gallery" loading="lazy">
+            <img src="./vancouverartgallery/card.png" alt="Creepers – Vancouver Art Gallery" loading="lazy">
           </div>
           <div class="card-body">
             <h3 class="card-title">Creepers – Vancouver Art Gallery</h3>
@@ -157,37 +173,37 @@
                 <span class="tag">UX</span>
                 <span class="tag">exhibits</span>
               </div>
-              <a href="/vancouverartgallery/" class="card-cta" onclick="event.stopPropagation()">view case study →</a>
+              <a href="https://preview-art.com/feature/the-imitation-game-visual-culture-in-the-age-of-artificial-intelligence/" class="ext-link" target="_blank" rel="noopener noreferrer">view press ↗</a>
             </div>
           </div>
         </article>
 
-        <!-- ibm — hidden, case study coming soon -->
-        <!-- article class="case-card" data-id="ibm" data-category="ux">
+        <!-- ibm -->
+        <article class="case-card" data-id="ibm" data-category="ux" data-href="/ibm/">
           <div class="card-image">
-            <img src="./ibm/ibm.png" alt="IBM Volunteerism" loading="lazy">
+            <img src="./ibm/card.png" alt="IBM Volunteerism" loading="lazy">
           </div>
           <div class="card-body">
             <h3 class="card-title">IBM Volunteerism</h3>
-            <p class="card-summary">User flow improvements and hi-fi designs using the Carbon Design System -- delivering enterprise-scale UX as a preferred vendor through All Purpose Creative.</p>
+            <p class="card-summary">User flow improvements and hi-fi designs using the Carbon Design System &mdash; delivering enterprise-scale UX as a preferred vendor through All Purpose Creative.</p>
             <div class="card-meta">
               <div class="tags"><span class="tag">UX</span></div>
               <a href="https://www.ibm.com/responsibility/programs/volunteerism-giving" class="ext-link" target="_blank" rel="noopener noreferrer">view site ↗</a>
             </div>
           </div>
-        </article -->
+        </article>
 
         <!-- subtext -->
         <article class="case-card" data-id="subtext" data-category="graphic-design" data-href="/subtext/">
           <div class="card-image">
-            <img src="./subtext/subtext.png" alt="Subtext film poster" loading="lazy">
+            <img src="./subtext/card.png" alt="Subtext film poster" loading="lazy">
           </div>
           <div class="card-body">
             <h3 class="card-title">Subtext – film poster</h3>
             <p class="card-summary">Poster design and branding for an award-winning Canadian short film &mdash; translating narrative subtext into a single visual frame.</p>
             <div class="card-meta">
               <div class="tags"><span class="tag">graphic design</span></div>
-              <a href="/subtext/" class="card-cta" onclick="event.stopPropagation()">view case study →</a>
+              <a href="https://www.imdb.com/title/tt37059491/" class="ext-link" target="_blank" rel="noopener noreferrer">view on imdb ↗</a>
             </div>
           </div>
         </article>
@@ -195,7 +211,7 @@
         <!-- risograph posters -->
         <article class="case-card" data-id="risograph" data-category="graphic-design print exhibits" data-href="/risographposters/">
           <div class="card-image">
-            <img src="./risographposters/twotruthsaiprint.png" alt="Risograph poster prints" loading="lazy">
+            <img src="./risographposters/card.png" alt="Risograph poster prints" loading="lazy">
           </div>
           <div class="card-body">
             <h3 class="card-title">Poster Design – Kunstnernes Hus</h3>
@@ -206,7 +222,6 @@
                 <span class="tag">print</span>
                 <span class="tag">exhibits</span>
               </div>
-              <a href="/risographposters/" class="card-cta" onclick="event.stopPropagation()">view case study →</a>
             </div>
           </div>
         </article>
@@ -214,7 +229,7 @@
         <!-- friends fest -->
         <article class="case-card" data-id="friendsfest" data-category="graphic-design print" data-href="/friendsfest/">
           <div class="card-image">
-            <img src="./friendsfest/friendsfest_hero.png" alt="Friends Fest branding" loading="lazy">
+            <img src="./friendsfest/card.png" alt="Friends Fest branding" loading="lazy">
           </div>
           <div class="card-body">
             <h3 class="card-title">Friends Fest – Squamish Music Fest</h3>
@@ -224,7 +239,6 @@
                 <span class="tag">graphic design</span>
                 <span class="tag">print</span>
               </div>
-              <a href="/friendsfest/" class="card-cta" onclick="event.stopPropagation()">view case study →</a>
             </div>
           </div>
         </article>
@@ -232,14 +246,13 @@
         <!-- speleo -->
         <article class="case-card" data-id="speleo" data-category="graphic-design" data-href="/speleo/">
           <div class="card-image">
-            <img src="./speleo/speleohero.png" alt="Speleo record label identity" loading="lazy">
+            <img src="./speleo/card.png" alt="Speleo record label identity" loading="lazy">
           </div>
           <div class="card-body">
             <h3 class="card-title">Speleo – Record Label</h3>
             <p class="card-summary">Visual identity for an independent Vancouver record label &mdash; building a flexible brand system across digital and print touchpoints.</p>
             <div class="card-meta">
               <div class="tags"><span class="tag">graphic design</span></div>
-              <a href="/speleo/" class="card-cta" onclick="event.stopPropagation()">view case study →</a>
             </div>
           </div>
         </article>
@@ -247,7 +260,7 @@
         <!-- blackbox vj -->
         <article class="case-card" data-id="blackbox" data-category="ux graphic-design web-dev personal-project" data-href="/blackbox/">
           <div class="card-image">
-            <img src="./blackbox/blackbox_hero.png" alt="visual output" loading="lazy">
+            <img src="./blackbox/card.png" alt="visual output" loading="lazy">
           <!-- video placeholder (future) -->
           </div>
           <div class="card-body">
@@ -260,7 +273,7 @@
                 <span class="tag">graphic design</span>
                 <span class="tag">personal project</span>
               </div>
-              <a href="/blackbox/" class="card-cta" onclick="event.stopPropagation()">view case study →</a>
+              <a href="https://blackboxvj.me" class="ext-link" target="_blank" rel="noopener noreferrer">view site ↗</a>
             </div>
           </div>
         </article>
@@ -268,7 +281,7 @@
         <!-- collaborative sentence -->
         <article class="case-card" data-id="collaborative" data-category="ux graphic-design web-dev personal-project" data-href="/collaborativesentence/">
           <div class="card-image">
-            <img src="./collaborativesentence/longesthero.png" alt="Collaborative Sentence site" loading="lazy">
+            <img src="./collaborativesentence/card.png" alt="Collaborative Sentence site" loading="lazy">
           </div>
           <div class="card-body">
             <h3 class="card-title">Remixed Collaborative Sentence</h3>
@@ -278,7 +291,7 @@
                 <span class="tag">UX</span>
                 <span class="tag">web dev</span>
               </div>
-              <a href="/collaborativesentence/" class="card-cta" onclick="event.stopPropagation()">view case study →</a>
+              <a href="https://marywildesign.github.io/lcsremixed/" class="ext-link" target="_blank" rel="noopener noreferrer">view site ↗</a>
             </div>
           </div>
         </article>
@@ -286,7 +299,7 @@
         <!-- paper cut -->
         <article class="case-card" data-id="papercut" data-category="graphic-design personal-project" data-href="/papercut/">
           <div class="card-image">
-            <img src="./papercut/pchero.png" alt="Paper Cut poster series" loading="lazy">
+            <img src="./papercut/card.png" alt="Paper Cut poster series" loading="lazy">
           </div>
           <div class="card-body">
             <h3 class="card-title">Paper Cut – poster folio</h3>
@@ -296,7 +309,6 @@
               <span class="tag">graphic design</span>
               <span class="tag">print</span>
               </div>
-              <a href="/papercut/" class="card-cta" onclick="event.stopPropagation()">view case study →</a>
             </div>
           </div>
         </article>
@@ -304,7 +316,7 @@
         <!-- well, flip! -->
         <article class="case-card" data-id="wellflip" data-category="graphic-design print personal-project" data-href="/wellflip/">
           <div class="card-image">
-            <img src="./wellflip/1.png" alt="Corrupted fontbook" loading="lazy">
+            <img src="./wellflip/card.png" alt="Corrupted fontbook" loading="lazy">
           </div>
           <div class="card-body">
             <h3 class="card-title">"Well, Flip!" – coptic-bound book</h3>
@@ -314,7 +326,6 @@
                 <span class="tag">graphic design</span>
                 <span class="tag">print</span>
               </div>
-              <a href="/wellflip/" class="card-cta" onclick="event.stopPropagation()">view case study →</a>
             </div>
           </div>
         </article>
@@ -323,7 +334,7 @@
         <article class="case-card" data-id="liveopencall" data-category="graphic-design print web-dev personal-project" data-href="/liveopencall/">
           <div class="card-image">
           <video 
-            src="../liveopencall/video.webm"
+            src="./liveopencall/7.webm"
             autoplay loop muted playsinline>
             </video>
           </div>
@@ -336,7 +347,7 @@
                 <span class="tag">web dev</span>
                 <span class="tag">print</span>
               </div>
-              <a href="/liveopencall/" class="card-cta" onclick="event.stopPropagation()">view case study →</a>
+              <a href="https://marywilldesign.github.io/liveopencall/" class="ext-link" target="_blank" rel="noopener noreferrer">view site ↗</a>
             </div>
           </div> 
         </article>
@@ -344,7 +355,7 @@
         <!-- glyphs corrupted -->
         <article class="case-card" data-id="glyphscorrupted" data-category="graphic-design print personal-project ux" data-href="/glyphscorrupted/">
           <div class="card-image">
-            <img src="./glyphscorrupted/glyphscorrupt.png" alt="Corrupted fontbook" loading="lazy">
+            <img src="./glyphscorrupted/card.png" alt="Corrupted fontbook" loading="lazy">
           </div>
           <div class="card-body">
             <h3 class="card-title">'Corrupted' – fontbook</h3>
@@ -354,7 +365,6 @@
                 <span class="tag">graphic design</span>
                 <span class="tag">print</span>
               </div>
-              <a href="/glyphscorrupted/" class="card-cta" onclick="event.stopPropagation()">view case study →</a>
             </div>
           </div>
         </article>
@@ -377,19 +387,19 @@
           <span class="cv-org">All Purpose Creative</span>
           <span class="cv-date">Currently</span>
         </div>
-        <div class="cv-item">
+        <div class="cv-item cv-subitem">
           <span class="cv-org">IBM</span>
           <span class="cv-date">July 2024 - Jan 2025</span>
         </div>
-        <div class="cv-item">
+        <div class="cv-item cv-subitem">
           <span class="cv-org">Vancouver Board of Trade</span>
           <span class="cv-date">Jan 2023 – July 2023</span>
         </div>
-        <div class="cv-item">
+        <div class="cv-item cv-subitem">
           <span class="cv-org">Modo</span>
           <span class="cv-date">Feb 2022 – Present</span>
         </div>
-        <div class="cv-item">
+        <div class="cv-item cv-subitem">
           <span class="cv-org">Telus</span>
           <span class="cv-date">Sept 2021 – Dec 2024</span>
         </div>

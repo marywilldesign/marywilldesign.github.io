@@ -10,7 +10,7 @@
   <script src="../script.js" defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 </head>
 
 <body class="case-page">
@@ -27,8 +27,9 @@
       <!-- mobile-only: avatar + bio + links -->
       <div class="sidebar-mobile-top">
         <img class="avatar" src="../mw_profile.svg" alt="Mary Wil" width="200" height="200">
+        <img class="avatar-photo" src="../mw_profile.png" alt="Mary Wil" width="200" height="200">
         <p class="bio">
-          UX/UI designer crafting thoughtful digital experiences through research, storytelling, and visual experimentation. Spanning client work (Telus, IBM, Modo) and self-initiated projects that blend design with code.
+          User Experience designer with nearly ten years experience from startups to consulting agencies. Master's degrees in UX/UI and Graphic design. Demonstrated project leadership from ideation to launch with full-stack teams. Cross-sector experience from consumer goods to telecomms and enterprise clients. Spanning client work (Telus, IBM, Modo) and self-initiated projects that blend design with code.
         </p>
       </div>
 
@@ -78,66 +79,48 @@
       </div>
 
       <!-- header -->
-      <div class="case-header">
-
-        <h2>VJ tool (Blackbox)</h2>
-
+    <div class="case-header-grid">
+      <div class="case-header-text">
+        <h2>Blackbox: 3D printed VJ synthesizer</h2>
         <div class="tags">
           <span class="tag">UX</span>
-          <span class="tag">graphic design</span>
           <span class="tag">web dev</span>
+          <span class="tag">graphic design</span>
           <span class="tag">personal project</span>
         </div>
-
-        <p class="case-meta"><strong>2025 - 2026</strong> · <span class="role">role:</span> <span class="role-title">Designer & Developer</span></p>
-
-      </div>
-
-      <div class="case-section">
-        <h3>Concept</h3>
         <p>
-          BLACKBOX is an analogue to digital visual synthesizer built around a custom controller with 16 knobs (potentiometers) and 2 switches. It explores co-creation as a negotiation between hand, controller, and visual output, where control is distrubted across the full process, in real time.
+          BLACKBOX is an analogue to digital visual synthesizer built around a custom controller with 16 knobs and 2 switches, exploring co-creation between hand, hardware, and real-time visuals. Developed as a master's thesis under the supervision of Stefan Ellmer, the physical controller is SLA 3D printed in a soft, transparent blobject shape, paying homage to early 2000s modular tech. It uses a Raspberry Pi 5 and analogue to digital converter to interpret controller values through Python into frontend visual output.
         </p>
       </div>
-
-      <div class="case-section">
-        <h3>Hardware</h3>
-        <p>
-          The physical controller has been SLA 3D printed in the shape of a blobject: soft and transparent. The aim was to pay homage to early 2000s tech, which was modular and fixable (less of a blackbox). It has a Single Board Computer (RPi5) and an analogue to digital converter (A.D.C.) which enables the values from the controller to be interpreted by a Python script, which then translates it into the frontend output.
-        </p>
+      <div class="snapshot-box">
+        <p><strong>2025 - 2026</strong> · Designer and Developer</p>
+        <p><a href="https://blackboxvj.me" target="_blank" rel="noopener noreferrer">view site ↗</a></p>
+        <p>Supervisor: Stefan Ellmer</p>
       </div>
+    </div>
 
-      <div class="case-section">
-        <h3>Framing control</h3>
-        <p>
-          Rather than treating control as a fixed input-output relationship, the system frames it as an ongoing loop. In this sense, BLACKBOX asks does more controls necessarily mean more control? 
-        </p>
-        <p style="margin-top: var(--sp-4);">
-          <a href="https://drive.google.com/file/d/154rOSybpMvjC_LpU055DL15ylRA56IEj/view?usp=sharing" class="card-cta" target="_blank" rel="noopener noreferrer">full case study (pdf) →</a>
-        </p>
+    <div class="masonry">
+      <div class="masonry-item">
+        <video src="../blackbox/3.webm" autoplay loop muted playsinline class="video-item js-lightbox-item"></video>
+        <div class="caption">Visual output study one</div>
       </div>
-
-      <div class="case-section">
-        <h3>Controller & visuals</h3>
+      <div class="masonry-item">
+        <video src="../blackbox/2.webm" autoplay loop muted playsinline class="video-item js-lightbox-item"></video>
+        <div class="caption">Visual output study two</div>
       </div>
-
-      <div class="masonry">
-
-        <div class="masonry-item">
-          <video src="../blackbox/vj14.webm" autoplay loop muted playsinline class="video-item js-lightbox-item"></video>
-        </div>
-
-        <div class="masonry-item">
-          <video src="../blackbox/vj1.webm" autoplay loop muted playsinline class="video-item js-lightbox-item"></video>
-        </div>
-
-        <div class="masonry-item">
-          <video src="../blackbox/vj7.webm" autoplay loop muted playsinline class="video-item js-lightbox-item"></video>
-        </div>
-
+      <div class="masonry-item">
+        <video src="../blackbox/4.webm" autoplay loop muted playsinline class="video-item js-lightbox-item"></video>
+        <div class="caption">Real-time controller response</div>
       </div>
+    </div>
 
-    </main>
+  <nav id="project-nav" class="project-nav-footer" style="display:none">
+    <a class="nav-prev" href="#"></a>
+    <button class="back-to-top">back to top ↑</button>
+    <a class="nav-next" href="#"></a>
+  </nav>
+
+  </main>
   </div>
 
   <div id="custom-cursor"></div>

@@ -4,133 +4,119 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>IBM – Volunteerism</title>
+
   <link rel="icon" type="image/svg+xml" href="../mw.svg" />
   <link rel="stylesheet" href="../style.css" />
   <script src="../script.js" defer></script>
+
+  <style>
+    .caption {
+      font-size: 0.8rem;
+      margin-top: 0.4rem;
+      color: #444;
+    }
+  </style>
 </head>
 
-<body>
-  <div class="container">
+<body class="case-page">
 
-    <!-- left sidebar -->
-    <aside class="sidebar">
-      <!-- FIXED breadcrumb path: go up one folder -->
-      <a href="../index.html" class="breadcrumb">← home / IBM</a>
-      
-      <div class="other-cases">
-        <ul>
-          <button class="view-cs" onclick="window.location.href='/vancouverartgallery/'">Vancouver Art Gallery</button>
-          <button class="view-cs" onclick="window.location.href='/telus/'">Telus Internet Sales</button>
-          <button class="view-cs" onclick="window.location.href='/modo/'">Modo Carsharing Site</button>
-          <button class="view-cs" onclick="window.location.href='/postertriennial/'">Poster Triennial, Lahti</button>
-          <button class="view-cs" onclick="window.location.href='/twotruths/'">Two Truths and AI game</button>
-          <button class="view-cs" onclick="window.location.href='/friendsfest/'">Friends Fest branding</button>
-          <button class="view-cs" onclick="window.location.href='/speleo/'">Speleo Record Label</button>
-          <button class="view-cs" onclick="window.location.href='/papercut/'">Paper Cut Poster folio</button>
-          <button class="view-cs active" onclick="window.location.href='/ibm/'">IBM: Volunteerism</button>
-          <button class="view-cs" onclick="window.location.href='/scannerartly/'">Scanner Artly: high DPI</button>
-          <button class="view-cs" onclick="window.location.href='/subtext/'">Subtext Movie Poster</button>
-          <button class="view-cs" onclick="window.location.href='/risographposters/'">Risograph Poster Exhibit</button>
-          <button class="view-cs" onclick="window.location.href='/wellflip/'">Well, Flip!: Coptic Book</button>
-          <button class="view-cs" onclick="window.location.href='/blackbox/'">Web-based Blackbox VJ</button>
-          <button class="view-cs" onclick="window.location.href='/collaborativesentence/'">Longest Sentence site</button>         
-          <button class="view-cs" onclick="window.location.href='/glyphscorrupted/'">Glyphs: Corrupted</button>
-        </ul>
-      </div>
-    </aside>
+<div class="layout">
 
-    <!-- middle content -->
-    <main class="content">
+  <!-- sidebar -->
+  <aside class="sidebar" id="sidebar">
 
-      <!-- clock -->
-      <div class="clock" id="clock">00:00</div>
+    <button class="sidebar-close" id="sidebar-close" aria-label="Close menu">✕</button>
 
-      <!-- project header -->
-      <h2>IBM - Internal Projects Site</h2>
-      <div class="tags">
-        <span class="tag">UX</span>
+    <a href="../index.html" class="breadcrumb">← home / ibm</a>
+
+      <!-- mobile-only: avatar + bio + links -->
+      <div class="sidebar-mobile-top">
+        <img class="avatar" src="../mw_profile.svg" alt="Mary Wil" width="200" height="200">
+        <img class="avatar-photo" src="../mw_profile.png" alt="Mary Wil" width="200" height="200">
+        <p class="bio">
+          User Experience designer with nearly ten years experience from startups to consulting agencies. Master's degrees in UX/UI and Graphic design. Demonstrated project leadership from ideation to launch with full-stack teams. Cross-sector experience from consumer goods to telecomms and enterprise clients. Spanning client work (Telus, IBM, Modo) and self-initiated projects that blend design with code.
+        </p>
       </div>
 
-      <p class="quick-desc">
-        This project aimed to restructure Modo's marketing site to simplify navigation, align branding with the mobile app, and reduce support inquiries from prospective members.
-      </p>
+      <nav class="sidebar-links sidebar-mobile-links">
+        <a href="https://drive.google.com/file/d/1vJQT7nzT0Jh-cYgugH08rDDmF4s7uFco/view?usp=sharing" target="_blank" rel="noopener noreferrer">resume.pdf ↗</a>
+        <a href="https://drive.google.com/file/d/154rOSybpMvjC_LpU055DL15ylRA56IEj/view?usp=sharing" target="_blank" rel="noopener noreferrer">portfolio.pdf ↗</a>
+        <a href="https://www.linkedin.com/in/marygracewilson/" target="_blank" rel="noopener noreferrer">linkedin ↗</a>
+        <a href="https://www.instagram.com/marywildesign/" target="_blank" rel="noopener noreferrer">instagram ↗</a>
+        <a href="https://www.lomography.com/homes/marycastawayball/photos" target="_blank" rel="noopener noreferrer">photography ↗</a>
+      </nav>
 
-      <!-- full-width hero image -->
-      <div class="hero-image">
-        <img src="https://via.placeholder.com/1600x700" alt="Modo Case Study Hero"  class="js-lightbox-item" />
+      <p class="made sidebar-mobile-made">★ made by mary ★</p>
+
+    <nav class="project-nav">
+      <h4>Other Projects</h4>
+      <ul>
+        <li><a href="../vancouverartgallery/">Vancouver Art Gallery</a></li>
+        <li><a href="../telus/">Telus Internet Sales</a></li>
+        <li><a href="../modo/">Modo Carsharing Site</a></li>
+        <li><a href="../postertriennial/">Poster Triennial, Lahti</a></li>
+        <li><a href="../twotruths/">Two Truths & AI</a></li>
+        <li><a href="../friendsfest/">Friends Fest branding</a></li>
+        <li><a href="../speleo/">Speleo Record Label</a></li>
+        <li><a href="../papercut/">Paper Cut Poster folio</a></li>
+        <li><a href="../subtext/">Subtext Movie Poster</a></li>
+        <li><a href="../risographposters/">Risograph Poster Exhibit</a></li>
+        <li><a href="../wellflip/">Well, Flip!: Coptic Book</a></li>
+        <li><a href="../blackbox/">Web-based Blackbox VJ</a></li>
+        <li><a href="../collaborativesentence/">Longest Sentence site</a></li>
+        <li><a href="../liveopencall/">Live Open Call</a></li>
+        <li><a href="../glyphscorrupted/">Glyphs: Corrupted</a></li>
+        <li><a class="active" href="../ibm/">IBM Volunteerism</a></li>
+      </ul>
+    </nav>
+
+  </aside>
+
+  <!-- Mobile backdrop -->
+  <div class="menu-backdrop" id="menu-backdrop"></div>
+
+  <!-- main content -->
+  <main class="content" id="content">
+
+    <!-- Topbar -->
+    <div class="topbar">
+      <button class="topbar-menu" id="menu-toggle" aria-label="Open menu">menu</button>
+      <span class="clock" id="clock"></span>
+    </div>
+
+    <!-- header -->
+    <div class="case-header-grid">
+      <div class="case-header-text">
+        <h2>IBM Volunteerism and Giving</h2>
+        <div class="tags">
+          <span class="tag">UX</span>
+        </div>
+        <p>
+          A page redesign for IBM's Benevity-powered volunteerism and giving portal, applying IBM's Carbon Design System while designing for full client autonomy. Every content section was spec'd as a self-contained module that could be updated independently, with clear documentation on content limits, image sizing, and behaviour rules.
+        </p>
       </div>
-
-      <!-- roles & timeline -->
-      <div class="project-meta">
-        <p><strong>Roles:</strong> Content Strategy, Visual Identity, Web Design, Web Development, User Research, R&D</p>
-        <p><strong>Timeline:</strong> Nov 2022 – Present</p>
+      <div class="snapshot-box">
+        <p><strong>2024</strong> · UX Designer (All Purpose Creative)</p>
+        <p><a href="https://www.ibm.com/responsibility/programs/volunteerism-giving" target="_blank" rel="noopener noreferrer">view live page ↗</a></p>
       </div>
+    </div>
 
-      <!-- challenge -->
-      <section class="content-block challenge image-left">
-        <div class="text">
-          <h3>The Challenge</h3>
-          <p>
-            Modo’s marketing site had evolved into a ‘franken-site’ as many stakeholders updated content independently...
-          </p>
-          <p>
-            We needed to simplify the overall site experience, ensure branding was consistent with the mobile app, and streamline help content to reduce support inquiries.
-          </p>
-        </div>
-        <div class="image">
-          <img src="https://via.placeholder.com/600x400" alt="Challenge Image Placeholder"  class="js-lightbox-item" />
-        </div>
-      </section>
+    <div class="hero-image">
+      <img src="../ibm/card.png" alt="IBM Volunteerism page" class="js-lightbox-item" />
+    </div>
 
-      <!-- key objectives -->
-      <section class="content-block objectives image-right">
-        <div class="text">
-          <h3>Key Objectives</h3>
-          <ul>
-            <li>Refresh the website branding to match the Modo mobile app</li>
-            <li>Rethink page hierarchy, user flows, and site map</li>
-            <li>Evaluate and implement clear copy with consistent voice and tone</li>
-          </ul>
-        </div>
-        <div class="image">
-          <img src="https://via.placeholder.com/600x400" alt="Objectives Image Placeholder"  class="js-lightbox-item" />
-        </div>
-      </section>
+  <nav id="project-nav" class="project-nav-footer" style="display:none">
+    <a class="nav-prev" href="#"></a>
+    <button class="back-to-top">back to top ↑</button>
+    <a class="nav-next" href="#"></a>
+  </nav>
 
-      <!-- approach -->
-      <section class="content-block approach image-left">
-        <div class="text">
-          <h3>Our Approach</h3>
-          <p>Context statement linking mission to project...</p>
-          <h4>User Research</h4>
-          <p>Details of research methods and insights gained...</p>
-          <h4>UX/UI</h4>
-          <p>Wireframes, flows, and interface design rationale...</p>
-          <h4>Content Strategy</h4>
-          <p>How content planning and copywriting shaped the voice...</p>
-        </div>
-        <div class="image">
-          <img src="https://via.placeholder.com/600x400" alt="Approach Image Placeholder"  class="js-lightbox-item" />
-        </div>
-      </section>
+  </main>
 
-      <!-- impact -->
-      <section class="content-block impact image-right">
-        <div class="text">
-          <h3>Impact & Results</h3>
-          <p>
-            After launch, we observed improved usability metrics, a reduction in support requests, and positive client feedback.
-          </p>
-        </div>
-        <div class="image">
-          <img src="https://via.placeholder.com/600x400" alt="Results Image Placeholder"  class="js-lightbox-item" />
-        </div>
-      </section>
-    </main>
-  </div>
+</div>
 
-  <!-- custom cursor -->
-  <div id="custom-cursor"></div>
+<div id="custom-cursor"></div>
+
 <div class="media-lightbox" id="media-lightbox">
   <button class="lightbox-close" id="lightbox-close">✕</button>
   <button class="lightbox-nav left" id="lightbox-prev">‹</button>

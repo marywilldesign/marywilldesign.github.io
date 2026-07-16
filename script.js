@@ -56,7 +56,7 @@ initClock();
     window.scrollTo(0, scrollPos);
     bindCards();
     initClock();
-    removeBackFromSidebar();
+    removeBackButtons();
     bindMobileMenu();
   }
 
@@ -80,8 +80,16 @@ initClock();
       content.scrollTop = 0;
       window.scrollTo(0, 0);
 
-      // add back button to sidebar menu instead
-      addBackToSidebar();
+      // sidebar back button
+      document.querySelectorAll('.sidebar-back-btn').forEach(el => el.remove());
+      const sb = document.getElementById('sidebar');
+      if (sb) {
+        const sbBtn = document.createElement('button');
+        sbBtn.className = 'back-btn sidebar-back-btn';
+        sbBtn.textContent = '← back to projects';
+        sbBtn.addEventListener('click', showGrid);
+        sb.insertBefore(sbBtn, sb.firstChild.nextSibling);
+      }
 
       // re-init clock + menu
       initClock();
@@ -92,37 +100,16 @@ initClock();
     }
   }
 
-  function addBackToSidebar() {
-    const sidebar = document.getElementById('sidebar');
-    if (!sidebar) return;
-    removeBackFromSidebar();
-    const btn = document.createElement('button');
-    btn.className = 'back-btn sidebar-back-btn';
-    btn.textContent = '← back to projects';
-    btn.addEventListener('click', showGrid);
-    sidebar.insertBefore(btn, sidebar.firstChild.nextSibling);
-  }
-
-  function removeBackFromSidebar() {
-    const existing = document.querySelector('.sidebar-back-btn');
-    if (existing) existing.remove();
+  function removeBackButtons() {
+    document.querySelectorAll('.sidebar-back-btn').forEach(el => el.remove());
   }
 
   function bindCards() {
     document.querySelectorAll('.case-card[data-href]').forEach((card) => {
       card.addEventListener('click', (e) => {
-        if (e.target.closest('a, button, .card-cta, .ext-link')) return;
+        if (e.target.closest('a, button, .ext-link')) return;
         e.preventDefault();
         loadCaseStudy(card.dataset.href);
-      });
-    });
-    // also handle .card-cta clicks as case study loads
-    document.querySelectorAll('.card-cta').forEach((link) => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const card = e.target.closest('.case-card[data-href]');
-        if (card) loadCaseStudy(card.dataset.href);
-        else if (link.getAttribute('href')) loadCaseStudy(link.getAttribute('href'));
       });
     });
   }
@@ -139,13 +126,13 @@ initClock();
   // preferred display order per filter (by data-id)
   // cards not listed keep their natural order after the listed ones
   const sortOrders = {
-    ux: ['telus', 'modo', 'twotruths', 'ibm', 'creepers', 'blackbox', 'collaborative'],
+    ux: ['kogl', 'telus', 'modo', 'twotruths', 'ibm', 'creepers', 'blackbox', 'collaborative'],
     'graphic-design': [
-      'postertriennial', 'subtext', 'risograph', 'speleo', 'friendsfest',
+      'kogl', 'postertriennial', 'subtext', 'risograph', 'speleo', 'friendsfest',
       'modo', 'twotruths', 'blackbox', 'collaborative', 'papercut',
       'wellflip', 'scannerartly', 'glyphscorrupted',
     ],
-    'web-dev': ['twotruths', 'blackbox', 'collaborative'],
+    'web-dev': ['kogl', 'twotruths', 'blackbox', 'collaborative'],
     print: ['risograph', 'friendsfest', 'wellflip', 'scannerartly', 'glyphscorrupted'],
     exhibits: ['postertriennial', 'risograph', 'creepers'],
     'personal-project': [
@@ -399,5 +386,46 @@ bindMobileMenu();
     bind();
   } else {
     window.addEventListener('load', bind);
+  }
+})();
+
+// project navigation (prev/next) + back to top
+(function () {
+  const projectOrder = [
+    'kogl', 'telus', 'modo', 'twotruths', 'postertriennial',
+    'vancouverartgallery', 'ibm', 'subtext', 'risographposters',
+    'friendsfest', 'speleo', 'blackbox', 'collaborativesentence',
+    'papercut', 'wellflip', 'liveopencall', 'glyphscorrupted'
+  ];
+
+  const path = window.location.pathname.replace(/\/$/, '');
+  const current = projectOrder.findIndex(p => path.endsWith('/' + p));
+
+  if (current >= 0) {
+    const nav = document.getElementById('project-nav');
+    if (!nav) return;
+    nav.style.display = 'flex';
+
+    const prev = nav.querySelector('.nav-prev');
+    const next = nav.querySelector('.nav-next');
+    const top = nav.querySelector('.back-to-top');
+
+    if (current > 0) {
+      prev.href = '/' + projectOrder[current - 1] + '/';
+      prev.textContent = '← ' + projectOrder[current - 1];
+    } else {
+      prev.style.visibility = 'hidden';
+    }
+
+    if (current < projectOrder.length - 1) {
+      next.href = '/' + projectOrder[current + 1] + '/';
+      next.textContent = projectOrder[current + 1] + ' →';
+    } else {
+      next.style.visibility = 'hidden';
+    }
+
+    top.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
   }
 })();
