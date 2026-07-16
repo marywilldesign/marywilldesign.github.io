@@ -81,17 +81,6 @@ initClock();
       content.scrollTop = 0;
       window.scrollTo(0, 0);
 
-      // sidebar back button (desktop)
-      document.querySelectorAll('.sidebar-back-btn').forEach(el => el.remove());
-      const sb = document.getElementById('sidebar');
-      if (sb) {
-        const sbBtn = document.createElement('button');
-        sbBtn.className = 'back-btn sidebar-back-btn';
-        sbBtn.textContent = '← back to projects';
-        sbBtn.addEventListener('click', showGrid);
-        sb.insertBefore(sbBtn, sb.firstChild.nextSibling);
-      }
-
       // mobile "projects" button in topbar (right side)
       document.querySelectorAll('.topbar-back').forEach(el => el.remove());
       const topbar = wrapper.querySelector('.topbar');
@@ -129,7 +118,6 @@ initClock();
   }
 
   function removeBackButtons() {
-    document.querySelectorAll('.sidebar-back-btn').forEach(el => el.remove());
     document.querySelectorAll('.topbar-back').forEach(el => el.remove());
   }
 
@@ -206,8 +194,18 @@ initClock();
 
   bindFilterButtons();
 
-  // expose so showGrid() can re-bind after restoring the DOM
-  window.rebindFilters = bindFilterButtons;
+  // default to UX filter on load (matches active button in HTML)
+  applyFilter('ux');
+
+  // expose so showGrid() can re-bind and re-apply after restoring the DOM
+  window.rebindFilters = function () {
+    bindFilterButtons();
+    // apply the filter matching the currently active button
+    const activeBtn = document.querySelector('.filter-btn.active');
+    if (activeBtn) {
+      applyFilter(activeBtn.dataset.filter);
+    }
+  };
 })();
 
 // mobile menu
