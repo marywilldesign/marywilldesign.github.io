@@ -123,53 +123,41 @@ initClock();
   const cards = document.querySelectorAll('.case-card');
   if (!buttons.length || !cards.length) return;
 
-  // preferred display order per filter (by data-id)
-  // cards not listed keep their natural order after the listed ones
-  const sortOrders = {
-    ux: ['kogl', 'telus', 'modo', 'twotruths', 'ibm', 'creepers', 'blackbox', 'collaborative'],
-    'graphic-design': [
-      'kogl', 'postertriennial', 'subtext', 'risograph', 'speleo', 'friendsfest',
-      'modo', 'twotruths', 'blackbox', 'collaborative', 'papercut',
-      'wellflip', 'scannerartly', 'glyphscorrupted',
-    ],
-    'web-dev': ['kogl', 'twotruths', 'blackbox', 'collaborative'],
-    print: ['risograph', 'friendsfest', 'wellflip', 'scannerartly', 'glyphscorrupted'],
-    exhibits: ['postertriennial', 'risograph', 'creepers'],
-    'personal-project': [
-      'twotruths', 'blackbox', 'collaborative',
-      'papercut', 'wellflip', 'scannerartly', 'glyphscorrupted',
-    ],
-  };
+  function shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
 
   function applyFilter(filter) {
-    const order = sortOrders[filter] || null;
-    let overflow = order ? order.length : 0;
+    const visible = [];
 
     cards.forEach((card) => {
       const cats = card.dataset.category ? card.dataset.category.split(' ') : [];
-      const visible = filter === 'all' || cats.includes(filter);
-      card.classList.toggle('hidden', !visible);
+      const show = filter === 'all' || cats.includes(filter);
+      card.classList.toggle('hidden', !show);
 
-      if (visible) {
-        // determine visual order
-        if (order) {
-          const idx = order.indexOf(card.dataset.id);
-          card.style.order = idx >= 0 ? idx : overflow++;
-        } else {
-          card.style.order = '';
-        }
-
-        // trigger entrance animation
-        card.classList.remove('card-animate');
-        void card.offsetWidth; // force reflow
-        card.classList.add('card-animate');
+      if (show) {
+        visible.push(card);
       }
     });
 
-    // stagger delays based on visual order
-    const visible = Array.from(cards)
-      .filter((c) => !c.classList.contains('hidden'))
-      .sort((a, b) => (parseInt(a.style.order) || 0) - (parseInt(b.style.order) || 0));
+    // randomize order
+    shuffle(visible);
+    visible.forEach((card, i) => {
+      card.style.order = i;
+    });
+
+    // trigger entrance animation
+    visible.forEach((card) => {
+      card.classList.remove('card-animate');
+      void card.offsetWidth;
+      card.classList.add('card-animate');
+    });
+
+    // stagger delays
     visible.forEach((card, i) => {
       card.style.animationDelay = `${i * 40}ms`;
     });
