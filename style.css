@@ -158,10 +158,11 @@ button, a, [data-href] { cursor: pointer; }
 
 .bio {
   font-size: 0.75rem;
-  line-height: 1.7;
+  line-height: 1.35;
   color: var(--blue);
   margin-bottom: var(--sp-5);
   text-align: justify;
+  hyphens: auto;
 }
 
 .sidebar-cv-mobile { display: none; }
