@@ -47,8 +47,6 @@
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  --font-serif: 'PP Editorial', 'Instrument Serif', Georgia, serif;
-
   --sp-1: 0.25rem;
   --sp-2: 0.5rem;
   --sp-3: 0.75rem;
@@ -151,7 +149,6 @@ button, a, [data-href] { cursor: pointer; }
 .avatar {
   width: 100%;
   height: auto;
-  border: 1px dotted var(--blue);
   padding: var(--sp-2);
   margin-bottom: var(--sp-3);
 }
@@ -182,6 +179,45 @@ button, a, [data-href] { cursor: pointer; }
   text-decoration: none;
 }
 .sidebar-links a:hover { text-decoration: line-through; }
+
+.project-view-links {
+  flex: 0 1 auto;
+  margin-top: auto;
+  min-height: 0;
+  max-height: calc(100vh - 320px);
+  overflow-y: auto;
+  gap: var(--sp-1);
+}
+
+.project-view-links a {
+  font-size: 0.72rem;
+  line-height: 1.25;
+}
+
+.project-view-profile .profile-photo {
+  display: block;
+}
+
+.project-view-home-link {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--gray-900);
+  text-decoration: none;
+}
+.project-view-home-link:hover {
+  text-decoration: line-through;
+}
+
+.project-view-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.project-view-header .sidebar-top {
+  margin-bottom: 0;
+}
 
 .made {
   font-size: 0.75rem;
@@ -948,6 +984,30 @@ html.is-touch #custom-cursor { display: none !important; }
 
   /* hide profile photo on mobile */
   .profile-photo { display: none; }
+
+  .project-view-profile .profile-photo { display: none; }
+  .project-view-profile {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 0;
+  }
+  .project-view-header .sidebar-close {
+    display: block;
+    order: 2;
+    margin: 0;
+  }
+  .project-view-home-link { font-size: 1.2rem; }
+  .project-view-links {
+    max-height: none;
+    overflow-y: visible;
+    gap: var(--sp-1);
+  }
+  .project-view-links a {
+    font-size: 0.78rem;
+    line-height: 1.15;
+    padding: 1px 0;
+    white-space: nowrap;
+  }
 
   .sidebar-mobile-top,
   .sidebar-mobile-links,
