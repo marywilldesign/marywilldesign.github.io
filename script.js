@@ -44,25 +44,17 @@ initClock();
   let projectLinks = [];
   const sidebar = document.getElementById('sidebar');
   const originalSidebarContent = sidebar ? sidebar.innerHTML : '';
-  const projectTitles = {
-    telus: 'Telus – Enterprise IA Refresh',
-    modo: 'Modo – B2C Site Redesign',
-    ibm: 'IBM – Carbon Design System',
-    kogl: 'KOGL – Site Launch',
-    creepers: 'Van Art Gallery – Installation',
-    postertriennial: 'Lahti Poster Triennial – Poster',
-    risograph: 'Kunstnernes Hus – Posters',
-    subtext: 'Subtext – Film Poster',
-    friendsfest: 'Friends Fest – Merch',
-    speleo: 'Speleo – Label Identity',
-    papercut: 'Paper Cut – Poster Folio',
-    wellflip: '"Well, Flip!" – Bookbinding & p5.js',
-    glyphscorrupted: 'Corrupted – Type Specimen',
-    liveopencall: 'Live Open Call – Installation',
-    blackbox: 'VJ Controller – S.B.C. & 3D',
-    twotruths: 'Two Truths & AI – Web Game',
-    collaborative: 'Remixed – Collab Sentence'
-  };
+  const projects = window.portfolioProjects || [];
+  const projectTitles = Object.fromEntries(projects.map((project) => [project.id, project.title]));
+
+  projects.forEach((project) => {
+    const card = document.querySelector(`.case-card[data-id="${project.id}"]`);
+    if (!card) return;
+    const title = card.querySelector('.card-title');
+    if (title) title.textContent = project.title;
+    card.dataset.href = project.href;
+    card.dataset.category = project.category;
+  });
 
   function saveGrid() {
     if (!gridContent) {
@@ -292,6 +284,29 @@ initClock();
   }
 
   bindCards();
+})();
+
+// synchronize standalone project-page labels from the shared project data
+(function () {
+  const projects = window.portfolioProjects || [];
+  if (!document.body.classList.contains('case-page') || !projects.length) return;
+
+  const path = window.location.pathname.replace(/\/$/, '');
+  const project = projects.find((item) => item.href.replace(/\/$/, '') === path);
+  if (!project) return;
+
+  document.title = project.title;
+  document.querySelectorAll('.case-header-text h2').forEach((heading) => {
+    heading.textContent = project.title;
+  });
+  document.querySelectorAll('.breadcrumb-current').forEach((current) => {
+    current.textContent = project.title;
+  });
+  document.querySelectorAll('.project-nav a').forEach((link) => {
+    const linkPath = new URL(link.href, window.location.href).pathname.replace(/\/$/, '');
+    const linkedProject = projects.find((item) => item.href.replace(/\/$/, '') === linkPath);
+    if (linkedProject) link.textContent = linkedProject.title;
+  });
 })();
 
 // filtering
