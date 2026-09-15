@@ -41,6 +41,28 @@ initClock();
   // save original grid content for restoration
   let gridContent = null;
   let scrollPos = 0;
+  let projectLinks = [];
+  const sidebar = document.getElementById('sidebar');
+  const originalSidebarContent = sidebar ? sidebar.innerHTML : '';
+  const projectTitles = {
+    telus: 'Telus – Enterprise IA Refresh',
+    modo: 'Modo – B2C Site Redesign',
+    ibm: 'IBM – Carbon Design System',
+    kogl: 'KOGL – Site Launch',
+    creepers: 'Van Art Gallery – Installation',
+    postertriennial: 'Lahti Poster Triennial – Poster',
+    risograph: 'Kunstnernes Hus – Posters',
+    subtext: 'Subtext – Film Poster',
+    friendsfest: 'Friends Fest – Merch',
+    speleo: 'Speleo – Label Identity',
+    papercut: 'Paper Cut – Poster Folio',
+    wellflip: '"Well, Flip!" – Bookbinding & p5.js',
+    glyphscorrupted: 'Corrupted – Type Specimen',
+    liveopencall: 'Live Open Call – Installation',
+    blackbox: 'VJ Controller – S.B.C. & 3D',
+    twotruths: 'Two Truths & AI – Web Game',
+    collaborative: 'Remixed – Collab Sentence'
+  };
 
   function saveGrid() {
     if (!gridContent) {
@@ -53,6 +75,7 @@ initClock();
     if (!gridContent) return;
     content.innerHTML = gridContent;
     gridContent = null;
+    if (sidebar) sidebar.innerHTML = originalSidebarContent;
     window.scrollTo(0, scrollPos);
     // remove dynamic breadcrumb added by slide-in
     const db = document.getElementById('dynamic-breadcrumb');
@@ -62,6 +85,59 @@ initClock();
     removeBackButtons();
     bindMobileMenu();
     if (window.rebindFilters) window.rebindFilters();
+  }
+
+  function showProjectNav(currentId) {
+    if (!sidebar) return;
+    if (!projectLinks.length) {
+      projectLinks = Array.from(document.querySelectorAll('.case-card[data-id][data-href]')).map((card) => ({
+        id: card.dataset.id,
+        href: card.dataset.href,
+        title: projectTitles[card.dataset.id] || card.querySelector('.card-title')?.textContent.trim() || card.dataset.id,
+        category: card.dataset.category || ''
+      }));
+    }
+
+    const nav = document.createElement('nav');
+    nav.className = 'sidebar-links project-view-links';
+    nav.setAttribute('aria-label', 'Projects');
+
+    projectLinks.forEach((project) => {
+      const link = document.createElement('a');
+      link.href = project.href;
+      link.textContent = project.title;
+      link.className = project.id === currentId ? 'active' : '';
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        loadCaseStudy(project.href, project.title, project.category, 'all', project.id);
+      });
+      nav.appendChild(link);
+    });
+
+    sidebar.innerHTML = '';
+    const closeButton = document.createElement('button');
+    closeButton.className = 'sidebar-close';
+    closeButton.id = 'sidebar-close';
+    closeButton.setAttribute('aria-label', 'Close menu');
+    closeButton.textContent = '✕';
+
+    const profile = document.createElement('div');
+    profile.className = 'sidebar-top project-view-profile';
+    const homeLink = document.createElement('a');
+    homeLink.href = './index.html';
+    const headshot = document.createElement('img');
+    headshot.className = 'profile-photo';
+    headshot.src = './mw_profile.png';
+    headshot.alt = 'Mary Wilson';
+    headshot.width = 200;
+    headshot.height = 200;
+    homeLink.className = 'project-view-home-link';
+    homeLink.textContent = 'Mary G. Wilson';
+    profile.append(homeLink, headshot);
+    const projectViewHeader = document.createElement('div');
+    projectViewHeader.className = 'project-view-header';
+    projectViewHeader.append(closeButton, profile);
+    sidebar.append(projectViewHeader, nav);
   }
 
   function getFilterDisplay(filter) {
@@ -130,7 +206,7 @@ initClock();
     }
   }
 
-  async function loadCaseStudy(url, cardTitle, cardCategory, activeFilter) {
+  async function loadCaseStudy(url, cardTitle, cardCategory, activeFilter, cardId) {
     try {
       const res = await fetch(url);
       const html = await res.text();
@@ -140,10 +216,15 @@ initClock();
       if (!caseContent) return;
 
       saveGrid();
+      showProjectNav(cardId);
 
       const wrapper = document.createElement('div');
       wrapper.className = 'case-study-view';
       wrapper.innerHTML = caseContent.innerHTML;
+      const loadedTitle = wrapper.querySelector('.case-header-text h2');
+      if (loadedTitle && projectTitles[cardId]) {
+        loadedTitle.textContent = projectTitles[cardId];
+      }
 
       content.innerHTML = '';
       content.appendChild(wrapper);
@@ -205,7 +286,7 @@ initClock();
         // capture the active filter before content is cleared
         const activeBtn = document.querySelector('.filter-btn.active');
         const activeFilter = activeBtn ? activeBtn.dataset.filter : 'all';
-        loadCaseStudy(card.dataset.href, title, card.dataset.category, activeFilter);
+        loadCaseStudy(card.dataset.href, title, card.dataset.category, activeFilter, card.dataset.id);
       });
     });
   }
