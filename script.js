@@ -117,15 +117,9 @@ initClock();
     profile.className = 'sidebar-top project-view-profile';
     const homeLink = document.createElement('a');
     homeLink.href = './index.html';
-    const headshot = document.createElement('img');
-    headshot.className = 'profile-photo';
-    headshot.src = './mw_profile.png';
-    headshot.alt = 'Mary Wilson';
-    headshot.width = 200;
-    headshot.height = 200;
     homeLink.className = 'project-view-home-link';
     homeLink.textContent = 'Mary G. Wilson';
-    profile.append(homeLink, headshot);
+    profile.append(homeLink);
     const projectViewHeader = document.createElement('div');
     projectViewHeader.className = 'project-view-header';
     projectViewHeader.append(closeButton, profile);
@@ -137,7 +131,7 @@ initClock();
       'all': 'all',
       'ux': 'ux',
       'graphic-design': 'graphic design',
-      'web-dev': 'web dev',
+      'code': 'code',
       'print': 'print',
       'exhibits': 'exhibits',
       'personal-project': 'personal projects'
@@ -295,6 +289,33 @@ initClock();
   const project = projects.find((item) => item.href.replace(/\/$/, '') === path);
   if (!project) return;
 
+  const sidebar = document.querySelector('.sidebar');
+  if (sidebar) {
+    sidebar.querySelectorAll('.sidebar-mobile-top, .sidebar-mobile-links, .sidebar-mobile-made, .sidebar > .breadcrumb').forEach((element) => element.remove());
+
+    let header = sidebar.querySelector('.project-view-header');
+    if (!header) {
+      header = document.createElement('div');
+      header.className = 'project-view-header';
+
+      const closeButton = document.createElement('button');
+      closeButton.className = 'sidebar-close';
+      closeButton.id = 'sidebar-close';
+      closeButton.setAttribute('aria-label', 'Close menu');
+      closeButton.textContent = '✕';
+
+      const profile = document.createElement('div');
+      profile.className = 'sidebar-top project-view-profile';
+      const homeLink = document.createElement('a');
+      homeLink.className = 'project-view-home-link';
+      homeLink.href = '../index.html';
+      homeLink.textContent = 'Mary G. Wilson';
+      profile.appendChild(homeLink);
+      header.append(closeButton, profile);
+      sidebar.prepend(header);
+    }
+  }
+
   document.title = project.title;
   document.querySelectorAll('.case-header-text h2').forEach((heading) => {
     heading.textContent = project.title;
@@ -302,10 +323,17 @@ initClock();
   document.querySelectorAll('.breadcrumb-current').forEach((current) => {
     current.textContent = project.title;
   });
-  document.querySelectorAll('.project-nav a').forEach((link) => {
-    const linkPath = new URL(link.href, window.location.href).pathname.replace(/\/$/, '');
-    const linkedProject = projects.find((item) => item.href.replace(/\/$/, '') === linkPath);
-    if (linkedProject) link.textContent = linkedProject.title;
+  document.querySelectorAll('.project-nav ul').forEach((list) => {
+    list.innerHTML = '';
+    projects.forEach((item) => {
+      const listItem = document.createElement('li');
+      const link = document.createElement('a');
+      link.href = item.href;
+      link.textContent = item.title;
+      link.className = item.id === project.id ? 'active' : '';
+      listItem.appendChild(link);
+      list.appendChild(listItem);
+    });
   });
 })();
 
