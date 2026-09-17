@@ -67,7 +67,7 @@ window.portfolioProjects = [
   },
   {
     id: 'wellflip',
-    title: '"Well, Flip!" – Bookbinding & p5.js',
+    title: 'Well, Flip! Book – p5.js & coptic',
     href: '/wellflip/',
     category: 'graphic-design print personal-project'
   },
@@ -81,24 +81,24 @@ window.portfolioProjects = [
     id: 'liveopencall',
     title: 'Live Open Call – Installation',
     href: '/liveopencall/',
-    category: 'graphic-design print web-dev personal-project'
+    category: 'graphic-design print code personal-project'
   },
   {
     id: 'blackbox',
     title: 'VJ Controller – S.B.C. & 3D',
     href: '/blackbox/',
-    category: 'ux graphic-design web-dev personal-project'
+    category: 'ux graphic-design code personal-project'
   },
   {
     id: 'twotruths',
     title: 'Two Truths & AI – Web Game',
     href: '/twotruths/',
-    category: 'ux graphic-design web-dev personal-project'
+    category: 'ux graphic-design code personal-project'
   },
   {
     id: 'collaborative',
     title: 'Remixed – Collab Sentence',
     href: '/collaborativesentence/',
-    category: 'ux web-dev'
+    category: 'ux code'
   }
 ];
