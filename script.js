@@ -42,6 +42,7 @@ initClock();
   let gridContent = null;
   let scrollPos = 0;
   let projectLinks = [];
+  let lastActiveFilter = 'ux';
   const sidebar = document.getElementById('sidebar');
   const originalSidebarContent = sidebar ? sidebar.innerHTML : '';
   const projects = window.portfolioProjects || [];
@@ -101,7 +102,7 @@ initClock();
       link.className = project.id === currentId ? 'active' : '';
       link.addEventListener('click', (e) => {
         e.preventDefault();
-        loadCaseStudy(project.href, project.title, project.category, 'all', project.id);
+        loadCaseStudy(project.href, project.title, project.category, lastActiveFilter, project.id);
       });
       nav.appendChild(link);
     });
@@ -128,13 +129,8 @@ initClock();
 
   function getFilterDisplay(filter) {
     const map = {
-      'all': 'all',
-      'ux': 'ux',
-      'graphic-design': 'graphic design',
-      'code': 'code',
-      'print': 'print',
-      'exhibits': 'exhibits',
-      'personal-project': 'personal projects'
+      'ux': 'UX/UI',
+      'code': 'Code'
     };
     return map[filter] || filter;
   }
@@ -271,7 +267,8 @@ initClock();
         const title = titleEl ? titleEl.textContent.trim() : '';
         // capture the active filter before content is cleared
         const activeBtn = document.querySelector('.filter-btn.active');
-        const activeFilter = activeBtn ? activeBtn.dataset.filter : 'all';
+        const activeFilter = activeBtn ? activeBtn.dataset.filter : 'ux';
+        lastActiveFilter = activeFilter;
         loadCaseStudy(card.dataset.href, title, card.dataset.category, activeFilter, card.dataset.id);
       });
     });
@@ -353,7 +350,7 @@ initClock();
 
     cards.forEach((card) => {
       const cats = card.dataset.category ? card.dataset.category.split(' ') : [];
-      const show = filter === 'all' || cats.includes(filter);
+      const show = cats.includes(filter);
       card.classList.toggle('hidden', !show);
 
       if (show) {
@@ -397,7 +394,7 @@ initClock();
 
   bindFilterButtons();
 
-  // default to UX filter on load (matches active button in HTML)
+  // default to UX/UI filter on load (matches active button in HTML)
   applyFilter('ux');
 
   // expose so showGrid() can re-bind and re-apply after restoring the DOM
@@ -619,10 +616,8 @@ bindMobileMenu();
 // project navigation (prev/next) + back to top
 (function () {
   const projectOrder = [
-    'kogl', 'telus', 'modo', 'twotruths', 'postertriennial',
-    'vancouverartgallery', 'ibm', 'subtext', 'risographposters',
-    'friendsfest', 'speleo', 'blackbox', 'collaborativesentence',
-    'papercut', 'wellflip', 'liveopencall', 'glyphscorrupted'
+    'telus', 'telus-informing-customers', 'vancouverartgallery',
+    'ibm', 'modo', 'kogl', 'liveopencall', 'blackbox'
   ];
 
   const path = window.location.pathname.replace(/\/$/, '');
