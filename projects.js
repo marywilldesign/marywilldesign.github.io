@@ -1,104 +1,50 @@
 window.portfolioProjects = [
   {
     id: 'telus',
-    title: 'Telus – Enterprise IA Refresh',
+    title: 'Telus: Enterprise IA Refresh',
     href: '/telus/',
     category: 'ux'
   },
   {
-    id: 'modo',
-    title: 'Modo – B2C Site Redesign',
-    href: '/modo/',
-    category: 'ux graphic-design'
+    id: 'telus-informing-customers',
+    title: 'Telus: Informing Customers',
+    href: '/telus-informing-customers/',
+    category: 'ux'
+  },
+  {
+    id: 'creepers',
+    title: 'Van Art Gallery: AI Installation',
+    href: '/vancouverartgallery/',
+    category: 'ux'
   },
   {
     id: 'ibm',
-    title: 'IBM – Carbon Design System',
+    title: 'IBM: Login Flow',
     href: '/ibm/',
     category: 'ux'
   },
   {
+    id: 'modo',
+    title: 'Modo: B2C Site Redesign',
+    href: '/modo/',
+    category: 'ux'
+  },
+  {
     id: 'kogl',
-    title: 'KOGL – Site Launch',
+    title: 'Kogl: Establishing Digital Presence',
     href: '/kogl/',
-    category: 'ux graphic-design'
-  },
-  {
-    id: 'creepers',
-    title: 'Van Art Gallery – Installation',
-    href: '/vancouverartgallery/',
-    category: 'ux exhibits'
-  },
-  {
-    id: 'postertriennial',
-    title: 'Lahti Poster Triennial – Poster',
-    href: '/postertriennial/',
-    category: 'graphic-design exhibits'
-  },
-  {
-    id: 'risograph',
-    title: 'Kunstnernes Hus – Posters',
-    href: '/risographposters/',
-    category: 'graphic-design print exhibits'
-  },
-  {
-    id: 'subtext',
-    title: 'Subtext – Film Poster',
-    href: '/subtext/',
-    category: 'graphic-design'
-  },
-  {
-    id: 'friendsfest',
-    title: 'Friends Fest – Merch',
-    href: '/friendsfest/',
-    category: 'graphic-design print'
-  },
-  {
-    id: 'speleo',
-    title: 'Speleo – Label Identity',
-    href: '/speleo/',
-    category: 'graphic-design'
-  },
-  {
-    id: 'papercut',
-    title: 'Paper Cut – Poster Folio',
-    href: '/papercut/',
-    category: 'graphic-design print personal-project'
-  },
-  {
-    id: 'wellflip',
-    title: 'Well, Flip! Book – p5.js & coptic',
-    href: '/wellflip/',
-    category: 'graphic-design print personal-project'
-  },
-  {
-    id: 'glyphscorrupted',
-    title: 'Corrupted – Type Specimen',
-    href: '/glyphscorrupted/',
-    category: 'graphic-design print personal-project'
+    category: 'ux'
   },
   {
     id: 'liveopencall',
-    title: 'Live Open Call – Installation',
+    title: 'Live Open Call: Mobile Submissions',
     href: '/liveopencall/',
-    category: 'graphic-design print code personal-project'
+    category: 'code'
   },
   {
     id: 'blackbox',
-    title: 'VJ Controller – S.B.C. & 3D',
+    title: 'VJ Controller: MA Thesis',
     href: '/blackbox/',
-    category: 'ux graphic-design code personal-project'
-  },
-  {
-    id: 'twotruths',
-    title: 'Two Truths & AI – Web Game',
-    href: '/twotruths/',
-    category: 'ux graphic-design code personal-project'
-  },
-  {
-    id: 'collaborative',
-    title: 'Remixed – Collab Sentence',
-    href: '/collaborativesentence/',
-    category: 'ux code'
+    category: 'code'
   }
 ];
