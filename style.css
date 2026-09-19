@@ -581,8 +581,10 @@ body.case-page .filters { display: none; }
   max-width: 75ch;
 }
 
-/* snapshot bar — year / role / credits / links across the content width,
-   above the first section. Content is rendered from projects.js. */
+/* snapshot row — year / role / credits / links across the content width,
+   above the first section. Content is rendered from projects.js.
+   The box itself is unstyled: only the labels carry the site-blue pill,
+   and the values hang underneath them like columns. */
 .snapshot-box {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -590,21 +592,22 @@ body.case-page .filters { display: none; }
   align-items: start;
   width: 100%;
   margin: 0 0 var(--sp-8);
-  padding: var(--sp-5);
-  background: rgba(0, 64, 255, 0.06);
-  border: 1px solid #0040FF;
-  border-radius: var(--radius);
   font-size: 0.78rem;
   line-height: 1.6;
   color: var(--gray-600);
 }
 .snapshot-box h4 {
+  display: inline-block;
   font-size: 0.65rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--gray-400);
-  margin-bottom: var(--sp-2);
+  color: #0040FF;
+  background: rgba(0, 64, 255, 0.06);
+  border: 1px solid #0040FF;
+  border-radius: 999px;
+  padding: 0.3em 0.75em;
+  margin-bottom: var(--sp-3);
 }
 .snapshot-box p { margin-bottom: var(--sp-2); }
 .snapshot-box p:last-child { margin-bottom: 0; }
