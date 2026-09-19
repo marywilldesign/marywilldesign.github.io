@@ -328,22 +328,6 @@ initClock();
         topbar.appendChild(projectsBtn);
       }
 
-      // mobile reorder: title → tags → snapshot → paragraph
-      if (window.innerWidth <= 768) {
-        const headerGrid = wrapper.querySelector('.case-header-grid');
-        if (headerGrid) {
-          const headerText = headerGrid.querySelector('.case-header-text');
-          const snapshot = headerGrid.querySelector('.snapshot-box');
-          const p = headerText ? headerText.querySelector('p:last-of-type') : null;
-          if (headerText && snapshot && p) {
-            // move snapshot right after header-text (which holds h2 + tags)
-            headerGrid.insertBefore(snapshot, headerText.nextSibling);
-            // move paragraph after snapshot
-            headerGrid.insertBefore(p, snapshot.nextSibling);
-          }
-        }
-      }
-
       // re-init clock + menu
       initClock();
       bindMobileMenu();

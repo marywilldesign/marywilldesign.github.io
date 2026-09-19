@@ -554,7 +554,8 @@ body.case-page .filters { display: none; }
 .case-card.hidden { display: none; }
 
 /* case study pages */
-/* two-column case header: text left, snapshot right */
+/* the header is just the title block — the snapshot sits below the hero image
+   and floats beside the first section, so the hero stays high on the page */
 .case-header-grid {
   display: flex;
   gap: var(--sp-10);
@@ -581,8 +582,9 @@ body.case-page .filters { display: none; }
 }
 
 .snapshot-box {
+  float: right;
   width: 220px;
-  flex-shrink: 0;
+  margin: 0 0 var(--sp-6) var(--sp-6);
   padding: var(--sp-4);
   background: var(--gray-50);
   border: 1px solid var(--gray-100);
@@ -602,7 +604,11 @@ body.case-page .filters { display: none; }
     flex-direction: column;
     gap: var(--sp-5);
   }
-  .snapshot-box { width: 100%; }
+  .snapshot-box {
+    float: none;
+    width: 100%;
+    margin: 0 0 var(--sp-6);
+  }
   .hero-image-pair {
     flex-direction: column;
   }
