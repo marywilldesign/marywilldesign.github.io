@@ -591,8 +591,8 @@ body.case-page .filters { display: none; }
   width: 100%;
   margin: 0 0 var(--sp-8);
   padding: var(--sp-5);
-  background: var(--gray-50);
-  border: 1px solid var(--gray-100);
+  background: rgba(0, 64, 255, 0.06);
+  border: 1px solid #0040FF;
   border-radius: var(--radius);
   font-size: 0.78rem;
   line-height: 1.6;
