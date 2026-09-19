@@ -585,12 +585,13 @@ body.case-page .filters { display: none; }
    above the first section. Content is rendered from projects.js.
    The box itself is unstyled: only the labels carry the site-blue pill,
    and the values hang underneath them like columns.
-   Flex rather than an auto-fit grid, so however many groups a project has
-   they stretch edge to edge and split the hero width evenly instead of
-   bunching to the left. */
+   Laid out like a justified line of set text: each group is only as wide as
+   its own content, the first sits flush with the hero's left edge and the
+   last flush with its right, and the slack is shared evenly between them. */
 .snapshot-box {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  justify-content: space-between;
   gap: var(--sp-5) var(--sp-6);
   align-items: flex-start;
   width: 100%;
@@ -599,9 +600,18 @@ body.case-page .filters { display: none; }
   line-height: 1.6;
   color: var(--gray-600);
 }
+/* width: auto (rather than a share of the row) is what lets space-between
+   spread the first and last groups out to the edges; min-width: 0 stops
+   that from ever forcing the row to wrap. */
 .snapshot-group {
-  flex: 1 1 150px;
   min-width: 0;
+}
+@media (max-width: 760px) {
+  .snapshot-box {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  .snapshot-group { flex: 1 1 150px; }
 }
 .snapshot-box h4 {
   display: inline-block;
