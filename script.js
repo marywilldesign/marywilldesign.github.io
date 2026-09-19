@@ -1,5 +1,94 @@
 /* mary wil design — portfolio scripts */
 
+/* ------------------------------------------------------------------
+   shared helpers — used by the home page AND every project page
+------------------------------------------------------------------ */
+
+// Site root = the folder script.js itself was loaded from. Every link
+// below is built from this, so pages behave the same no matter how deep
+// they are or which folder Live Server / your host treats as its root.
+const SITE_ROOT = (function () {
+  const src = document.currentScript && document.currentScript.src;
+  return new URL('.', src || window.location.href);
+})();
+
+// 'kogl/' or '/kogl/'  ->  absolute URL under the site root
+function siteUrl(path) {
+  return new URL(String(path).replace(/^\//, ''), SITE_ROOT).href;
+}
+
+// Run once the DOM is ready AND deferred scripts (projects.js) have run,
+// even if a page loads script.js at the end of <body> without `defer`.
+function onReady(fn) {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', fn);
+  } else {
+    fn();
+  }
+}
+
+// Which project is this page? <body data-project="kogl"> is the source of
+// truth; falls back to matching the folder name in the URL path.
+function getCurrentProject() {
+  const projects = window.portfolioProjects || [];
+  const id = document.body && document.body.dataset.project;
+  if (id) return projects.find((p) => p.id === id) || null;
+  const segments = window.location.pathname.split('/').filter(Boolean);
+  return projects.find((p) => segments.includes(p.href.replace(/^\/|\/$/g, ''))) || null;
+}
+
+// THE project-view sidebar (name header + project list). Used by the
+// home page slide-in AND by standalone project pages, so both are identical.
+//   onNavigate(project) -> optional; intercepts clicks (home-page slide-in)
+//                          leave undefined for normal page navigation
+function renderProjectSidebar(sidebar, currentId, onNavigate) {
+  const projects = window.portfolioProjects || [];
+  const name = (window.siteProfile && window.siteProfile.name) || 'Mary G. Wilson';
+
+  const nav = document.createElement('nav');
+  nav.className = 'sidebar-links project-view-links';
+  nav.setAttribute('aria-label', 'Projects');
+
+  projects.forEach((project) => {
+    const link = document.createElement('a');
+    link.href = siteUrl(project.href);
+    link.textContent = project.title;
+    link.className = project.id === currentId ? 'active' : '';
+    if (onNavigate) {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        onNavigate(project);
+      });
+    }
+    nav.appendChild(link);
+  });
+
+  const closeButton = document.createElement('button');
+  closeButton.className = 'sidebar-close';
+  closeButton.id = 'sidebar-close';
+  closeButton.setAttribute('aria-label', 'Close menu');
+  closeButton.textContent = '✕';
+
+  const profile = document.createElement('div');
+  profile.className = 'sidebar-top project-view-profile';
+  const homeLink = document.createElement('a');
+  homeLink.href = siteUrl('index.html');
+  homeLink.className = 'project-view-home-link';
+  homeLink.textContent = name;
+  profile.append(homeLink);
+
+  const header = document.createElement('div');
+  header.className = 'project-view-header';
+  header.append(closeButton, profile);
+
+  sidebar.innerHTML = '';
+  sidebar.append(header, nav);
+}
+
+// declared up here (not next to bindMobileMenu) so onReady callbacks that
+// call bindMobileMenu() can never hit a "used before initialised" error
+let menuBound = false;
+
 // custom cursor
 (function () {
   const cursor = document.getElementById('custom-cursor');
@@ -41,7 +130,6 @@ initClock();
   // save original grid content for restoration
   let gridContent = null;
   let scrollPos = 0;
-  let projectLinks = [];
   let lastActiveFilter = 'ux';
   const sidebar = document.getElementById('sidebar');
   const originalSidebarContent = sidebar ? sidebar.innerHTML : '';
@@ -53,7 +141,7 @@ initClock();
     if (!card) return;
     const title = card.querySelector('.card-title');
     if (title) title.textContent = project.title;
-    card.dataset.href = project.href;
+    card.dataset.href = siteUrl(project.href);
     card.dataset.category = project.category;
   });
 
@@ -82,49 +170,10 @@ initClock();
 
   function showProjectNav(currentId) {
     if (!sidebar) return;
-    if (!projectLinks.length) {
-      projectLinks = Array.from(document.querySelectorAll('.case-card[data-id][data-href]')).map((card) => ({
-        id: card.dataset.id,
-        href: card.dataset.href,
-        title: projectTitles[card.dataset.id] || card.querySelector('.card-title')?.textContent.trim() || card.dataset.id,
-        category: card.dataset.category || ''
-      }));
-    }
-
-    const nav = document.createElement('nav');
-    nav.className = 'sidebar-links project-view-links';
-    nav.setAttribute('aria-label', 'Projects');
-
-    projectLinks.forEach((project) => {
-      const link = document.createElement('a');
-      link.href = project.href;
-      link.textContent = project.title;
-      link.className = project.id === currentId ? 'active' : '';
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        loadCaseStudy(project.href, project.title, project.category, lastActiveFilter, project.id);
-      });
-      nav.appendChild(link);
+    // same sidebar every project page builds for itself; here, clicks slide in
+    renderProjectSidebar(sidebar, currentId, (project) => {
+      loadCaseStudy(siteUrl(project.href), project.title, project.category, lastActiveFilter, project.id);
     });
-
-    sidebar.innerHTML = '';
-    const closeButton = document.createElement('button');
-    closeButton.className = 'sidebar-close';
-    closeButton.id = 'sidebar-close';
-    closeButton.setAttribute('aria-label', 'Close menu');
-    closeButton.textContent = '✕';
-
-    const profile = document.createElement('div');
-    profile.className = 'sidebar-top project-view-profile';
-    const homeLink = document.createElement('a');
-    homeLink.href = './index.html';
-    homeLink.className = 'project-view-home-link';
-    homeLink.textContent = 'Mary G. Wilson';
-    profile.append(homeLink);
-    const projectViewHeader = document.createElement('div');
-    projectViewHeader.className = 'project-view-header';
-    projectViewHeader.append(closeButton, profile);
-    sidebar.append(projectViewHeader, nav);
   }
 
   function getFilterDisplay(filter) {
@@ -277,41 +326,20 @@ initClock();
   bindCards();
 })();
 
-// synchronize standalone project-page labels from the shared project data
-(function () {
-  const projects = window.portfolioProjects || [];
-  if (!document.body.classList.contains('case-page') || !projects.length) return;
+// standalone project pages (direct load, refresh, Live Server on a subpage)
+// Builds the SAME sidebar the home-page slide-in shows, from projects.js.
+onReady(function () {
+  if (!document.body.classList.contains('case-page')) return;
 
-  const path = window.location.pathname.replace(/\/$/, '');
-  const project = projects.find((item) => item.href.replace(/\/$/, '') === path);
-  if (!project) return;
-
-  const sidebar = document.querySelector('.sidebar');
-  if (sidebar) {
-    sidebar.querySelectorAll('.sidebar-mobile-top, .sidebar-mobile-links, .sidebar-mobile-made, .sidebar > .breadcrumb').forEach((element) => element.remove());
-
-    let header = sidebar.querySelector('.project-view-header');
-    if (!header) {
-      header = document.createElement('div');
-      header.className = 'project-view-header';
-
-      const closeButton = document.createElement('button');
-      closeButton.className = 'sidebar-close';
-      closeButton.id = 'sidebar-close';
-      closeButton.setAttribute('aria-label', 'Close menu');
-      closeButton.textContent = '✕';
-
-      const profile = document.createElement('div');
-      profile.className = 'sidebar-top project-view-profile';
-      const homeLink = document.createElement('a');
-      homeLink.className = 'project-view-home-link';
-      homeLink.href = '../index.html';
-      homeLink.textContent = 'Mary G. Wilson';
-      profile.appendChild(homeLink);
-      header.append(closeButton, profile);
-      sidebar.prepend(header);
-    }
+  const project = getCurrentProject();
+  if (!project) {
+    console.warn('[portfolio] Could not tell which project this page is. ' +
+      'Add data-project="<id>" to <body> (ids are listed in projects.js).');
+    return;
   }
+
+  const sidebar = document.getElementById('sidebar');
+  if (sidebar) renderProjectSidebar(sidebar, project.id);   // plain links, normal navigation
 
   document.title = project.title;
   document.querySelectorAll('.case-header-text h2').forEach((heading) => {
@@ -320,19 +348,64 @@ initClock();
   document.querySelectorAll('.breadcrumb-current').forEach((current) => {
     current.textContent = project.title;
   });
-  document.querySelectorAll('.project-nav ul').forEach((list) => {
-    list.innerHTML = '';
-    projects.forEach((item) => {
-      const listItem = document.createElement('li');
-      const link = document.createElement('a');
-      link.href = item.href;
-      link.textContent = item.title;
-      link.className = item.id === project.id ? 'active' : '';
-      listItem.appendChild(link);
-      list.appendChild(listItem);
+
+  bindMobileMenu();   // the close button was just rebuilt
+});
+
+// sidebar-right (CV) — single source of truth: window.siteProfile.cv in
+// projects.js. Fills <aside id="sidebar-right"> on the home page and on
+// every project page, so the CV is only ever edited in one place.
+onReady(function () {
+  const el = document.getElementById('sidebar-right');
+  if (!el) return;
+  const cv = window.siteProfile && window.siteProfile.cv;
+  if (!cv) {
+    console.warn('[portfolio] window.siteProfile.cv is missing — is projects.js loading?');
+    return;
+  }
+
+  function buildSection(title, items) {
+    const wrap = document.createElement('div');
+    wrap.className = 'cv-section';
+
+    const heading = document.createElement('h4');
+    heading.textContent = title;
+    wrap.appendChild(heading);
+
+    items.forEach((entry) => {
+      const item = document.createElement('div');
+      item.className = 'cv-item' + (entry.sub ? ' cv-subitem' : '');
+
+      if (entry.role) {
+        const role = document.createElement('span');
+        role.className = 'cv-role';
+        role.textContent = entry.role;
+        item.appendChild(role);
+      }
+
+      const org = document.createElement('span');
+      org.className = 'cv-org';
+      org.textContent = entry.org;
+      item.appendChild(org);
+
+      if (entry.date) {
+        const date = document.createElement('span');
+        date.className = 'cv-date';
+        date.textContent = entry.date;
+        item.appendChild(date);
+      }
+
+      wrap.appendChild(item);
     });
-  });
-})();
+
+    return wrap;
+  }
+
+  el.innerHTML = '';
+  el.appendChild(buildSection('Experience', cv.experience));
+  el.appendChild(buildSection('Education', cv.education));
+  el.appendChild(buildSection('Exhibits', cv.exhibits));
+});
 
 // filtering
 (function () {
@@ -409,7 +482,6 @@ initClock();
 })();
 
 // mobile menu
-let menuBound = false;
 function bindMobileMenu() {
   const toggle = document.getElementById('menu-toggle');
   const sidebar = document.getElementById('sidebar');
@@ -614,40 +686,38 @@ bindMobileMenu();
 })();
 
 // project navigation (prev/next) + back to top
-(function () {
-  const projectOrder = [
-    'telus', 'telus-informing-customers', 'vancouverartgallery',
-    'ibm', 'modo', 'kogl', 'liveopencall', 'blackbox'
-  ];
+// order comes from projects.js — no second list to keep in sync
+onReady(function () {
+  const nav = document.getElementById('project-nav');
+  if (!nav) return;
 
-  const path = window.location.pathname.replace(/\/$/, '');
-  const current = projectOrder.findIndex(p => path.endsWith('/' + p));
+  const projects = window.portfolioProjects || [];
+  const project = getCurrentProject();
+  if (!project) return;
+  const current = projects.findIndex((p) => p.id === project.id);
 
-  if (current >= 0) {
-    const nav = document.getElementById('project-nav');
-    if (!nav) return;
-    nav.style.display = 'flex';
+  const folder = (p) => p.href.replace(/^\/|\/$/g, '');
+  nav.style.display = 'flex';
 
-    const prev = nav.querySelector('.nav-prev');
-    const next = nav.querySelector('.nav-next');
-    const top = nav.querySelector('.back-to-top');
+  const prev = nav.querySelector('.nav-prev');
+  const next = nav.querySelector('.nav-next');
+  const top = nav.querySelector('.back-to-top');
 
-    if (current > 0) {
-      prev.href = '/' + projectOrder[current - 1] + '/';
-      prev.textContent = '← ' + projectOrder[current - 1];
-    } else {
-      prev.style.visibility = 'hidden';
-    }
-
-    if (current < projectOrder.length - 1) {
-      next.href = '/' + projectOrder[current + 1] + '/';
-      next.textContent = projectOrder[current + 1] + ' →';
-    } else {
-      next.style.visibility = 'hidden';
-    }
-
-    top.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+  if (current > 0) {
+    prev.href = siteUrl(projects[current - 1].href);
+    prev.textContent = '← ' + folder(projects[current - 1]);
+  } else {
+    prev.style.visibility = 'hidden';
   }
-})();
+
+  if (current < projects.length - 1) {
+    next.href = siteUrl(projects[current + 1].href);
+    next.textContent = folder(projects[current + 1]) + ' →';
+  } else {
+    next.style.visibility = 'hidden';
+  }
+
+  top.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
