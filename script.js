@@ -27,6 +27,23 @@ function onReady(fn) {
   }
 }
 
+// The clock and the breadcrumb share one row on every project view, so the
+// page's own <span class="breadcrumb"> is moved into the topbar. The home
+// slide-in builds its breadcrumb inside the topbar already
+// (see addBreadcrumbToCaseView); this covers the standalone project pages.
+function placeBreadcrumbInTopbar(root) {
+  const scope = root || document;
+  const topbar = scope.querySelector('.topbar');
+  const crumb = scope.querySelector('.breadcrumb');
+  if (!topbar || !crumb || topbar.contains(crumb)) return;
+  const clock = topbar.querySelector('.clock');
+  if (clock) {
+    topbar.insertBefore(crumb, clock);
+  } else {
+    topbar.appendChild(crumb);
+  }
+}
+
 // Which project is this page? <body data-project="kogl"> is the source of
 // truth; falls back to matching the folder name in the URL path.
 function getCurrentProject() {
@@ -46,7 +63,7 @@ function renderProjectSidebar(sidebar, currentId, onNavigate) {
   const name = (window.siteProfile && window.siteProfile.name) || 'Mary G. Wilson';
 
   const nav = document.createElement('nav');
-  nav.className = 'sidebar-links project-view-links';
+  nav.className = 'project-view-links';
   nav.setAttribute('aria-label', 'Projects');
 
   projects.forEach((project) => {
@@ -130,7 +147,7 @@ initClock();
   // save original grid content for restoration
   let gridContent = null;
   let scrollPos = 0;
-  let lastActiveFilter = 'ux';
+  let lastActiveFilter = 'all';
   const sidebar = document.getElementById('sidebar');
   const originalSidebarContent = sidebar ? sidebar.innerHTML : '';
   const projects = window.portfolioProjects || [];
@@ -178,6 +195,7 @@ initClock();
 
   function getFilterDisplay(filter) {
     const map = {
+      'all': 'ALL',
       'ux': 'UX/UI',
       'code': 'Code'
     };
@@ -228,11 +246,20 @@ initClock();
     container.appendChild(document.createTextNode(' / '));
     container.appendChild(current);
 
-    // insert right before the case-header-grid
-    const header = wrapper.querySelector('.case-header-grid');
-    if (header) {
-      wrapper.insertBefore(container, header);
+    // share the clock's row so the breadcrumb lines up with it
+    const topbar = wrapper.querySelector('.topbar');
+    const clock = topbar ? topbar.querySelector('.clock') : null;
+    if (topbar && clock) {
+      topbar.insertBefore(container, clock);
+    } else if (topbar) {
+      topbar.appendChild(container);
     } else {
+      const header = wrapper.querySelector('.case-header-grid');
+      if (header) {
+        wrapper.insertBefore(container, header);
+      } else {
+        wrapper.prepend(container);
+      }
       wrapper.prepend(container);
     }
   }
@@ -262,7 +289,13 @@ initClock();
       content.scrollTop = 0;
       window.scrollTo(0, 0);
 
-      // desktop breadcrumb above case header
+      // prev/next + back to top at the base of the slid-in project: same
+      // markup as a standalone page, but it slides between projects
+      initProjectFooterNav(wrapper, cardId, (nextProject) => {
+        loadCaseStudy(siteUrl(nextProject.href), nextProject.title, nextProject.category, lastActiveFilter, nextProject.id);
+      });
+
+      // breadcrumb, placed on the clock's row inside the topbar
       if (cardTitle) {
         addBreadcrumbToCaseView(cardCategory, cardTitle, activeFilter);
       }
@@ -316,7 +349,7 @@ initClock();
         const title = titleEl ? titleEl.textContent.trim() : '';
         // capture the active filter before content is cleared
         const activeBtn = document.querySelector('.filter-btn.active');
-        const activeFilter = activeBtn ? activeBtn.dataset.filter : 'ux';
+        const activeFilter = activeBtn ? activeBtn.dataset.filter : 'all';
         lastActiveFilter = activeFilter;
         loadCaseStudy(card.dataset.href, title, card.dataset.category, activeFilter, card.dataset.id);
       });
@@ -348,6 +381,9 @@ onReady(function () {
   document.querySelectorAll('.breadcrumb-current').forEach((current) => {
     current.textContent = project.title;
   });
+
+  // line the breadcrumb up with the clock
+  placeBreadcrumbInTopbar(document);
 
   bindMobileMenu();   // the close button was just rebuilt
 });
@@ -423,7 +459,8 @@ onReady(function () {
 
     cards.forEach((card) => {
       const cats = card.dataset.category ? card.dataset.category.split(' ') : [];
-      const show = cats.includes(filter);
+      // 'all' keeps every project in the grid
+      const show = filter === 'all' || cats.includes(filter);
       card.classList.toggle('hidden', !show);
 
       if (show) {
@@ -467,8 +504,8 @@ onReady(function () {
 
   bindFilterButtons();
 
-  // default to UX/UI filter on load (matches active button in HTML)
-  applyFilter('ux');
+  // default to ALL on load (matches the active button in the HTML)
+  applyFilter('all');
 
   // expose so showGrid() can re-bind and re-apply after restoring the DOM
   window.rebindFilters = function () {
@@ -685,16 +722,19 @@ bindMobileMenu();
   }
 })();
 
-// project navigation (prev/next) + back to top
-// order comes from projects.js — no second list to keep in sync
-onReady(function () {
-  const nav = document.getElementById('project-nav');
-  if (!nav) return;
+// project navigation (prev/next) + back to top.
+// order comes from projects.js — no second list to keep in sync.
+// `scope` is the document on a standalone project page, or the injected
+// .case-study-view wrapper when a project is opened from the home grid.
+// onNavigate(project) intercepts prev/next (home slide-in); leave it
+// undefined for normal page navigation.
+function initProjectFooterNav(scope, projectId, onNavigate) {
+  const nav = (scope || document).querySelector('#project-nav');
+  if (!nav || !projectId) return;
 
   const projects = window.portfolioProjects || [];
-  const project = getCurrentProject();
-  if (!project) return;
-  const current = projects.findIndex((p) => p.id === project.id);
+  const current = projects.findIndex((p) => p.id === projectId);
+  if (current === -1) return;
 
   const folder = (p) => p.href.replace(/^\/|\/$/g, '');
   nav.style.display = 'flex';
@@ -703,21 +743,49 @@ onReady(function () {
   const next = nav.querySelector('.nav-next');
   const top = nav.querySelector('.back-to-top');
 
+  function bindLink(el, project, label) {
+    el.href = siteUrl(project.href);
+    el.textContent = label;
+    if (onNavigate) {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        onNavigate(project);
+      });
+    }
+  }
+
   if (current > 0) {
-    prev.href = siteUrl(projects[current - 1].href);
-    prev.textContent = '← ' + folder(projects[current - 1]);
-  } else {
+    bindLink(prev, projects[current - 1], '← ' + folder(projects[current - 1]));
+  } else if (prev) {
     prev.style.visibility = 'hidden';
   }
 
   if (current < projects.length - 1) {
-    next.href = siteUrl(projects[current + 1].href);
-    next.textContent = folder(projects[current + 1]) + ' →';
-  } else {
+    bindLink(next, projects[current + 1], folder(projects[current + 1]) + ' →');
+  } else if (next) {
     next.style.visibility = 'hidden';
   }
 
-  top.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
+  if (top) {
+    top.addEventListener('click', () => {
+      // desktop scrolls inside <main class="content">, mobile scrolls the window
+      const scroller = nav.closest('.content') || document.getElementById('content');
+      [scroller, document.scrollingElement].forEach((el) => {
+        if (!el || el.scrollTop === 0) return;
+        const from = el.scrollTop;
+        el.scrollTo({ top: 0, behavior: 'smooth' });
+        // some engines ignore smooth scrolling on a nested scroll container,
+        // so make sure we actually land at the top
+        setTimeout(() => {
+          if (el.scrollTop === from) el.scrollTop = 0;
+        }, 300);
+      });
+    });
+  }
+}
+
+// standalone project pages (direct load / refresh)
+onReady(function () {
+  const project = getCurrentProject();
+  if (project) initProjectFooterNav(document, project.id);
 });
