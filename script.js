@@ -44,6 +44,21 @@ function placeBreadcrumbInTopbar(root) {
   }
 }
 
+// Tags live in projects.js so a project's home card and its case study header
+// always show the same set. Fills every .tags wrapper inside `root`.
+function renderProjectTags(root, tags) {
+  if (!root || !tags || !tags.length) return;
+  root.querySelectorAll('.tags').forEach((wrap) => {
+    wrap.innerHTML = '';
+    tags.forEach((tag) => {
+      const span = document.createElement('span');
+      span.className = 'tag';
+      span.textContent = tag;
+      wrap.appendChild(span);
+    });
+  });
+}
+
 // Which project is this page? <body data-project="kogl"> is the source of
 // truth; falls back to matching the folder name in the URL path.
 function getCurrentProject() {
@@ -89,7 +104,7 @@ function renderProjectSidebar(sidebar, currentId, onNavigate) {
   closeButton.textContent = '✕';
 
   const profile = document.createElement('div');
-  profile.className = 'sidebar-top project-view-profile';
+  profile.className = 'sidebar-top';
   const homeLink = document.createElement('a');
   homeLink.href = siteUrl('index.html');
   homeLink.className = 'project-view-home-link';
@@ -162,6 +177,7 @@ initClock();
     if (title) title.textContent = project.title;
     card.dataset.href = siteUrl(project.href);
     card.dataset.category = project.category;
+    renderProjectTags(card, project.tags);
   });
 
   function saveGrid() {
@@ -279,6 +295,10 @@ initClock();
         addBreadcrumbToCaseView(cardCategory, cardTitle, activeFilter);
       }
 
+      // tags for the slid-in project, from projects.js
+      const loadedProject = projects.find((p) => p.id === cardId);
+      if (loadedProject) renderProjectTags(wrapper, loadedProject.tags);
+
       // mobile "projects" button in topbar (right side)
       document.querySelectorAll('.topbar-back').forEach(el => el.remove());
       const topbar = wrapper.querySelector('.topbar');
@@ -360,6 +380,8 @@ onReady(function () {
   document.querySelectorAll('.breadcrumb-current').forEach((current) => {
     current.textContent = project.title;
   });
+
+  renderProjectTags(document, project.tags);
 
   // line the breadcrumb up with the clock
   placeBreadcrumbInTopbar(document);
