@@ -1,29 +1,5 @@
 /* mary wil design — portfolio styles */
 
-@font-face {
-  font-family: 'PP Editorial';
-  src: url('fonts/PPEditorialNew-Regular-BF644b214ff145f.otf') format('opentype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'PP Editorial';
-  src: url('fonts/PPEditorialNew-Italic-BF644b214fb0c0a.otf') format('opentype');
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'PP Editorial Ultra';
-  src: url('fonts/PPEditorialNew-Ultralight-BF644b21500d0c0.otf') format('opentype');
-  font-weight: 200;
-  font-style: normal;
-  font-display: swap;
-}
-
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -51,7 +27,7 @@
   --gray-800: #1f2937;
   --gray-900: #111827;
 
-  --font-serif: 'PP Editorial', 'Instrument Serif', Georgia, serif;
+  --font-serif: 'Instrument Serif', Georgia, serif;
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
@@ -210,7 +186,7 @@ button, a, [data-href] { cursor: pointer; }
 .project-view-links a.active { opacity: 0.5; }
 
 .project-view-home-link {
-  font-family: 'Instrument Serif', Georgia, serif;
+  font-family: var(--font-serif);
   font-style: italic;
   font-size: 1.5rem;
   line-height: 1;
@@ -619,7 +595,7 @@ body.case-page .filters { display: none; }
 }
 .case-header h2 {
   margin-bottom: var(--sp-3);
-  font-family: 'Instrument Serif', Georgia, serif;
+  font-family: var(--font-serif);
   font-style: italic;
   font-size: 2.4rem;
   font-weight: 400;
@@ -643,7 +619,7 @@ body.case-page .filters { display: none; }
 }
 .case-header-text h2 {
   margin-bottom: var(--sp-3);
-  font-family: 'Instrument Serif', Georgia, serif;
+  font-family: var(--font-serif);
   font-style: italic;
   font-size: 2.4rem;
   font-weight: 400;
