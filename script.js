@@ -70,7 +70,9 @@ function renderProjectSidebar(sidebar, currentId, onNavigate) {
     const link = document.createElement('a');
     link.href = siteUrl(project.href);
     link.textContent = project.title;
-    link.className = project.id === currentId ? 'active' : '';
+    const isCurrent = project.id === currentId;
+    link.className = isCurrent ? 'active' : '';
+    if (isCurrent) link.setAttribute('aria-current', 'page');
     if (onNavigate) {
       link.addEventListener('click', (e) => {
         e.preventDefault();
@@ -193,15 +195,6 @@ initClock();
     });
   }
 
-  function getFilterDisplay(filter) {
-    const map = {
-      'all': 'ALL',
-      'ux': 'UX/UI',
-      'code': 'Code'
-    };
-    return map[filter] || filter;
-  }
-
   function addBreadcrumbToCaseView(category, title, activeFilter) {
     // remove any existing breadcrumb from wrapper (fixes duplicate)
     const wrapper = document.querySelector('.case-study-view');
@@ -212,26 +205,15 @@ initClock();
       }
     });
 
-    const filterDisplay = getFilterDisplay(activeFilter);
-
-    // build: <span class="breadcrumb">...</span>
-    // links use showGrid() so the active filter is preserved on return
+    // build: <span class="breadcrumb">All / Project</span>
     const container = document.createElement('span');
     container.id = 'dynamic-breadcrumb';
     container.className = 'breadcrumb';
 
     const link1 = document.createElement('a');
     link1.href = '#';
-    link1.textContent = 'projects';
+    link1.textContent = 'All';
     link1.addEventListener('click', function(e) {
-      e.preventDefault();
-      showGrid();
-    });
-
-    const link2 = document.createElement('a');
-    link2.href = '#';
-    link2.textContent = filterDisplay;
-    link2.addEventListener('click', function(e) {
       e.preventDefault();
       showGrid();
     });
@@ -241,8 +223,6 @@ initClock();
     current.textContent = title;
 
     container.appendChild(link1);
-    container.appendChild(document.createTextNode(' / '));
-    container.appendChild(link2);
     container.appendChild(document.createTextNode(' / '));
     container.appendChild(current);
 
@@ -260,7 +240,6 @@ initClock();
       } else {
         wrapper.prepend(container);
       }
-      wrapper.prepend(container);
     }
   }
 
@@ -736,14 +715,16 @@ function initProjectFooterNav(scope, projectId, onNavigate) {
   const current = projects.findIndex((p) => p.id === projectId);
   if (current === -1) return;
 
-  const folder = (p) => p.href.replace(/^\/|\/$/g, '');
-  nav.style.display = 'flex';
+  // label each link with the project name — the part before the colon
+  const name = (p) => p.title.split(':')[0].trim();
+  nav.style.display = '';
 
   const prev = nav.querySelector('.nav-prev');
   const next = nav.querySelector('.nav-next');
   const top = nav.querySelector('.back-to-top');
 
   function bindLink(el, project, label) {
+    if (!el) return;
     el.href = siteUrl(project.href);
     el.textContent = label;
     if (onNavigate) {
@@ -754,17 +735,12 @@ function initProjectFooterNav(scope, projectId, onNavigate) {
     }
   }
 
-  if (current > 0) {
-    bindLink(prev, projects[current - 1], '← ' + folder(projects[current - 1]));
-  } else if (prev) {
-    prev.style.visibility = 'hidden';
-  }
-
-  if (current < projects.length - 1) {
-    bindLink(next, projects[current + 1], folder(projects[current + 1]) + ' →');
-  } else if (next) {
-    next.style.visibility = 'hidden';
-  }
+  // wrap around at both ends, so every project links to two others and the
+  // prev/next loop never dead-ends
+  const prevProject = projects[(current - 1 + projects.length) % projects.length];
+  const nextProject = projects[(current + 1) % projects.length];
+  bindLink(prev, prevProject, '← ' + name(prevProject));
+  bindLink(next, nextProject, name(nextProject) + ' →');
 
   if (top) {
     top.addEventListener('click', () => {

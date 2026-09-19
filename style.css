@@ -205,6 +205,10 @@ button, a, [data-href] { cursor: pointer; }
 }
 .project-view-links a:hover { text-decoration: line-through; }
 
+/* current project — de-emphasised: the usual "you are here" treatment for a
+   nav list, and it does not collide with the line-through hover language */
+.project-view-links a.active { opacity: 0.5; }
+
 .project-view-home-link {
   font-family: var(--font-serif);
   font-style: italic;
@@ -874,13 +878,16 @@ body.case-page .filters { display: none; }
 
 /* project nav and back to top */
 .project-nav-footer {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
   margin-top: var(--sp-10);
   padding-top: var(--sp-6);
   border-top: 1px solid var(--gray-100);
 }
+.project-nav-footer .nav-next { justify-self: end; }
+/* back to top sits centred between the two sidebars */
+.project-nav-footer .back-to-top { justify-self: center; }
 .project-nav-footer a {
   font-size: 0.85rem;
   font-weight: 500;
