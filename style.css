@@ -584,17 +584,24 @@ body.case-page .filters { display: none; }
 /* snapshot row — year / role / credits / links across the content width,
    above the first section. Content is rendered from projects.js.
    The box itself is unstyled: only the labels carry the site-blue pill,
-   and the values hang underneath them like columns. */
+   and the values hang underneath them like columns.
+   Flex rather than an auto-fit grid, so however many groups a project has
+   they stretch edge to edge and split the hero width evenly instead of
+   bunching to the left. */
 .snapshot-box {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: var(--sp-5) var(--sp-6);
-  align-items: start;
+  align-items: flex-start;
   width: 100%;
   margin: 0 0 var(--sp-8);
   font-size: 0.78rem;
   line-height: 1.6;
   color: var(--gray-600);
+}
+.snapshot-group {
+  flex: 1 1 150px;
+  min-width: 0;
 }
 .snapshot-box h4 {
   display: inline-block;
