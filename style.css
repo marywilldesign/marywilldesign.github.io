@@ -744,6 +744,14 @@ body.case-page .filters { display: none; }
   letter-spacing: 0.1em;
   margin-bottom: var(--sp-5);
 }
+/* footnote that qualifies the figures above (e.g. the asterisk on a metric) */
+.results-highlight p {
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: var(--gray-500);
+  margin-top: var(--sp-4);
+  max-width: 75ch;
+}
 .results-cards {
   display: flex;
   gap: 0;
