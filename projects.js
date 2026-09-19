@@ -12,49 +12,57 @@ window.portfolioProjects = [
     id: 'telus',
     title: 'Telus: Enterprise IA Refresh',
     href: 'telus/',
-    category: 'ux'
+    category: 'ux',
+    tags: ['design system', 'enterprise', 'a/b testing', 'analytics', 'workshop facilitation', 'user research', 'IA']
   },
   {
     id: 'telus-informing-customers',
     title: 'Telus: Informing Customers',
     href: 'telus-informing-customers/',
-    category: 'ux'
+    category: 'ux',
+    tags: ['design system', 'enterprise', 'a/b testing', 'analytics', 'workshop facilitation', 'user research', 'IA']
   },
   {
     id: 'creepers',
     title: 'Van Art Gallery: AI Installation',
     href: 'vancouverartgallery/',
-    category: 'ux'
+    category: 'ux',
+    tags: ['experience design', 'design system', 'installation', 'project management', 'scrum master']
   },
   {
     id: 'ibm',
     title: 'IBM: Login Flow',
     href: 'ibm/',
-    category: 'ux'
+    category: 'ux',
+    tags: ['design system', 'enterprise', 'login flow']
   },
   {
     id: 'modo',
     title: 'Modo: B2C Site Redesign',
     href: 'modo/',
-    category: 'ux'
+    category: 'ux',
+    tags: ['site refresh', 'IA', 'card design', 'navigation design']
   },
   {
     id: 'kogl',
     title: 'Kogl: Establishing Digital Presence',
     href: 'kogl/',
-    category: 'ux'
+    category: 'ux',
+    tags: ['creative direction', 'end-to-end', 'animation']
   },
   {
     id: 'liveopencall',
     title: 'Live Open Call: Mobile Submissions',
     href: 'liveopencall/',
-    category: 'code'
+    category: 'code',
+    tags: ['backend dev', 'graphic design', 'print', 'installation', 'systems architecture']
   },
   {
     id: 'blackbox',
     title: 'VJ Controller: MA Thesis',
     href: 'blackbox/',
-    category: 'code'
+    category: 'code',
+    tags: ['graphic design', 'installation', '3D design + printing', 'single board computing', 'electronics']
   }
 ];
 
