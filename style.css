@@ -182,20 +182,28 @@ button, a, [data-href] { cursor: pointer; }
 }
 .sidebar-links a:hover { text-decoration: line-through; }
 
+/* project list — self-contained, no longer borrows .sidebar-links styles.
+   gap matches the external links on the home page for consistency */
 .project-view-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
   flex: 0 1 auto;
   margin-top: auto;
   min-height: 0;
   max-height: none;
   overflow: visible;
-  gap: var(--sp-1);
 }
 
 .project-view-links a {
+  color: #0040FF;
   font-size: 0.72rem;
+  font-weight: 500;
   line-height: 1.25;
+  text-decoration: none;
   white-space: nowrap;
 }
+.project-view-links a:hover { text-decoration: line-through; }
 
 .project-view-home-link {
   font-family: var(--font-serif);
@@ -342,6 +350,25 @@ button, a, [data-href] { cursor: pointer; }
 /* slide-in case study topbar: back on left, clock on right */
 .case-study-view .topbar {
   justify-content: space-between;
+}
+
+/* breadcrumb + home intro share the clock's row, vertically centred with it */
+.topbar > .breadcrumb,
+.topbar > .bridging-line {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin-bottom: 0;
+}
+/* home: the intro line sits top-aligned with the clock */
+.topbar > .bridging-line,
+.topbar > .bridging-line ~ .clock {
+  align-self: flex-start;
+}
+/* the breadcrumb now shares the clock's row, so the gap down to the
+   case header is set here (it used to be the breadcrumb's own margin) */
+.case-page .topbar,
+.case-study-view .topbar {
+  margin-bottom: var(--sp-6);
 }
 
 .topbar-menu {
@@ -1042,7 +1069,7 @@ html.is-touch #custom-cursor { display: none !important; }
   .project-view-links {
     max-height: none;
     overflow-y: visible;
-    gap: var(--sp-1);
+    gap: var(--sp-3);
   }
   .project-view-links a {
     font-size: 0.78rem;
@@ -1171,6 +1198,20 @@ html.is-touch #custom-cursor { display: none !important; }
     color: var(--gray-600);
     margin-bottom: 0;
     line-height: 1.4;
+  }
+
+  .topbar { justify-content: flex-start; flex-wrap: wrap; }
+  .topbar-menu { display: block; }
+  .topbar-back { display: block; }
+  .clock { display: none; }
+
+  /* breadcrumb / intro line drop to their own full-width row under "menu" */
+  .topbar > .breadcrumb,
+  .topbar > .bridging-line {
+    flex: 1 1 100%;
+    order: 3;
+    margin-top: var(--sp-2);
+    margin-bottom: 0;
   }
 
   /* backdrop */
