@@ -476,8 +476,9 @@ body.case-page .filters { display: none; }
 
 .card-title {
   font-family: var(--font-serif);
-  /* always one line — the longest title measures ~11.6px per px of font size,
-     so the grid drops to 2 columns before a 3-column card gets too narrow */
+  /* always one line: the longest title measures ~11.6px per px of font size.
+     3 columns only appear once a card can hold the full 1.2rem — just below
+     that the size scales down instead (see the .card-title rules below) */
   font-size: 1.2rem;
   font-weight: 400;
   color: var(--gray-900);
@@ -952,10 +953,18 @@ body.case-page .filters { display: none; }
 }
 html.is-touch #custom-cursor { display: none !important; }
 
-/* tablet: 2-column masonry. 3 columns only once a card is wide enough for the
-   longest title to stay on one line (see .card-title). */
-@media (max-width: 1360px) {
+/* tablet: 2-column masonry */
+@media (max-width: 1200px) {
   .cards { column-count: 2; }
+}
+
+/* Keeps 3 columns through 1201-1360px (below is 2 columns, above is the full
+   size) by scaling the card title down only as far as it must to stay on one
+   line: the longest title needs ~11.6px of width per px of font size, and a
+   3-column card is W/3 - 222px wide. The formula meets 1.2rem at 1360px, so
+   the hand-off to the rule above is seamless. */
+@media (min-width: 1201px) and (max-width: 1360px) {
+  .card-title { font-size: min(1.2rem, calc(2.87vw - 19.8px)); }
 }
 
 @media (max-width: 1024px) {
