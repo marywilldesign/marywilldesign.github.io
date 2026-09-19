@@ -127,7 +127,11 @@ button, a, [data-href] { cursor: pointer; }
 .sidebar-top {
   display: flex;
   flex-direction: column;
+  flex: 1 1 auto;
+  min-width: 0;
   margin-bottom: var(--sp-4);
+  /* the wordmark is sized against this box (see .project-view-home-link) */
+  container-type: inline-size;
 }
 
 .bio {
@@ -188,7 +192,12 @@ button, a, [data-href] { cursor: pointer; }
 .project-view-home-link {
   font-family: var(--font-serif);
   font-style: italic;
+  /* 1.5rem is the fallback; the cqw size fills the sidebar column exactly
+     ("Mary G. Wilson" measures ~5.44x its font-size), so the wordmark lines
+     up with the bio right edge at any sidebar width. Reduces to fit the
+     close button on mobile. */
   font-size: 1.5rem;
+  font-size: 18.39cqw;
   line-height: 1;
   color: var(--gray-900);
   text-decoration: none;
@@ -1050,7 +1059,6 @@ html.is-touch #custom-cursor { display: none !important; }
     order: 2;
     margin: 0;
   }
-  .project-view-home-link { font-size: 1.2rem; }
   .project-view-links {
     max-height: none;
     overflow-y: visible;
