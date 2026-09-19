@@ -15,35 +15,12 @@
   <script src="../script.js" defer></script>
 </head>
 
-<body class="case-page">
+<body class="case-page" data-project="liveopencall">
 
   <div class="layout">
 
-    <!-- left sidebar -->
-    <aside class="sidebar" id="sidebar">
-
-      
-      <!-- mobile-only: avatar + bio + links -->
-      <div class="sidebar-mobile-top">
-        <button class="sidebar-close" id="sidebar-close" aria-label="Close menu">✕</button>
-        <a href="../index.html"><img class="avatar" src="../mw_profile.svg" alt="Mary Wil" width="200" height="200"></a>
-        <p class="bio">
-          User Experience designer with nearly ten years experience from startups to consulting agencies. Master's degrees in UX/UI and Graphic design. Demonstrated project leadership from ideation to launch with full-stack teams. Spanning cross-sector enterprise client work and self-initiated projects that blend design with code.
-        </p>
-      </div>
-
-      <nav class="sidebar-links sidebar-mobile-links">
-        <a href="https://drive.google.com/file/d/1vJQT7nzT0Jh-cYgugH08rDDmF4s7uFco/view?usp=sharing" target="_blank" rel="noopener noreferrer">resume.pdf ↗</a>
-        <a href="https://drive.google.com/file/d/154rOSybpMvjC_LpU055DL15ylRA56IEj/view?usp=sharing" target="_blank" rel="noopener noreferrer">portfolio.pdf ↗</a>
-        <a href="https://www.linkedin.com/in/marygracewilson/" target="_blank" rel="noopener noreferrer">linkedin ↗</a>
-        <a href="https://www.instagram.com/marywildesign/" target="_blank" rel="noopener noreferrer">instagram ↗</a>
-        <a href="https://www.lomography.com/homes/marycastawayball/photos" target="_blank" rel="noopener noreferrer">photography ↗</a>
-        <a href="tel:+4792072025">+47 920 720 25 ↗</a>
-      </nav>
-
-      <p class="made sidebar-mobile-made">★ made by mary ★</p>
-
-    </aside>
+    <!-- sidebar — left empty on purpose: script.js builds it from projects.js -->
+    <aside class="sidebar" id="sidebar"></aside>
 
     <!-- backdrop -->
     <div class="menu-backdrop" id="menu-backdrop"></div>
@@ -131,9 +108,13 @@
   </nav>
 
   </main>
+
+  <!-- cv panel — left empty on purpose: script.js fills it from projects.js -->
+  <aside class="sidebar-right" id="sidebar-right"></aside>
+
 </div>
 
-  <div id="custom-cursor"></div>
+<div id="custom-cursor"></div>
 
   <!-- lightbox -->
   <div class="media-lightbox" id="media-lightbox">
