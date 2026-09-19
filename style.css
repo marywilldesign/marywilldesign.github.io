@@ -944,7 +944,8 @@ body.case-page .filters { display: none; }
   flex: 1;
   min-width: 0;
 }
-.sbs-item img {
+.sbs-item img,
+.sbs-item video {
   width: 100%;
   max-width: 100%;
   height: auto;
@@ -952,7 +953,8 @@ body.case-page .filters { display: none; }
   cursor: pointer;
   transition: opacity 0.2s;
 }
-.sbs-item img:hover { opacity: 0.92; }
+.sbs-item img:hover,
+.sbs-item video:hover { opacity: 0.92; }
 .sbs-item .caption { margin-bottom: 0; }
 
 /* three images across (kogl). This class had no rule at all — the row only
@@ -963,6 +965,27 @@ body.case-page .filters { display: none; }
   flex: 1 1 33.333%;
   min-width: 0;
 }
+
+/* full-width case-study figure — images and video both fill the column */
+.case-image img,
+.case-image video,
+.case-image-wide img,
+.case-image-wide video {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* a row of artefacts that shares one caption. Items keep their own .caption
+   inside .sbs-item; the shared line is the group's figcaption, so a set of
+   images can be introduced as a whole ("installed at the White Box…"). */
+.media-group { margin: var(--sp-8) 0; }
+.media-group .side-by-side { margin: 0; }
+.media-group .caption { margin-bottom: 0; max-width: 75ch; }
+.media-group > figcaption.caption { margin-top: var(--sp-4); }
+
+/* stacked artefact rows need more air than the 1rem .side-by-side default */
+.side-by-side + .side-by-side { margin-top: var(--sp-8); }
 
 .masonry-item .caption { margin-bottom: 0; }
 
