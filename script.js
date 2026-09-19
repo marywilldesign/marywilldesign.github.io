@@ -59,6 +59,22 @@ function renderProjectTags(root, tags) {
   });
 }
 
+// The tag row wraps in line with the heading: the title's text width is
+// measured and the tags are capped to it, so they break near where the title
+// ends instead of running the full column width. The title is set in a
+// fixed-size display face, so the measurement holds at any viewport width.
+function syncTagRowWidth(root) {
+  (root || document).querySelectorAll('.case-header-text').forEach((block) => {
+    const heading = block.querySelector('h2');
+    const tags = block.querySelector('.tags');
+    if (!heading || !tags) return;
+    const range = document.createRange();
+    range.selectNodeContents(heading);
+    const width = Math.ceil(range.getBoundingClientRect().width);
+    if (width > 0) tags.style.maxWidth = width + 'px';
+  });
+}
+
 // Which project is this page? <body data-project="kogl"> is the source of
 // truth; falls back to matching the folder name in the URL path.
 function getCurrentProject() {
@@ -298,6 +314,8 @@ initClock();
       // tags for the slid-in project, from projects.js
       const loadedProject = projects.find((p) => p.id === cardId);
       if (loadedProject) renderProjectTags(wrapper, loadedProject.tags);
+      syncTagRowWidth(wrapper);
+      document.fonts.ready.then(() => syncTagRowWidth(wrapper));
 
       // mobile "projects" button in topbar (right side)
       document.querySelectorAll('.topbar-back').forEach(el => el.remove());
@@ -382,6 +400,9 @@ onReady(function () {
   });
 
   renderProjectTags(document, project.tags);
+  syncTagRowWidth(document);
+  // the display face may still be swapping in, which changes the title width
+  document.fonts.ready.then(() => syncTagRowWidth(document));
 
   // line the breadcrumb up with the clock
   placeBreadcrumbInTopbar(document);
