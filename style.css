@@ -1034,7 +1034,7 @@ body.case-page .filters { display: none; }
   width: 10px;
   height: 10px;
   background: #0040FF;
-  border: 1.5px solid var(--white);
+  border: 1px solid var(--white);
   border-radius: 50%;
   pointer-events: none;
   transform: translate(-50%, -50%);
