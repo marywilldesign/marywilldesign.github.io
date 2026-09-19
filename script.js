@@ -59,6 +59,51 @@ function renderProjectTags(root, tags) {
   });
 }
 
+// The snapshot bar (year / role / credits / links) comes from projects.js too,
+// so every project page shows the same groups in the same order. A group with
+// nothing in it is left out rather than rendered empty.
+function renderProjectMeta(root, meta) {
+  if (!root || !meta) return;
+  root.querySelectorAll('.snapshot-box').forEach((box) => {
+    box.innerHTML = '';
+    const groups = [
+      ['Year', meta.year ? [meta.year] : []],
+      ['Role', meta.role ? [meta.role] : []],
+      ['Credits', meta.credits || []],
+      ['Links', meta.links || []]
+    ];
+    groups.forEach((entry) => {
+      const label = entry[0];
+      const values = entry[1];
+      if (!values.length) return;
+
+      const group = document.createElement('div');
+      group.className = 'snapshot-group';
+
+      const heading = document.createElement('h4');
+      heading.textContent = label;
+      group.appendChild(heading);
+
+      values.forEach((value) => {
+        const line = document.createElement('p');
+        if (typeof value === 'string') {
+          line.textContent = value;
+        } else {
+          const link = document.createElement('a');
+          link.href = value.href;
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+          link.textContent = value.label;
+          line.appendChild(link);
+        }
+        group.appendChild(line);
+      });
+
+      box.appendChild(group);
+    });
+  });
+}
+
 // The tag row wraps in line with the heading: the title's text width is
 // measured and the tags are capped to it, so they break near where the title
 // ends instead of running the full column width. The title is set in a
@@ -313,7 +358,10 @@ initClock();
 
       // tags for the slid-in project, from projects.js
       const loadedProject = projects.find((p) => p.id === cardId);
-      if (loadedProject) renderProjectTags(wrapper, loadedProject.tags);
+      if (loadedProject) {
+        renderProjectTags(wrapper, loadedProject.tags);
+        renderProjectMeta(wrapper, loadedProject.meta);
+      }
       syncTagRowWidth(wrapper);
       document.fonts.ready.then(() => syncTagRowWidth(wrapper));
 
@@ -384,6 +432,7 @@ onReady(function () {
   });
 
   renderProjectTags(document, project.tags);
+  renderProjectMeta(document, project.meta);
   syncTagRowWidth(document);
   // the display face may still be swapping in, which changes the title width
   document.fonts.ready.then(() => syncTagRowWidth(document));

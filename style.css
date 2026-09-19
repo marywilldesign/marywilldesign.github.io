@@ -581,11 +581,16 @@ body.case-page .filters { display: none; }
   max-width: 75ch;
 }
 
+/* snapshot bar — year / role / credits / links across the content width,
+   above the first section. Content is rendered from projects.js. */
 .snapshot-box {
-  float: right;
-  width: 220px;
-  margin: 0 0 var(--sp-6) var(--sp-6);
-  padding: var(--sp-4);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--sp-5) var(--sp-6);
+  align-items: start;
+  width: 100%;
+  margin: 0 0 var(--sp-8);
+  padding: var(--sp-5);
   background: var(--gray-50);
   border: 1px solid var(--gray-100);
   border-radius: var(--radius);
@@ -593,9 +598,16 @@ body.case-page .filters { display: none; }
   line-height: 1.6;
   color: var(--gray-600);
 }
+.snapshot-box h4 {
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gray-400);
+  margin-bottom: var(--sp-2);
+}
 .snapshot-box p { margin-bottom: var(--sp-2); }
 .snapshot-box p:last-child { margin-bottom: 0; }
-.snapshot-box strong { color: var(--gray-900); font-weight: 600; }
 .snapshot-box a { color: var(--blue-hover); }
 .snapshot-box a:hover { text-decoration: line-through; }
 
@@ -603,11 +615,6 @@ body.case-page .filters { display: none; }
   .case-header-grid {
     flex-direction: column;
     gap: var(--sp-5);
-  }
-  .snapshot-box {
-    float: none;
-    width: 100%;
-    margin: 0 0 var(--sp-6);
   }
   .hero-image-pair {
     flex-direction: column;
