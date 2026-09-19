@@ -210,7 +210,7 @@ button, a, [data-href] { cursor: pointer; }
 .project-view-links a.active { opacity: 0.5; }
 
 .project-view-home-link {
-  font-family: var(--font-serif);
+  font-family: 'Instrument Serif', Georgia, serif;
   font-style: italic;
   font-size: 1.5rem;
   line-height: 1;
@@ -619,9 +619,10 @@ body.case-page .filters { display: none; }
 }
 .case-header h2 {
   margin-bottom: var(--sp-3);
-  font-family: 'PP Editorial Ultra', var(--font-serif);
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
   font-size: 2.4rem;
-  font-weight: 200;
+  font-weight: 400;
   letter-spacing: -0.02em;
   line-height: 1.1;
   color: var(--gray-900);
@@ -642,9 +643,10 @@ body.case-page .filters { display: none; }
 }
 .case-header-text h2 {
   margin-bottom: var(--sp-3);
-  font-family: 'PP Editorial Ultra', var(--font-serif);
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
   font-size: 2.4rem;
-  font-weight: 200;
+  font-weight: 400;
   letter-spacing: -0.02em;
   line-height: 1.1;
   color: var(--gray-900);
