@@ -13,14 +13,14 @@ window.portfolioProjects = [
     title: 'Telus: Enterprise IA Refresh',
     href: 'telus/',
     category: 'ux',
-    tags: ['design system', 'enterprise', 'a/b testing', 'analytics', 'workshop facilitation', 'user research', 'IA']
+    tags: ['design system (Allium)', 'enterprise', 'a/b testing', 'analytics', 'workshop facilitation', 'user research', 'IA']
   },
   {
     id: 'telus-informing-customers',
     title: 'Telus: Informing Customers',
     href: 'telus-informing-customers/',
     category: 'ux',
-    tags: ['design system', 'enterprise', 'a/b testing', 'analytics', 'workshop facilitation', 'user research', 'IA']
+    tags: ['design system (Allium)', 'enterprise', 'a/b testing', 'analytics', 'workshop facilitation', 'user research', 'IA']
   },
   {
     id: 'creepers',
@@ -34,7 +34,7 @@ window.portfolioProjects = [
     title: 'IBM: Login Flow',
     href: 'ibm/',
     category: 'ux',
-    tags: ['design system', 'enterprise', 'login flow']
+    tags: ['design system (Carbon)', 'enterprise', 'login flow']
   },
   {
     id: 'modo',
