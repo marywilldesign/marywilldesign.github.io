@@ -9,6 +9,14 @@
 }
 
 @font-face {
+  font-family: 'PP Editorial';
+  src: url('fonts/PPEditorialNew-Italic-BF644b214fb0c0a.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
   font-family: 'PP Editorial Ultra';
   src: url('fonts/PPEditorialNew-Ultralight-BF644b21500d0c0.otf') format('opentype');
   font-weight: 200;
@@ -190,7 +198,7 @@ button, a, [data-href] { cursor: pointer; }
 }
 
 .project-view-home-link {
-  font-family: 'Instrument Serif', Georgia, serif;
+  font-family: var(--font-serif);
   font-style: italic;
   font-size: 1.5rem;
   line-height: 1;

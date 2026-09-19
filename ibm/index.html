@@ -6,6 +6,9 @@
   <title>IBM – Carbon Design System</title>
 
   <link rel="icon" type="image/svg+xml" href="../mw.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../style.css" />
   <script src="../projects.js" defer></script>
   <script src="../script.js" defer></script>
@@ -19,59 +22,14 @@
   </style>
 </head>
 
-<body class="case-page">
+<body class="case-page" data-project="ibm">
 
 <div class="layout">
 
-  <!-- sidebar -->
-  <aside class="sidebar" id="sidebar">
+  <!-- sidebar — left empty on purpose: script.js builds it from projects.js -->
+  <aside class="sidebar" id="sidebar"></aside>
 
-    
-      <!-- mobile-only: avatar + bio + links -->
-      <div class="sidebar-mobile-top">
-        <button class="sidebar-close" id="sidebar-close" aria-label="Close menu">✕</button>
-        <a href="../index.html"><img class="avatar" src="../mw_profile.svg" alt="Mary Wil" width="200" height="200"></a>
-        <p class="bio">
-          User Experience designer with nearly ten years experience from startups to consulting agencies. Master's degrees in UX/UI and Graphic design. Demonstrated project leadership from ideation to launch with full-stack teams. Spanning cross-sector enterprise client work and self-initiated projects that blend design with code.
-        </p>
-      </div>
-
-      <nav class="sidebar-links sidebar-mobile-links">
-        <a href="https://drive.google.com/file/d/1vJQT7nzT0Jh-cYgugH08rDDmF4s7uFco/view?usp=sharing" target="_blank" rel="noopener noreferrer">resume.pdf ↗</a>
-        <a href="https://drive.google.com/file/d/154rOSybpMvjC_LpU055DL15ylRA56IEj/view?usp=sharing" target="_blank" rel="noopener noreferrer">portfolio.pdf ↗</a>
-        <a href="https://www.linkedin.com/in/marygracewilson/" target="_blank" rel="noopener noreferrer">linkedin ↗</a>
-        <a href="https://www.instagram.com/marywildesign/" target="_blank" rel="noopener noreferrer">instagram ↗</a>
-        <a href="https://www.lomography.com/homes/marycastawayball/photos" target="_blank" rel="noopener noreferrer">photography ↗</a>
-        <a href="tel:+4792072025">+47 920 720 25 ↗</a>
-      </nav>
-
-      <p class="made sidebar-mobile-made">★ made by mary ★</p>
-
-    <nav class="project-nav">
-      <h4>Other Projects</h4>
-      <ul>
-        <li><a href="../vancouverartgallery/">Van Art Gallery – Installation</a></li>
-        <li><a href="../telus/">Telus Internet Sales</a></li>
-        <li><a href="../modo/">Modo Carsharing Site</a></li>
-        <li><a href="../postertriennial/">Lahti Poster Triennial – Poster</a></li>
-        <li><a href="../twotruths/">Two Truths & AI – Web Game</a></li>
-        <li><a href="../friendsfest/">Friends Fest – Merch</a></li>
-        <li><a href="../speleo/">Speleo – Label Identity</a></li>
-        <li><a href="../papercut/">Paper Cut – Poster Folio</a></li>
-        <li><a href="../subtext/">Subtext – Film Poster</a></li>
-        <li><a href="../risographposters/">Kunstnernes Hus – Posters</a></li>
-        <li><a href="../wellflip/">Well, Flip! Book – p5.js &amp; coptic</a></li>
-        <li><a href="../blackbox/">Web-based Blackbox VJ</a></li>
-        <li><a href="../collaborativesentence/">Longest Sentence site</a></li>
-        <li><a href="../liveopencall/">Live Open Call</a></li>
-        <li><a href="../glyphscorrupted/">Glyphs: Corrupted</a></li>
-        <li><a class="active" href="../ibm/">IBM Volunteerism</a></li>
-      </ul>
-    </nav>
-
-  </aside>
-
-  <!-- Mobile backdrop -->
+  <!-- mobile backdrop -->
   <div class="menu-backdrop" id="menu-backdrop"></div>
 
   <!-- main content -->
@@ -137,6 +95,9 @@
   </nav>
 
   </main>
+
+  <!-- cv panel — left empty on purpose: script.js fills it from projects.js -->
+  <aside class="sidebar-right" id="sidebar-right"></aside>
 
 </div>
 
