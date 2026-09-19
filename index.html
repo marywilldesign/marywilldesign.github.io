@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <script src="projects.js"></script>
+  <script src="projects.js" defer></script>
 </head>
 <body>
 
@@ -189,108 +189,12 @@
       </div>
     </main>
 
-    <!-- right sidebar (cv) -->
-    <aside class="sidebar-right">
-      
-      <div class="cv-section">
-        <h4>Experience</h4>
-        <div class="cv-item">
-          <span class="cv-role">Lead UX Designer</span>
-          <span class="cv-org">KHiO Research Project</span>
-          <span class="cv-date">July 2026 – Present</span>
-        </div>
-        <div class="cv-item">
-          <span class="cv-role">UX & Graphic Designer</span>
-          <span class="cv-org">KOGL</span>
-          <span class="cv-date">Jan 2026 – April 2026</span>
-        </div>
-        <div class="cv-item">
-          <span class="cv-role">Snr. UX Designer (contract)</span>
-          <span class="cv-org">All Purpose Creative</span>
-          <span class="cv-date">2021 – Present</span>
-        </div>
-        <div class="cv-item cv-subitem">
-          <span class="cv-org">Modo</span>
-          <span class="cv-date">Feb 2022 – 2025</span>
-        </div>
-        <div class="cv-item cv-subitem">
-          <span class="cv-org">IBM</span>
-          <span class="cv-date">July 2024 – Jan 2025</span>
-        </div>
-        <div class="cv-item cv-subitem">
-          <span class="cv-org">Telus</span>
-          <span class="cv-date">Sept 2021 – Dec 2024</span>
-        </div>
-        <div class="cv-item cv-subitem">
-          <span class="cv-org">Vancouver Board of Trade</span>
-          <span class="cv-date">Jan 2023 – July 2023</span>
-        </div>
-        <div class="cv-item">
-          <span class="cv-role">UX Designer</span>
-          <span class="cv-org">Van Art Gallery – Installation</span>
-          <span class="cv-date">Jan 2020 – Sept 2021</span>
-        </div>
-        <div class="cv-item">
-          <span class="cv-role">UX Designer</span>
-          <span class="cv-org">JIBC</span>
-          <span class="cv-date">Sept 2020 – Jan 2020</span>
-        </div>
-        <div class="cv-item">
-          <span class="cv-role">UX Designer</span>
-          <span class="cv-org">Virtro</span>
-          <span class="cv-date">Jan 2017 – July 2020</span>
-        </div>
-      </div>
-
-      <div class="cv-section">
-        <h4>Education</h4>
-        <div class="cv-item">
-          <span class="cv-role">MA Graphic Design</span>
-          <span class="cv-org">KHiO, Oslo</span>
-        </div>
-        <div class="cv-item">
-          <span class="cv-role">MDM UX Design</span>
-          <span class="cv-org">UBC, Vancouver</span>
-        </div>
-        <div class="cv-item">
-          <span class="cv-role">BBM Advertising</span>
-          <span class="cv-org">UQ, Brisbane</span>
-        </div>
-      </div>
-
-      <div class="cv-section">
-        <h4>Exhibits</h4>
-        <div class="cv-item">
-          <span class="cv-org">Oslo Art Weekend</span>
-          <span class="cv-date">June 2026</span>
-        </div>
-        <div class="cv-item">
-          <span class="cv-org">Torpedo Books &amp; Publishing</span>
-          <span class="cv-date">Dec 2025</span>
-        </div>
-        <div class="cv-item">
-          <span class="cv-org">Grafia, Helsinki</span>
-          <span class="cv-date">July – Sept 2025</span>
-        </div>
-        <div class="cv-item">
-          <span class="cv-org">Kunstnernes Hus</span>
-          <span class="cv-date">June 2025</span>
-        </div>
-        <div class="cv-item">
-          <span class="cv-org">White Box Gallery, KHiO</span>
-          <span class="cv-date">Nov 2024</span>
-        </div>
-        <div class="cv-item">
-          <span class="cv-org">Van Art Gallery – Installation</span>
-          <span class="cv-date">March – Oct 2022</span>
-        </div>
-      </div>
-
-    </aside>
+    <!-- right sidebar (cv) — filled by script.js from projects.js -->
+    <aside class="sidebar-right" id="sidebar-right"></aside>
 
   </div>
 
   <div id="custom-cursor"></div>
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
