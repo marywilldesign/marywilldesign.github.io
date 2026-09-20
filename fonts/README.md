@@ -1,6 +1,54 @@
 # fonts/
 
-One font, kept for one reason: the clock in the topbar is set in Egyptian
+Two families live here, for two different reasons.
+
+## Adobe Garamond Pro — the display serif
+
+| file | what it is |
+| --- | --- |
+| `AGaramondPro-Regular.woff2` | the upright face, subset to Latin and compressed — 45 KB from 116 KB of OTF |
+| `AGaramondPro-Italic.woff2` | the italic, used only for the sidebar wordmark — 34 KB from 90 KB |
+| `AGaramondPro-Regular.otf`, `AGaramondPro-Italic.otf` | the masters these were cut from |
+
+Set the wordmark, the case-study page titles and the home card titles. `style.css`
+declares the pair as the family `AGaramondPro` rather than "Adobe Garamond Pro",
+so a copy installed on a visitor's machine cannot be substituted for the file the
+site serves — everyone gets the same spacing and the same drawings. The stack
+falls back to Georgia, then Times, if the files fail to load.
+
+To regenerate after editing a master:
+
+```sh
+LATIN='U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2212,U+FEFF,U+FFFD'
+for F in Regular Italic; do
+  /opt/miniconda3/bin/pyftsubset "fonts/AGaramondPro-$F.otf" \
+    --output-file="fonts/AGaramondPro-$F.woff2" --flavor=woff2 \
+    --unicodes="$LATIN" --layout-features='*' --no-hinting
+done
+```
+
+Then check every character in a title is still covered — the subset is Latin
+only, so a title using anything outside it would silently fall back to Georgia:
+
+```sh
+/opt/miniconda3/bin/python3 -c "
+from fontTools.ttLib import TTFont
+cmap = set(TTFont('fonts/AGaramondPro-Regular.woff2').getBestCmap())
+missing = [c for c in set('Mary G. Wilson Telus: Enterprise IA Refresh') if ord(c) not in cmap]
+print('missing:', missing or 'none')"
+```
+
+**One thing to settle before this is published:** Adobe Garamond Pro is a
+commercial font, and the copies installed on a machine are licensed for desktop
+use. Serving the files from a public site — which is what `@font-face` does — is
+webfont use, and Adobe licenses that through Adobe Fonts (its own hosted embed,
+included with a Creative Cloud subscription) rather than by shipping the files.
+If this does go public, the licensed routes are an Adobe Fonts web project, a
+purchased webfont licence, or a free serif instead.
+
+## Noto Sans Egyptian Hieroglyphs — the clock
+
+Kept for a different reason: the clock in the topbar is set in Egyptian
 hieroglyphs, which are not part of Inter and only exist on a machine whose
 system fonts happen to cover that Unicode block. macOS does. A lot of Linux
 installs do not, and those visitors would otherwise see empty boxes.
@@ -14,7 +62,7 @@ installs do not, and those visitors would otherwise see empty boxes.
 those ten codepoints, so the file is only downloaded when one of them is
 actually on the page — never on a narrow screen, where the clock is hidden.
 
-## Regenerating
+## Regenerating the hieroglyphs
 
 Only needed if a glyph in `DAYPARTS` or `AFK_GLYPHS` in `script.js` changes.
 

@@ -26,7 +26,7 @@
   --gray-800: #1f2937;
   --gray-900: #111827;
 
-  --font-serif: 'Instrument Serif', Georgia, serif;
+  --font-serif: 'AGaramondPro', Georgia, 'Times New Roman', serif;
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
@@ -48,6 +48,30 @@
 
   --masonry-gap: 12px;
   --masonry-cols-lg: 2;
+}
+
+/* Adobe Garamond Pro, self-hosted. The desktop copies installed on the machine
+   this was designed on are not something a visitor can rely on, so the two
+   faces the design uses — regular and italic — are served from here.
+   Subset to Latin and compressed: 116 KB and 90 KB of OTF arrive as 45 KB and
+   34 KB of woff2, which is what a page actually pays.
+   The family is named AGaramondPro rather than "Adobe Garamond Pro" so it
+   cannot be substituted by a locally installed copy — every visitor gets this
+   file and the same spacing. Re-run the subset (fonts/README.md) if a title
+   ever needs a character outside Latin-1. */
+@font-face {
+  font-family: 'AGaramondPro';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/AGaramondPro-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'AGaramondPro';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/AGaramondPro-Italic.woff2') format('woff2');
 }
 
 /* The clock glyphs are Egyptian hieroglyphs, which are not in Inter and are
@@ -207,11 +231,11 @@ button, a, [data-href] { cursor: pointer; }
   font-family: var(--font-serif);
   font-style: italic;
   /* 1.5rem is the fallback; the cqw size scales with the sidebar so the
-     wordmark keeps its proportion at any width. 18.39cqw was derived to fill
-     the column edge to edge ("Mary G. Wilson" measures ~5.44x its font-size,
-     and 5.44 x 18.39 = 100cqw), which read as far too heavy at 45px; 14.5cqw
-     leaves about a fifth of the column as air. Reduces to fit the close
-     button on mobile. */
+     wordmark keeps its proportion at any width. In Adobe Garamond Pro Italic
+     "Mary G. Wilson" measures ~6.0x its font-size, so the 18.39cqw that was
+     derived for the previous serif (5.44x, filling the column edge to edge)
+     would now overflow the column — 6.0 x 18.39 is 110cqw. 14.5cqw fills
+     about seven eighths of it. Reduces to fit the close button on mobile. */
   font-size: 1.5rem;
   font-size: 14.5cqw;
   line-height: 1;
@@ -547,9 +571,10 @@ body.case-page .filters { display: none; }
 
 .card-title {
   font-family: var(--font-serif);
-  /* always one line: the longest title measures ~11.6px per px of font size.
-     3 columns only appear once a card can hold the full 1.2rem — just below
-     that the size scales down instead (see the .card-title rules below) */
+  /* always one line: in Adobe Garamond Pro the longest title measures ~13.88px
+     per px of font size. 3 columns only appear once a card can hold the full
+     1.2rem — just below that the size scales down instead (see the .card-title
+     rules below) */
   font-size: 1.2rem;
   font-weight: 400;
   color: var(--gray-900);
@@ -640,7 +665,8 @@ body.case-page .filters { display: none; }
 .case-header-text h2 {
   margin-bottom: var(--sp-3);
   font-family: var(--font-serif);
-  font-style: italic;
+  /* upright, unlike the wordmark: the title is the page's own name and carries
+     the hierarchy, so it does not need the slant the identity uses */
   font-size: 2.4rem;
   font-weight: 400;
   letter-spacing: -0.02em;
@@ -1156,13 +1182,21 @@ html.is-touch #custom-cursor { display: none !important; }
   .cards { column-count: 2; }
 }
 
-/* Keeps 3 columns through 1201-1360px (below is 2 columns, above is the full
+/* Keeps 3 columns through 1201-1478px (below is 2 columns, above is the full
    size) by scaling the card title down only as far as it must to stay on one
-   line: the longest title needs ~11.6px of width per px of font size, and a
-   3-column card is W/3 - 222px wide. The formula meets 1.2rem at 1360px, so
-   the hand-off to the rule above is seamless. */
-@media (min-width: 1201px) and (max-width: 1360px) {
-  .card-title { font-size: min(1.2rem, calc(2.87vw - 19.8px)); }
+   line.
+   The arithmetic: the longest title ("Live Open Call: Mobile Submissions")
+   needs ~13.88px of width per px of font size in Adobe Garamond Pro, against
+   ~11.6px in the serif this replaced — Garamond is wider at the same size, so
+   the band is longer and the slope gentler than before. A 3-column card leaves
+   W/3 - 226px for the title, so fs <= W/41.64 - 16.26, which gives 2.4vw with
+   16.6px to subtract and a few px left over at every width.
+   The formula passes 1.2rem at about 1492px, so the band runs to 1500px and
+   min() hands over to the full size without a jump. Measured at 1201, 1260,
+   1320, 1400, 1477 and 1500px: no title needs a second line anywhere the grid
+   is 3 columns. */
+@media (min-width: 1201px) and (max-width: 1500px) {
+  .card-title { font-size: min(1.2rem, calc(2.4vw - 16.6px)); }
 }
 
 @media (max-width: 1024px) {
