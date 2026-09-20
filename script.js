@@ -203,15 +203,86 @@ let menuBound = false;
   }
 })();
 
-// clock
+// clock — always Mary's time in Oslo, never the visitor's. The zone
+// abbreviation beside the time is the conventional way to say whose clock
+// this is, and the daypart adds a little character.
+const CLOCK_TZ = 'Europe/Oslo';
+const clockTimeFmt = new Intl.DateTimeFormat('en-GB', {
+  timeZone: CLOCK_TZ,
+  hour: '2-digit',
+  minute: '2-digit',
+  second: '2-digit',
+  hourCycle: 'h23'
+});
+const clockZoneFmt = new Intl.DateTimeFormat('en-GB', { timeZone: CLOCK_TZ, timeZoneName: 'short' });
+const clockOffsetFmt = new Intl.DateTimeFormat('en-GB', { timeZone: CLOCK_TZ, timeZoneName: 'longOffset' });
+
+// each entry starts at that minute of the Oslo day; the last one runs through
+// midnight and the 0 entry picks up again after it
+const DAYPARTS = [
+  { at: 0, glyph: '☽', status: 'recharging' },
+  { at: 8 * 60 + 30, glyph: '☼', status: 'brewing coffee' },
+  { at: 12 * 60, glyph: '☼', status: 'having lunch' },
+  { at: 13 * 60, glyph: '☼', status: 'working away' },
+  { at: 17 * 60, glyph: '☽', status: 'off the clock' }
+];
+
+// "CEST" where the engine has zone names, otherwise worked out from the offset
+function osloZone(now) {
+  const name = clockZoneFmt.formatToParts(now).find((p) => p.type === 'timeZoneName');
+  if (name && !name.value.includes('GMT')) return name.value;
+  const offset = clockOffsetFmt.formatToParts(now).find((p) => p.type === 'timeZoneName');
+  return offset && offset.value === 'GMT+02:00' ? 'CEST' : 'CET';
+}
+
+function dayPart(minutes) {
+  return DAYPARTS.reduce((found, part) => (minutes >= part.at ? part : found), DAYPARTS[0]);
+}
+
 let clockInterval = null;
 function initClock() {
   const el = document.getElementById('clock');
   if (!el) return;
   if (clockInterval) clearInterval(clockInterval);
+
+  if (!el.firstChild) {
+    el.innerHTML =
+      '<span class="clock-glyph" aria-hidden="true"></span>' +
+      '<span class="clock-time"></span>' +
+      '<span class="clock-zone"></span>' +
+      '<span class="clock-status"></span>';
+  }
+  const glyphEl = el.querySelector('.clock-glyph');
+  const timeEl = el.querySelector('.clock-time');
+  const zoneEl = el.querySelector('.clock-zone');
+  const statusEl = el.querySelector('.clock-status');
+
+  // only write when the text actually changes: the clock shares its row with
+  // the breadcrumb, so pointless writes shuffle the layout about
+  const set = (node, text) => { if (node.textContent !== text) node.textContent = text; };
+
+  el.title = "Mary's local time in Oslo, not yours";
+
   const tick = () => {
-    el.textContent = new Date().toLocaleTimeString('en-GB', { hour12: false });
+    const now = new Date();
+    const time = clockTimeFmt.format(now); // HH:MM:SS, Oslo
+    set(timeEl, time);
+
+    // the zone and the daypart only turn over on the minute
+    const hhmm = time.slice(0, 5);
+    if (el.dataset.hhmm !== hhmm) {
+      el.dataset.hhmm = hhmm;
+      const zone = osloZone(now);
+      set(zoneEl, zone);
+      zoneEl.title = "Mary's time — Oslo (" + zone + ")";
+
+      const [hours, minutes] = time.split(':').map(Number);
+      const part = dayPart(hours * 60 + minutes);
+      set(glyphEl, part.glyph);
+      set(statusEl, part.status);
+    }
   };
+
   tick();
   clockInterval = setInterval(tick, 1000);
 }
