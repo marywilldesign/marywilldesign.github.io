@@ -870,11 +870,17 @@ body.case-page .filters { display: none; }
 }
 .case-section h3,
 .text h3 {
-  font-family: var(--font-sans);
-  font-size: 0.7rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+  /* the serif, so the section labels belong to the page rather than to interface
+     chrome. Sentence case instead of the all-caps these used to be: at 12px
+     Adobe Garamond Pro's capitals are 7.96px tall against the 8.15px the 11.2px
+     Inter caps measured, so the labels hold their scale while reading quieter —
+     Garamond's lowercase x-height is only 0.73x Inter's, so the same size looks
+     smaller, and matching x-heights instead would need 15.4px, which is loud.
+     Weight 400 because the family has only one face; 600 would be synthesised. */
+  font-family: var(--font-serif);
+  font-size: 0.75rem;
+  font-weight: 400;
+  text-transform: none;
   color: var(--gray-500);
   margin-bottom: var(--sp-2);
   padding-top: 0;
