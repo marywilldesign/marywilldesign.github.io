@@ -211,7 +211,6 @@ const clockTimeFmt = new Intl.DateTimeFormat('en-GB', {
   timeZone: CLOCK_TZ,
   hour: '2-digit',
   minute: '2-digit',
-  second: '2-digit',
   hourCycle: 'h23'
 });
 const clockZoneFmt = new Intl.DateTimeFormat('en-GB', { timeZone: CLOCK_TZ, timeZoneName: 'short' });
@@ -221,9 +220,10 @@ const clockOffsetFmt = new Intl.DateTimeFormat('en-GB', { timeZone: CLOCK_TZ, ti
 // midnight and the 0 entry picks up again after it
 const DAYPARTS = [
   { at: 0, glyph: '☽', status: 'recharging' },
-  { at: 8 * 60 + 30, glyph: '☼', status: 'brewing coffee' },
-  { at: 12 * 60, glyph: '☼', status: 'having lunch' },
-  { at: 13 * 60, glyph: '☼', status: 'working away' },
+  { at: 8 * 60 + 30, glyph: '☼', status: 'caffeine + catch-up' },
+  { at: 9 * 60 + 30, glyph: '☼', status: 'deep work' },
+  { at: 12 * 60, glyph: '☼', status: 'lunch break' },
+  { at: 13 * 60, glyph: '☼', status: 'in the zone' },
   { at: 17 * 60, glyph: '☽', status: 'off the clock' }
 ];
 
@@ -265,13 +265,13 @@ function initClock() {
 
   const tick = () => {
     const now = new Date();
-    const time = clockTimeFmt.format(now); // HH:MM:SS, Oslo
-    set(timeEl, time);
+    const time = clockTimeFmt.format(now); // HH:MM, Oslo
 
-    // the zone and the daypart only turn over on the minute
-    const hhmm = time.slice(0, 5);
-    if (el.dataset.hhmm !== hhmm) {
-      el.dataset.hhmm = hhmm;
+    // with the seconds gone the whole clock only turns over on the minute
+    if (el.dataset.time !== time) {
+      el.dataset.time = time;
+      set(timeEl, time);
+
       const zone = osloZone(now);
       set(zoneEl, zone);
       zoneEl.title = "Mary's time — Oslo (" + zone + ")";

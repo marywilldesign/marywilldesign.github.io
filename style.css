@@ -413,6 +413,16 @@ button, a, [data-href] { cursor: pointer; }
   letter-spacing: 0.08em;
   color: var(--gray-400);
 }
+/* the brackets are punctuation rather than content, so they are drawn in CSS,
+   untracked by the label's letter-spacing and set a weight lighter than the
+   words they wrap */
+.clock-status::before { content: '['; }
+.clock-status::after { content: ']'; }
+.clock-status::before,
+.clock-status::after {
+  letter-spacing: 0;
+  font-weight: 400;
+}
 /* when the row gets tight the status is the first thing to go — the time and
    the zone are the parts that carry meaning */
 @media (max-width: 1200px) {
