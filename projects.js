@@ -1,5 +1,5 @@
 /* ------------------------------------------------------------------
-   projects.js — the ONE place project + profile data lives.
+   projects.js - the ONE place project + profile data lives.
    Edit here; the home page, every project page, the sidebars, the
    CV panel and the prev/next footer all read from this file.
 

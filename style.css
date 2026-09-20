@@ -1,4 +1,4 @@
-/* mary wil design — portfolio styles */
+/* mary wil design - portfolio styles */
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -59,7 +59,7 @@
    still in _originals/fonts/ and fonts/README.md has the command to bring it
    back.
    The family is named AGaramondPro rather than "Adobe Garamond Pro" so it
-   cannot be substituted by a locally installed copy — every visitor gets this
+   cannot be substituted by a locally installed copy - every visitor gets this
    file and the same spacing. Re-run the subset (fonts/README.md) if a title
    ever needs a character outside Latin-1. */
 @font-face {
@@ -75,7 +75,7 @@
    fallbacks are wider than Garamond at the same size: "Mary G. Wilson"
    measures 6.362x its font-size in Garamond, 6.927x in Georgia and 6.469x in
    Times. The wordmark is sized to its column (15.6cqw), which only fits a face
-   up to 6.41x — so during the swap, and until the woff2 lands, the wordmark
+   up to 6.41x - so during the swap, and until the woff2 lands, the wordmark
    takes two lines and the bio below it sits 30px lower, then jumps back up.
    size-adjust rescales a local face's advances and metrics together, so these
    two occupy Garamond's width exactly and the swap costs no layout at all:
@@ -95,14 +95,14 @@
 }
 
 /* The clock glyphs are Egyptian hieroglyphs, which are not in Inter and are
-   only present on a system if it happens to ship a font for that block —
+   only present on a system if it happens to ship a font for that block -
    macOS does, most Linux installs do not. Rather than leave those visitors
    looking at empty boxes, the ten codepoints the clock actually uses are
    served as a webfont. Subsetting takes the file from ~150 KB to 6 KB, and
    the unicode-range means it is only fetched when one of these characters is
    on the page. Regenerate by asking Google Fonts for the same `text=` subset
    (see fonts/README.md if a glyph ever changes).
-   Noto Sans Egyptian Hieroglyphs, SIL Open Font License 1.1 — fonts/OFL.txt */
+   Noto Sans Egyptian Hieroglyphs, SIL Open Font License 1.1 - fonts/OFL.txt */
 @font-face {
   /* named for its job rather than after the upstream family. The file is Noto
      Sans Egyptian Hieroglyphs, but a family name no system font shares means a
@@ -140,13 +140,13 @@ a { color: var(--blue); text-decoration: none; }
    hover, and bold kept on the active item (the project list and the project nav
    set it on .active too, since they need it to persist).
    This rule covers links that set no weight of their own. A component that does
-   set one — the sidebar links, the project list, the card links, the footer nav
-   — needs its own hover below, because those rules sit later in the file at the
+   set one - the sidebar links, the project list, the card links, the footer nav
+   - needs its own hover below, because those rules sit later in the file at the
    same specificity and would otherwise win the cascade. */
 a:hover { font-weight: 700; }
 
 /* Keyboard focus, stated rather than left to the browser. The default ring is
-   1px and measures 2.76:1 against the blue panel and 2.41:1 against white —
+   1px and measures 2.76:1 against the blue panel and 2.41:1 against white -
    both under the 3:1 that SC 1.4.11 asks of a focus indicator, and thin enough
    to miss. Site blue on the white page, white on the blue panel. */
 :focus-visible {
@@ -176,7 +176,7 @@ button, a, [data-href] { cursor: pointer; }
 }
 
 /* left sidebar */
-/* left sidebar — a blue panel with white type. Every colour in the panel reads
+/* left sidebar - a blue panel with white type. Every colour in the panel reads
    from the four variables here, so re-lighting it is one edit: for the old
    light treatment, set --sidebar-bg to var(--white), --sidebar-fg and
    --sidebar-link to var(--blue), and --sidebar-fg-muted to var(--gray-400). */
@@ -238,8 +238,8 @@ button, a, [data-href] { cursor: pointer; }
   color: var(--sidebar-fg);
   margin-top: var(--sp-4);
   margin-bottom: var(--sp-5);
-  /* ragged right rather than justified: at this column width — roughly 30
-     characters a line — justification opens rivers between the words that no
+  /* ragged right rather than justified: at this column width - roughly 30
+     characters a line - justification opens rivers between the words that no
      amount of hyphenation closes. Hyphenation is left on because it is the
      ragged edge, not the rivers, that a narrow column makes worse without it. */
   text-align: left;
@@ -262,7 +262,7 @@ button, a, [data-href] { cursor: pointer; }
 }
 .sidebar-links a:hover { font-weight: 700; }
 
-/* project list — self-contained, no longer borrows .sidebar-links styles.
+/* project list - self-contained, no longer borrows .sidebar-links styles.
    gap matches the external links on the home page for consistency */
 .project-view-links {
   display: flex;
@@ -287,7 +287,7 @@ button, a, [data-href] { cursor: pointer; }
 }
 .project-view-links a:hover { font-weight: 700; }
 
-/* current project — bold, and persistent rather than hover-only. This replaces
+/* current project - bold, and persistent rather than hover-only. This replaces
    the ring, which had replaced an opacity: the opacity dimmed the item you were
    on to 2.63:1, making it the least readable row in the list. Weight marks the
    row without touching contrast, and needs no colour of its own. */
@@ -300,12 +300,12 @@ button, a, [data-href] { cursor: pointer; }
   /* 1.5rem is the fallback; the cqw size fills the sidebar column, so the
      wordmark ends where the bio's text does.
      Upright Adobe Garamond Pro sets "Mary G. Wilson" at 6.362x its font-size,
-     so 100 / 6.362 = 15.72cqw lands exactly on the column edge — which leaves
+     so 100 / 6.362 = 15.72cqw lands exactly on the column edge - which leaves
      nothing over for rounding, and a wordmark that misses by a fraction wraps
      onto a second line. 15.6cqw is that less half a percent, about 1px at the
      sidebar's width. The local serifs are rescaled to Garamond's proportions
      (see the two @font-face rules above) so that a fallback cannot overflow
-     this before the woff2 lands either — it was doing exactly that, in Georgia,
+     this before the woff2 lands either - it was doing exactly that, in Georgia,
      until those were added.
      Reduces to fit the close button on mobile, since the container is measured
      after that button has taken its space. */
@@ -314,8 +314,8 @@ button, a, [data-href] { cursor: pointer; }
   line-height: 1;
   color: var(--sidebar-fg);
   text-decoration: none;
-  /* Structural rather than a size guard. The hover weight below is synthesised —
-     no bold face exists to serve — and engines disagree about what synthesising
+  /* Structural rather than a size guard. The hover weight below is synthesised -
+     no bold face exists to serve - and engines disagree about what synthesising
      does to a glyph's advance: Chromium strokes in place and the width does not
      move, while others add width per character, which was enough to take this
      onto a second line on hover even though the size itself is measured to fit.
@@ -335,8 +335,8 @@ button, a, [data-href] { cursor: pointer; }
   font-weight: 400;
   /* the width below is tuned to what the browser's own synthesised bold was
      drawing, not picked: measured on the rendered wordmark, 0.03em lands within
-     about a percent of the ink the 700 weight produced — 1467 white pixels
-     against 1487, mean luminance 0.4226 against 0.4256 — so the hover reads as
+     about a percent of the ink the 700 weight produced - 1467 white pixels
+     against 1487, mean luminance 0.4226 against 0.4256 - so the hover reads as
      the same weight while occupying exactly the width the resting state does. */
   -webkit-text-stroke: 0.03em currentColor;
 }
@@ -524,7 +524,7 @@ button, a, [data-href] { cursor: pointer; }
   font-weight: 700;
 }
 
-/* clock — always Mary's time in Oslo, never the visitor's. The zone
+/* clock - always Mary's time in Oslo, never the visitor's. The zone
    abbreviation beside the time is the conventional marker for whose clock
    this is; the status borrows the site's micro-label treatment (uppercase,
    letter-spaced, grey) so it reads as part of the system. */
@@ -568,13 +568,13 @@ button, a, [data-href] { cursor: pointer; }
   letter-spacing: 0;
   font-weight: 400;
 }
-/* when the row gets tight the status is the first thing to go — the time and
+/* when the row gets tight the status is the first thing to go - the time and
    the zone are the parts that carry meaning */
 @media (max-width: 1200px) {
   .clock-status { display: none; }
 }
 
-/* bridging line — intro text above filters */
+/* bridging line - intro text above filters */
 .bridging-line {
   font-size: 0.85rem;
   color: var(--gray-500);
@@ -583,7 +583,7 @@ button, a, [data-href] { cursor: pointer; }
   max-width: 65ch;
 }
 
-/* filters — home only, hidden on case pages */
+/* filters - home only, hidden on case pages */
 .filters {
   display: flex;
   flex-wrap: wrap;
@@ -616,7 +616,7 @@ button, a, [data-href] { cursor: pointer; }
 
 body.case-page .filters { display: none; }
 
-/* home: card grid — masonry layout */
+/* home: card grid - masonry layout */
 .cards {
   column-count: 3;
   column-gap: var(--sp-5);
@@ -663,7 +663,7 @@ body.case-page .filters { display: none; }
   font-family: var(--font-serif);
   /* always one line: in Adobe Garamond Pro the longest title measures ~13.88px
      per px of font size. 3 columns only appear once a card can hold the full
-     1.2rem — just below that the size scales down instead (see the .card-title
+     1.2rem - just below that the size scales down instead (see the .card-title
      rules below) */
   font-size: 1.2rem;
   font-weight: 400;
@@ -740,7 +740,7 @@ body.case-page .filters { display: none; }
 .case-card.hidden { display: none; }
 
 /* case study pages */
-/* the header is just the title block — the snapshot sits below the hero image
+/* the header is just the title block - the snapshot sits below the hero image
    and floats beside the first section, so the hero stays high on the page */
 .case-header-grid {
   display: flex;
@@ -768,7 +768,7 @@ body.case-page .filters { display: none; }
   max-width: 75ch;
 }
 
-/* snapshot row — year / role / credits / links across the content width,
+/* snapshot row - year / role / credits / links across the content width,
    above the first section. Content is rendered from projects.js.
    The box itself is unstyled: only the labels carry the site-blue pill,
    and the values hang underneath them like columns.
@@ -865,7 +865,7 @@ body.case-page .filters { display: none; }
 }
 
 /* The media label closes the reading sections and opens the gallery, so its divider
-   is blue where the sections above it get a hairline — the same device the results
+   is blue where the sections above it get a hairline - the same device the results
    block uses rather than a new one. Same 1px as those hairlines, so the vertical
    rhythm is untouched and only the colour changes, which is the point: the hairline
    is #f3f4f6, about 1.1:1 against the white pane.
@@ -885,7 +885,7 @@ body.case-page .filters { display: none; }
      and copy-paste gives the natural casing. Flipping this back to sentence case
      is this one line.
      No letter-spacing, unlike the CV's equivalent (.sidebar-right h4, which is
-     0.7rem, uppercase, 500 weight, light grey, 0.06em) — only the size is shared. */
+     0.7rem, uppercase, 500 weight, light grey, 0.06em) - only the size is shared. */
   font-family: var(--font-sans);
   font-size: 0.7rem;
   font-weight: 600;
@@ -1201,7 +1201,7 @@ body.case-page .filters { display: none; }
 .sbs-item video:hover { opacity: 0.92; }
 .sbs-item .caption { margin-bottom: 0; }
 
-/* three images across (kogl). This class had no rule at all — the row only
+/* three images across (kogl). This class had no rule at all - the row only
    looked like thirds because .sbs-item is flex: 1 with min-width: 0. Stating
    the thirds makes the intent explicit, so a later change to .sbs-item can't
    quietly break this row. */
@@ -1210,7 +1210,7 @@ body.case-page .filters { display: none; }
   min-width: 0;
 }
 
-/* full-width case-study figure — images and video both fill the column */
+/* full-width case-study figure - images and video both fill the column */
 .case-image img,
 .case-image video,
 .case-image-wide img,
@@ -1237,7 +1237,7 @@ body.case-page .filters { display: none; }
    it is about to occupy reads as reserved rather than as a hole, and a short
    fade once it decodes. script.js sets the opacity, and only on elements still
    loading, so with JS off nothing is ever hidden. The home cards are left out
-   on purpose — .card-image already reserves its 3:2 box and is designed black.
+   on purpose - .card-image already reserves its 3:2 box and is designed black.
    The fade reuses the 0.2s these elements already transition on hover, so a
    loaded image behaves exactly as before. */
 .hero-image img,
@@ -1259,7 +1259,7 @@ body.case-page .filters { display: none; }
 /* mobile menu / backdrop */
 .menu-backdrop { display: none; }
 
-/* custom cursor — blue dot, white outline */
+/* custom cursor - blue dot, white outline */
 #custom-cursor {
   position: fixed;
   top: 0;
@@ -1303,10 +1303,10 @@ html.is-touch #custom-cursor { display: none !important; }
    The arithmetic: this was derived from the longest title at the time,
    "Live Open Call: Mobile Submissions", which needed ~13.88px of width per px
    of font size in Adobe Garamond Pro, against ~11.6px in the serif this
-   replaced — Garamond is wider at the same size, so the band is longer and the
+   replaced - Garamond is wider at the same size, so the band is longer and the
    slope gentler than before. That title has since been shortened to "Live Open
    Call: Installation" and the widest is now "Kogl: Establishing Web Presence"
-   at ~12.26px per px, so the formula has more headroom than it needs — left as
+   at ~12.26px per px, so the formula has more headroom than it needs - left as
    it is rather than retuned, since a larger card title in this band is a design
    decision rather than a wrap that needed fixing. A 3-column card leaves
    W/3 - 226px for the title, so fs <= W/41.64 - 16.26, which gives 2.4vw with
@@ -1340,7 +1340,7 @@ html.is-touch #custom-cursor { display: none !important; }
     white-space: nowrap;
   }
 
-  /* sidebar slides in from left — fits without scrolling */
+  /* sidebar slides in from left - fits without scrolling */
   .sidebar {
     position: fixed;
     inset: 0 auto 0 0;
