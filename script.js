@@ -215,6 +215,7 @@ const clockTimeFmt = new Intl.DateTimeFormat('en-GB', {
 });
 const clockZoneFmt = new Intl.DateTimeFormat('en-GB', { timeZone: CLOCK_TZ, timeZoneName: 'short' });
 const clockOffsetFmt = new Intl.DateTimeFormat('en-GB', { timeZone: CLOCK_TZ, timeZoneName: 'longOffset' });
+const clockDayFmt = new Intl.DateTimeFormat('en-GB', { timeZone: CLOCK_TZ, weekday: 'short' });
 
 // U+1F372 (pot of food) only exists as a colour emoji — no font carries a
 // line-art version — so the pot is drawn to match the font glyphs it sits
@@ -231,6 +232,18 @@ const POT_ICON =
   '<path d="M13.4 4.8c0-1 .9-1.4.9-2.3"/>' +
   '</svg>';
 
+// 🎉 has no line-art form either (U+1F389 ignores both U+FE0E and
+// font-variant-emoji: text), so the popper is drawn to sit with the others:
+// cone, mouth up to the right, three bits of confetti.
+const POPPER_ICON =
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" ' +
+  'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' +
+  '<path d="M3.4 20.6 9.2 8.8l6.4 6.4z"/>' +
+  '<path d="M17.6 4v2"/>' +
+  '<path d="M20.8 8.6h-2"/>' +
+  '<path d="M14.8 6.2 13.4 4.8"/>' +
+  '</svg>';
+
 // each entry starts at that minute of the Oslo day; the last one runs through
 // midnight and the 0 entry picks up again after it. U+FE0E asks for the text
 // (line-art) form of the cup rather than the colour emoji.
@@ -242,6 +255,16 @@ const DAYPARTS = [
   { at: 13 * 60, glyph: '☼', status: 'in the zone' },
   { at: 17 * 60, glyph: '☽', status: 'off the clock' }
 ];
+
+// from Friday 17:00 until Monday 08:30 the week pattern doesn't apply at all
+const WEEKEND = { icon: POPPER_ICON, status: 'a.f.k.' };
+
+function isWeekend(weekday, minutes) {
+  if (weekday === 'Sat' || weekday === 'Sun') return true;
+  if (weekday === 'Fri') return minutes >= 17 * 60;
+  if (weekday === 'Mon') return minutes < 8 * 60 + 30;
+  return false;
+}
 
 // "CEST" where the engine has zone names, otherwise worked out from the offset
 function osloZone(now) {
@@ -296,10 +319,12 @@ function initClock() {
   const tick = () => {
     const now = new Date();
     const time = clockTimeFmt.format(now); // HH:MM, Oslo
+    const weekday = clockDayFmt.format(now); // Mon…Sun, Oslo
 
-    // with the seconds gone the whole clock only turns over on the minute
-    if (el.dataset.time !== time) {
-      el.dataset.time = time;
+    // nothing changes inside a minute, so only touch the DOM when it does
+    const key = weekday + ' ' + time;
+    if (el.dataset.key !== key) {
+      el.dataset.key = key;
       set(timeEl, time);
 
       const zone = osloZone(now);
@@ -307,7 +332,9 @@ function initClock() {
       zoneEl.title = "Mary's time — Oslo (" + zone + ")";
 
       const [hours, minutes] = time.split(':').map(Number);
-      const part = dayPart(hours * 60 + minutes);
+      const part = isWeekend(weekday, hours * 60 + minutes)
+        ? WEEKEND
+        : dayPart(hours * 60 + minutes);
       setGlyph(part);
       set(statusEl, part.status);
     }
