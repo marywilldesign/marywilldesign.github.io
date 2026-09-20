@@ -109,7 +109,7 @@ window.portfolioProjects = [
   },
   {
     id: 'kogl',
-    title: 'Kogl: Establishing Digital Presence',
+    title: 'Kogl: Establishing Web Presence',
     href: 'kogl/',
     category: 'ux',
     tags: ['creative direction', 'end-to-end', 'animation'],
