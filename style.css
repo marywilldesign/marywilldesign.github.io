@@ -206,12 +206,14 @@ button, a, [data-href] { cursor: pointer; }
 .project-view-home-link {
   font-family: var(--font-serif);
   font-style: italic;
-  /* 1.5rem is the fallback; the cqw size fills the sidebar column exactly
-     ("Mary G. Wilson" measures ~5.44x its font-size), so the wordmark lines
-     up with the bio right edge at any sidebar width. Reduces to fit the
-     close button on mobile. */
+  /* 1.5rem is the fallback; the cqw size scales with the sidebar so the
+     wordmark keeps its proportion at any width. 18.39cqw was derived to fill
+     the column edge to edge ("Mary G. Wilson" measures ~5.44x its font-size,
+     and 5.44 x 18.39 = 100cqw), which read as far too heavy at 45px; 14.5cqw
+     leaves about a fifth of the column as air. Reduces to fit the close
+     button on mobile. */
   font-size: 1.5rem;
-  font-size: 18.39cqw;
+  font-size: 14.5cqw;
   line-height: 1;
   color: var(--gray-900);
   text-decoration: none;
@@ -911,6 +913,46 @@ body.case-page .filters { display: none; }
 }
 .back-to-top:hover { color: var(--blue-hover); }
 
+/* the home grid is long and has no footer nav of its own to carry a back to
+   top, so it gets a floating one, in the same pill language as the snapshot
+   labels. Hidden until there is something to go back from. */
+.to-top {
+  position: fixed;
+  right: var(--sp-5);
+  bottom: var(--sp-5);
+  z-index: 30;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  padding: var(--sp-2) var(--sp-3);
+  background: var(--white);
+  color: var(--gray-600);
+  border: 1px solid var(--gray-200);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition), visibility var(--transition),
+              border-color var(--transition), color var(--transition);
+}
+.to-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+.to-top:hover {
+  border-color: #0040FF;
+  color: #0040FF;
+}
+@media (max-width: 640px) {
+  .to-top { right: var(--sp-3); bottom: var(--sp-3); }
+}
+@media print {
+  .to-top { display: none; }
+}
+
 /* breadcrumb */
 .breadcrumb {
   display: inline-block;
@@ -1057,6 +1099,29 @@ body.case-page .filters { display: none; }
 .side-by-side + .side-by-side { margin-top: var(--sp-8); }
 
 .masonry-item .caption { margin-bottom: 0; }
+
+/* a media box holds its place while the file arrives: a faint tint so the space
+   it is about to occupy reads as reserved rather than as a hole, and a short
+   fade once it decodes. script.js sets the opacity, and only on elements still
+   loading, so with JS off nothing is ever hidden. The home cards are left out
+   on purpose — .card-image already reserves its 3:2 box and is designed black.
+   The fade reuses the 0.2s these elements already transition on hover, so a
+   loaded image behaves exactly as before. */
+.hero-image img,
+.hero-image video,
+.hero-image-pair > img,
+.hero-image-pair > video,
+.masonry-item img,
+.masonry-item video,
+.sbs-item img,
+.sbs-item video,
+.case-image img,
+.case-image video,
+.case-image-wide img,
+.case-image-wide video {
+  background: var(--gray-100);
+  transition: opacity 0.2s ease;
+}
 
 /* mobile menu / backdrop */
 .menu-backdrop { display: none; }
@@ -1234,12 +1299,24 @@ html.is-touch #custom-cursor { display: none !important; }
   .masonry { column-count: 1; }
   .side-by-side { flex-direction: column; }
 
+  /* this used to pin a 940px canvas holding two 464px columns, which is wider
+     than the phone it was meant for: the first column ran past the right edge
+     (and was clipped, not scrollable), so the hero video read as stuck to the
+     left. One column, full width, with the grid placements reset so the items
+     follow source order again. */
   .live-open-call-media {
-    width: 940px;
-    max-width: none;
+    width: 100%;
+    max-width: 100%;
   }
   .live-open-call-layout {
-    grid-template-columns: 464px 464px;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .live-open-call-layout .live-open-call-full,
+  .live-open-call-layout .live-open-call-6,
+  .live-open-call-layout .live-open-call-1,
+  .live-open-call-layout .live-open-call-7 {
+    grid-column: 1;
+    grid-row: auto;
   }
 }
 

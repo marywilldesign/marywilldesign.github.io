@@ -938,3 +938,110 @@ onReady(function () {
   const project = getCurrentProject();
   if (project) initProjectFooterNav(document, project.id);
 });
+
+// media that waits to be looked at
+// --------------------------------
+// Two halves of the same idea: don't spend bytes on media nobody has looked at
+// yet.
+//
+// Videos carry data-autoplay rather than the autoplay attribute, so the file is
+// not fetched at load. They still start on their own, with nothing to click —
+// just on coming into view instead of all at once. (autoplay + preload="none"
+// would not help: autoplay forces the download regardless of the hint.)
+//
+// Images that have not decoded yet are held at zero opacity and faded in, so a
+// slow one settles into place rather than appearing mid-layout. Only elements
+// still loading are touched, so with JS off nothing is ever hidden — and an
+// error reveals too, rather than leaving a hole where something is missing.
+//
+// Both are re-applied to anything injected later, since opening a project from
+// the home grid swaps in new content.
+(function () {
+  const FADE = '.hero-image img, .masonry-item img, .sbs-item img,' +
+               '.case-image img, .case-image-wide img';
+
+  const play = (v) => {
+    const started = v.play();
+    if (started && started.catch) started.catch(() => {});   // autoplay refusal
+  };
+
+  const observer = 'IntersectionObserver' in window
+    ? new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) play(entry.target);
+          else entry.target.pause();
+        });
+      }, { rootMargin: '150px 0px' })   // start just before it scrolls in
+    : null;
+
+  function apply(root) {
+    root.querySelectorAll('video[data-autoplay]').forEach((video) => {
+      if (video.dataset.mediaBound) return;
+      video.dataset.mediaBound = 'true';
+      observer ? observer.observe(video) : play(video);
+    });
+
+    root.querySelectorAll(FADE).forEach((img) => {
+      if (img.dataset.mediaBound) return;
+      img.dataset.mediaBound = 'true';
+      if (img.complete) return;
+      img.style.opacity = '0';
+      const reveal = () => { img.style.opacity = ''; };
+      img.addEventListener('load', reveal, { once: true });
+      img.addEventListener('error', reveal, { once: true });
+    });
+  }
+
+  function init() {
+    apply(document);
+    if (!('MutationObserver' in window)) return;
+    new MutationObserver((records) => {
+      records.forEach((record) => {
+        record.addedNodes.forEach((node) => {
+          if (node.nodeType === 1) apply(node);
+        });
+      });
+    }).observe(document.body, { childList: true, subtree: true });
+  }
+
+  onReady(init);
+})();
+
+// back to top on the home grid
+// ----------------------------
+// The case pages carry one in their footer nav; the home page is a long grid
+// with no footer of its own to hold one. On a desktop the page scrolls inside
+// <main class="content"> rather than the window, so both have to be watched or
+// the button never appears.
+(function () {
+  const button = document.getElementById('to-top');
+  if (!button) return;
+
+  const pane = document.querySelector('.content') || document.getElementById('content');
+
+  // Which element scrolls depends on the layout: on a desktop the page scrolls
+  // inside <main class="content">, on a phone the window scrolls. Ask the pane
+  // whether it actually overflows rather than testing the width, so this stays
+  // in step with the stylesheet instead of duplicating its breakpoints.
+  // (Using whichever is taller would be wrong: in the phone layout the pane is
+  // the full height of its content, which would put the button a screen and a
+  // half down the page.)
+  const paneScrolls = () => !!pane && pane.scrollHeight > pane.clientHeight + 1;
+  const scrolled = () => (paneScrolls() ? pane.scrollTop : window.scrollY || 0);
+  const viewport = () => (paneScrolls() ? pane.clientHeight : window.innerHeight);
+
+  const update = () => button.classList.toggle('is-visible', scrolled() > viewport() * 0.6);
+
+  [window, pane].forEach((target) => {
+    if (target) target.addEventListener('scroll', update, { passive: true });
+  });
+  window.addEventListener('resize', update);
+  update();
+
+  button.addEventListener('click', () => {
+    const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const behavior = calm ? 'auto' : 'smooth';
+    if (pane) pane.scrollTo({ top: 0, behavior });
+    window.scrollTo({ top: 0, behavior });
+  });
+})();
