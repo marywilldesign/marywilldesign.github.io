@@ -125,7 +125,7 @@ window.portfolioProjects = [
   },
   {
     id: 'liveopencall',
-    title: 'Live Open Call: Mobile Submissions',
+    title: 'Live Open Call: Installation',
     href: 'liveopencall/',
     category: 'code',
     tags: ['backend dev', 'graphic design', 'print', 'installation', 'systems architecture'],
