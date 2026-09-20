@@ -145,7 +145,10 @@ window.portfolioProjects = [
     title: 'VJ Controller: MA Thesis',
     href: 'blackbox/',
     category: 'code',
-    tags: ['graphic design', 'installation', '3D design + printing', 'single board computing', 'electronics'],
+    // electronics sits directly after 3D design + printing so the two making tags
+    // land side by side on the same row of the card. Three rows either way, but the
+    // rows come out more even this way round.
+    tags: ['graphic design', 'installation', '3D design + printing', 'electronics', 'single board computing'],
     meta: {
       year: '2025 - 2026',
       role: 'Design (UX/UI, 3D) & Build (Electronics, Development)',
