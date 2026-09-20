@@ -399,28 +399,9 @@ button, a, [data-href] { cursor: pointer; }
 .clock-glyph {
   font-family: var(--font-sans);
   font-size: 0.85rem;
-  /* keep ☕ as line art rather than the colour emoji; U+FE0E in the markup
-     does the same job in browsers that don't know this property yet */
+  /* the hieroglyphs and ☽ are all text-presentation characters, but this keeps
+     a platform that disagrees from substituting a colour emoji instead */
   font-variant-emoji: text;
-}
-/* the pot is drawn rather than set, since no font has a line-art version.
-   Its ink is ~69% of the box in both directions, so 0.78em lands it at about
-   7.6px — level with the sun and moon, which draw ~7.9px of ink at this size.
-   (The squat first drawing ran 89% of the box wide, which is what made it read
-   as the heaviest thing in the row.) */
-.clock-glyph.is-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 0.78em;
-  height: 0.78em;
-  align-self: center;
-}
-.clock-glyph.is-icon svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-  overflow: visible;
 }
 .clock-zone {
   font-size: 0.62rem;
