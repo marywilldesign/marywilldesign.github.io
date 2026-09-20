@@ -550,11 +550,6 @@ button, a, [data-href] { cursor: pointer; }
      that disagrees from substituting a colour emoji instead */
   font-variant-emoji: text;
 }
-.clock-zone {
-  font-size: 0.62rem;
-  letter-spacing: 0.08em;
-  color: var(--gray-400);
-}
 .clock-status {
   font-family: var(--font-sans);
   font-size: 0.62rem;
