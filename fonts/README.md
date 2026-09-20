@@ -7,7 +7,7 @@ Two families live here, for two different reasons.
 | file | what it is |
 | --- | --- |
 | `AGaramondPro-Regular.woff2` | the upright face, subset to Latin and compressed — 45 KB from 116 KB of OTF |
-| `AGaramondPro-Italic.woff2` | the italic, used only for the sidebar wordmark — 34 KB from 90 KB |
+| `AGaramondPro-Italic.woff2` | the italic — 34 KB from 90 KB. Nothing uses it at the moment: the wordmark was changed to the upright face, and no rule sets `font-style: italic`, so it is never fetched |
 
 The two masters these were cut from (`AGaramondPro-Regular.otf`,
 `AGaramondPro-Italic.otf`) are not shipped with the site. They live in
@@ -18,6 +18,36 @@ declares the pair as the family `AGaramondPro` rather than "Adobe Garamond Pro",
 so a copy installed on a visitor's machine cannot be substituted for the file the
 site serves — everyone gets the same spacing and the same drawings. The stack
 falls back to Georgia, then Times, if the files fail to load.
+
+### The fallback faces
+
+`font-display: swap` means a local fallback is painted first, and both local
+serifs are wider than Garamond at the same size: "Mary G. Wilson" measures
+6.362x its font-size in Garamond, 6.927x in Georgia and 6.469x in Times. The
+wordmark is sized to its column (15.6cqw), which only fits a face up to 6.41x —
+so before the woff2 landed the wordmark took two lines, and the bio under it sat
+30px lower until the swap pulled it back up.
+
+`style.css` therefore declares two further `@font-face` rules, `Garamond-metric
+Georgia` and `Garamond-metric Times`, which are those same local files with
+`size-adjust` set to Garamond's proportions — 636.2 / 692.69 = 91.84% and
+636.2 / 646.88 = 98.35%. `size-adjust` scales a face's advances and its metrics
+together, so the fallback occupies exactly Garamond's width and the swap costs no
+layout at all. Measured with the woff2 blocked: one line, 189.53px, and the bio
+does not move. Liberation Serif is metrically a Times clone, so it takes the
+Times figure.
+
+The percentages are per-string, so they need redoing if the wordmark's text
+ever changes — measure the string at 100px in each face and divide 636.2 by the
+result:
+
+```js
+// in the page console; Georgia gives ~692.7 and Times New Roman ~646.9
+const s = document.createElement('span');
+s.textContent = 'Mary G. Wilson';
+s.style.cssText = 'position:absolute;top:0;font:100px Georgia;white-space:nowrap';
+document.body.append(s); console.log(s.getBoundingClientRect().width); s.remove();
+```
 
 To regenerate after editing a master in `_originals/fonts/`:
 

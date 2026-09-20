@@ -26,7 +26,7 @@
   --gray-800: #1f2937;
   --gray-900: #111827;
 
-  --font-serif: 'AGaramondPro', Georgia, 'Times New Roman', serif;
+  --font-serif: 'AGaramondPro', 'Garamond-metric Georgia', 'Garamond-metric Times', Georgia, 'Times New Roman', serif;
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
@@ -72,6 +72,30 @@
   font-weight: 400;
   font-display: swap;
   src: url('fonts/AGaramondPro-Italic.woff2') format('woff2');
+}
+
+/* The two local serifs, rescaled to Garamond's proportions.
+   font-display: swap means the fallback is painted first, and both of the
+   fallbacks are wider than Garamond at the same size: "Mary G. Wilson"
+   measures 6.362x its font-size in Garamond, 6.927x in Georgia and 6.469x in
+   Times. The wordmark is sized to its column (15.6cqw), which only fits a face
+   up to 6.41x — so during the swap, and until the woff2 lands, the wordmark
+   takes two lines and the bio below it sits 30px lower, then jumps back up.
+   size-adjust rescales a local face's advances and metrics together, so these
+   two occupy Garamond's width exactly and the swap costs no layout at all:
+   636.2 / 692.69 = 91.84% for Georgia, 636.2 / 646.88 = 98.35% for Times.
+   Liberation Serif is metrically a Times clone, so it takes the same figure.
+   The percentages are per-string, so regenerate them if the wordmark's text
+   changes (measure the string at 100px in each face and divide 636.2 by it). */
+@font-face {
+  font-family: 'Garamond-metric Georgia';
+  src: local('Georgia');
+  size-adjust: 91.84%;
+}
+@font-face {
+  font-family: 'Garamond-metric Times';
+  src: local('Times New Roman'), local('Liberation Serif');
+  size-adjust: 98.35%;
 }
 
 /* The clock glyphs are Egyptian hieroglyphs, which are not in Inter and are
@@ -283,7 +307,10 @@ button, a, [data-href] { cursor: pointer; }
      so 100 / 6.362 = 15.72cqw lands exactly on the column edge — which leaves
      nothing over for rounding, and a wordmark that misses by a fraction wraps
      onto a second line. 15.6cqw is that less half a percent, about 1px at the
-     sidebar's width. (The italic face measures 5.99x and needs its own figure.)
+     sidebar's width. The local serifs are rescaled to Garamond's proportions
+     (see the two @font-face rules above) so that a fallback cannot overflow
+     this before the woff2 lands either — it was doing exactly that, in Georgia,
+     until those were added.
      Reduces to fit the close button on mobile, since the container is measured
      after that button has taken its space. */
   font-size: 1.5rem;
@@ -1236,16 +1263,21 @@ html.is-touch #custom-cursor { display: none !important; }
 /* Keeps 3 columns through 1201-1478px (below is 2 columns, above is the full
    size) by scaling the card title down only as far as it must to stay on one
    line.
-   The arithmetic: the longest title ("Live Open Call: Mobile Submissions")
-   needs ~13.88px of width per px of font size in Adobe Garamond Pro, against
-   ~11.6px in the serif this replaced — Garamond is wider at the same size, so
-   the band is longer and the slope gentler than before. A 3-column card leaves
+   The arithmetic: this was derived from the longest title at the time,
+   "Live Open Call: Mobile Submissions", which needed ~13.88px of width per px
+   of font size in Adobe Garamond Pro, against ~11.6px in the serif this
+   replaced — Garamond is wider at the same size, so the band is longer and the
+   slope gentler than before. That title has since been shortened to "Live Open
+   Call: Installation" and the widest is now "Kogl: Establishing Web Presence"
+   at ~12.26px per px, so the formula has more headroom than it needs — left as
+   it is rather than retuned, since a larger card title in this band is a design
+   decision rather than a wrap that needed fixing. A 3-column card leaves
    W/3 - 226px for the title, so fs <= W/41.64 - 16.26, which gives 2.4vw with
    16.6px to subtract and a few px left over at every width.
    The formula passes 1.2rem at about 1492px, so the band runs to 1500px and
    min() hands over to the full size without a jump. Measured at 1201, 1260,
-   1320, 1400, 1477 and 1500px: no title needs a second line anywhere the grid
-   is 3 columns. */
+   1320, 1400, 1477, 1500, 1600 and 1920px: no title needs a second line
+   anywhere the grid is 3 columns. */
 @media (min-width: 1201px) and (max-width: 1500px) {
   .card-title { font-size: min(1.2rem, calc(2.4vw - 16.6px)); }
 }
