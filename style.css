@@ -404,15 +404,16 @@ button, a, [data-href] { cursor: pointer; }
   font-variant-emoji: text;
 }
 /* the pot is drawn rather than set, since no font has a line-art version.
-   0.72em puts its drawn footprint on par with the ☼/☽ glyphs: measured ink
-   came out 58x45px against the sun's 41x41 at 0.9em, so it needed scaling to
-   about 80% by area to stop it reading as the heaviest thing in the row */
+   Its ink is ~69% of the box in both directions, so 0.78em lands it at about
+   7.6px — level with the sun and moon, which draw ~7.9px of ink at this size.
+   (The squat first drawing ran 89% of the box wide, which is what made it read
+   as the heaviest thing in the row.) */
 .clock-glyph.is-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 0.72em;
-  height: 0.72em;
+  width: 0.78em;
+  height: 0.78em;
   align-self: center;
 }
 .clock-glyph.is-icon svg {
