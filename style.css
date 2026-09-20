@@ -50,6 +50,24 @@
   --masonry-cols-lg: 2;
 }
 
+/* The clock glyphs are Egyptian hieroglyphs, which are not in Inter and are
+   only present on a system if it happens to ship a font for that block —
+   macOS does, most Linux installs do not. Rather than leave those visitors
+   looking at empty boxes, the ten codepoints the clock actually uses are
+   served as a webfont. Subsetting takes the file from ~150 KB to 6 KB, and
+   the unicode-range means it is only fetched when one of these characters is
+   on the page. Regenerate by asking Google Fonts for the same `text=` subset
+   (see fonts/README.md if a glyph ever changes).
+   Noto Sans Egyptian Hieroglyphs, SIL Open Font License 1.1 — fonts/OFL.txt */
+@font-face {
+  font-family: 'Noto Sans Egyptian Hieroglyphs';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/noto-sans-egyptian-hieroglyphs-subset.woff2') format('woff2');
+  unicode-range: U+13005, U+13007, U+13009, U+13020-13022, U+13024, U+13028-13029, U+1303f;
+}
+
 /* base */
 html {
   -webkit-text-size-adjust: 100%;
@@ -397,7 +415,11 @@ button, a, [data-href] { cursor: pointer; }
   white-space: nowrap;
 }
 .clock-glyph {
-  font-family: var(--font-sans);
+  /* the webfont is listed after the system fonts on purpose: a machine that
+     already has a hieroglyph font keeps rendering with it, and a machine that
+     does not falls through — `sans-serif` is skipped like any other family
+     that has no glyph for the character */
+  font-family: var(--font-sans), 'Noto Sans Egyptian Hieroglyphs', sans-serif;
   font-size: 0.85rem;
   /* every glyph is a text-presentation hieroglyph, but this keeps a platform
      that disagrees from substituting a colour emoji instead */
