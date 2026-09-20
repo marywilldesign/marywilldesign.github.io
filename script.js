@@ -819,6 +819,9 @@ bindMobileMenu();
     } else if (el.tagName === 'VIDEO') {
       const vid = document.createElement('video');
       vid.src = el.src;
+      // carry the still across, so the full-size view opens on the poster rather
+      // than on a black box while the video itself is still arriving
+      if (el.poster) vid.poster = el.poster;
       vid.autoplay = true;
       vid.loop = true;
       vid.muted = true;
