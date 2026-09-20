@@ -234,8 +234,6 @@ const clockTimeFmt = new Intl.DateTimeFormat('en-GB', {
   minute: '2-digit',
   hourCycle: 'h23'
 });
-const clockZoneFmt = new Intl.DateTimeFormat('en-GB', { timeZone: CLOCK_TZ, timeZoneName: 'short' });
-const clockOffsetFmt = new Intl.DateTimeFormat('en-GB', { timeZone: CLOCK_TZ, timeZoneName: 'longOffset' });
 const clockDayFmt = new Intl.DateTimeFormat('en-GB', { timeZone: CLOCK_TZ, weekday: 'short' });
 
 // each entry starts at that minute of the Oslo day; the last one runs through
@@ -264,14 +262,6 @@ function isWeekend(weekday, minutes) {
   return false;
 }
 
-// "CEST" where the engine has zone names, otherwise worked out from the offset
-function osloZone(now) {
-  const name = clockZoneFmt.formatToParts(now).find((p) => p.type === 'timeZoneName');
-  if (name && !name.value.includes('GMT')) return name.value;
-  const offset = clockOffsetFmt.formatToParts(now).find((p) => p.type === 'timeZoneName');
-  return offset && offset.value === 'GMT+02:00' ? 'CEST' : 'CET';
-}
-
 function dayPart(minutes) {
   return DAYPARTS.reduce((found, part) => (minutes >= part.at ? part : found), DAYPARTS[0]);
 }
@@ -286,12 +276,10 @@ function initClock() {
     el.innerHTML =
       '<span class="clock-glyph" aria-hidden="true"></span>' +
       '<span class="clock-time"></span>' +
-      '<span class="clock-zone"></span>' +
       '<span class="clock-status"></span>';
   }
   const glyphEl = el.querySelector('.clock-glyph');
   const timeEl = el.querySelector('.clock-time');
-  const zoneEl = el.querySelector('.clock-zone');
   const statusEl = el.querySelector('.clock-status');
 
   // only write when the text actually changes: the clock shares its row with
@@ -310,10 +298,6 @@ function initClock() {
     if (el.dataset.key !== key) {
       el.dataset.key = key;
       set(timeEl, time);
-
-      const zone = osloZone(now);
-      set(zoneEl, zone);
-      zoneEl.title = "Mary's time — Oslo (" + zone + ")";
 
       const [hours, minutes] = time.split(':').map(Number);
       const mins = hours * 60 + minutes;
