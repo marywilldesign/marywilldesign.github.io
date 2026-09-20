@@ -7,14 +7,23 @@
 }
 
 ::selection {
-  background: #0040FF;
+  background: var(--accent);
   color: #fff;
 }
 
 :root {
+  /* Sampling pass: the accent is dark rather than the site blue. Everything that
+     was blue reads from --accent, with --accent-tint for its pale wash, so going
+     back to the blue is these two lines plus the panel's --sidebar-bg below:
+       --accent: #0040FF;  --accent-tint: #ededff;
+     (The dark value is --gray-900.) */
+  --accent: #111827;
+  --accent-tint: rgba(17, 24, 39, 0.06);
+
   --blue: #000000;
+  /* deliberately still blue: this is the colour of links sitting on a light
+     ground, which keep it so they still read as links */
   --blue-hover: #0040FF;
-  --blue-light: #ededff;
   --white: #ffffff;
   --gray-50: #f9fafb;
   --gray-100: #f3f4f6;
@@ -123,7 +132,7 @@ a:hover { text-decoration: underline; }
    both under the 3:1 that SC 1.4.11 asks of a focus indicator, and thin enough
    to miss. Site blue on the white page, white on the blue panel. */
 :focus-visible {
-  outline: 2px solid #0040FF;
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 .sidebar :focus-visible {
@@ -149,12 +158,13 @@ button, a, [data-href] { cursor: pointer; }
 }
 
 /* left sidebar */
-/* left sidebar — a blue panel with white type. Every colour in the panel reads
-   from the four variables here, so re-lighting it is one edit: for the old
-   light treatment, set --sidebar-bg to var(--white), --sidebar-fg and
-   --sidebar-link to var(--blue), and --sidebar-fg-muted to var(--gray-400). */
+/* left sidebar — a dark panel with white type, its background following the
+   accent. Every colour in the panel reads from the variables here, so
+   re-lighting it is one edit: for the original light treatment, set
+   --sidebar-bg to var(--white), --sidebar-fg and --sidebar-link to var(--blue),
+   and --sidebar-fg-muted to var(--gray-400). */
 .sidebar {
-  --sidebar-bg: #0040FF;
+  --sidebar-bg: var(--accent);
   --sidebar-fg: #ffffff;
   --sidebar-fg-muted: rgba(255, 255, 255, 0.8);   /* 4.7:1 on the panel */
   --sidebar-link: #ffffff;
@@ -456,7 +466,7 @@ button, a, [data-href] { cursor: pointer; }
   font-family: var(--font-sans);
   font-size: 0.9rem;
   font-weight: 500;
-  color: #0040FF;
+  color: var(--accent);
   padding: var(--sp-2) 0;
   line-height: 1;
 }
@@ -465,7 +475,7 @@ button, a, [data-href] { cursor: pointer; }
   display: none;
   font-size: 0.9rem;
   font-weight: 500;
-  color: #0040FF;
+  color: var(--accent);
   background: none;
   border: none;
   padding: var(--sp-2) 0;
@@ -489,7 +499,7 @@ button, a, [data-href] { cursor: pointer; }
   margin-left: auto;
   font-family: var(--font-mono);
   font-size: 0.78rem;
-  color: #0040FF;
+  color: var(--accent);
   white-space: nowrap;
 }
 .clock-glyph {
@@ -563,14 +573,14 @@ button, a, [data-href] { cursor: pointer; }
   white-space: nowrap;
 }
 .filter-btn:hover {
-  border-color: #0040FF;
-  background: #0040FF;
+  border-color: var(--accent);
+  background: var(--accent);
   color:#ffffff;
 }
 .filter-btn.active {
-  background: #0040FF;
+  background: var(--accent);
   color: var(--white);
-  border-color: #0040FF;
+  border-color: var(--accent);
 }
 
 body.case-page .filters { display: none; }
@@ -590,12 +600,12 @@ body.case-page .filters { display: none; }
   overflow: hidden;
   break-inside: avoid;
   margin-bottom: var(--sp-5);
-  transition: transform var(--transition), box-shadow var(--transition), border-color var(--blue-hover);
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--accent);
 }
 .case-card[data-href]:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 24px rgba(0, 0, 255, 0.08);
-  border-color: var(--blue-hover);
+  border-color: var(--accent);
 }
 .case-card[data-href]:hover .card-image img {
   transform: scale(1.03);
@@ -680,10 +690,10 @@ body.case-page .filters { display: none; }
   font-size: 0.65rem;
   font-weight: 500;
   padding: 2px 10px;
-  border: 1px solid #0040FF;
+  border: 1px solid var(--accent);
   border-radius: 2px;
-  color: #0040FF;
-  background: var(--blue-light);
+  color: var(--accent);
+  background: var(--accent-tint);
   white-space: nowrap;
   letter-spacing: 0.02em;
 }
@@ -765,9 +775,9 @@ body.case-page .filters { display: none; }
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #0040FF;
-  background: rgba(0, 64, 255, 0.06);
-  border: 1px solid #0040FF;
+  color: var(--accent);
+  background: var(--accent-tint);
+  border: 1px solid var(--accent);
   border-radius: 999px;
   padding: 0.3em 0.75em;
   margin-bottom: var(--sp-3);
@@ -880,12 +890,12 @@ body.case-page .filters { display: none; }
 .results-highlight {
   margin: var(--sp-8) 0;
   padding-top: var(--sp-6);
-  border-top: 2px solid #0040FF;
+  border-top: 2px solid var(--accent);
 }
 .results-highlight h3 {
   font-size: 0.7rem;
   font-weight: 600;
-  color: #0040FF;
+  color: var(--accent);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   margin-bottom: var(--sp-5);
@@ -914,7 +924,7 @@ body.case-page .filters { display: none; }
   display: block;
   font-size: 2.5rem;
   font-weight: 500;
-  color: #0040FF;
+  color: var(--accent);
   line-height: 1;
   margin-bottom: var(--sp-2);
   letter-spacing: -0.03em;
@@ -986,7 +996,7 @@ body.case-page .filters { display: none; }
   border: none;
   font-family: var(--font-sans);
 }
-.back-to-top:hover { color: var(--blue-hover); }
+.back-to-top:hover { color: var(--accent); }
 
 /* the home grid is long and has no footer nav of its own to carry a back to
    top, so it gets a floating one, in the same pill language as the snapshot
@@ -1018,8 +1028,8 @@ body.case-page .filters { display: none; }
   visibility: visible;
 }
 .to-top:hover {
-  border-color: #0040FF;
-  color: #0040FF;
+  border-color: var(--accent);
+  color: var(--accent);
 }
 @media (max-width: 640px) {
   .to-top { right: var(--sp-3); bottom: var(--sp-3); }
@@ -1208,7 +1218,7 @@ body.case-page .filters { display: none; }
   left: 0;
   width: 10px;
   height: 10px;
-  background: #0040FF;
+  background: var(--accent);
   border: 1px solid var(--white);
   border-radius: 50%;
   pointer-events: none;
@@ -1221,7 +1231,7 @@ body.case-page .filters { display: none; }
    white fill, blue ring, both grounds keeping a dot that reads at a glance. */
 #custom-cursor.on-panel {
   background: var(--white);
-  border-color: #0040FF;
+  border-color: var(--accent);
 }
 
 /* cursor handling */
@@ -1495,7 +1505,7 @@ html.is-touch [data-href] { cursor: pointer !important; }
   border-radius: 50%;
   border: none;
   background: rgba(255, 255, 255, 0.9);
-  color: #0040FF;
+  color: var(--accent);
   font-size: 1.4rem;
   cursor: pointer;
   display: flex;
@@ -1525,7 +1535,7 @@ html.is-touch [data-href] { cursor: pointer !important; }
   border-radius: 50%;
   border: none;
   background: rgba(255, 255, 255, 0.9);
-  color: #0040FF;
+  color: var(--accent);
   font-size: 1.3rem;
   cursor: pointer;
   display: flex;
