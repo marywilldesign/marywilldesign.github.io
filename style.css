@@ -51,10 +51,13 @@
 }
 
 /* Adobe Garamond Pro, self-hosted. The desktop copies installed on the machine
-   this was designed on are not something a visitor can rely on, so the two
-   faces the design uses — regular and italic — are served from here.
-   Subset to Latin and compressed: 116 KB and 90 KB of OTF arrive as 45 KB and
-   34 KB of woff2, which is what a page actually pays.
+   this was designed on are not something a visitor can rely on, so the face the
+   design uses is served from here.
+   Subset to Latin and compressed: 116 KB of OTF arrives as 45 KB of woff2,
+   which is what a page actually pays. The italic was served alongside it until
+   the wordmark went upright and nothing referenced it any more; its master is
+   still in _originals/fonts/ and fonts/README.md has the command to bring it
+   back.
    The family is named AGaramondPro rather than "Adobe Garamond Pro" so it
    cannot be substituted by a locally installed copy — every visitor gets this
    file and the same spacing. Re-run the subset (fonts/README.md) if a title
@@ -65,13 +68,6 @@
   font-weight: 400;
   font-display: swap;
   src: url('fonts/AGaramondPro-Regular.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'AGaramondPro';
-  font-style: italic;
-  font-weight: 400;
-  font-display: swap;
-  src: url('fonts/AGaramondPro-Italic.woff2') format('woff2');
 }
 
 /* The two local serifs, rescaled to Garamond's proportions.
@@ -318,6 +314,31 @@ button, a, [data-href] { cursor: pointer; }
   line-height: 1;
   color: var(--sidebar-fg);
   text-decoration: none;
+  /* Structural rather than a size guard. The hover weight below is synthesised —
+     no bold face exists to serve — and engines disagree about what synthesising
+     does to a glyph's advance: Chromium strokes in place and the width does not
+     move, while others add width per character, which was enough to take this
+     onto a second line on hover even though the size itself is measured to fit.
+     nowrap ends that in every engine; if a glyph did overhang the box, a few px
+     would land in the panel's 24px padding and not in view. */
+  white-space: nowrap;
+}
+
+/* The wordmark's hover weight is drawn, not requested.
+   Asking for font-weight: 700 here has the browser synthesise a bold, and a
+   synthesised bold is not width-neutral everywhere (see the note above). Stroking
+   the glyphs in their own colour gives the same heavier look without touching an
+   advance, so the hover is identical in every engine and cannot reflow. Scoped to
+   the wordmark: it is the only serif link on the site, and everything else bolds
+   with a real face in a family that has one. */
+.project-view-home-link:hover {
+  font-weight: 400;
+  /* the width below is tuned to what the browser's own synthesised bold was
+     drawing, not picked: measured on the rendered wordmark, 0.03em lands within
+     about a percent of the ink the 700 weight produced — 1467 white pixels
+     against 1487, mean luminance 0.4226 against 0.4256 — so the hover reads as
+     the same weight while occupying exactly the width the resting state does. */
+  -webkit-text-stroke: 0.03em currentColor;
 }
 .project-view-header {
   display: flex;
