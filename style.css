@@ -872,15 +872,17 @@ body.case-page .filters { display: none; }
 .text h3 {
   /* Inter, at the size the CV's section headings use in the right panel, so these
      labels sit at the same scale as the panel beside them rather than being their
-     own size. Black rather than the grey they started as, and without the tracking
-     that went with the all-caps: the casing is the real text from the markup, so
-     nothing here is stretching or tightening it.
-     The CV equivalent (.sidebar-right h4) is 0.7rem, uppercase, 500 weight and a
-     light grey — only the size is shared. */
+     own size. Black rather than the grey they started as.
+     Caps are drawn here rather than written: the markup holds the headings in
+     sentence case, so a screen reader says "Ask" instead of spelling out A-S-K,
+     and copy-paste gives the natural casing. Flipping this back to sentence case
+     is this one line.
+     No letter-spacing, unlike the CV's equivalent (.sidebar-right h4, which is
+     0.7rem, uppercase, 500 weight, light grey, 0.06em) — only the size is shared. */
   font-family: var(--font-sans);
   font-size: 0.7rem;
   font-weight: 600;
-  text-transform: none;
+  text-transform: uppercase;
   color: var(--gray-900);
   margin-bottom: var(--sp-2);
   padding-top: 0;
