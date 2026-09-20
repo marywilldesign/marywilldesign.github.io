@@ -60,7 +60,10 @@
    (see fonts/README.md if a glyph ever changes).
    Noto Sans Egyptian Hieroglyphs, SIL Open Font License 1.1 — fonts/OFL.txt */
 @font-face {
-  font-family: 'Noto Sans Egyptian Hieroglyphs';
+  /* named for its job rather than after the upstream family. The file is Noto
+     Sans Egyptian Hieroglyphs, but a family name no system font shares means a
+     locally installed copy can never be picked instead of this one. */
+  font-family: 'Clock Hieroglyphs';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
@@ -415,11 +418,12 @@ button, a, [data-href] { cursor: pointer; }
   white-space: nowrap;
 }
 .clock-glyph {
-  /* the webfont is listed after the system fonts on purpose: a machine that
-     already has a hieroglyph font keeps rendering with it, and a machine that
-     does not falls through — `sans-serif` is skipped like any other family
-     that has no glyph for the character */
-  font-family: var(--font-sans), 'Noto Sans Egyptian Hieroglyphs', sans-serif;
+  /* this has to lead, and in particular has to come before the generic. On
+     macOS `sans-serif` resolves to a hieroglyph font of its own (Noto Sans
+     EgyptHiero), so with the system stack first the platform's shapes won and
+     the file above was never reached. Leading, every visitor gets the same
+     drawing; the system stack behind it covers a failed load. */
+  font-family: 'Clock Hieroglyphs', var(--font-sans);
   font-size: 0.85rem;
   /* every glyph is a text-presentation hieroglyph, but this keeps a platform
      that disagrees from substituting a colour emoji instead */
