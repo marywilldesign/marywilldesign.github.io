@@ -217,47 +217,24 @@ const clockZoneFmt = new Intl.DateTimeFormat('en-GB', { timeZone: CLOCK_TZ, time
 const clockOffsetFmt = new Intl.DateTimeFormat('en-GB', { timeZone: CLOCK_TZ, timeZoneName: 'longOffset' });
 const clockDayFmt = new Intl.DateTimeFormat('en-GB', { timeZone: CLOCK_TZ, weekday: 'short' });
 
-// U+1F372 (pot of food) only exists as a colour emoji — no font carries a
-// line-art version — so the pot is drawn to match the font glyphs it sits
-// beside. Stroke weight is tuned to the ☼/☽ strokes at this size, and the icon
-// box in style.css scales it to the same footprint as those glyphs.
-const POT_ICON =
-  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" ' +
-  'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' +
-  '<path d="M4.5 7.2h15"/>' +
-  '<path d="M6.2 7.2v6.4a3.6 3.6 0 0 0 3.6 3.6h4.4a3.6 3.6 0 0 0 3.6-3.6V7.2"/>' +
-  '<path d="M6.2 10.6a1.5 1.5 0 0 0 0 3"/>' +
-  '<path d="M17.8 10.6a1.5 1.5 0 0 1 0 3"/>' +
-  '<path d="M10.3 4.8c0-1 .9-1.4.9-2.3"/>' +
-  '<path d="M13.4 4.8c0-1 .9-1.4.9-2.3"/>' +
-  '</svg>';
-
-// 🎉 has no line-art form either (U+1F389 ignores both U+FE0E and
-// font-variant-emoji: text), so the popper is drawn to sit with the others:
-// cone, mouth up to the right, three bits of confetti.
-const POPPER_ICON =
-  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" ' +
-  'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' +
-  '<path d="M3.4 20.6 9.2 8.8l6.4 6.4z"/>' +
-  '<path d="M17.6 4v2"/>' +
-  '<path d="M20.8 8.6h-2"/>' +
-  '<path d="M14.8 6.2 13.4 4.8"/>' +
-  '</svg>';
-
 // each entry starts at that minute of the Oslo day; the last one runs through
-// midnight and the 0 entry picks up again after it. U+FE0E asks for the text
-// (line-art) form of the cup rather than the colour emoji.
+// midnight and the 0 entry picks up again after it. The glyphs are Egyptian
+// hieroglyphs (U+13000 block) — figures at work, at rest and at play.
 const DAYPARTS = [
   { at: 0, glyph: '☽', status: 'recharging' },
-  { at: 8 * 60 + 30, glyph: '☕\uFE0E', status: 'caffeine + catch-up' },
-  { at: 9 * 60 + 30, glyph: '☼', status: 'deep work' },
-  { at: 12 * 60, icon: POT_ICON, status: 'lunch break' },
-  { at: 13 * 60, glyph: '☼', status: 'in the zone' },
-  { at: 17 * 60, glyph: '☽', status: 'off the clock' }
+  { at: 8 * 60 + 30, glyph: '\u{13029}', status: 'coffee' },
+  { at: 9 * 60 + 30, glyph: '\u{13028}', status: 'deep work' },
+  { at: 12 * 60, glyph: '\u{13007}', status: 'lunch' },
+  { at: 13 * 60, glyph: '\u{13005}', status: 'in the zone' },
+  { at: 17 * 60, glyph: '\u{1303F}', status: 'snoozing' }
 ];
 
-// from Friday 17:00 until Monday 08:30 the week pattern doesn't apply at all
-const WEEKEND = { icon: POPPER_ICON, status: 'a.f.k.' };
+// from Friday 17:00 until Monday 08:30 the week pattern doesn't apply at all.
+// Four poses to choose between, picked once when the weekend starts rather
+// than once a minute, which would flicker.
+const AFK_GLYPHS = ['\u{13024}', '\u{13022}', '\u{13020}', '\u{13021}'];
+const AFK_STATUS = 'off the clock';
+let afkGlyph = '';
 
 function isWeekend(weekday, minutes) {
   if (weekday === 'Sat' || weekday === 'Sun') return true;
@@ -300,20 +277,6 @@ function initClock() {
   // the breadcrumb, so pointless writes shuffle the layout about
   const set = (node, text) => { if (node.textContent !== text) node.textContent = text; };
 
-  // the glyph is either a font character or, for the pot, inline line art
-  const setGlyph = (part) => {
-    const key = part.icon || part.glyph;
-    if (el.dataset.glyph === key) return;
-    el.dataset.glyph = key;
-    if (part.icon) {
-      glyphEl.innerHTML = part.icon;
-      glyphEl.classList.add('is-icon');
-    } else {
-      glyphEl.textContent = part.glyph;
-      glyphEl.classList.remove('is-icon');
-    }
-  };
-
   el.title = "Mary's local time in Oslo, not yours";
 
   const tick = () => {
@@ -332,11 +295,17 @@ function initClock() {
       zoneEl.title = "Mary's time — Oslo (" + zone + ")";
 
       const [hours, minutes] = time.split(':').map(Number);
-      const part = isWeekend(weekday, hours * 60 + minutes)
-        ? WEEKEND
-        : dayPart(hours * 60 + minutes);
-      setGlyph(part);
-      set(statusEl, part.status);
+      const mins = hours * 60 + minutes;
+      if (isWeekend(weekday, mins)) {
+        if (!afkGlyph) afkGlyph = AFK_GLYPHS[Math.floor(Math.random() * AFK_GLYPHS.length)];
+        set(glyphEl, afkGlyph);
+        set(statusEl, AFK_STATUS);
+      } else {
+        afkGlyph = '';
+        const part = dayPart(mins);
+        set(glyphEl, part.glyph);
+        set(statusEl, part.status);
+      }
     }
   };
 
