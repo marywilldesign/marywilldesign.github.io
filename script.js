@@ -218,15 +218,15 @@ const clockOffsetFmt = new Intl.DateTimeFormat('en-GB', { timeZone: CLOCK_TZ, ti
 const clockDayFmt = new Intl.DateTimeFormat('en-GB', { timeZone: CLOCK_TZ, weekday: 'short' });
 
 // each entry starts at that minute of the Oslo day; the last one runs through
-// midnight and the 0 entry picks up again after it. The glyphs are Egyptian
-// hieroglyphs (U+13000 block) — figures at work, at rest and at play.
+// midnight and the 0 entry picks up again after it. Every glyph is an Egyptian
+// hieroglyph (U+13000 block) — figures at work, at rest and at play.
 const DAYPARTS = [
-  { at: 0, glyph: '☽', status: 'recharging' },
+  { at: 0, glyph: '\u{1303F}', status: 'recharging' },
   { at: 8 * 60 + 30, glyph: '\u{13029}', status: 'coffee' },
   { at: 9 * 60 + 30, glyph: '\u{13028}', status: 'deep work' },
   { at: 12 * 60, glyph: '\u{13007}', status: 'lunch' },
   { at: 13 * 60, glyph: '\u{13005}', status: 'in the zone' },
-  { at: 17 * 60, glyph: '\u{1303F}', status: 'snoozing' }
+  { at: 17 * 60, glyph: '\u{13009}', status: 'chilling' }
 ];
 
 // from Friday 17:00 until Monday 08:30 the week pattern doesn't apply at all.

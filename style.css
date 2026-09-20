@@ -399,8 +399,8 @@ button, a, [data-href] { cursor: pointer; }
 .clock-glyph {
   font-family: var(--font-sans);
   font-size: 0.85rem;
-  /* the hieroglyphs and ☽ are all text-presentation characters, but this keeps
-     a platform that disagrees from substituting a colour emoji instead */
+  /* every glyph is a text-presentation hieroglyph, but this keeps a platform
+     that disagrees from substituting a colour emoji instead */
   font-variant-emoji: text;
 }
 .clock-zone {
