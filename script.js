@@ -1,7 +1,7 @@
-/* mary wil design — portfolio scripts */
+/* mary wil design - portfolio scripts */
 
 /* ------------------------------------------------------------------
-   shared helpers — used by the home page AND every project page
+   shared helpers - used by the home page AND every project page
 ------------------------------------------------------------------ */
 
 // Site root = the folder script.js itself was loaded from. Every link
@@ -224,7 +224,7 @@ let menuBound = false;
   }
 })();
 
-// clock — always Mary's time in Oslo, never the visitor's. The zone
+// clock - always Mary's time in Oslo, never the visitor's. The zone
 // abbreviation beside the time is the conventional way to say whose clock
 // this is, and the daypart adds a little character.
 const CLOCK_TZ = 'Europe/Oslo';
@@ -238,7 +238,7 @@ const clockDayFmt = new Intl.DateTimeFormat('en-GB', { timeZone: CLOCK_TZ, weekd
 
 // each entry starts at that minute of the Oslo day; the last one runs through
 // midnight and the 0 entry picks up again after it. Every glyph is an Egyptian
-// hieroglyph (U+13000 block) — figures at work, at rest and at play.
+// hieroglyph (U+13000 block) - figures at work, at rest and at play.
 const DAYPARTS = [
   { at: 0, glyph: '\u{1303F}', status: 'recharging' },
   { at: 8 * 60 + 30, glyph: '\u{13029}', status: 'coffee' },
@@ -545,7 +545,7 @@ onReady(function () {
   bindMobileMenu();   // the close button was just rebuilt
 });
 
-// sidebar-right (CV) — single source of truth: window.siteProfile.cv in
+// sidebar-right (CV) - single source of truth: window.siteProfile.cv in
 // projects.js. Fills <aside id="sidebar-right"> on the home page and on
 // every project page, so the CV is only ever edited in one place.
 onReady(function () {
@@ -553,7 +553,7 @@ onReady(function () {
   if (!el) return;
   const cv = window.siteProfile && window.siteProfile.cv;
   if (!cv) {
-    console.warn('[portfolio] window.siteProfile.cv is missing — is projects.js loading?');
+    console.warn('[portfolio] window.siteProfile.cv is missing - is projects.js loading?');
     return;
   }
 
@@ -874,7 +874,7 @@ bindMobileMenu();
     if (e.key === 'ArrowLeft') prev();
   });
 
-  // bind click — runs immediately if lightbox exists, otherwise on load
+  // bind click - runs immediately if lightbox exists, otherwise on load
   if (document.getElementById('media-lightbox')) {
     bind();
   } else {
@@ -883,7 +883,7 @@ bindMobileMenu();
 })();
 
 // project navigation (prev/next) + back to top.
-// order comes from projects.js — no second list to keep in sync.
+// order comes from projects.js - no second list to keep in sync.
 // `scope` is the document on a standalone project page, or the injected
 // .case-study-view wrapper when a project is opened from the home grid.
 // onNavigate(project) intercepts prev/next (home slide-in); leave it
@@ -896,7 +896,7 @@ function initProjectFooterNav(scope, projectId, onNavigate) {
   const current = projects.findIndex((p) => p.id === projectId);
   if (current === -1) return;
 
-  // label each link with the project name — the part before the colon
+  // label each link with the project name - the part before the colon
   const name = (p) => p.title.split(':')[0].trim();
   nav.style.display = '';
 
@@ -953,13 +953,13 @@ onReady(function () {
 // yet.
 //
 // Videos carry data-autoplay rather than the autoplay attribute, so the file is
-// not fetched at load. They still start on their own, with nothing to click —
+// not fetched at load. They still start on their own, with nothing to click -
 // just on coming into view instead of all at once. (autoplay + preload="none"
 // would not help: autoplay forces the download regardless of the hint.)
 //
 // Images that have not decoded yet are held at zero opacity and faded in, so a
 // slow one settles into place rather than appearing mid-layout. Only elements
-// still loading are touched, so with JS off nothing is ever hidden — and an
+// still loading are touched, so with JS off nothing is ever hidden - and an
 // error reveals too, rather than leaving a hole where something is missing.
 //
 // Both are re-applied to anything injected later, since opening a project from
