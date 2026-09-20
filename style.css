@@ -868,6 +868,17 @@ body.case-page .filters { display: none; }
   padding-top: var(--sp-4);
   border-top: 1px solid var(--gray-100);
 }
+
+/* The media label closes the reading sections and opens the gallery, so it carries
+   the same 2px blue rule the results block uses — the other place on these pages
+   that marks a change of mode, rather than a new device for the same job.
+   The hairline the other sections get is #f3f4f6, about 1.1:1 against white, which
+   is why the media run did not read as its own chapter. Same specificity as the
+   sibling rule above and declared after it, so this wins without !important. */
+.case-section.case-section-media {
+  border-top: 2px solid #0040FF;
+  padding-top: var(--sp-5);
+}
 .case-section h3,
 .text h3 {
   /* Inter, at the size the CV's section headings use in the right panel, so these
