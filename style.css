@@ -118,6 +118,18 @@ img { display: block; max-width: 100%; height: auto; }
 a { color: var(--blue); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
+/* Keyboard focus, stated rather than left to the browser. The default ring is
+   1px and measures 2.76:1 against the blue panel and 2.41:1 against white —
+   both under the 3:1 that SC 1.4.11 asks of a focus indicator, and thin enough
+   to miss. Site blue on the white page, white on the blue panel. */
+:focus-visible {
+  outline: 2px solid #0040FF;
+  outline-offset: 2px;
+}
+.sidebar :focus-visible {
+  outline-color: #ffffff;
+}
+
 h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 500; }
 h2 { font-size: 1.5rem; color: var(--gray-900); }
 h3 { font-size: 1rem; font-weight: 600; }
@@ -242,13 +254,24 @@ button, a, [data-href] { cursor: pointer; }
   font-weight: 500;
   line-height: 1.25;
   text-decoration: none;
-  white-space: nowrap;
+  /* no nowrap: it silently clipped the longest title ("Live Open Call: Mobile
+     Submissions" measures 196px in a 191px column, hidden by the panel's
+     overflow), so a long title wraps rather than losing its last letters */
 }
 .project-view-links a:hover { text-decoration: line-through; }
 
-/* current project — de-emphasised: the usual "you are here" treatment for a
-   nav list, and it does not collide with the line-through hover language */
-.project-view-links a.active { opacity: 0.5; }
+/* current project — marked rather than dimmed. The old treatment was opacity
+   0.5, which measured 2.63:1 on this panel: the item you are on was the hardest
+   in the list to read, and under the 4.5:1 that body text is held to. A ring at
+   full contrast marks it instead, and the negative margin lets that ring borrow
+   the panel's own padding so the label is not squeezed. */
+.project-view-links a.active {
+  color: var(--sidebar-fg);
+  border: 1px solid rgba(255, 255, 255, 0.7);   /* 3.9:1 on the panel */
+  border-radius: 999px;
+  padding: 2px 8px;
+  margin: -2px -8px;
+}
 
 .project-view-home-link {
   font-family: var(--font-serif);
@@ -1191,6 +1214,14 @@ body.case-page .filters { display: none; }
   pointer-events: none;
   transform: translate(-50%, -50%);
   z-index: 999999;
+}
+
+/* Over the blue panel the blue dot would simply vanish, leaving only its 1px
+   ring to track the pointer by, which is too slight. So it flips there instead:
+   white fill, blue ring, both grounds keeping a dot that reads at a glance. */
+#custom-cursor.on-panel {
+  background: var(--white);
+  border-color: #0040FF;
 }
 
 /* cursor handling */
