@@ -870,19 +870,16 @@ body.case-page .filters { display: none; }
 }
 .case-section h3,
 .text h3 {
-  /* the serif, so the section labels belong to the page rather than to interface
-     chrome, in sentence case rather than the all-caps these used to be.
-     Black, and a step larger than the 12px first tried: at 13.6px Adobe Garamond
-     Pro's capitals are 9.01px against the 8.15px the 11.2px Inter caps measured
-     before this — clearly a heading, but still smaller than the 0.9rem copy it
-     labels, which is the ceiling worth respecting here. Garamond's lowercase
-     x-height is only 0.73x Inter's, which is why the same pixel size reads
-     smaller in this face than it did in the sans.
-     Weight 400 because the family has only one face; 600 would be synthesised.
-     The colour is the case-page title's own near-black, not a new tone. */
-  font-family: var(--font-serif);
-  font-size: 0.85rem;
-  font-weight: 400;
+  /* Inter, at the size the CV's section headings use in the right panel, so these
+     labels sit at the same scale as the panel beside them rather than being their
+     own size. Black rather than the grey they started as, and without the tracking
+     that went with the all-caps: the casing is the real text from the markup, so
+     nothing here is stretching or tightening it.
+     The CV equivalent (.sidebar-right h4) is 0.7rem, uppercase, 500 weight and a
+     light grey — only the size is shared. */
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 600;
   text-transform: none;
   color: var(--gray-900);
   margin-bottom: var(--sp-2);
