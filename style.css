@@ -180,7 +180,11 @@ button, a, [data-href] { cursor: pointer; }
   color: var(--blue);
   margin-top: var(--sp-4);
   margin-bottom: var(--sp-5);
-  text-align: justify;
+  /* ragged right rather than justified: at this column width — roughly 30
+     characters a line — justification opens rivers between the words that no
+     amount of hyphenation closes. Hyphenation is left on because it is the
+     ragged edge, not the rivers, that a narrow column makes worse without it. */
+  text-align: left;
   hyphens: auto;
 }
 
@@ -229,15 +233,17 @@ button, a, [data-href] { cursor: pointer; }
 
 .project-view-home-link {
   font-family: var(--font-serif);
-  font-style: italic;
-  /* 1.5rem is the fallback; the cqw size scales with the sidebar so the
-     wordmark keeps its proportion at any width. In Adobe Garamond Pro Italic
-     "Mary G. Wilson" measures ~6.0x its font-size, so the 18.39cqw that was
-     derived for the previous serif (5.44x, filling the column edge to edge)
-     would now overflow the column — 6.0 x 18.39 is 110cqw. 14.5cqw fills
-     about seven eighths of it. Reduces to fit the close button on mobile. */
+  /* 1.5rem is the fallback; the cqw size fills the sidebar column, so the
+     wordmark ends where the bio's text does.
+     Upright Adobe Garamond Pro sets "Mary G. Wilson" at 6.362x its font-size,
+     so 100 / 6.362 = 15.72cqw lands exactly on the column edge — which leaves
+     nothing over for rounding, and a wordmark that misses by a fraction wraps
+     onto a second line. 15.6cqw is that less half a percent, about 1px at the
+     sidebar's width. (The italic face measures 5.99x and needs its own figure.)
+     Reduces to fit the close button on mobile, since the container is measured
+     after that button has taken its space. */
   font-size: 1.5rem;
-  font-size: 14.5cqw;
+  font-size: 15.6cqw;
   line-height: 1;
   color: var(--gray-900);
   text-decoration: none;
