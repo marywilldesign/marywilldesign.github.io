@@ -7,11 +7,17 @@ Two families live here, for two different reasons.
 | file | what it is |
 | --- | --- |
 | `AGaramondPro-Regular.woff2` | the upright face, subset to Latin and compressed — 45 KB from 116 KB of OTF |
-| `AGaramondPro-Italic.woff2` | the italic — 34 KB from 90 KB. Nothing uses it at the moment: the wordmark was changed to the upright face, and no rule sets `font-style: italic`, so it is never fetched |
 
-The two masters these were cut from (`AGaramondPro-Regular.otf`,
-`AGaramondPro-Italic.otf`) are not shipped with the site. They live in
-`_originals/fonts/`, which is gitignored, since nothing loads them.
+The master this was cut from (`AGaramondPro-Regular.otf`) is not shipped with
+the site. It lives in `_originals/fonts/`, which is gitignored, since nothing
+loads it.
+
+The italic was served from here too, as `AGaramondPro-Italic.woff2`, until the
+wordmark was changed to the upright face and no rule set `font-style: italic` —
+at which point it was a file no browser would ever fetch, so it was deleted. The
+master is still in `_originals/fonts/`: bringing it back is the command below
+with `Italic` in place of `Regular`, plus a second `@font-face` block with
+`font-style: italic`.
 
 Set the wordmark, the case-study page titles and the home card titles. `style.css`
 declares the pair as the family `AGaramondPro` rather than "Adobe Garamond Pro",
@@ -53,7 +59,7 @@ To regenerate after editing a master in `_originals/fonts/`:
 
 ```sh
 LATIN='U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2212,U+FEFF,U+FFFD'
-for F in Regular Italic; do
+for F in Regular; do
   /opt/miniconda3/bin/pyftsubset "_originals/fonts/AGaramondPro-$F.otf" \
     --output-file="fonts/AGaramondPro-$F.woff2" --flavor=woff2 \
     --unicodes="$LATIN" --layout-features='*' --no-hinting
@@ -79,9 +85,9 @@ the published site — which is what `@font-face` does — is webfont use, and A
 licenses that through Adobe Fonts, its own hosted embed, rather than by shipping
 the files. A Creative Cloud subscription includes it.
 
-The plan is to add the family to an Adobe Fonts web project and swap the two
-`@font-face` rules in `style.css` for the kit's stylesheet link, then delete the
-woff2 files here. Nothing else about the type should need to change. Until that
+The plan is to add the family to an Adobe Fonts web project and swap the
+`@font-face` rule in `style.css` for the kit's stylesheet link, then delete the
+woff2 file here. Nothing else about the type should need to change. Until that
 happens, the self-hosted pair above is how the serif is served.
 
 ## Noto Sans Egyptian Hieroglyphs — the clock
