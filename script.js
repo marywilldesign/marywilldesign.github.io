@@ -221,14 +221,14 @@ const clockOffsetFmt = new Intl.DateTimeFormat('en-GB', { timeZone: CLOCK_TZ, ti
 // beside. Stroke weight is tuned to the ☼/☽ strokes at this size, and the icon
 // box in style.css scales it to the same footprint as those glyphs.
 const POT_ICON =
-  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" ' +
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" ' +
   'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' +
-  '<path d="M4.5 9.5h15"/>' +
-  '<path d="M6.5 9.5v7.2a3 3 0 0 0 3 3h5a3 3 0 0 0 3-3V9.5"/>' +
-  '<path d="M3.8 11.8a1.6 1.6 0 0 0 0 3.2"/>' +
-  '<path d="M20.2 11.8a1.6 1.6 0 0 1 0 3.2"/>' +
-  '<path d="M10 7.4c0-1 .9-1.4.9-2.4"/>' +
-  '<path d="M13.4 7.4c0-1 .9-1.4.9-2.4"/>' +
+  '<path d="M4.5 7.2h15"/>' +
+  '<path d="M6.2 7.2v6.4a3.6 3.6 0 0 0 3.6 3.6h4.4a3.6 3.6 0 0 0 3.6-3.6V7.2"/>' +
+  '<path d="M6.2 10.6a1.5 1.5 0 0 0 0 3"/>' +
+  '<path d="M17.8 10.6a1.5 1.5 0 0 1 0 3"/>' +
+  '<path d="M10.3 4.8c0-1 .9-1.4.9-2.3"/>' +
+  '<path d="M13.4 4.8c0-1 .9-1.4.9-2.3"/>' +
   '</svg>';
 
 // each entry starts at that minute of the Oslo day; the last one runs through
