@@ -403,13 +403,16 @@ button, a, [data-href] { cursor: pointer; }
      does the same job in browsers that don't know this property yet */
   font-variant-emoji: text;
 }
-/* the pot is drawn rather than set, since no font has a line-art version */
+/* the pot is drawn rather than set, since no font has a line-art version.
+   0.72em puts its drawn footprint on par with the ☼/☽ glyphs: measured ink
+   came out 58x45px against the sun's 41x41 at 0.9em, so it needed scaling to
+   about 80% by area to stop it reading as the heaviest thing in the row */
 .clock-glyph.is-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 0.9em;
-  height: 0.9em;
+  width: 0.72em;
+  height: 0.72em;
   align-self: center;
 }
 .clock-glyph.is-icon svg {
