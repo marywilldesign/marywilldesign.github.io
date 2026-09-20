@@ -716,11 +716,16 @@ body.case-page .filters { display: none; }
   gap: var(--sp-1);
   line-height: 1;
 }
+/* The horizontal padding was 10px, which cost a row on the two longest lists. At
+   8px the seven Telus tags fit in three rows rather than four on a 240px card, and
+   the five on Live Open Call in two rather than three, with no change to the type
+   size or to the 4px gap. Two pixels a side is 28px across seven pills, and that
+   is enough to close a row. */
 .tag {
   display: inline-block;
   font-size: 0.65rem;
   font-weight: 500;
-  padding: 2px 10px;
+  padding: 2px 8px;
   border: 1px solid #0040FF;
   border-radius: 2px;
   color: #0040FF;
