@@ -382,11 +382,41 @@ button, a, [data-href] { cursor: pointer; }
   text-decoration: line-through;
 }
 
+/* clock — always Mary's time in Oslo, never the visitor's. The zone
+   abbreviation beside the time is the conventional marker for whose clock
+   this is; the status borrows the site's micro-label treatment (uppercase,
+   letter-spaced, grey) so it reads as part of the system. */
 .clock {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4em;
+  margin-left: auto;
   font-family: var(--font-mono);
   font-size: 0.78rem;
   color: #0040FF;
-  margin-left: auto;
+  white-space: nowrap;
+}
+.clock-glyph {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+}
+.clock-zone {
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  color: var(--gray-400);
+}
+.clock-status {
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gray-400);
+}
+/* when the row gets tight the status is the first thing to go — the time and
+   the zone are the parts that carry meaning */
+@media (max-width: 1200px) {
+  .clock-status { display: none; }
 }
 
 /* bridging line — intro text above filters */
