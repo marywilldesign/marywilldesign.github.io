@@ -217,10 +217,11 @@ const clockZoneFmt = new Intl.DateTimeFormat('en-GB', { timeZone: CLOCK_TZ, time
 const clockOffsetFmt = new Intl.DateTimeFormat('en-GB', { timeZone: CLOCK_TZ, timeZoneName: 'longOffset' });
 
 // U+1F372 (pot of food) only exists as a colour emoji — no font carries a
-// line-art version — so the pot is drawn to match the weight of the font
-// glyphs it sits beside. Stroke weight is tuned to the ☼/☽ strokes at this size.
+// line-art version — so the pot is drawn to match the font glyphs it sits
+// beside. Stroke weight is tuned to the ☼/☽ strokes at this size, and the icon
+// box in style.css scales it to the same footprint as those glyphs.
 const POT_ICON =
-  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" ' +
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" ' +
   'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' +
   '<path d="M4.5 9.5h15"/>' +
   '<path d="M6.5 9.5v7.2a3 3 0 0 0 3 3h5a3 3 0 0 0 3-3V9.5"/>' +
