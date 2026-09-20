@@ -399,6 +399,24 @@ button, a, [data-href] { cursor: pointer; }
 .clock-glyph {
   font-family: var(--font-sans);
   font-size: 0.85rem;
+  /* keep ☕ as line art rather than the colour emoji; U+FE0E in the markup
+     does the same job in browsers that don't know this property yet */
+  font-variant-emoji: text;
+}
+/* the pot is drawn rather than set, since no font has a line-art version */
+.clock-glyph.is-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 0.9em;
+  height: 0.9em;
+  align-self: center;
+}
+.clock-glyph.is-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
 }
 .clock-zone {
   font-size: 0.62rem;

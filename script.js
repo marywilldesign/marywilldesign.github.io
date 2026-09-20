@@ -216,13 +216,28 @@ const clockTimeFmt = new Intl.DateTimeFormat('en-GB', {
 const clockZoneFmt = new Intl.DateTimeFormat('en-GB', { timeZone: CLOCK_TZ, timeZoneName: 'short' });
 const clockOffsetFmt = new Intl.DateTimeFormat('en-GB', { timeZone: CLOCK_TZ, timeZoneName: 'longOffset' });
 
+// U+1F372 (pot of food) only exists as a colour emoji — no font carries a
+// line-art version — so the pot is drawn to match the weight of the font
+// glyphs it sits beside. Stroke weight is tuned to the ☼/☽ strokes at this size.
+const POT_ICON =
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" ' +
+  'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' +
+  '<path d="M4.5 9.5h15"/>' +
+  '<path d="M6.5 9.5v7.2a3 3 0 0 0 3 3h5a3 3 0 0 0 3-3V9.5"/>' +
+  '<path d="M3.8 11.8a1.6 1.6 0 0 0 0 3.2"/>' +
+  '<path d="M20.2 11.8a1.6 1.6 0 0 1 0 3.2"/>' +
+  '<path d="M10 7.4c0-1 .9-1.4.9-2.4"/>' +
+  '<path d="M13.4 7.4c0-1 .9-1.4.9-2.4"/>' +
+  '</svg>';
+
 // each entry starts at that minute of the Oslo day; the last one runs through
-// midnight and the 0 entry picks up again after it
+// midnight and the 0 entry picks up again after it. U+FE0E asks for the text
+// (line-art) form of the cup rather than the colour emoji.
 const DAYPARTS = [
   { at: 0, glyph: '☽', status: 'recharging' },
-  { at: 8 * 60 + 30, glyph: '☼', status: 'caffeine + catch-up' },
+  { at: 8 * 60 + 30, glyph: '☕\uFE0E', status: 'caffeine + catch-up' },
   { at: 9 * 60 + 30, glyph: '☼', status: 'deep work' },
-  { at: 12 * 60, glyph: '☼', status: 'lunch break' },
+  { at: 12 * 60, icon: POT_ICON, status: 'lunch break' },
   { at: 13 * 60, glyph: '☼', status: 'in the zone' },
   { at: 17 * 60, glyph: '☽', status: 'off the clock' }
 ];
@@ -261,6 +276,20 @@ function initClock() {
   // the breadcrumb, so pointless writes shuffle the layout about
   const set = (node, text) => { if (node.textContent !== text) node.textContent = text; };
 
+  // the glyph is either a font character or, for the pot, inline line art
+  const setGlyph = (part) => {
+    const key = part.icon || part.glyph;
+    if (el.dataset.glyph === key) return;
+    el.dataset.glyph = key;
+    if (part.icon) {
+      glyphEl.innerHTML = part.icon;
+      glyphEl.classList.add('is-icon');
+    } else {
+      glyphEl.textContent = part.glyph;
+      glyphEl.classList.remove('is-icon');
+    }
+  };
+
   el.title = "Mary's local time in Oslo, not yours";
 
   const tick = () => {
@@ -278,7 +307,7 @@ function initClock() {
 
       const [hours, minutes] = time.split(':').map(Number);
       const part = dayPart(hours * 60 + minutes);
-      set(glyphEl, part.glyph);
+      setGlyph(part);
       set(statusEl, part.status);
     }
   };
