@@ -13,7 +13,10 @@ window.portfolioProjects = [
     title: 'Telus: Enterprise IA Refresh',
     href: 'telus/',
     category: 'ux',
-    tags: ['allium design system', 'enterprise', 'a/b testing', 'analytics', 'workshop facilitation', 'user research', 'IA'],
+    // IA leads, since it is what the project is about, and starting with the
+    // shortest tag is also what lets these seven pack into three rows on a card
+    // instead of four. Identical to the list on telus-informing-customers below.
+    tags: ['IA', 'allium design system', 'enterprise', 'a/b testing', 'analytics', 'user research', 'workshop facilitation'],
     meta: {
       year: '2022 - 2024',
       role: 'UX/UI Design, User Testing Support',
@@ -34,7 +37,7 @@ window.portfolioProjects = [
     title: 'Telus: Informing Customers',
     href: 'telus-informing-customers/',
     category: 'ux',
-    tags: ['allium design system', 'enterprise', 'a/b testing', 'analytics', 'workshop facilitation', 'user research', 'IA'],
+    tags: ['IA', 'allium design system', 'enterprise', 'a/b testing', 'analytics', 'user research', 'workshop facilitation'],
     meta: {
       year: '2022 - 2024',
       role: 'UX/UI Design, User Testing Support',
