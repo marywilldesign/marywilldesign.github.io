@@ -137,11 +137,23 @@ button, a, [data-href] { cursor: pointer; }
 }
 
 /* left sidebar */
+/* left sidebar — a blue panel with white type. Every colour in the panel reads
+   from the four variables here, so re-lighting it is one edit: for the old
+   light treatment, set --sidebar-bg to var(--white), --sidebar-fg and
+   --sidebar-link to var(--blue), and --sidebar-fg-muted to var(--gray-400). */
 .sidebar {
+  --sidebar-bg: #0040FF;
+  --sidebar-fg: #ffffff;
+  --sidebar-fg-muted: rgba(255, 255, 255, 0.8);   /* 4.7:1 on the panel */
+  --sidebar-link: #ffffff;
+
   width: var(--sidebar-w);
   min-width: var(--sidebar-w);
-  background: var(--white);
-  border-right: 1px solid var(--blue);
+  background: var(--sidebar-bg);
+  color: var(--sidebar-fg);
+  /* was a black hairline; the blue against the white page is the edge now, and
+     transparent keeps the 1px so nothing moves */
+  border-right: 1px solid transparent;
   display: flex;
   flex-direction: column;
   padding: var(--sp-6);
@@ -152,17 +164,24 @@ button, a, [data-href] { cursor: pointer; }
   z-index: 10;
 }
 
+/* white type on a blue ground needs its own selection colours, or selecting a
+   line in the panel would be white on the same blue it already sits on */
+.sidebar ::selection {
+  background: var(--sidebar-fg);
+  color: var(--sidebar-bg);
+}
+
 .sidebar-close {
   display: none;
   background: none;
   border: none;
   font-size: 1.2rem;
-  color: var(--gray-400);
+  color: var(--sidebar-fg-muted);
   padding: var(--sp-1);
   margin-bottom: var(--sp-2);
   align-self: flex-end;
 }
-.sidebar-close:hover { color: var(--gray-900); }
+.sidebar-close:hover { color: var(--sidebar-fg); }
 
 .sidebar-top {
   display: flex;
@@ -177,7 +196,7 @@ button, a, [data-href] { cursor: pointer; }
 .bio {
   font-size: 0.75rem;
   line-height: 1.35;
-  color: var(--blue);
+  color: var(--sidebar-fg);
   margin-top: var(--sp-4);
   margin-bottom: var(--sp-5);
   /* ragged right rather than justified: at this column width — roughly 30
@@ -197,7 +216,7 @@ button, a, [data-href] { cursor: pointer; }
 }
 
 .sidebar-links a {
-  color: #0040FF;
+  color: var(--sidebar-link);
   font-size: 0.8rem;
   font-weight: 500;
   text-decoration: none;
@@ -218,7 +237,7 @@ button, a, [data-href] { cursor: pointer; }
 }
 
 .project-view-links a {
-  color: #0040FF;
+  color: var(--sidebar-link);
   font-size: 0.72rem;
   font-weight: 500;
   line-height: 1.25;
@@ -245,7 +264,7 @@ button, a, [data-href] { cursor: pointer; }
   font-size: 1.5rem;
   font-size: 15.6cqw;
   line-height: 1;
-  color: var(--gray-900);
+  color: var(--sidebar-fg);
   text-decoration: none;
 }
 .project-view-home-link:hover {
@@ -267,7 +286,7 @@ button, a, [data-href] { cursor: pointer; }
 
 .made {
   font-size: 0.75rem;
-  color: var(--gray-400);
+  color: var(--sidebar-fg-muted);
   margin-top: var(--sp-6);
 }
 
@@ -281,7 +300,7 @@ button, a, [data-href] { cursor: pointer; }
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--gray-400);
+  color: var(--sidebar-fg-muted);
   margin-bottom: var(--sp-3);
 }
 
@@ -289,13 +308,13 @@ button, a, [data-href] { cursor: pointer; }
   list-style: none;
   padding: 0;
   margin: 0;
-  color: #0040FF;
+  color: var(--sidebar-link);
 }
 
 .project-nav a {
   display: block;
   font-size: 0.78rem;
-  color: #0040FF;
+  color: var(--sidebar-link);
   padding: var(--sp-1) 0;
   text-decoration: none;
   font-weight: 450;
@@ -306,7 +325,7 @@ button, a, [data-href] { cursor: pointer; }
 }
 .project-nav a:hover,
 .project-nav a.active {
-  color: #0040FF;
+  color: var(--sidebar-link);
   text-decoration: line-through;
 }
 
@@ -316,10 +335,11 @@ button, a, [data-href] { cursor: pointer; }
   padding-left: 0;
   font-size: 0.78rem;
   font-weight: 500;
-  color: #0040FF;
+  color: var(--sidebar-link);
   margin-bottom: var(--sp-4);
   letter-spacing: 0.01em;
 }
+.sidebar .breadcrumb a { color: var(--sidebar-link); }
 .sidebar .breadcrumb:hover { text-decoration: underline; }
 
 /* right sidebar (cv) */
@@ -1235,7 +1255,7 @@ html.is-touch #custom-cursor { display: none !important; }
     transform: translateX(-100%);
     transition: transform var(--transition-slow);
     z-index: 1300;
-    border-right: 1px solid var(--gray-200);
+    border-right: 1px solid transparent;
     padding: var(--sp-4);
     overflow-y: hidden;
     display: flex;
