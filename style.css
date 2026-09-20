@@ -869,14 +869,15 @@ body.case-page .filters { display: none; }
   border-top: 1px solid var(--gray-100);
 }
 
-/* The media label closes the reading sections and opens the gallery, so it carries
-   the same 2px blue rule the results block uses — the other place on these pages
-   that marks a change of mode, rather than a new device for the same job.
-   The hairline the other sections get is #f3f4f6, about 1.1:1 against white, which
-   is why the media run did not read as its own chapter. Same specificity as the
-   sibling rule above and declared after it, so this wins without !important. */
+/* The media label closes the reading sections and opens the gallery, so its divider
+   is blue where the sections above it get a hairline — the same device the results
+   block uses rather than a new one. Same 1px as those hairlines, so the vertical
+   rhythm is untouched and only the colour changes, which is the point: the hairline
+   is #f3f4f6, about 1.1:1 against the white pane.
+   Same specificity as the sibling rule above and declared after it, so this wins
+   without !important. */
 .case-section.case-section-media {
-  border-top: 2px solid #0040FF;
+  border-top: 1px solid #0040FF;
   padding-top: var(--sp-5);
 }
 .case-section h3,
@@ -944,7 +945,8 @@ body.case-page .filters { display: none; }
 .results-highlight {
   margin: var(--sp-8) 0;
   padding-top: var(--sp-6);
-  border-top: 2px solid #0040FF;
+  /* 1px, to match the section hairlines: every divider on a case page is one weight */
+  border-top: 1px solid #0040FF;
 }
 .results-highlight h3 {
   font-size: 0.7rem;
