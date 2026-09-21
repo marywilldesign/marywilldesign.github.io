@@ -1053,3 +1053,171 @@ onReady(function () {
     window.scrollTo({ top: 0, behavior });
   });
 })();
+// analytics (Umami)
+// Observation only. Nothing here changes an existing handler, and none of it sends
+// anything unless the tracker itself loaded, which only happens on the live domain
+// (see the data-domains attribute on the tag in each page head). So it is inert
+// during local work.
+//
+// The events that matter most are the ones a pageview cannot see. The home page opens
+// a project by fetching it and swapping the content in, with no navigation, so no
+// pageview is recorded for it: case-study-open is the only trace of that.
+(function () {
+  const projects = () => window.portfolioProjects || [];
+
+  function track(name, data) {
+    if (window.umami && typeof window.umami.track === 'function') {
+      window.umami.track(name, data);
+    }
+  }
+
+  const baseName = (path) => String(path || '').split('/').pop().split('?')[0];
+  const tidy = (text) => String(text || '').replace(/[\u2190\u2192]/g, '').trim().slice(0, 40);
+
+  // sidebar links carry a project href, cards carry data-id; match either back to
+  // projects.js so the event names the project the way the site does
+  function projectFromHref(href) {
+    if (!href) return null;
+    return projects().find((p) => {
+      const slug = p.href.replace(/^\/|\/$/g, '');
+      return slug && href.indexOf(slug) !== -1;
+    }) || null;
+  }
+
+  // clicks are captured, so an event is still recorded when a handler stops
+  // propagation or prevents the default
+  document.addEventListener('click', (event) => {
+    const target = event.target;
+    if (!target || !target.closest) return;
+
+    // leaving the site: the card links, the snapshot links, the press link
+    const outbound = target.closest('a.ext-link, .snapshot-box a');
+    if (outbound && outbound.href) {
+      let host = '';
+      try { host = new URL(outbound.href, location.href).hostname; } catch (err) { host = ''; }
+      track('outbound', { label: tidy(outbound.textContent), to: host });
+      return;
+    }
+
+    // one piece of media, and stepping through the lightbox
+    const media = target.closest('.js-lightbox-item');
+    if (media) {
+      track('lightbox-open', {
+        media: baseName(media.getAttribute('src') || media.getAttribute('poster'))
+      });
+      return;
+    }
+    const step = target.closest('#lightbox-prev, #lightbox-next');
+    if (step) {
+      track('lightbox-step', { direction: step.id === 'lightbox-next' ? 'next' : 'previous' });
+      return;
+    }
+
+    // the home-page filter
+    const filter = target.closest('.filter-btn');
+    if (filter) {
+      track('filter', { category: filter.dataset.filter || '' });
+      return;
+    }
+
+    // prev / next at the foot of a project
+    const nav = target.closest('#project-nav .nav-prev, #project-nav .nav-next');
+    if (nav) {
+      track('project-nav', {
+        direction: nav.classList.contains('nav-prev') ? 'previous' : 'next',
+        to: tidy(nav.textContent)
+      });
+      return;
+    }
+
+    // opening a project. Only the home page swaps content in place; on a project
+    // page the same link is a real navigation and the pageview already covers it,
+    // so firing here would double count.
+    if (document.body && !document.body.classList.contains('case-page')) {
+      const card = target.closest('.case-card');
+      const sidebarLink = target.closest('#sidebar .project-view-links a');
+      if (!card && !sidebarLink) return;
+      const project = card
+        ? projects().find((p) => p.id === card.dataset.id)
+        : projectFromHref(sidebarLink.getAttribute('href'));
+      track('case-study-open', {
+        project: project ? project.title : 'unknown',
+        from: card ? 'grid' : 'sidebar'
+      });
+    }
+  }, true);
+
+  // Time on page and scroll depth, counted per view. The home page changes view
+  // without changing the URL, so a view is identified by the URL plus the project
+  // heading rather than by a navigation event. That covers sliding into a project,
+  // sliding on to another, and coming back to the grid, with nothing hooked.
+  const DEPTHS = [25, 50, 75, 100];
+  const MARKS = [30, 120];
+
+  let view = '';
+  let elapsed = 0;
+  let depthSent = [];
+  let markSent = {};
+
+  function viewKey() {
+    const heading = document.querySelector('.content .case-header-text h2');
+    return location.pathname + '|' + (heading ? heading.textContent.trim() : 'grid');
+  }
+
+  function syncView() {
+    const key = viewKey();
+    if (key === view) return;
+    view = key;
+    elapsed = 0;
+    depthSent = DEPTHS.map(() => false);
+    markSent = {};
+  }
+
+  function percentRead() {
+    const pane = document.querySelector('.content');
+    if (pane && pane.scrollHeight > pane.clientHeight + 2) {
+      return ((pane.scrollTop + pane.clientHeight) / pane.scrollHeight) * 100;
+    }
+    const doc = document.scrollingElement || document.documentElement;
+    const total = Math.max(doc.scrollHeight, document.body.scrollHeight);
+    return total ? ((window.scrollY + window.innerHeight) / total) * 100 : 100;
+  }
+
+  let queued = false;
+  function onScroll() {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(() => {
+      queued = false;
+      syncView();
+      const read = percentRead();
+      DEPTHS.forEach((depth, i) => {
+        if (read >= depth && !depthSent[i]) {
+          depthSent[i] = true;
+          track('scroll-depth', { depth: depth });
+        }
+      });
+    });
+  }
+
+  // desktop scrolls inside <main class="content">, phones scroll the window
+  const pane = document.querySelector('.content');
+  [window, pane].forEach((target) => {
+    if (target) target.addEventListener('scroll', onScroll, { passive: true });
+  });
+
+  // a second counts only while the tab is actually being looked at
+  syncView();
+  const ticker = window.setInterval(() => {
+    if (document.visibilityState !== 'visible') return;
+    syncView();
+    elapsed += 1;
+    MARKS.forEach((seconds) => {
+      if (elapsed >= seconds && !markSent[seconds]) {
+        markSent[seconds] = true;
+        track('engaged', { seconds: seconds });
+      }
+    });
+    if (MARKS.every((seconds) => markSent[seconds])) window.clearInterval(ticker);
+  }, 1000);
+})();
