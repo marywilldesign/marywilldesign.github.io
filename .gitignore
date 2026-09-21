@@ -2,3 +2,9 @@
 .DS_Store
 blackbox/video.webm
 _originals/
+
+# Ten older project pages, kept in case they are wanted again. They are not part of the
+# site: nothing links to them and they cannot find their stylesheet from here. The
+# tracked copies live on the `archive-projects` branch, so to work on one:
+#     git checkout archive-projects -- archive/<name>
+archive/
