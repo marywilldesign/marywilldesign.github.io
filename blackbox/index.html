@@ -2,14 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TKYLNQ9YDK"></script>
+  <!-- Google tag (gtag.js). Loaded on the live domain only: a local preview over
+       localhost or 127.0.0.1 would otherwise register as real traffic, and hits cannot
+       be taken back out of the reports afterwards. Anything not named in the condition
+       below is simply left untracked. -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-TKYLNQ9YDK');
+    if (location.hostname === 'marywildesign.com' || location.hostname === 'www.marywildesign.com') {
+      var ga = document.createElement('script');
+      ga.async = true;
+      ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-TKYLNQ9YDK';
+      document.head.appendChild(ga);
+      gtag('js', new Date());
+      gtag('config', 'G-TKYLNQ9YDK');
+    }
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>VJ Controller – S.B.C. &amp; 3D</title>
