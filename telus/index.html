@@ -2,22 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- Google tag (gtag.js). Loaded on the live domain only: a local preview over
-       localhost or 127.0.0.1 would otherwise register as real traffic, and hits cannot
-       be taken back out of the reports afterwards. Anything not named in the condition
-       below is simply left untracked. -->
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    if (location.hostname === 'marywildesign.com' || location.hostname === 'www.marywildesign.com') {
-      var ga = document.createElement('script');
-      ga.async = true;
-      ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-TKYLNQ9YDK';
-      document.head.appendChild(ga);
-      gtag('js', new Date());
-      gtag('config', 'G-TKYLNQ9YDK');
-    }
-  </script>
+  <!-- Umami analytics. Cookieless and no personal data, so no consent banner is
+       needed. The data-domains list is what keeps local previews, which run on
+       127.0.0.1, out of the reports: the tracker matches the visitor's hostname
+       against it and does nothing anywhere else. -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="df11a0aa-ba9c-4ef5-83f4-12195afd38c2" data-domains="marywildesign.com,www.marywildesign.com"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Mary Wil – User Experience designer with nearly ten years experience from startups to consulting agencies.">
   <meta name="theme-color" content="#0000cd">
