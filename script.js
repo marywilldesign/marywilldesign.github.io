@@ -725,53 +725,6 @@ document.addEventListener('keydown', (e) => {
 
 bindMobileMenu();
 
-// masonry span calculation
-(function () {
-  function computeMasonrySpans() {
-    document.querySelectorAll('.masonry').forEach((container) => {
-      const styles = getComputedStyle(container);
-      const rowH = parseFloat(styles.getPropertyValue('grid-auto-rows')) || 1;
-      const gap =
-        parseFloat(
-          styles.getPropertyValue('gap') ||
-            styles.getPropertyValue('grid-row-gap') ||
-            '0'
-        ) || 0;
-
-      container.querySelectorAll('.masonry-item').forEach((item) => {
-        item.style.gridRowEnd = '';
-        const h = item.getBoundingClientRect().height;
-        const span = Math.max(1, Math.ceil((h + gap) / (rowH + gap)));
-        item.style.gridRowEnd = `span ${span}`;
-      });
-    });
-  }
-
-  function bindMasonryMedia() {
-    document.querySelectorAll('.masonry-item img').forEach((img) => {
-      if (!img.complete) {
-        img.addEventListener('load', computeMasonrySpans, { once: true });
-        img.addEventListener('error', computeMasonrySpans, { once: true });
-      }
-    });
-    document.querySelectorAll('.masonry-item video').forEach((vid) => {
-      if (vid.readyState >= 1) computeMasonrySpans();
-      else vid.addEventListener('loadedmetadata', computeMasonrySpans, { once: true });
-    });
-  }
-
-  window.addEventListener('load', () => {
-    computeMasonrySpans();
-    bindMasonryMedia();
-  });
-
-  let timer;
-  window.addEventListener('resize', () => {
-    clearTimeout(timer);
-    timer = setTimeout(computeMasonrySpans, 150);
-  });
-})();
-
 // media lightbox (images + videos + carousel)
 (function () {
   const lightbox = document.getElementById('media-lightbox');
@@ -965,7 +918,7 @@ onReady(function () {
 // Both are re-applied to anything injected later, since opening a project from
 // the home grid swaps in new content.
 (function () {
-  const FADE = '.hero-image img, .masonry-item img, .sbs-item img,' +
+  const FADE = '.hero-image img, .sbs-item img,' +
                '.case-image img, .case-image-wide img';
 
   const play = (v) => {
