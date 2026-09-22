@@ -196,30 +196,15 @@ let menuBound = false;
     document.documentElement.classList.add('is-touch');
     if (cursor) cursor.style.display = 'none';
   } else if (cursor) {
-    // the dot is the site blue, which is also the colour of the left panel, so
-    // over the panel it would disappear. It flips to white there instead (see
-    // #custom-cursor.on-panel in style.css). The panel's rect is cached rather
-    // than measured per move, since reading a rect forces layout.
-    const panel = document.querySelector('.sidebar');
-    let panelRect = null;
-    const measure = () => { panelRect = panel ? panel.getBoundingClientRect() : null; };
-    if (panel) {
-      measure();
-      window.addEventListener('resize', measure);
-      window.addEventListener('scroll', measure, { passive: true });
-    }
-
+    // the dot is the site blue, which reads on the white page and on the white
+    // panel alike, so it is placed and left alone. It used to flip colour over
+    // the left panel, which was blue until 2026-09-22; that panel is white
+    // again, so the flip, its cached panel rect and the .on-panel class are all
+    // gone. (The rect was cached rather than measured per move, because reading
+    // a rect forces layout.)
     document.addEventListener('mousemove', (e) => {
       cursor.style.left = e.clientX + 'px';
       cursor.style.top = e.clientY + 'px';
-
-      if (!panelRect) return;
-      const onPanel =
-        e.clientX >= panelRect.left && e.clientX <= panelRect.right &&
-        e.clientY >= panelRect.top && e.clientY <= panelRect.bottom;
-      if (onPanel !== cursor.classList.contains('on-panel')) {
-        cursor.classList.toggle('on-panel', onPanel);
-      }
     });
   }
 })();

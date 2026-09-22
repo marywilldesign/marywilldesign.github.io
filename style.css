@@ -169,15 +169,16 @@ a { color: var(--blue); text-decoration: none; }
 a:hover { font-weight: 700; }
 
 /* Keyboard focus, stated rather than left to the browser. The default ring is
-   1px and measures 2.76:1 against the blue panel and 2.41:1 against white -
-   both under the 3:1 that SC 1.4.11 asks of a focus indicator, and thin enough
-   to miss. Site blue on the white page, white on the blue panel. */
+   1px and measures 2.41:1 against white - under the 3:1 that SC 1.4.11 asks of
+   a focus indicator, and thin enough to miss. The panel is white again, so the
+   ring inside it is the site blue, read from the panel's own palette so a
+   re-light carries the ring with it. */
 :focus-visible {
   outline: 2px solid #0040FF;
   outline-offset: 2px;
 }
 .sidebar :focus-visible {
-  outline-color: #ffffff;
+  outline-color: var(--sidebar-link);
 }
 
 h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 500; }
@@ -198,24 +199,28 @@ button, a, [data-href] { cursor: pointer; }
   overflow: hidden;
 }
 
-/* left sidebar */
-/* left sidebar - a blue panel with white type. Every colour in the panel reads
-   from the four variables here, so re-lighting it is one edit: for the old
-   light treatment, set --sidebar-bg to var(--white), --sidebar-fg and
-   --sidebar-link to var(--blue), and --sidebar-fg-muted to var(--gray-400). */
+/* left sidebar - a white panel with black type and blue links. Every colour in
+   the panel reads from the four variables here, so re-lighting it is one edit:
+   for the blue panel it carried from 8919aa3 until 2026-09-22, set --sidebar-bg
+   to #0040FF, --sidebar-fg and --sidebar-link to #ffffff, and
+   --sidebar-fg-muted to rgba(255, 255, 255, 0.8). */
 .sidebar {
-  --sidebar-bg: #0040FF;
-  --sidebar-fg: #ffffff;
-  --sidebar-fg-muted: rgba(255, 255, 255, 0.8);   /* 4.7:1 on the panel */
-  --sidebar-link: #ffffff;
+  --sidebar-bg: var(--white);
+  --sidebar-fg: #000000;
+  /* the credit caption and the drawer's close button, the two things the panel
+     deliberately keeps secondary. --gray-400 was the light panel's value but
+     measures 2.54:1 on white, so 500 here keeps the demotion and passes AA at
+     4.83:1 - close to the 4.69:1 the blue panel carried for the same pair. */
+  --sidebar-fg-muted: var(--gray-500);
+  --sidebar-link: #0040FF;
 
   width: var(--sidebar-w);
   min-width: var(--sidebar-w);
   background: var(--sidebar-bg);
   color: var(--sidebar-fg);
-  /* was a black hairline; the blue against the white page is the edge now, and
-     transparent keeps the 1px so nothing moves */
-  border-right: 1px solid transparent;
+  /* the panel's edge against the white page, as it was before the blue panel,
+     and the same hairline the CV panel carries on its left */
+  border-right: 1px solid var(--blue);
   display: flex;
   flex-direction: column;
   padding: var(--sp-6);
@@ -226,12 +231,10 @@ button, a, [data-href] { cursor: pointer; }
   z-index: 10;
 }
 
-/* white type on a blue ground needs its own selection colours, or selecting a
-   line in the panel would be white on the same blue it already sits on */
-.sidebar ::selection {
-  background: var(--sidebar-fg);
-  color: var(--sidebar-bg);
-}
+/* The panel carried its own ::selection while it was blue, because white type
+   selected on the same blue it already sat on was unreadable. On white the
+   page's own blue selection works inside the panel unchanged, so there is no
+   override here; a re-light to blue needs one again. */
 
 .sidebar-close {
   display: none;
@@ -1188,14 +1191,6 @@ body.case-page .filters { display: none; }
   z-index: 999999;
 }
 
-/* Over the blue panel the blue dot would simply vanish, leaving only its 1px
-   ring to track the pointer by, which is too slight. So it flips there instead:
-   white fill, blue ring, both grounds keeping a dot that reads at a glance. */
-#custom-cursor.on-panel {
-  background: var(--white);
-  border-color: #0040FF;
-}
-
 /* cursor handling */
 @media (hover: hover) and (pointer: fine) {
   html:not(.is-touch), html:not(.is-touch) * { cursor: none !important; }
@@ -1267,7 +1262,7 @@ html.is-touch #custom-cursor { display: none !important; }
     transform: translateX(-100%);
     transition: transform var(--transition-slow);
     z-index: 1300;
-    border-right: 1px solid transparent;
+    border-right: 1px solid var(--gray-200);
     padding: var(--sp-4);
     overflow-y: hidden;
     display: flex;
