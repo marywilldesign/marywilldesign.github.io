@@ -765,13 +765,14 @@ body.case-page .filters { display: none; }
    above the first section. Content is rendered from projects.js.
    The box itself is unstyled: only the labels carry the site-blue pill,
    and the values hang underneath them like columns.
-   Laid out like a justified line of set text: each group is only as wide as
-   its own content, the first sits flush with the hero's left edge and the
-   last flush with its right, and the slack is shared evenly between them. */
+   The groups are packed against the left edge with a fixed gap rather than
+   spread across the content width. Justified, the shared slack opened the
+   gaps to 227px at 1920px, which read as four separate blocks instead of one
+   row of columns; the unused width now sits to the right of the last one. */
 .snapshot-box {
   display: flex;
   flex-wrap: nowrap;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: var(--sp-5) var(--sp-6);
   align-items: flex-start;
   width: 100%;
@@ -780,16 +781,15 @@ body.case-page .filters { display: none; }
   line-height: 1.6;
   color: var(--gray-600);
 }
-/* width: auto (rather than a share of the row) is what lets space-between
-   spread the first and last groups out to the edges; min-width: 0 stops
-   that from ever forcing the row to wrap. */
+/* width: auto keeps each group only as wide as its own content, so the column
+   gaps stay even; min-width: 0 lets the row narrow a group instead of
+   overflowing the content width. */
 .snapshot-group {
   min-width: 0;
 }
 @media (max-width: 760px) {
   .snapshot-box {
     flex-wrap: wrap;
-    justify-content: flex-start;
   }
   .snapshot-group { flex: 1 1 150px; }
 }
