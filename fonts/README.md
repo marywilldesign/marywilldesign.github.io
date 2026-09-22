@@ -1,8 +1,111 @@
 # fonts/
 
-Two families live here, for two different reasons.
+Two families live here: the one the whole site is set in, and the clock's glyphs.
 
-## Adobe Garamond Pro - the display serif
+## Neue Montreal Medium - the site's typeface
+
+| file | what it is |
+| --- | --- |
+| `NeueMontreal-Medium.woff2` | the only face the site uses, subset to Latin-1, General Punctuation and the whole Arrows block - 14 KB from 41 KB of OTF, 215 glyphs |
+
+It sets everything: the wordmark, the case-study page titles, the home card
+titles, the section labels and the body copy. Until September 2026 that was
+split between a self-hosted Adobe Garamond Pro and Inter; Neue Montreal replaced
+both, and Inter stays in the stack as the fallback, so `style.css` has a single
+`--font-sans` for the whole site.
+
+The family is declared as `NeueMontreal` rather than "Neue Montreal", so a copy
+installed on a visitor's machine cannot be substituted for the file the site
+serves - everyone gets the same spacing and the same drawings.
+
+**Licence.** Pangram Pangram Foundry's free terms cover exactly this use. Their
+FAQ says the fonts are "free to try for personal use as long as it is not used
+in a commercial project", and then names the case: "You can use them in your
+portfolio (PDF, print or web!)". A commercial project would need a licence from
+them (from $40 a style, and web use is its own tier). The credit sits under the
+sidebar bio on the home page.
+
+Only the Medium weight is in the file, so 400 and 500 both render as Medium and
+600 upwards is synthesised bold. The wordmark's hover draws its own weight with
+`-webkit-text-stroke` partly for that reason.
+
+The master is not shipped with the site. `NeueMontreal-Medium.otf` (v1.000,
+2018) lives in `_originals/fonts/`, which is gitignored, since nothing loads it.
+To regenerate the shipped woff2:
+
+```sh
+LATIN='U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2190-21FF,U+2212'
+/opt/miniconda3/bin/pyftsubset _originals/fonts/NeueMontreal-Medium.otf \
+  --output-file=fonts/NeueMontreal-Medium.woff2 --flavor=woff2 \
+  --unicodes="$LATIN" --layout-features='*' --no-hinting
+```
+
+`↗` is U+2197, which is why the cut takes the whole Arrows block rather than
+U+2190-2193: the site sets ↗ in its links, ↑ on the back-to-top pill, and ‹ › in
+the lightbox. `✕` (U+2715, the lightbox close button) is not in the family at
+all, so it comes from the system face either way. Then check nothing the copy
+uses has fallen out of the cut:
+
+```sh
+/opt/miniconda3/bin/python3 -c "
+from fontTools.ttLib import TTFont
+cmap = set(TTFont('fonts/NeueMontreal-Medium.woff2').getBestCmap())
+missing = [c for c in set('design and dev by yours truly – … ‹ › ← ↑ → ↗') if ord(c) not in cmap]
+print('missing:', missing or 'none')"
+```
+
+### The fallback faces
+
+`--font-sans` is `'NeueMontreal', 'Inter', 'NeueMontreal-metric Arial',
+system-ui, ...`. Inter sits second because the site used to be set in it and it
+is a wanted safety net. The metric-matched local face sits behind Inter because
+Inter is remote, so it is not there for the very first paint either, and the
+first paint is exactly where the wordmark is fragile: it is sized to fill its
+column by measurement, and it only fits a face up to 6.52x the font size.
+
+Measured at font-size 100px, "Mary G. Wilson" is 649.0 wide in Neue Montreal
+Medium, 683.4 in Arial and 720.4 in Inter. So both fallbacks are wider than the
+wordmark's limit, which is why Arial is declared as its own family with
+`size-adjust` set to Neue Montreal's proportions - 649.0 / 683.4 = 94.97%.
+`size-adjust` scales a face's advances and its metrics together, so the local
+fallback occupies exactly Neue Montreal's width and the swap costs no layout at
+all. Verified with the woff2 blocked: one line, 191.0px in a 191px column, and
+the bio does not move. Liberation Sans is metrically an Arial clone, so it takes
+the same figure. Remove Arial from a machine and the stack falls through to
+`system-ui`, which is narrower than Neue Montreal and so cannot overrun the
+column either.
+
+**What Inter can and cannot do, measured.** Inter is wider still at 7.204x, and
+being served by Google Fonts it cannot be rescaled the way Arial above can. So
+the interesting question is which of the two the browser actually reaches for
+when the woff2 is missing. Blocking `fonts/NeueMontreal-Medium.woff2` at the
+network layer answered it: the browser used the local metric face, not Inter,
+and the wordmark stayed on one line at 191.0px with no overflow. Inter takes
+over only if it is already cached from an earlier page, and in that case the
+wordmark takes two lines for that moment. Deleting `'Inter'` from `--font-sans`
+removes even that, if it is ever seen. Naming Inter therefore costs nothing in
+the normal case: a page load fetches no Inter file at all, only the 14 KB woff2.
+
+The percentage is per-string, so it needs redoing if the wordmark's text ever
+changes - measure the string at 100px in each face and divide 649.0 by the
+result:
+
+```js
+// in the page console; Arial gives ~683.4
+const s = document.createElement('span');
+s.textContent = 'Mary G. Wilson';
+s.style.cssText = 'position:absolute;top:0;font:100px Georgia;white-space:nowrap';
+document.body.append(s); console.log(s.getBoundingClientRect().width); s.remove();
+```
+
+## Adobe Garamond Pro - retired September 2026
+
+Nothing references it any more: `style.css` no longer declares an `AGaramondPro`
+face, so no browser fetches the woff2. **The file is kept on purpose**, in case
+the design goes back to it - nothing loads it, so it costs the repo 45 KB and
+nothing else. Deleting it is a one-line change if that ever stops being true.
+The masters (`AGaramondPro-Regular.otf`, `AGaramondPro-Italic.otf`) are still in
+`_originals/fonts/`. What follows describes it as it was.
 
 | file | what it is |
 | --- | --- |
@@ -78,6 +181,9 @@ print('missing:', missing or 'none')"
 ```
 
 ## To do: serve the serif from Adobe Fonts
+
+**Moot as of September 2026:** the site no longer ships a serif, so there is
+nothing to move to Adobe Fonts unless Garamond comes back. Kept for that case.
 
 Marked to pick up later. Adobe Garamond Pro is commercial, and the copies
 installed on this machine are licensed for desktop use. Serving these files from

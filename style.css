@@ -25,8 +25,11 @@
   --gray-800: #1f2937;
   --gray-900: #111827;
 
-  --font-serif: 'AGaramondPro', 'Garamond-metric Georgia', 'Garamond-metric Times', Georgia, 'Times New Roman', serif;
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  /* One typeface for the whole site, with Inter as the fallback and a
+     metric-matched local sans behind that so the first paint cannot reflow the
+     cqw-sized wordmark. See the @font-face rules below for why the order is
+     what it is. --font-mono is the clock, and nothing else. */
+  --font-sans: 'NeueMontreal', 'Inter', 'NeueMontreal-metric Arial', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
   --sp-1: 0.25rem;
@@ -48,52 +51,62 @@
   --media-gap: 12px;
 }
 
-/* Adobe Garamond Pro, self-hosted. The desktop copies installed on the machine
-   this was designed on are not something a visitor can rely on, so the face the
-   design uses is served from here.
-   Subset to Latin and compressed: 116 KB of OTF arrives as 45 KB of woff2,
-   which is what a page actually pays. The italic was served alongside it until
-   the wordmark went upright and nothing referenced it any more; its master is
-   still in _originals/fonts/ and fonts/README.md has the command to bring it
-   back.
-   The family is named AGaramondPro rather than "Adobe Garamond Pro" so it
-   cannot be substituted by a locally installed copy - every visitor gets this
-   file and the same spacing. Re-run the subset (fonts/README.md) if a title
-   ever needs a character outside Latin-1. */
+/* Neue Montreal Medium, self-hosted, and now the only typeface the site uses:
+   it sets the wordmark, the page titles and the body copy alike.
+   Pangram Pangram Foundry's free terms cover this use directly. Their FAQ says
+   the fonts are "free to try for personal use as long as it is not used in a
+   commercial project", and then names the case: "You can use them in your
+   portfolio (PDF, print or web!)". A commercial project would need a licence
+   from them. The credit sits under the sidebar bio on the home page.
+   Subset and compressed the way the serif used to be: 41 KB of OTF arrives as
+   14 KB of woff2 over 215 glyphs. The cut is Latin-1, General Punctuation and
+   the whole Arrows block, because the site sets ↑ and ↗ in its links and ↑
+   again on the back-to-top pill. Re-run the subset (fonts/README.md) if copy
+   ever needs a character outside that; ✕ in the lightbox is not in the family
+   at all and comes from the system face either way.
+   The family is named NeueMontreal rather than "Neue Montreal" so it cannot be
+   substituted by a locally installed copy - every visitor gets this file and
+   the same spacing. */
 @font-face {
-  font-family: 'AGaramondPro';
+  font-family: 'NeueMontreal';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('fonts/AGaramondPro-Regular.woff2') format('woff2');
+  src: url('fonts/NeueMontreal-Medium.woff2') format('woff2');
 }
 
-/* The two local serifs, rescaled to Garamond's proportions.
-   font-display: swap means the fallback is painted first, and both of the
-   fallbacks are wider than Garamond at the same size: "Mary G. Wilson"
-   measures 6.362x its font-size in Garamond, 6.927x in Georgia and 6.469x in
-   Times. The wordmark is sized to its column (15.6cqw), which only fits a face
-   up to 6.41x - so during the swap, and until the woff2 lands, the wordmark
-   takes two lines and the bio below it sits 30px lower, then jumps back up.
-   size-adjust rescales a local face's advances and metrics together, so these
-   two occupy Garamond's width exactly and the swap costs no layout at all:
-   636.2 / 692.69 = 91.84% for Georgia, 636.2 / 646.88 = 98.35% for Times.
-   Liberation Serif is metrically a Times clone, so it takes the same figure.
-   The percentages are per-string, so regenerate them if the wordmark's text
-   changes (measure the string at 100px in each face and divide 636.2 by it). */
+/* The local face the stack falls back to, rescaled to Neue Montreal's
+   proportions. It sits BEHIND Inter for a specific reason: Inter is a remote
+   webfont, so it is not available for the very first paint either, and the only
+   faces guaranteed to be there are the local ones. Released a whole wordmark
+   without it, that first paint is a local sans whose width does not match, and
+   the wordmark below is sized to fill its column by measurement.
+   "Mary G. Wilson" at font-size 100px: 649.0 in Neue Montreal Medium, 683.4 in
+   Arial. The wordmark is 15.33cqw, which only fits a face up to 6.52x, so
+   unadjusted Arial at 6.834x would take it onto a second line and shove the bio
+   down until the woff2 landed. size-adjust rescales a face's advances and its
+   metrics together, so this occupies Neue Montreal's width exactly and the swap
+   costs no layout at all: 649.0 / 683.4 = 94.97%. Liberation Sans is metrically
+   an Arial clone, so it takes the same figure.
+   Inter sits above this face in the stack and is wider still, at 7.204x, which
+   the wordmark cannot take. Measured, by blocking the woff2 at the network
+   layer: the browser fell back to THIS face rather than fetching Inter, so the
+   wordmark stayed on one line and the local fallback is doing the work, not
+   Inter. Inter can only appear if it is already in the cache from an earlier
+   page, and then the wordmark takes two lines for that moment. Dropping 'Inter'
+   from --font-sans removes even that.
+   The percentage is per-string, so regenerate it if the wordmark's text changes
+   (measure the string at 100px in each face and divide 649.0 by it).
+   Measured against the subset itself, not the master: the woff2 reproduces the
+   same 6.490x, so the cut did not move the advances. */
 @font-face {
-  font-family: 'Garamond-metric Georgia';
-  src: local('Georgia');
-  size-adjust: 91.84%;
-}
-@font-face {
-  font-family: 'Garamond-metric Times';
-  src: local('Times New Roman'), local('Liberation Serif');
-  size-adjust: 98.35%;
+  font-family: 'NeueMontreal-metric Arial';
+  src: local('Arial'), local('Liberation Sans');
+  size-adjust: 94.97%;
 }
 
-/* The clock glyphs are Egyptian hieroglyphs, which are not in Inter and are
-   only present on a system if it happens to ship a font for that block -
+/* The clock glyphs are Egyptian hieroglyphs, which are not in Neue Montreal and
+   are only present on a system if it happens to ship a font for that block -
    macOS does, most Linux installs do not. Rather than leave those visitors
    looking at empty boxes, the ten codepoints the clock actually uses are
    served as a webfont. Subsetting takes the file from ~150 KB to 6 KB, and
@@ -111,6 +124,18 @@
   font-display: swap;
   src: url('fonts/noto-sans-egyptian-hieroglyphs-subset.woff2') format('woff2');
   unicode-range: U+13005, U+13007, U+13009, U+13020-13022, U+13024, U+13028-13029, U+1303f;
+}
+
+/* Form controls do not inherit type from the page, so the buttons that carry a
+   glyph rather than a word - the lightbox close and its arrows, the drawer's
+   close - were drawing in the browser's own UI font (Arial here) rather than the
+   site's face. Nothing below sets a family on them, so this is the one place it
+   has to happen. */
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
 }
 
 /* base */
@@ -294,21 +319,21 @@ button, a, [data-href] { cursor: pointer; }
 }
 
 .project-view-home-link {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   /* 1.5rem is the fallback; the cqw size fills the sidebar column, so the
      wordmark ends where the bio's text does.
-     Upright Adobe Garamond Pro sets "Mary G. Wilson" at 6.362x its font-size,
-     so 100 / 6.362 = 15.72cqw lands exactly on the column edge - which leaves
+     Neue Montreal Medium sets "Mary G. Wilson" at 6.490x its font-size, so
+     100 / 6.490 = 15.41cqw lands exactly on the column edge - which leaves
      nothing over for rounding, and a wordmark that misses by a fraction wraps
-     onto a second line. 15.6cqw is that less half a percent, about 1px at the
-     sidebar's width. The local serifs are rescaled to Garamond's proportions
-     (see the two @font-face rules above) so that a fallback cannot overflow
-     this before the woff2 lands either - it was doing exactly that, in Georgia,
-     until those were added.
+     onto a second line. 15.33cqw is that less half a percent, about 1px at the
+     sidebar's width. The local fallback is rescaled to Neue Montreal's
+     proportions (see the @font-face rule above) so that a fallback cannot
+     overflow this before the woff2 lands either - it was doing exactly that, in
+     an unadjusted local face, until that was added.
      Reduces to fit the close button on mobile, since the container is measured
      after that button has taken its space. */
   font-size: 1.5rem;
-  font-size: 15.6cqw;
+  font-size: 15.33cqw;
   line-height: 1;
   color: var(--sidebar-fg);
   text-decoration: none;
@@ -327,8 +352,10 @@ button, a, [data-href] { cursor: pointer; }
    synthesised bold is not width-neutral everywhere (see the note above). Stroking
    the glyphs in their own colour gives the same heavier look without touching an
    advance, so the hover is identical in every engine and cannot reflow. Scoped to
-   the wordmark: it is the only serif link on the site, and everything else bolds
-   with a real face in a family that has one. */
+   the wordmark: it is the largest type on the site and the only piece sized by
+   measurement to fill its box, so it is the one that cannot afford a reflow.
+   Note that every other bold on the site is synthesised as well now, since the
+   family ships a single Medium weight and no bold face exists to serve. */
 .project-view-home-link:hover {
   font-weight: 400;
   /* the width below is tuned to what the browser's own synthesised bold was
@@ -619,9 +646,10 @@ body.case-page .filters { display: none; }
 .card-body { padding: var(--sp-4); }
 
 .card-title {
-  font-family: var(--font-serif);
-  /* always one line: in Adobe Garamond Pro the longest title measures ~13.88px
-     per px of font size. 3 columns only appear once a card can hold the full
+  font-family: var(--font-sans);
+  /* always one line: the longest of the eight home titles, "Kogl: Establishing
+     Web Presence", measures 14.124x its font size in Neue Montreal Medium.
+     3 columns only appear once a card can hold the full
      1.2rem - just below that the size scales down instead (see the .card-title
      rules below) */
   font-size: 1.2rem;
@@ -718,9 +746,10 @@ body.case-page .filters { display: none; }
 }
 .case-header-text h2 {
   margin-bottom: var(--sp-3);
-  font-family: var(--font-serif);
-  /* upright, unlike the wordmark: the title is the page's own name and carries
-     the hierarchy, so it does not need the slant the identity uses */
+  font-family: var(--font-sans);
+  /* the page's own name: the size carries the hierarchy here, at the top of the
+     reading column, while the identity in the panel keeps the smaller size and
+     the hover treatment */
   font-size: 2.4rem;
   font-weight: 400;
   letter-spacing: -0.02em;
@@ -836,9 +865,9 @@ body.case-page .filters { display: none; }
   padding-top: var(--sp-5);
 }
 .case-section h3 {
-  /* Inter, at the size the CV's section headings use in the right panel, so these
-     labels sit at the same scale as the panel beside them rather than being their
-     own size. Black rather than the grey they started as.
+  /* Neue Montreal, at the size the CV's section headings use in the right panel, so
+     these labels sit at the same scale as the panel beside them rather than being
+     their own size. Black rather than the grey they started as.
      Caps are drawn here rather than written: the markup holds the headings in
      sentence case, so a screen reader says "Ask" instead of spelling out A-S-K,
      and copy-paste gives the natural casing. Flipping this back to sentence case
@@ -967,7 +996,7 @@ body.case-page .filters { display: none; }
 
 /* strong used as section label (legacy pattern) */
 .case-section > p > strong:first-child {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: 1.3rem;
   font-weight: 400;
   color: var(--gray-900);
@@ -1019,7 +1048,7 @@ body.case-page .filters { display: none; }
   color: var(--gray-600);
   border: 1px solid var(--gray-200);
   border-radius: 999px;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.68rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -1182,13 +1211,17 @@ html.is-touch #custom-cursor { display: none !important; }
    line.
    The arithmetic: this was derived from the longest title at the time,
    "Live Open Call: Mobile Submissions", which needed ~13.88px of width per px
-   of font size in Adobe Garamond Pro, against ~11.6px in the serif this
-   replaced - Garamond is wider at the same size, so the band is longer and the
-   slope gentler than before. That title has since been shortened to "Live Open
-   Call: Installation" and the widest is now "Kogl: Establishing Web Presence"
-   at ~12.26px per px, so the formula has more headroom than it needs - left as
-   it is rather than retuned, since a larger card title in this band is a design
-   decision rather than a wrap that needed fixing. A 3-column card leaves
+   of font size in Adobe Garamond Pro, against ~11.6px in the serif that
+   preceded it - Garamond is wider at the same size, so the band is longer and
+   the slope gentler than before. That title has since been shortened to "Live
+   Open Call: Installation", but the face changed underneath all of it in
+   September 2026: Neue Montreal Medium is wider than Garamond for the same
+   string, so the widest title now, "Kogl: Establishing Web Presence", measures
+   14.124x its font size against ~12.26x in Garamond. That consumes most of the
+   slack the shortened title had created.
+   Re-measured at 1199, 1201, 1240, 1300, 1380, 1477, 1479 and 1600px: every
+   title sets on one line and none overruns its card, so the formula still
+   holds, on a thinner margin than it was drawn with. A 3-column card leaves
    W/3 - 226px for the title, so fs <= W/41.64 - 16.26, which gives 2.4vw with
    16.6px to subtract and a few px left over at every width.
    The formula passes 1.2rem at about 1492px, so the band runs to 1500px and
