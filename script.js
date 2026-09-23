@@ -167,7 +167,10 @@ function renderProjectSidebar(sidebar, currentId, onNavigate) {
   const profile = document.createElement('div');
   profile.className = 'sidebar-top';
   const homeLink = document.createElement('a');
-  homeLink.href = siteUrl('index.html');
+  // './' rather than 'index.html': the folder URL is what GitHub Pages serves
+  // the home page from, so the address bar reads marywildesign.com/ and not
+  // marywildesign.com/index.html. Pages does not redirect the file form.
+  homeLink.href = siteUrl('./');
   homeLink.className = 'project-view-home-link';
   homeLink.textContent = name;
   profile.append(homeLink);
