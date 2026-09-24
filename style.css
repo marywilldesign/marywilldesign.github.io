@@ -195,7 +195,18 @@ button, a, [data-href] { cursor: pointer; }
 /* layout */
 .layout {
   display: flex;
+  /* 100vh is the LARGE viewport on a phone or tablet: it counts the strip that
+     the browser's own chrome (address bar, toolbars) is drawn over, so on an
+     iPad in landscape the full-height panels ran past the bottom of the screen
+     and .layout's overflow cut the end off the project list with nothing able
+     to scroll it back. dvh is the height the browser is actually showing and it
+     tracks the address bar as it hides and shows. 100vh stays as the fallback,
+     so browsers without dvh (older than Chromium 108 / Safari 15.4) keep the old
+     behaviour rather than breaking; the site's own floor is still Chromium 105,
+     set by the container queries. Measured 2026-09-24: 915px of 100vh against
+     about 835px visible on a Pixel 6a. */
   height: 100vh;
+  height: 100dvh;
   overflow: hidden;
 }
 
@@ -224,7 +235,12 @@ button, a, [data-href] { cursor: pointer; }
   display: flex;
   flex-direction: column;
   padding: var(--sp-6);
-  height: 100vh;
+  /* fills .layout rather than naming a viewport unit of its own, so it can
+     never be taller than the height .layout settled on (see the note there).
+     On the mobile drawer this resolves against the initial containing block,
+     which also excludes browser chrome - that is the fix for the project list
+     running off the bottom of the screen, see the 1024px query below. */
+  height: 100%;
   overflow: hidden;
   position: sticky;
   top: 0;
@@ -408,7 +424,9 @@ button, a, [data-href] { cursor: pointer; }
   color: #000000;
   padding: var(--sp-6);
   border-left: 1px solid var(--blue);
-  height: 100vh;
+  /* same as .sidebar: fill the layout, do not name a viewport unit that can be
+     taller than what the browser is showing */
+  height: 100%;
   overflow-y: auto;
   position: sticky;
   top: 0;
@@ -1412,12 +1430,34 @@ html.is-touch #custom-cursor { display: none !important; }
     overflow-y: hidden;
     display: flex;
     flex-direction: column;
+    /* The drawer has to fit the screen it is on, not the tallest the browser can
+       ever be. 100vh is the large viewport here, so on a Pixel 6a the panel was
+       915px tall against about 835px of visible screen: the bottom-anchored
+       project list (margin-top: auto) ran 80px past the fold and its last three
+       links sat behind the address bar, unreachable because the page scroll
+       cannot move a fixed panel. 100% resolves against the initial containing
+       block, which excludes browser chrome, so the list ends 16px above the
+       visible bottom; 100dvh tracks that as the address bar hides and shows, and
+       100% covers browsers without dvh. Measured 2026-09-24: the list's last link
+       ended at y=899 in a panel whose visible bottom was around 835, and the
+       cutoff she reported (Kogl at 798-814, Live Open Call starting at 826) is
+       that same figure to the pixel. */
+    height: 100%;
+    height: 100dvh;
   }
 
   .sidebar.open {
     transform: translateX(0);
   }
   .sidebar.open .sidebar-close { display: block; }
+
+  /* The drawer is 300px wide against the desktop panel's 240px, so the cqw
+     wordmark scaled up with it: 37.5px in a 244px box on a phone against 29.3px
+     in the desktop's 191px. Capped at 1.75rem, which is the desktop size to
+     within a pixel and leaves 182px of text in the 244px box - one line, and the
+     nowrap guard on the rule itself still holds. min() keeps the cqw term for
+     anything narrower than a normal phone, where the drawer is under 85vw. */
+  .project-view-home-link { font-size: min(15.33cqw, 1.75rem); }
 
   .sidebar .bio {
     margin-bottom: var(--sp-2);
