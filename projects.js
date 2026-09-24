@@ -156,6 +156,28 @@ window.portfolioProjects = [
         { label: 'view site ↗', href: 'https://blackboxvj.me' }
       ]
     }
+  },
+  {
+    id: 'collaborativesentence',
+    title: 'First Collaborative Sentence: Remixed',
+    // Compact form for the two places with no room: the 191px panel column, and
+    // the home card title, which has to hold one line. "Remixed" stays at case
+    // study level only, in the <h2>, the breadcrumb and document.title.
+    shortTitle: 'First Collaborative Sentence',
+    href: 'collaborativesentence/',
+    category: 'code',
+    // the card-info set, which carries "front-end dev" that the case-study tag
+    // line left off. One list feeds both places, so both now show these five.
+    tags: ['web scraping', 'graphic design', 'typography', 'front-end dev', 'creative development'],
+    meta: {
+      year: '2025',
+      role: 'Design (Typography, UI) & Build (Web Scraping, Front-end Development)',
+      links: [
+        // the artwork lives on its own Pages repo under the marywilsondesign
+        // account, not under marywildesign.com like the rest of the site
+        { label: 'view site ↗', href: 'https://marywilsondesign.github.io/lcsremixed/' }
+      ]
+    }
   }
 ];
 
