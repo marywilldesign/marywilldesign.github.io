@@ -145,7 +145,10 @@ function renderProjectSidebar(sidebar, currentId, onNavigate) {
   projects.forEach((project) => {
     const link = document.createElement('a');
     link.href = siteUrl(project.href);
-    link.textContent = project.title;
+    // The panel column is 191px, so a project can carry a shorter label for the
+    // places with no room (here and the home card). The case study page itself
+    // always uses the full title.
+    link.textContent = project.shortTitle || project.title;
     const isCurrent = project.id === currentId;
     link.className = isCurrent ? 'active' : '';
     if (isCurrent) link.setAttribute('aria-current', 'page');
@@ -325,7 +328,8 @@ initClock();
     const card = document.querySelector(`.case-card[data-id="${project.id}"]`);
     if (!card) return;
     const title = card.querySelector('.card-title');
-    if (title) title.textContent = project.title;
+    // the short label, so a long title cannot wrap or outgrow the card
+    if (title) title.textContent = project.shortTitle || project.title;
     card.dataset.href = siteUrl(project.href);
     card.dataset.category = project.category;
     renderProjectTags(card, project.tags);
@@ -441,9 +445,10 @@ initClock();
         loadCaseStudy(siteUrl(nextProject.href), nextProject.title, nextProject.category, lastActiveFilter, nextProject.id);
       });
 
-      // breadcrumb, placed on the clock's row inside the topbar
+      // breadcrumb, placed on the clock's row inside the topbar. The full title,
+      // not the card's short label, so it matches the <h2> above it.
       if (cardTitle) {
-        addBreadcrumbToCaseView(cardCategory, cardTitle, activeFilter);
+        addBreadcrumbToCaseView(cardCategory, projectTitles[cardId] || cardTitle, activeFilter);
       }
 
       // tags for the slid-in project, from projects.js
@@ -747,6 +752,9 @@ bindMobileMenu();
       // carry the still across, so the full-size view opens on the poster rather
       // than on a black box while the video itself is still arriving
       if (el.poster) vid.poster = el.poster;
+      // and carry a mirrored state, so the full-size view is not the one place
+      // the clip appears the other way round
+      if (el.classList.contains('is-mirrored')) vid.classList.add('is-mirrored');
       vid.autoplay = true;
       vid.loop = true;
       vid.muted = true;
@@ -923,6 +931,21 @@ onReady(function () {
       }, { rootMargin: '150px 0px' })   // start just before it scrolls in
     : null;
 
+  // Before/after compare: two stacked images with the top one clipped at a
+  // custom property, and a transparent range input across the box as the
+  // control. The range brings dragging and arrow keys with it, so all this does
+  // is write one property. Bound once per slider, since apply() runs again on
+  // anything injected later.
+  function bindBeforeAfter(slider) {
+    if (slider.dataset.beforeAfterBound) return;
+    const range = slider.querySelector('.ba-range');
+    if (!range) return;
+    slider.dataset.beforeAfterBound = 'true';
+    const set = () => slider.style.setProperty('--ba-split', range.value + '%');
+    range.addEventListener('input', set);
+    set();
+  }
+
   function apply(root) {
     root.querySelectorAll('video[data-autoplay]').forEach((video) => {
       if (video.dataset.mediaBound) return;
@@ -939,6 +962,8 @@ onReady(function () {
       img.addEventListener('load', reveal, { once: true });
       img.addEventListener('error', reveal, { once: true });
     });
+
+    root.querySelectorAll('[data-before-after]').forEach(bindBeforeAfter);
   }
 
   function init() {

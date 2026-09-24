@@ -650,7 +650,7 @@ body.case-page .filters { display: none; }
 
 .card-title {
   font-family: var(--font-sans);
-  /* always one line: the longest of the eight home titles, "Kogl: Establishing
+  /* always one line: the longest of the nine home titles, "Kogl: Establishing
      Web Presence", measures 14.124x its font size in Neue Montreal Medium.
      3 columns only appear once a card can hold the full
      1.2rem - just below that the size scales down instead (see the .card-title
@@ -695,7 +695,14 @@ body.case-page .filters { display: none; }
 }
 
 @keyframes slideIn {
-  from { opacity: 0; transform: translateX(30px); }
+  /* The distance is a variable so the narrow layouts can keep the shift inside
+     the pane's own padding. That padding is 2rem above 1024px, 1rem down to
+     640px and 0.75rem below it, so a fixed 30px shift pushed 14 to 18px of a
+     full-width view past the pane and gave the page a real horizontal scroll
+     for the length of the animation. Matching the shift to the space is the fix
+     rather than clipping the scroll pane: an overflow that does not exist
+     cannot be scrolled, and scrollWidth stays an honest signal in the sweeps. */
+  from { opacity: 0; transform: translateX(var(--slide-in-x, 30px)); }
   to   { opacity: 1; transform: none; }
 }
 
@@ -791,10 +798,15 @@ body.case-page .filters { display: none; }
   min-width: 0;
 }
 @media (max-width: 760px) {
+  /* Stacked, one group per row. A 150px basis wrapped to two groups a line,
+     which left "Role" and "Credits" sharing one row while "Year" and "Links"
+     shared another, so it read as a broken table rather than a list. Measured:
+     the row still holds as four columns at 761px with the narrowest at 72px, so
+     760 is the width where the columns give way. */
   .snapshot-box {
     flex-wrap: wrap;
   }
-  .snapshot-group { flex: 1 1 150px; }
+  .snapshot-group { flex: 1 1 100%; }
 }
 .snapshot-box h4 {
   display: inline-block;
@@ -906,6 +918,51 @@ body.case-page .filters { display: none; }
 
 .case-section figure {
   margin: var(--sp-6) 0;
+}
+
+/* A small data table inside a case section (the scroll-time figures on the
+   sentence case study). The site had no table before this one, so the rules are
+   written here rather than left to the browser default. One row rule, gray-200,
+   the same as the stat block's interior divider, and the header takes the CV
+   panel's label treatment (0.7rem, uppercase, grey, 0.06em). The two figure
+   columns sit right so they line up on their values; the label column stays
+   left. Same 75ch measure as the prose it sits in. */
+.metrics-table {
+  width: 100%;
+  max-width: 75ch;
+  border-collapse: collapse;
+  margin-bottom: var(--sp-5);
+}
+.metrics-table th,
+.metrics-table td {
+  padding: var(--sp-3) var(--sp-4) var(--sp-3) 0;
+  border-bottom: 1px solid var(--gray-200);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--gray-700);
+  text-align: left;
+  vertical-align: top;
+}
+.metrics-table thead th {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--gray-500);
+}
+.metrics-table th:nth-child(2),
+.metrics-table td:nth-child(2),
+.metrics-table th:last-child,
+.metrics-table td:last-child {
+  padding-right: 0;
+  text-align: right;
+}
+/* the last row's rule would double up against whatever follows the table */
+.metrics-table tbody tr:last-child th,
+.metrics-table tbody tr:last-child td {
+  border-bottom: none;
 }
 
 .case-image,
@@ -1100,6 +1157,16 @@ body.case-page .filters { display: none; }
   margin: var(--sp-4) 0;
   align-items: flex-start;
 }
+/* a two-up that has to read as one band rather than two artefacts: no gap, so
+   the halves add up to the full column width and line up inside the same
+   padding as the text above them, instead of each half being inset by the gap */
+.side-by-side.flush { gap: 0; }
+
+/* Mirrored media - the black cursor clip is flipped so its blob moves opposite
+   the white one. Kept on the element itself rather than on a wrapper, so the
+   lightbox (which rebuilds the element from its src) can carry the class across
+   and the full-size view matches the thumbnail it was opened from. */
+.is-mirrored { transform: scaleX(-1); }
 .sbs-item {
   flex: 1;
   min-width: 0;
@@ -1134,6 +1201,84 @@ body.case-page .filters { display: none; }
   width: 100%;
   height: auto;
   display: block;
+}
+
+/* before/after compare - two images stacked, the top one clipped at --ba-split,
+   with a transparent range input over the box as the control. Going through a
+   range input means dragging and arrow keys both work with no JS beyond one
+   property write, and the control is focusable and announced rather than a
+   div that only responds to a mouse.
+
+   The before image is the one left in flow, so the box height comes from the
+   real file: no hardcoded ratio to go stale when the pair is swapped for a
+   different size. 50% is the pre-JS default, so with scripting off the
+   comparison still shows both halves.
+
+   These images are deliberately NOT .js-lightbox-item: the click belongs to the
+   slider. Declared after .case-image-wide img above so its width/height win on
+   source order. */
+.before-after {
+  position: relative;
+  --ba-split: 50%;
+}
+.before-after .ba-before {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.ba-after {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(0 0 0 var(--ba-split));
+}
+.ba-after img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.ba-divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--ba-split);
+  width: 1px;
+  background: var(--blue-hover);
+  /* drawn above the control so it stays visible, but it must not eat the drag */
+  pointer-events: none;
+}
+.ba-divider::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 22px;
+  height: 22px;
+  margin: -11px 0 0 -11px;
+  border: 1px solid var(--blue-hover);
+  border-radius: 50%;
+  background: var(--white);
+}
+.ba-range {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  -webkit-appearance: none;
+  appearance: none;
+  background: none;
+}
+/* The control is invisible, so its own focus ring is too. Put the indication on
+   the handle instead. The range is the divider's previous sibling, which is why
+   the markup order is image, layer, input, divider. */
+.ba-range:focus-visible + .ba-divider::after {
+  outline: 2px solid var(--blue-hover);
+  outline-offset: 2px;
 }
 
 /* a row of artefacts that shares one caption. Items keep their own .caption
@@ -1318,6 +1463,11 @@ html.is-touch #custom-cursor { display: none !important; }
   .clock { display: none; }
 
   .content { padding: var(--sp-4); }
+
+  /* the entrance slide has to fit inside that padding - see @keyframes slideIn.
+     10px clears both paddings this query and the 640px one set (16px and 12px),
+     so one override covers the whole narrow range */
+  .case-study-view { --slide-in-x: 10px; }
 
   .layout { height: auto; min-height: 100vh; }
 }

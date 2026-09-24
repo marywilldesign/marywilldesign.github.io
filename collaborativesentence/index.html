@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Umami analytics. Cookieless and no personal data, so no consent banner is
+       needed. The data-domains list is what keeps local previews, which run on
+       127.0.0.1, out of the reports: the tracker matches the visitor's hostname
+       against it and does nothing anywhere else. -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="df11a0aa-ba9c-4ef5-83f4-12195afd38c2" data-domains="marywildesign.com,www.marywildesign.com" data-performance="true"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>First Collaborative Sentence – Remixed</title>
+  <!-- canonical: the folder URL, not /index.html (Pages serves both, and redirects neither) -->
+  <link rel="canonical" href="https://marywildesign.com/collaborativesentence/" />
+
+  <link rel="icon" type="image/svg+xml" href="../mw.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+  <script src="../projects.js" defer></script>
+  <script src="../script.js" defer></script>
+</head>
+
+<body class="case-page" data-project="collaborativesentence">
+
+<div class="layout">
+
+  <!-- sidebar - left empty on purpose: script.js builds it from projects.js -->
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <!-- Mobile backdrop -->
+  <div class="menu-backdrop" id="menu-backdrop"></div>
+
+  <!-- main content -->
+  <main class="content" id="content">
+
+    <!-- Topbar -->
+    <div class="topbar">
+      <button class="topbar-menu" id="menu-toggle" aria-label="Open menu">menu</button>
+      <span class="clock" id="clock"></span>
+    </div>
+
+    <span class="breadcrumb"><a href="../">All</a> / <span class="breadcrumb-current">First Collaborative Sentence: Remixed</span></span>
+
+    <!-- header -->
+    <div class="case-header-grid">
+      <div class="case-header-text">
+        <h2>First Collaborative Sentence: Remixed</h2>
+        <div class="tags"></div>
+        <p>
+          This project remixes a single sentence of more than one million words, taken from one source: Douglas Davis's <em>The World's First Collaborative Sentence</em>, an archival web art piece held by the Whitney Museum of American Art. This iteration explores what happens when the editor becomes the architect: where the line sits between curating and censorship. The result is a website where the text does the work, with as little interface around it as possible.
+        </p>
+      </div>
+    </div>
+
+    <div class="hero-image">
+      <video src="../collaborativesentence/cover.webm" poster="../collaborativesentence/cover-poster.webp" width="1912" height="1072" data-autoplay preload="none" loop muted playsinline class="js-lightbox-item"></video>
+    </div>
+
+    <div class="snapshot-box"></div>
+
+    <div class="case-section">
+      <h3>Ask (self-developed brief)</h3>
+      <p>Build a readable, engaging website from an enormous amount of collected text, using the role of the editor as a framework. The text should stay simple and easy to read, devoid of derogatory words, with other design elements adding interest without competing with it.</p>
+    </div>
+
+    <div class="case-section">
+      <h3>Highlight/s</h3>
+      <p>The source material was an open forum before open forums had any regulation. Anyone could add to Davis's sentence, and the result was a colourful mix of poetry, nonsense, confessions, jokes, and intermixed with some problematic entries. Scraping it took a python script and a whole lot of time. Deciding what to do with what came back was harder. Reading every word was close to impossible, so editing had to become a system: a list of banned words, a way of marking them and a way of showing the result. The banned words list was a mix of me finding words that should not be included and researching commonly banned words / ideas to incorporate.</p>
+      <p>A key design decision was to blur banned words rather than remove them. Deleting them would have hidden the editor's hand and pretended the sentence was “cleaner” than it actually was. Blurring keeps the sentence intact and shows that a decision was made, even when the reader cannot see what was cut. It also raises the question the project keeps returning to: who decides where the line begins and ends, and what does it mean that the editor is one person against many contributors?</p>
+      <p>The second decision was to keep the text plain. The type is set in <em>Inconsolata</em>, a single typeface, so the volume of text reads as a texture rather than a layout. Interest comes from small additions instead: a gradient that runs through the text and a gradient cursor that follows the reader. Both make a very long page feel alive without adding anything to read.</p>
+      <p>Because the text is the focus, the site scrolls itself. Nobody is expected to read a million words by hand, so autoscroll lets the sentence run at its own pace. The colophon and credits stay tucked away and open only when the reader chooses to interact with them, so the page stays a single stream of words.</p>
+      <p>The site autoscrolls at 40 pixels a second and it primarily depends on the user's screen width or viewport: a wider screen fits more characters per row, so there are fewer rows to scroll past. Allowing about six characters per word including spaces, for roughly six million characters:</p>
+      <table class="metrics-table">
+        <thead>
+          <tr>
+            <th scope="col">Screen</th>
+            <th scope="col">Columns per row</th>
+            <th scope="col">Time to scroll</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1920px wide</th>
+            <td>230</td>
+            <td>about 4h 21m</td>
+          </tr>
+          <tr>
+            <th scope="row">1440px wide</th>
+            <td>170</td>
+            <td>about 5h 53m</td>
+          </tr>
+          <tr>
+            <th scope="row">1280px wide</th>
+            <td>150</td>
+            <td>about 6h 40m</td>
+          </tr>
+          <tr>
+            <th scope="row">390px phone</th>
+            <td>42</td>
+            <td>about 23h 49m</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="case-section">
+      <h3>Contribution</h3>
+      <ul>
+        <li>Independently designed and developed (agentic workflows) the site, from typography and interaction to the rendering approach</li>
+        <li>Built the webscraper that collected the full sentence from a single source</li>
+        <li>Developed a banned word system to mark and blur words across the text, taking on the role of editor</li>
+        <li>Optimised rendering so more than one million words can scroll smoothly in the browser, keeping it light</li>
+        <li>Designed gradient cursor and autoscroll to keep a text-only site engaging</li>
+        <li>Shaped the concept and the technical implementation end-to-end</li>
+      </ul>
+    </div>
+
+    <div class="case-section">
+      <h3>Outcome</h3>
+      <p>The outcome became more of a philosophical one. It asks what an early internet relic becomes when someone edits it, whether open discussion can be preserved and made readable at the same time, and how much of an editor's judgement is visible in the finished text.</p>
+    </div>
+
+    <div class="case-section case-section-media">
+      <h3>Project media</h3>
+      <p>Here are some key artefacts from the project, with captions explaining each of them.</p>
+    </div>
+
+    <figure class="case-image-wide">
+      <img src="../collaborativesentence/lcs-design-system.svg" alt="Design system board: the colour rules, a type specimen, component examples and the three colour roles" width="1600" height="1360" loading="lazy" decoding="async" class="js-lightbox-item" >
+      <figcaption class="caption">I developed a simple design system which informed various instances featured on the site. Kept it simple, to 2 primary colours only, one font family in two weights, and three colour roles that operate horizontally across the page, dictating what gradient will appear.</figcaption>
+    </figure>
+
+    <figure class="case-image-wide">
+      <div class="before-after" data-before-after>
+        <img class="ba-before" src="../collaborativesentence/lcs-editor-before.png" alt="A paragraph of the sentence before the banned word pass: plain black monospace text on white, with nothing marked" width="3360" height="1184" loading="lazy" decoding="async">
+        <div class="ba-after">
+          <img src="../collaborativesentence/lcs-editor-after.png" alt="The same paragraph after the banned word pass, with several words replaced by soft blurred blocks of colour" width="3360" height="1184" loading="lazy" decoding="async">
+        </div>
+        <input class="ba-range" type="range" min="0" max="100" value="50" step="1" aria-label="Compare the sentence before and after the banned word pass">
+        <span class="ba-divider" aria-hidden="true"></span>
+      </div>
+      <figcaption class="caption">Here is some placeholder text which showcases how banned words are handled, before and after (drag to reveal). Flagged words are blurred rather than removed, and each one takes its own shift of the gradient, so the reader can see that a decision was made without being shown what was cut.</figcaption>
+    </figure>
+
+    <figure class="media-group">
+      <div class="side-by-side flush">
+        <div class="sbs-item">
+          <video src="../collaborativesentence/cursor-blob-white-square.webm" poster="../collaborativesentence/cursor-blob-white-square-poster.webp" width="1080" height="1080" data-autoplay preload="none" loop muted playsinline class="js-lightbox-item"></video>
+        </div>
+        <div class="sbs-item">
+          <video src="../collaborativesentence/cursor-blob-black-square.webm" poster="../collaborativesentence/cursor-blob-black-square-poster.webp" width="1080" height="1080" data-autoplay preload="none" loop muted playsinline class="js-lightbox-item is-mirrored"></video>
+        </div>
+      </div>
+      <figcaption class="caption">The gradient cursor, which replaces the system cursor, on white and black.</figcaption>
+    </figure>
+
+    <figure class="case-image-wide">
+      <video src="../collaborativesentence/colophon.webm" poster="../collaborativesentence/colophon-poster.webp" width="1912" height="1072" data-autoplay preload="none" loop muted playsinline class="js-lightbox-item"></video>
+      <figcaption class="caption">The colophon, which stays out of the way until the reader seeks it out. Title, editor, date, typeface, and acknowledgements all live here for the viewer’s reference.</figcaption>
+    </figure>
+
+  <nav id="project-nav" class="project-nav-footer" style="display:none">
+    <a class="nav-prev" href="#"></a>
+    <button class="back-to-top">back to top ↑</button>
+    <a class="nav-next" href="#"></a>
+  </nav>
+
+  </main>
+
+  <!-- cv panel - left empty on purpose: script.js fills it from projects.js -->
+  <aside class="sidebar-right" id="sidebar-right"></aside>
+
+</div>
+
+<div id="custom-cursor"></div>
+
+<div class="media-lightbox" id="media-lightbox">
+  <button class="lightbox-close" id="lightbox-close">✕</button>
+  <button class="lightbox-nav left" id="lightbox-prev">‹</button>
+  <button class="lightbox-nav right" id="lightbox-next">›</button>
+  <div class="media-lightbox-content" id="lightbox-content"></div>
+</div>
+
+</body>
+</html>
