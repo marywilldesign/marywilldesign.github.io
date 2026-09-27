@@ -19,7 +19,7 @@ window.portfolioProjects = [
     tags: ['IA', 'allium design system', 'enterprise', 'a/b testing', 'analytics', 'user research', 'workshop facilitation'],
     meta: {
       year: '2022 - 2024',
-      role: 'UX/UI Design, User Testing Support',
+      role: 'UX/UI Design Lead, User Research & Workshop Facilitation',
       credits: [
         'UX Design: Chris Samuel (previous: Marie Louka)',
         'Project Management: Thelma Wiegert (previous: Sarah Bain)',
@@ -40,7 +40,7 @@ window.portfolioProjects = [
     tags: ['IA', 'allium design system', 'enterprise', 'a/b testing', 'analytics', 'user research', 'workshop facilitation'],
     meta: {
       year: '2022 - 2024',
-      role: 'UX/UI Design, User Testing Support',
+      role: 'UX/UI Design Lead, User Research & Workshop Facilitation',
       credits: [
         'UX Design: Chris Samuel (previous: Marie Louka)',
         'Project Management: Thelma Wiegert (previous: Sarah Bain)',
@@ -75,10 +75,10 @@ window.portfolioProjects = [
   },
   {
     id: 'ibm',
-    title: 'IBM: Login Flow',
+    title: 'IBM: Benevity Platform Flow',
     href: 'ibm/',
     category: 'ux',
-    tags: ['carbon design system', 'enterprise', 'login flow'],
+    tags: ['carbon design system', 'enterprise', 'benevity platform flow'],
     meta: {
       year: '2024',
       role: 'UX/UI Design',
@@ -189,14 +189,14 @@ window.siteProfile = {
   cv: {
     experience: [
       { role: 'Lead UX Designer',             org: 'KHiO Research Project',          date: 'July 2026 – Present' },
-      { role: 'UX & Graphic Designer',        org: 'KOGL',                           date: 'Jan 2026 – April 2026' },
+      { role: 'Strategy, UX & Graphic Design', org: 'KOGL',                          date: 'Jan 2026 – April 2026' },
       { role: 'Snr. UX Designer (contract)',  org: 'All Purpose Creative',           date: '2021 – Present' },
       { sub: true, org: 'Modo',                                                       date: 'Feb 2022 – 2025' },
       { sub: true, org: 'IBM',                                                        date: 'July 2024 – Jan 2025' },
       { sub: true, org: 'Telus',                                                      date: 'Sept 2021 – Dec 2024' },
       { sub: true, org: 'Vancouver Board of Trade',                                   date: 'Jan 2023 – July 2023' },
       { role: 'UX Designer',                  org: 'Van Art Gallery – Installation', date: 'Jan 2020 – Sept 2021' },
-      { role: 'UX Designer',                  org: 'JIBC',                           date: 'Sept 2020 – Jan 2020' },
+      { role: 'UX Designer',                  org: 'JIBC',                           date: 'Sept 2020 – Jan 2021' },
       { role: 'UX Designer',                  org: 'Virtro',                         date: 'Jan 2017 – July 2020' }
     ],
     education: [
