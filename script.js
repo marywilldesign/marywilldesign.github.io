@@ -154,6 +154,8 @@ function renderProjectSidebar(sidebar, currentId, onNavigate) {
     if (isCurrent) link.setAttribute('aria-current', 'page');
     if (onNavigate) {
       link.addEventListener('click', (e) => {
+        // a modified click opens the real page in a new tab, as the href says
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
         e.preventDefault();
         onNavigate(project);
       });
@@ -324,12 +326,33 @@ initClock();
   const projects = window.portfolioProjects || [];
   const projectTitles = Object.fromEntries(projects.map((project) => [project.id, project.title]));
 
+  // Keep the address bar in step with the case study on screen. The view is
+  // swapped in place rather than navigated to, so without this the URL would
+  // stay on the grid for every project. Wrapped because pushState throws on
+  // file:// and is rate-limited by some browsers.
+  function setUrl(path, state) {
+    try {
+      history.pushState(state, '', path);
+    } catch (err) {
+      /* no history API: the view change still works, only the URL does not */
+    }
+  }
+
   projects.forEach((project) => {
     const card = document.querySelector(`.case-card[data-id="${project.id}"]`);
     if (!card) return;
     const title = card.querySelector('.card-title');
-    // the short label, so a long title cannot wrap or outgrow the card
-    if (title) title.textContent = project.shortTitle || project.title;
+    // The short label, so a long title cannot wrap or outgrow the card. The
+    // title text sits inside its own link in the HTML (so the card is a real
+    // link), so write into that instead of replacing the h3's contents.
+    const titleLink = title ? title.querySelector('a') : null;
+    const label = project.shortTitle || project.title;
+    if (titleLink) {
+      titleLink.textContent = label;
+      titleLink.href = siteUrl(project.href);
+    } else if (title) {
+      title.textContent = label;
+    }
     card.dataset.href = siteUrl(project.href);
     card.dataset.category = project.category;
     renderProjectTags(card, project.tags);
@@ -342,7 +365,9 @@ initClock();
     scrollPos = window.scrollY;
   }
 
-  function showGrid() {
+  // `push: false` is for the history handler, where the address bar is already
+  // correct and pushing again would trap the back button.
+  function showGrid(opts) {
     if (!gridContent) return;
     content.innerHTML = gridContent;
     gridContent = null;
@@ -356,6 +381,7 @@ initClock();
     removeBackButtons();
     bindMobileMenu();
     if (window.rebindFilters) window.rebindFilters();
+    if (!opts || opts.push !== false) setUrl(siteUrl('./'), { project: null });
   }
 
   function showProjectNav(currentId) {
@@ -414,7 +440,7 @@ initClock();
     }
   }
 
-  async function loadCaseStudy(url, cardTitle, cardCategory, activeFilter, cardId) {
+  async function loadCaseStudy(url, cardTitle, cardCategory, activeFilter, cardId, opts) {
     try {
       const res = await fetch(url);
       const html = await res.text();
@@ -438,6 +464,10 @@ initClock();
       content.appendChild(wrapper);
       content.scrollTop = 0;
       window.scrollTo(0, 0);
+
+      // give the slid-in project its own address so it can be copied or shared;
+      // skipped when the history handler is restoring a view it already owns
+      if (!opts || opts.push !== false) setUrl(url, { project: cardId });
 
       // prev/next + back to top at the base of the slid-in project: same
       // markup as a standalone page, but it slides between projects
@@ -467,7 +497,7 @@ initClock();
         const projectsBtn = document.createElement('button');
         projectsBtn.className = 'topbar-back';
         projectsBtn.textContent = 'projects';
-        projectsBtn.addEventListener('click', showGrid);
+        projectsBtn.addEventListener('click', () => showGrid());
         topbar.appendChild(projectsBtn);
       }
 
@@ -487,7 +517,13 @@ initClock();
   function bindCards() {
     document.querySelectorAll('.case-card[data-href]').forEach((card) => {
       card.addEventListener('click', (e) => {
-        if (e.target.closest('a, button, .ext-link')) return;
+        // The card title is a real link. Let the external "view site" link and
+        // any modified click (new tab or window) behave natively; intercept a
+        // plain left click anywhere else on the card and slide the project in.
+        const link = e.target.closest('a');
+        if (link && !link.classList.contains('card-link')) return;
+        if (link && (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey)) return;
+        if (!link && e.target.closest('button')) return;
         e.preventDefault();
         const titleEl = card.querySelector('.card-title');
         const title = titleEl ? titleEl.textContent.trim() : '';
@@ -499,6 +535,22 @@ initClock();
       });
     });
   }
+
+  // Back and forward. An entry carrying a project id reopens that project in
+  // place; anything else is the grid. Neither pushes a new entry, so the
+  // browser's own back button stays in charge.
+  window.addEventListener('popstate', (e) => {
+    const id = e.state && e.state.project;
+    if (id) {
+      const project = projects.find((p) => p.id === id);
+      if (project) {
+        loadCaseStudy(siteUrl(project.href), project.shortTitle || project.title,
+          project.category, lastActiveFilter, project.id, { push: false });
+        return;
+      }
+    }
+    if (document.querySelector('.case-study-view')) showGrid({ push: false });
+  });
 
   bindCards();
 })();
@@ -859,6 +911,8 @@ function initProjectFooterNav(scope, projectId, onNavigate) {
     el.textContent = label;
     if (onNavigate) {
       el.addEventListener('click', (e) => {
+        // a modified click opens the real page in a new tab, as the href says
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
         e.preventDefault();
         onNavigate(project);
       });

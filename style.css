@@ -681,6 +681,13 @@ body.case-page .filters { display: none; }
   line-height: 1.2;
 }
 
+/* the card title is a real link to the case study, so it can be opened in a new
+   tab and followed by crawlers. It keeps the title's own colour and weight: the
+   base `a:hover` rule would otherwise take it to 700, which is synthesised bold
+   in the only weight the family ships. */
+.card-link { color: inherit; }
+.card-link:hover { font-weight: inherit; }
+
 .card-summary {
   font-size: 0.78rem;
   color: var(--gray-500);
