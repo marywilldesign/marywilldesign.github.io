@@ -115,7 +115,7 @@ window.portfolioProjects = [
     meta: {
       year: '2026',
       role: 'Strategy, UX & Graphic Design',
-      credits: ['Front-end Build: Maria Tan'      ],
+      credits: ['Front-end Build: Maria Tan'],
       links: [
         { label: 'view live site ↗', href: 'https://kogl.no' }
       ]
