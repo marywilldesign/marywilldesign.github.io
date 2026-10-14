@@ -710,64 +710,67 @@ body.case-page .filters { display: none; }
 }
 .about-view .topbar { flex: 0 0 auto; }
 /* ---- about: the middle column is a strict four-column grid ----------------
-   Every left edge on the page is a grid line: the portrait on column 1, the
-   info table on columns 3-4 (column 2 is left empty on purpose), and the
-   headline and bio spanning the whole width. The bio's own two columns are
-   sized so that its second column lands on the same line as the table does -
-   with equal tracks that works out for any width, as long as the grid and the
-   bio share one gap. Hence --about-gap below, used for both. */
+   Every left edge on the page is a grid line: the portrait over columns 1-2,
+   the info table over columns 3-4, and the type block spanning the whole
+   width. The bio's own two columns are sized so that its second column lands on
+   the same line as the table does - with equal tracks that works out for any
+   width, as long as the grid and the bio share one gap. Hence --about-gap
+   below, used for both. */
 .about-layout {
   --about-gap: 24px;       /* the grid's gutters, and the bio's column gap */
-  --about-row-gap: 16px;   /* headline to bio: they read as one unit */
-  --about-block-gap: 40px; /* row 1 down to that unit */
+  --about-row-gap: 16px;   /* headline to bio, inside the type block */
+  --about-block-gap: 40px; /* row 1 down to that block */
 
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  /* Two rows. Row 1 takes whatever height is left over, which is what pins row
+     2 - the headline and bio - to the bottom of the pane. Its minimum comes
+     from the portrait's own aspect-ratio (see below), so row 1 can never be
+     shorter than photo width / 1.3: where the pane cannot fit that, the pane
+     scrolls instead of the photo being cropped wider or the text shrinking. */
+  grid-template-rows: minmax(auto, 1fr) auto;
   column-gap: var(--about-gap);
-  row-gap: var(--about-row-gap);
-  /* The view above stretches this grid to at least the pane's height, and a
-     grid with auto rows hands that leftover height back to the rows, which
-     pushed row 1 to 263px against the portrait's 250px and moved every gap
-     below it. Pinning them to the top keeps the gaps the numbers above say. */
+  row-gap: var(--about-block-gap);
   align-content: start;
   flex: 1 0 auto;
   /* No max-width: the grid fills the pane's content box, so the image, table
      and copy carry the pane's padding (2rem, or 1rem / 0.75rem on the narrow
      layouts) evenly on all four sides, the way the project grid does. The
-     headline is sized in cqw, so the grid also has to be the container; named so
-     the portrait's query below cannot match any other containment context. */
+     headline is sized in cqw, so the grid also has to be the container; it is
+     named because the bio's column count queries it below. */
   container-type: inline-size;
   container-name: about-grid;
 }
-/* column 1, its own row: the table sits to its right, not under it */
+/* Columns 1-2, filling row 1: the width is those two tracks plus the gutter, so
+   the portrait's right edge sits exactly one --about-gap from the table. Height
+   follows the row, and cover crops the 1200x1398 source into whatever landscape
+   shape the row turns out to be.
+   The aspect-ratio is doing two jobs. It is not a size for the photo - the
+   height above overrides it whenever the row has spare height - it is the
+   shape floor: an in-flow image reports its own height as the flexible row's
+   base size, and at 1.3:1 that report is exactly photo width / 1.3, which is
+   the narrowest row 1 is allowed to be. Squeeze the pane below that and the row
+   holds its floor and the pane scrolls, so the crop can never get wider than
+   1.3:1 and take the top of the hair or the chin with it. If an engine ever
+   ignored height: 100% the photo would simply sit at that same 1.3:1 crop.
+   The floor was 1.35; 1.3 shows a little more of the shoulders, and at the
+   shortest row it allows (a 923-row window) the crop still clears the hair by
+   82 source rows and the chin by 168. */
 .about-portrait {
-  grid-column: 1;
+  grid-column: 1 / 3;
   grid-row: 1;
+  align-self: stretch;
   width: 100%;
-  min-width: 180px;
-  max-width: 200px;
-  aspect-ratio: 4 / 5;
+  height: 100%;
+  aspect-ratio: 1.3 / 1;
   object-fit: cover;
+  /* 20% of the way down the source, which at the floor's 923-row window puts the
+     crop's top at source y=95: 82 rows above the hair's top (177) and 168 below
+     the chin (850). The stacked layout's 4:3 box is taller and keeps its own
+     25%. */
+  object-position: 50% 20%;
   display: block;
   border-radius: var(--radius);
-}
-/* A quarter of the grid falls under 180px once the grid itself is under 792px
-   (4 x 180 + 3 x 24), which is what happens between about 1025px and 1315px -
-   the band where the CV panel is back and the middle column is at its
-   narrowest. There the portrait takes columns 1-2 and crops square instead, so
-   it stays at 180px or more without displacing the table from columns 3-4,
-   capped at 260px so the two-column span cannot blow it up to 384px.
-   791.9 rather than 792 because a grid of exactly 792 gives a column of exactly
-   180, which is not yet narrower than the minimum (Chromium rounds the query
-   length up, so 791.99 is read as 792 and would crop at that width).
-   This has to stay above the 900px query, which restores the single-column
-   portrait for the stacked layout. */
-@container about-grid (max-width: 791.9px) {
-  .about-portrait {
-    grid-column: 1 / 3;
-    max-width: 260px;
-    aspect-ratio: 1 / 1;
-  }
 }
 /* columns 3-4: the first hairline lines up with the top of the portrait, and
    the table keeps its natural height rather than stretching to the photo's */
@@ -795,11 +798,18 @@ body.case-page .filters { display: none; }
   font-size: 0.75rem;
   line-height: 1.4;
 }
-.about-headline {
+/* Row 2: the headline and bio as one block. The 40px above it comes from the
+   grid's row gap, the 16px between them from this block's own gap, and its
+   bottom edge is the grid's bottom edge - so the bio ends the pane's own
+   padding (2rem) above the bottom of the pane. */
+.about-copy {
   grid-column: 1 / -1;
-  /* the row gap above already supplies 16px, so this tops it up to the 40px
-     the headline needs below row 1, while the 16px below stays as it is */
-  margin-top: calc(var(--about-block-gap) - var(--about-row-gap));
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--about-row-gap);
+}
+.about-headline {
   color: var(--gray-900);
   /* capped at --title-size, the case-study title's own size: at the full grid
      width the cqw term always saturates, so the cap is what this renders at */
@@ -809,7 +819,6 @@ body.case-page .filters { display: none; }
   line-height: 1.1;
 }
 .about-bio {
-  grid-column: 1 / -1;
   column-count: 2;
   column-gap: var(--about-gap);
 }
@@ -824,34 +833,48 @@ body.case-page .filters { display: none; }
   break-inside: avoid;
 }
 .about-bio p:last-child { margin-bottom: 0; }
-/* Below 900px the four tracks would be too narrow to read, so the grid becomes
-   one column and the source order carries the stack: portrait, table,
-   headline, bio. */
-@media (max-width: 900px) {
+/* Two bio columns only while each one is at least 240px wide, which needs a grid
+   of 504px (2 x 240 + the 24px gap). The grid is narrower than that only in the
+   band where the CV panel is back and the middle column is squeezed - 1025px to
+   1027px of viewport, three pixels wide - so there the bio becomes a single
+   full-width column. The stacked layout below 640px sets one column of its own. */
+@container about-grid (max-width: 503.9px) {
+  .about-bio { column-count: 1; }
+}
+/* Below 640px - phones, where the four tracks would be too narrow to read - the
+   grid becomes one column and the source order carries the stack: portrait,
+   table, headline, bio. Everything from 641px up keeps the four-column desktop
+   layout, with the portrait over columns 1-2 and the table over 3-4. */
+@media (max-width: 640px) {
   .about-layout {
     grid-template-columns: minmax(0, 1fr);
+    /* the two desktop rows go: the stack sizes every row to its content */
+    grid-template-rows: none;
     row-gap: var(--about-gap);
   }
   .about-portrait,
   .about-facts,
-  .about-headline,
-  .about-bio {
+  .about-copy {
     grid-column: 1 / -1;
     grid-row: auto;
   }
   /* the stacked portrait: full column width so its edges line up with the table,
      headline and bio, at a 4:3 landscape crop whose visible band sits a quarter
-     of the way down the source. The width and object-fit are restated here so
-     this state reads on its own, and the 4:3 also undoes the square two-column
-     crop the container query applies to a narrow grid. */
+     of the way down the source. Height is its own again (row 1's stretch and
+     height: 100% belong to the desktop state), and the 4:3 restores the crop
+     the desktop row height would otherwise take over. */
   .about-portrait {
+    align-self: start;
     width: 100%;
     max-width: 100%;
+    height: auto;
     aspect-ratio: 4 / 3;
     object-fit: cover;
     object-position: 50% 25%;
   }
-  .about-headline { margin-top: 0; }
+  /* the stack spaces its blocks by --about-gap, so the type block's own gap
+     matches that rather than keeping the tighter desktop value */
+  .about-copy { gap: var(--about-gap); }
   .about-bio { column-count: 1; }
 }
 .visually-hidden {
