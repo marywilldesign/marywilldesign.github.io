@@ -406,7 +406,11 @@ initClock();
     }
 
     saveGrid();
-    showProjectNav('about');
+    // The About page's panel is the home page's panel - wordmark, the short bio,
+    // the contact links and the credit - rather than the project list, which
+    // stays on the case studies (and on the grid, where showGrid restores this
+    // same markup).
+    if (sidebar) sidebar.innerHTML = originalSidebarContent;
 
     const wrapper = document.createElement('div');
     wrapper.className = 'case-study-view about-view';
