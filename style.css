@@ -159,14 +159,12 @@ body {
 img { display: block; max-width: 100%; height: auto; }
 
 a { color: var(--blue); text-decoration: none; }
-/* Hover is stated as weight rather than as a decoration, everywhere: bold on
-   hover, and bold kept on the active item (the project list and the project nav
-   set it on .active too, since they need it to persist).
-   This rule covers links that set no weight of their own. A component that does
-   set one - the sidebar links, the project list, the card links, the footer nav
-   - needs its own hover below, because those rules sit later in the file at the
-   same specificity and would otherwise win the cascade. */
-a:hover { font-weight: 700; }
+a:hover,
+a:focus-visible,
+a.active,
+a[aria-current="page"] {
+  text-decoration: underline;
+}
 
 /* Keyboard focus, stated rather than left to the browser. The default ring is
    1px and measures 2.41:1 against white - under the 3:1 that SC 1.4.11 asks of
@@ -300,9 +298,7 @@ button, a, [data-href] { cursor: pointer; }
   color: var(--sidebar-link);
   font-size: 0.8rem;
   font-weight: 500;
-  text-decoration: none;
 }
-.sidebar-links a:hover { font-weight: 700; }
 
 /* project list - self-contained, no longer borrows .sidebar-links styles.
    gap matches the external links on the home page for consistency */
@@ -322,19 +318,14 @@ button, a, [data-href] { cursor: pointer; }
   font-size: 0.72rem;
   font-weight: 500;
   line-height: 1.25;
-  text-decoration: none;
   /* no nowrap: it silently clipped the longest title ("Live Open Call: Mobile
      Submissions" measures 196px in a 191px column, hidden by the panel's
      overflow), so a long title wraps rather than losing its last letters */
 }
-.project-view-links a:hover { font-weight: 700; }
 
-/* current project - bold, and persistent rather than hover-only. This replaces
-   the ring, which had replaced an opacity: the opacity dimmed the item you were
-   on to 2.63:1, making it the least readable row in the list. Weight marks the
-   row without touching contrast, and needs no colour of its own. */
 .project-view-links a.active {
-  font-weight: 700;
+  font-weight: 500;
+  text-decoration: underline;
 }
 
 .project-view-home-link {
@@ -355,34 +346,8 @@ button, a, [data-href] { cursor: pointer; }
   font-size: 15.33cqw;
   line-height: 1;
   color: var(--sidebar-fg);
-  text-decoration: none;
-  /* Structural rather than a size guard. The hover weight below is synthesised -
-     no bold face exists to serve - and engines disagree about what synthesising
-     does to a glyph's advance: Chromium strokes in place and the width does not
-     move, while others add width per character, which was enough to take this
-     onto a second line on hover even though the size itself is measured to fit.
-     nowrap ends that in every engine; if a glyph did overhang the box, a few px
-     would land in the panel's 24px padding and not in view. */
+  /* Keep the measured wordmark on one line across hover and focus states. */
   white-space: nowrap;
-}
-
-/* The wordmark's hover weight is drawn, not requested.
-   Asking for font-weight: 700 here has the browser synthesise a bold, and a
-   synthesised bold is not width-neutral everywhere (see the note above). Stroking
-   the glyphs in their own colour gives the same heavier look without touching an
-   advance, so the hover is identical in every engine and cannot reflow. Scoped to
-   the wordmark: it is the largest type on the site and the only piece sized by
-   measurement to fill its box, so it is the one that cannot afford a reflow.
-   Note that every other bold on the site is synthesised as well now, since the
-   family ships a single Medium weight and no bold face exists to serve. */
-.project-view-home-link:hover {
-  font-weight: 400;
-  /* the width below is tuned to what the browser's own synthesised bold was
-     drawing, not picked: measured on the rendered wordmark, 0.03em lands within
-     about a percent of the ink the 700 weight produced - 1467 white pixels
-     against 1487, mean luminance 0.4226 against 0.4256 - so the hover reads as
-     the same weight while occupying exactly the width the resting state does. */
-  -webkit-text-stroke: 0.03em currentColor;
 }
 .project-view-header {
   display: flex;
@@ -414,7 +379,6 @@ button, a, [data-href] { cursor: pointer; }
   letter-spacing: 0.01em;
 }
 .sidebar .breadcrumb a { color: var(--sidebar-link); }
-.sidebar .breadcrumb:hover { font-weight: 700; }
 
 /* right sidebar (cv) */
 .sidebar-right {
@@ -527,9 +491,7 @@ button, a, [data-href] { cursor: pointer; }
   font-family: var(--font-sans);
   line-height: 1;
 }
-.topbar-back:hover {
-  font-weight: 700;
-}
+.topbar-back:hover { text-decoration: underline; }
 
 /* clock - always Mary's time in Oslo, never the visitor's. The zone
    abbreviation beside the time is the conventional marker for whose clock
@@ -543,6 +505,21 @@ button, a, [data-href] { cursor: pointer; }
   font-family: var(--font-mono);
   font-size: 0.78rem;
   color: #0040FF;
+  white-space: nowrap;
+}
+/* Keep project-page clocks available to restore later, but bench them visually. */
+.case-page .clock,
+.case-study-view .clock {
+  display: none;
+}
+.about-link {
+  display: inline-flex;
+  align-items: baseline;
+  margin-left: auto;
+  align-self: flex-start;
+  color: #0040FF;
+  font-size: 0.78rem;
+  font-weight: 500;
   white-space: nowrap;
 }
 .clock-glyph {
@@ -583,7 +560,7 @@ button, a, [data-href] { cursor: pointer; }
 
 /* bridging line - intro text above filters */
 .bridging-line {
-  font-size: 0.85rem;
+  font-size: 0.78rem;
   color: var(--gray-500);
   line-height: 1.6;
   margin-bottom: var(--sp-4);
@@ -623,9 +600,9 @@ button, a, [data-href] { cursor: pointer; }
 
 body.case-page .filters { display: none; }
 
-/* home: card grid - masonry layout */
+/* home: card grid - two-column masonry layout */
 .cards {
-  column-count: 3;
+  column-count: 2;
   column-gap: var(--sp-5);
   margin: 0;
   text-align: left;
@@ -669,10 +646,7 @@ body.case-page .filters { display: none; }
 .card-title {
   font-family: var(--font-sans);
   /* always one line: the longest of the nine home titles, "Kogl: Establishing
-     Web Presence", measures 14.124x its font size in Neue Montreal Medium.
-     3 columns only appear once a card can hold the full
-     1.2rem - just below that the size scales down instead (see the .card-title
-     rules below) */
+     Web Presence", fits at the full 1.2rem size in a two-column card. */
   font-size: 1.2rem;
   font-weight: 400;
   color: var(--gray-900);
@@ -681,12 +655,16 @@ body.case-page .filters { display: none; }
   line-height: 1.2;
 }
 
-/* the card title is a real link to the case study, so it can be opened in a new
-   tab and followed by crawlers. It keeps the title's own colour and weight: the
-   base `a:hover` rule would otherwise take it to 700, which is synthesised bold
-   in the only weight the family ships. */
+/* The card title is a real link to the case study, so it can be opened in a new
+   tab and followed by crawlers. */
 .card-link { color: inherit; }
-.card-link:hover { font-weight: inherit; }
+.card-link:hover,
+.card-link:focus-visible,
+.card-link.active,
+.card-link[aria-current="page"] {
+  font-weight: inherit;
+  text-decoration: none;
+}
 
 .card-summary {
   font-size: 0.78rem;
@@ -712,13 +690,93 @@ body.case-page .filters { display: none; }
   flex-shrink: 0;
   line-height: 1;
 }
-.ext-link:hover { font-weight: 700; }
 
 /* slide-in case study */
 .case-study-view {
   animation: slideIn 0.35s ease both;
 }
 
+.content.about-open { overflow-y: auto; }
+
+.about-view {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+.about-view .topbar { flex: 0 0 auto; }
+.about-layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: var(--sp-5);
+  flex: 1 0 auto;
+  padding-bottom: var(--sp-6);
+}
+.about-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-4);
+  min-width: 0;
+}
+.about-portrait {
+  width: 100%;
+  aspect-ratio: 6 / 7;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+.about-facts {
+  display: grid;
+  gap: var(--sp-3);
+  width: 100%;
+}
+.about-facts > div {
+  display: grid;
+  grid-template-columns: minmax(5rem, 0.65fr) minmax(0, 1.35fr);
+  gap: var(--sp-2);
+  padding-top: var(--sp-2);
+  border-top: 1px solid var(--gray-200);
+}
+.about-facts dt {
+  color: var(--gray-500);
+  font-size: 0.68rem;
+}
+.about-facts dd {
+  color: var(--gray-900);
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+.about-copy {
+  min-width: 0;
+  container-type: inline-size;
+}
+.about-headline {
+  margin-bottom: clamp(1rem, 3vh, 2rem);
+  color: var(--gray-900);
+  font-size: clamp(0.78rem, 5.6cqw, 2.5rem);
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+}
+.about-bio p {
+  max-width: none;
+  margin-bottom: 0.75em;
+  color: var(--gray-700);
+  font-size: 0.9rem;
+  line-height: 1.8;
+}
+.about-bio p:last-child { margin-bottom: 0; }
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
 @keyframes slideIn {
   /* The distance is a variable so the narrow layouts can keep the shift inside
      the pane's own padding. That padding is 2rem above 1024px, 1rem down to
@@ -1104,9 +1162,7 @@ body.case-page .filters { display: none; }
   font-size: 0.85rem;
   font-weight: 500;
   color: var(--blue-hover);
-  text-decoration: none;
 }
-.project-nav-footer a:hover { font-weight: 700; }
 .back-to-top {
   font-size: 0.78rem;
   color: var(--gray-400);
@@ -1167,7 +1223,6 @@ body.case-page .filters { display: none; }
 }
 .breadcrumb a {
   color: #0040FF;
-  text-decoration: none;
 }
 .breadcrumb-current {
   color: var(--gray-400);
@@ -1371,37 +1426,6 @@ body.case-page .filters { display: none; }
 }
 html.is-touch #custom-cursor { display: none !important; }
 
-/* tablet: 2-column masonry */
-@media (max-width: 1200px) {
-  .cards { column-count: 2; }
-}
-
-/* Keeps 3 columns through 1201-1478px (below is 2 columns, above is the full
-   size) by scaling the card title down only as far as it must to stay on one
-   line.
-   The arithmetic: this was derived from the longest title at the time,
-   "Live Open Call: Mobile Submissions", which needed ~13.88px of width per px
-   of font size in Adobe Garamond Pro, against ~11.6px in the serif that
-   preceded it - Garamond is wider at the same size, so the band is longer and
-   the slope gentler than before. That title has since been shortened to "Live
-   Open Call: Installation", but the face changed underneath all of it in
-   September 2026: Neue Montreal Medium is wider than Garamond for the same
-   string, so the widest title now, "Kogl: Establishing Web Presence", measures
-   14.124x its font size against ~12.26x in Garamond. That consumes most of the
-   slack the shortened title had created.
-   Re-measured at 1199, 1201, 1240, 1300, 1380, 1477, 1479 and 1600px: every
-   title sets on one line and none overruns its card, so the formula still
-   holds, on a thinner margin than it was drawn with. A 3-column card leaves
-   W/3 - 226px for the title, so fs <= W/41.64 - 16.26, which gives 2.4vw with
-   16.6px to subtract and a few px left over at every width.
-   The formula passes 1.2rem at about 1492px, so the band runs to 1500px and
-   min() hands over to the full size without a jump. Measured at 1201, 1260,
-   1320, 1400, 1477, 1500, 1600 and 1920px: no title needs a second line
-   anywhere the grid is 3 columns. */
-@media (min-width: 1201px) and (max-width: 1500px) {
-  .card-title { font-size: min(1.2rem, calc(2.4vw - 16.6px)); }
-}
-
 @media (max-width: 1024px) {
   .sidebar-right { display: none; }
 
@@ -1481,6 +1505,30 @@ html.is-touch #custom-cursor { display: none !important; }
   .topbar-back { display: block; }
   .clock { display: none; }
 
+  .home-topbar {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+    column-gap: var(--sp-4);
+  }
+  .home-topbar > .topbar-menu { grid-column: 1; grid-row: 1; }
+  .home-topbar > .about-link {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    margin-left: 0;
+    padding: var(--sp-2) 0;
+    font-size: 0.9rem;
+    line-height: 1;
+  }
+  .home-topbar > .bridging-line {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: 100%;
+    margin-top: var(--sp-2);
+    font-size: 0.9rem;
+  }
+
   /* breadcrumb / intro line drop to their own full-width row under "menu" */
   .topbar > .breadcrumb,
   .topbar > .bridging-line {
@@ -1522,6 +1570,21 @@ html.is-touch #custom-cursor { display: none !important; }
 /* small mobile */
 @media (max-width: 640px) {
   .cards { column-count: 1; }
+
+  .about-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sp-8);
+  }
+  .about-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .about-portrait {
+    width: 100%;
+    align-self: stretch;
+  }
+  .about-facts { padding-top: 0; }
 
   .filters {
     flex-wrap: nowrap;

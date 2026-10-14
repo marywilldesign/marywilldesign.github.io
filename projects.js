@@ -27,8 +27,7 @@ window.portfolioProjects = [
         'Content Strategy: Mike MacKinnon'
       ],
       links: [
-        { label: 'view site ↗', href: 'https://www.telus.com/en/internet' },
-        { label: 'full case study (pdf) →', href: 'https://drive.google.com/file/d/154rOSybpMvjC_LpU055DL15ylRA56IEj/view?usp=sharing' }
+        { label: 'view site ↗', href: 'https://www.telus.com/en/internet' }
       ]
     }
   },
@@ -48,8 +47,7 @@ window.portfolioProjects = [
         'Content Strategy: Mike MacKinnon'
       ],
       links: [
-        { label: 'view site ↗', href: 'https://www.telus.com/en/shop/home-services/internet/plans/' },
-        { label: 'full case study (pdf) →', href: 'https://drive.google.com/file/d/154rOSybpMvjC_LpU055DL15ylRA56IEj/view?usp=sharing' }
+        { label: 'view site ↗', href: 'https://www.telus.com/en/shop/home-services/internet/plans/' }
       ]
     }
   },
@@ -68,8 +66,7 @@ window.portfolioProjects = [
         'Project Management, UX Support: Shruti Sharma'
       ],
       links: [
-        { label: 'view press ↗', href: 'https://preview-art.com/feature/the-imitation-game-visual-culture-in-the-age-of-artificial-intelligence/' },
-        { label: 'full case study (pdf) →', href: 'https://drive.google.com/file/d/154rOSybpMvjC_LpU055DL15ylRA56IEj/view?usp=sharing' }
+        { label: 'view press ↗', href: 'https://preview-art.com/feature/the-imitation-game-visual-culture-in-the-age-of-artificial-intelligence/' }
       ]
     }
   },
@@ -105,8 +102,7 @@ window.portfolioProjects = [
         'Web Development: Jason Landry'
       ],
       links: [
-        { label: 'view site ↗', href: 'https://www.modo.coop/' },
-        { label: 'full case study (pdf) →', href: 'https://drive.google.com/file/d/154rOSybpMvjC_LpU055DL15ylRA56IEj/view?usp=sharing' }
+        { label: 'view site ↗', href: 'https://www.modo.coop/' }
       ]
     }
   },
@@ -119,10 +115,9 @@ window.portfolioProjects = [
     meta: {
       year: '2026',
       role: 'Strategy, UX & Graphic Design',
-      credits: ['Front-end Build: Maria Tan'],
+      credits: ['Front-end Build: Maria Tan'      ],
       links: [
-        { label: 'view live site ↗', href: 'https://kogl.no' },
-        { label: 'full case study (pdf) →', href: 'https://drive.google.com/file/d/154rOSybpMvjC_LpU055DL15ylRA56IEj/view?usp=sharing' }
+        { label: 'view live site ↗', href: 'https://kogl.no' }
       ]
     }
   },
