@@ -261,9 +261,12 @@ function dayPart(minutes) {
 
 let clockInterval = null;
 function initClock() {
+  if (clockInterval) {
+    clearInterval(clockInterval);
+    clockInterval = null;
+  }
   const el = document.getElementById('clock');
   if (!el) return;
-  if (clockInterval) clearInterval(clockInterval);
 
   if (!el.firstChild) {
     el.innerHTML =
@@ -322,6 +325,8 @@ initClock();
   let scrollPos = 0;
   let lastActiveFilter = 'all';
   const sidebar = document.getElementById('sidebar');
+  const layout = document.querySelector('.layout');
+  const aboutTemplate = document.getElementById('about-template');
   const originalSidebarContent = sidebar ? sidebar.innerHTML : '';
   const projects = window.portfolioProjects || [];
   const projectTitles = Object.fromEntries(projects.map((project) => [project.id, project.title]));
@@ -370,6 +375,8 @@ initClock();
   function showGrid(opts) {
     if (!gridContent) return;
     content.innerHTML = gridContent;
+    content.classList.remove('about-open');
+    if (layout) layout.classList.remove('about-open');
     gridContent = null;
     if (sidebar) sidebar.innerHTML = originalSidebarContent;
     window.scrollTo(0, scrollPos);
@@ -391,6 +398,49 @@ initClock();
       loadCaseStudy(siteUrl(project.href), project.title, project.category, lastActiveFilter, project.id);
     });
   }
+
+  function showAbout(opts) {
+    if (!aboutTemplate) {
+      console.error('[portfolio] About view template is missing.');
+      return;
+    }
+
+    saveGrid();
+    showProjectNav('about');
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'case-study-view about-view';
+    wrapper.innerHTML = aboutTemplate.innerHTML;
+    content.innerHTML = '';
+    content.appendChild(wrapper);
+    content.classList.add('about-open');
+    if (layout) layout.classList.add('about-open');
+    content.scrollTop = 0;
+    window.scrollTo(0, 0);
+    initClock();
+
+    if (!opts || opts.push !== false) {
+      setUrl(siteUrl('./') + '#about', { about: true });
+    }
+
+    addBreadcrumbToCaseView('', 'About', 'all');
+    const topbar = wrapper.querySelector('.topbar');
+    if (topbar) {
+      const projectsBtn = document.createElement('button');
+      projectsBtn.className = 'topbar-back';
+      projectsBtn.textContent = 'projects';
+      projectsBtn.addEventListener('click', () => showGrid());
+      topbar.appendChild(projectsBtn);
+    }
+    bindMobileMenu();
+  }
+
+  content.addEventListener('click', (e) => {
+    const link = e.target.closest('#about-link');
+    if (!link || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    showAbout();
+  });
 
   function addBreadcrumbToCaseView(category, title, activeFilter) {
     // remove any existing breadcrumb from wrapper (fixes duplicate)
@@ -540,6 +590,10 @@ initClock();
   // place; anything else is the grid. Neither pushes a new entry, so the
   // browser's own back button stays in charge.
   window.addEventListener('popstate', (e) => {
+    if (e.state && e.state.about) {
+      showAbout({ push: false });
+      return;
+    }
     const id = e.state && e.state.project;
     if (id) {
       const project = projects.find((p) => p.id === id);
@@ -553,6 +607,7 @@ initClock();
   });
 
   bindCards();
+  if (window.location.hash === '#about') showAbout({ push: false });
 })();
 
 // standalone project pages (direct load, refresh, Live Server on a subpage)
