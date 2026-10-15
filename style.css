@@ -32,6 +32,12 @@
   --font-sans: 'NeueMontreal', 'Inter', 'NeueMontreal-metric Arial', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
+  /* Nothing on the site is tracked inwards. The face is tight as drawn and
+     carries its own kerning - the subset keeps GPOS, so pairs are spaced by the
+     foundry's own figures - and the display sizes used to be pulled in by up to
+     -0.035em, which is the point at which letters start to touch. Only the
+     uppercase labels are spaced out, and that is deliberate. */
+
   --sp-1: 0.25rem;
   --sp-2: 0.5rem;
   --sp-3: 0.75rem;
@@ -431,6 +437,13 @@ button, a, [data-href] { cursor: pointer; }
 
 .cv-section { margin-bottom: var(--sp-6); }
 
+/* The column scrolls, so the last section's trailing margin - and the last
+   entry's, which collapses into it - would read as a deeper gap below the CV
+   than the panel's own padding gives it: trim both back to the padding, the
+   same 24px the left panel ends on. */
+.sidebar-right > *:last-child,
+.sidebar-right > *:last-child .cv-item:last-child { margin-bottom: 0; }
+
 .cv-item {
   display: flex;
   flex-direction: column;
@@ -453,7 +466,13 @@ button, a, [data-href] { cursor: pointer; }
    the sub-items indent behind, so this reads as the column's header rather
    than as another CV entry. The link itself is a .download-link. */
 .cv-actions {
-  padding-bottom: var(--sp-4);
+  /* 24, not the 16 the rest of the spacing uses: it puts this hairline on the
+     same y as the About view's first facts hairline, so the two read as one
+     line across the page. Measured at 1440px: the column's 32px top padding,
+     the link's 20.47px line box, then 24 lands the rule at 76.47 - which is
+     where the facts table starts (32px page padding plus the breadcrumb's
+     44.47px row). Both sides have to move together if either is retuned. */
+  padding-bottom: var(--sp-6);
   margin-bottom: var(--sp-5);
   border-bottom: 1px solid var(--gray-100);
 }
@@ -685,7 +704,6 @@ body.case-page .filters { display: none; }
   font-weight: 400;
   color: var(--gray-900);
   margin-bottom: var(--sp-1);
-  letter-spacing: -0.01em;
   line-height: 1.2;
 }
 
@@ -805,7 +823,9 @@ body.case-page .filters { display: none; }
   border-radius: var(--radius);
 }
 /* columns 3-4: the first hairline lines up with the top of the portrait, and
-   the table keeps its natural height rather than stretching to the photo's */
+   the table keeps its natural height rather than stretching to the photo's.
+   The CV column's own hairline (.cv-actions) is padded to land on this same y,
+   so the line reads across the page. */
 .about-facts {
   grid-column: 3 / 5;
   grid-row: 1;
@@ -850,7 +870,6 @@ body.case-page .filters { display: none; }
      width the cqw term always saturates, so the cap is what this renders at */
   font-size: clamp(0.9rem, 5.6cqw, var(--title-size));
   font-weight: 400;
-  letter-spacing: -0.035em;
   line-height: 1.1;
 }
 .about-bio {
@@ -991,7 +1010,6 @@ body.case-page .filters { display: none; }
      the hover treatment */
   font-size: var(--title-size);
   font-weight: 400;
-  letter-spacing: -0.02em;
   line-height: 1.1;
   color: var(--gray-900);
 }
@@ -1251,7 +1269,6 @@ body.case-page .filters { display: none; }
   color: #0040FF;
   line-height: 1;
   margin-bottom: var(--sp-2);
-  letter-spacing: -0.03em;
 }
 .result-card span {
   display: block;
@@ -1289,7 +1306,6 @@ body.case-page .filters { display: none; }
   font-size: 1.3rem;
   font-weight: 400;
   color: var(--gray-900);
-  letter-spacing: -0.01em;
 }
 
 /* project nav and back to top */
