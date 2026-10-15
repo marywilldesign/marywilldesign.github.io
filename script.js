@@ -17,6 +17,42 @@ function siteUrl(path) {
   return new URL(String(path).replace(/^\//, ''), SITE_ROOT).href;
 }
 
+// Every video on the site is tracked alongside a still of its own - the
+// cover-poster / hero-poster / camera-test-poster webp that sits next to each
+// clip. That still is already the poster, so it covers the wait while the file
+// arrives, but it does not cover a clip that never arrives at all: a file moved
+// or renamed out from under the markup, a request a host redirects away
+// (GitHub Pages 301s everything under a path one of the other repos owns, which
+// is how the VJ case study's whole folder went black), or a codec the browser
+// cannot play. On a failure the browser drops the image and the poster goes
+// with it, leaving only the element's own box - which is painted black on
+// purpose for a video. Put the still in as real markup instead, so the box
+// always holds the picture that was prepared for it.
+//
+// The class comes across with it: that keeps the lightbox hook and a mirrored
+// clip's flip, and the stylesheet sizes img and video identically in every one
+// of these containers, so the swap cannot move anything.
+function fallBackToStill(media) {
+  const poster = media.getAttribute('poster');
+  if (!poster) return null;
+
+  const still = document.createElement('img');
+  still.src = poster;
+  still.alt = media.getAttribute('alt') || '';
+  if (media.className) still.className = media.className;
+
+  // no still there either: take the broken one back out, leaving the box as it
+  // was rather than adding a broken-image icon to it
+  still.addEventListener('error', () => still.remove(), { once: true });
+
+  media.replaceWith(still);
+  // the lightbox binds its items once, by element, when the script runs - a
+  // still created after that would carry the class and no handler, so say so
+  // and let it bind the new one
+  document.dispatchEvent(new CustomEvent('media-fallback', { detail: still }));
+  return still;
+}
+
 // The download resume button, at the head of the CV column. The About view
 // carries a static copy of the same markup. Its arrow is the panel's own ↗
 // glyph with a class that turns it down, so the two arrows are the same
@@ -922,6 +958,9 @@ bindMobileMenu();
       // and carry a mirrored state, so the full-size view is not the one place
       // the clip appears the other way round
       if (el.classList.contains('is-mirrored')) vid.classList.add('is-mirrored');
+      // the same fallback as on the page: a clip that will not load should open
+      // on its still at full size, not on a black box at full size
+      vid.addEventListener('error', () => fallBackToStill(vid), { once: true });
       vid.autoplay = true;
       vid.loop = true;
       vid.muted = true;
@@ -964,6 +1003,11 @@ bindMobileMenu();
       el.addEventListener('click', () => open(i));
     });
   }
+
+  // a clip that failed on the page is replaced by its still, which arrives
+  // wearing the lightbox class but with no handler on it - bind it so the
+  // fallback opens full size like the clip it stands in for
+  document.addEventListener('media-fallback', bind);
 
   // nav buttons
   btnNext?.addEventListener('click', (e) => {
@@ -1134,6 +1178,9 @@ onReady(function () {
     root.querySelectorAll('video[data-autoplay]').forEach((video) => {
       if (video.dataset.mediaBound) return;
       video.dataset.mediaBound = 'true';
+      // a source that already failed has no event left to catch, so look first
+      if (video.error) { fallBackToStill(video); return; }
+      video.addEventListener('error', () => fallBackToStill(video), { once: true });
       observer ? observer.observe(video) : play(video);
     });
 
