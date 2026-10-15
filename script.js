@@ -663,18 +663,11 @@ onReady(function () {
   bindMobileMenu();   // the close button was just rebuilt
 });
 
-// sidebar-right (CV) - single source of truth: window.siteProfile.cv in
-// projects.js. Fills <aside id="sidebar-right"> on the home page and on
-// every project page, so the CV is only ever edited in one place.
-onReady(function () {
-  const el = document.getElementById('sidebar-right');
-  if (!el) return;
-  const cv = window.siteProfile && window.siteProfile.cv;
-  if (!cv) {
-    console.warn('[portfolio] window.siteProfile.cv is missing - is projects.js loading?');
-    return;
-  }
-
+// CV - single source of truth: window.siteProfile.cv in projects.js. Renders
+// into the right-hand column (<aside id="sidebar-right">) on the home page and
+// on every project page, and into the /resume/ page, so the CV is only ever
+// edited in one place.
+function buildCvSections(cv) {
   function buildSection(title, items) {
     const wrap = document.createElement('div');
     wrap.className = 'cv-section';
@@ -719,10 +712,44 @@ onReady(function () {
     return wrap;
   }
 
-  el.innerHTML = '';
-  el.appendChild(buildSection('Experience', cv.experience));
-  el.appendChild(buildSection('Education', cv.education));
-  el.appendChild(buildSection('Exhibits', cv.exhibits));
+  return [
+    buildSection('Experience', cv.experience),
+    buildSection('Education', cv.education),
+    buildSection('Exhibits', cv.exhibits)
+  ];
+}
+
+onReady(function () {
+  const cv = window.siteProfile && window.siteProfile.cv;
+  if (!cv) {
+    console.warn('[portfolio] window.siteProfile.cv is missing - is projects.js loading?');
+    return;
+  }
+
+  const column = document.getElementById('sidebar-right');
+  if (column) {
+    // The CV file, hosted with this site rather than on Drive, so it is one
+    // click from every page the column appears on. The download attribute
+    // needs a same-origin href, which siteUrl() gives it whatever the depth.
+    const actions = document.createElement('div');
+    actions.className = 'cv-actions';
+    const download = document.createElement('a');
+    download.href = siteUrl('mary-wilson-resume.pdf');
+    download.setAttribute('download', '');
+    download.textContent = 'download pdf ↓';
+    actions.appendChild(download);
+
+    column.innerHTML = '';
+    column.appendChild(actions);
+    buildCvSections(cv).forEach((section) => column.appendChild(section));
+  }
+
+  // the /resume/ page reads the same data, at document size
+  const doc = document.getElementById('resume-cv');
+  if (doc) {
+    doc.innerHTML = '';
+    buildCvSections(cv).forEach((section) => doc.appendChild(section));
+  }
 });
 
 // filtering
