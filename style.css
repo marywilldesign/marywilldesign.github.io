@@ -420,6 +420,7 @@ button, a, [data-href] { cursor: pointer; }
 }
 .cv-role { font-weight: 500; font-size: 0.75rem; }
 .cv-org  { font-size: 0.75rem; opacity: 0.9; }
+.cv-location { font-size: 0.7rem; opacity: 0.75; }
 .cv-date { font-size: 0.65rem; opacity: 0.6; }
 .cv-subitem {
   padding-left: 0.75rem;
@@ -700,6 +701,9 @@ body.case-page .filters { display: none; }
 .case-study-view {
   animation: slideIn 0.35s ease both;
 }
+/* the About page loads directly at /about/ rather than sliding in beside the
+   grid, so its copy of the view keeps the layout but not the entrance */
+.about-page .case-study-view { animation: none; }
 
 .content.about-open { overflow-y: auto; }
 
@@ -1340,6 +1344,9 @@ body.case-page .filters { display: none; }
   font-weight: 500;
   margin-bottom: var(--sp-6);
   color: var(--gray-400);
+  /* lowercase in every breadcrumb - "projects / blackbox vj" - while the
+     project's own headings and document title keep their real casing */
+  text-transform: lowercase;
 }
 .breadcrumb a {
   color: #0040FF;

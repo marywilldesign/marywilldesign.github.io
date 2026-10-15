@@ -187,6 +187,8 @@ window.siteProfile = {
 
   // rendered into <aside id="sidebar-right"> on every page
   // sub: true  -> indented client under the entry above it
+  // location   -> own line under org; institution and city are separate fields
+  //               on education entries, where the city carries its country
   cv: {
     experience: [
       { role: 'Lead UX Designer',             org: 'KHiO Research Project',          date: 'July 2026 – Present' },
@@ -196,14 +198,14 @@ window.siteProfile = {
       { sub: true, org: 'IBM',                                                        date: 'July 2024 – Jan 2025' },
       { sub: true, org: 'Telus',                                                      date: 'Sept 2021 – Dec 2024' },
       { sub: true, org: 'Vancouver Board of Trade',                                   date: 'Jan 2023 – July 2023' },
-      { role: 'UX Designer',                  org: 'Van Art Gallery – Installation', date: 'Jan 2020 – Sept 2021' },
+      { role: 'UX Designer',                  org: 'Van Art Gallery (Installation)', date: 'Jan 2020 – Sept 2021' },
       { role: 'UX Designer',                  org: 'JIBC',                           date: 'Sept 2020 – Jan 2021' },
       { role: 'UX Designer',                  org: 'Virtro',                         date: 'Jan 2017 – July 2020' }
     ],
     education: [
-      { role: 'MA Graphic Design', org: 'KHiO, Oslo' },
-      { role: 'MDM UX Design',     org: 'UBC, Vancouver' },
-      { role: 'BBM Advertising',   org: 'UQ, Brisbane' }
+      { role: 'MA in Graphic Design',    org: 'National Academy of the Arts', location: 'Oslo, Norway',       date: 'Sept 2024 – June 2026' },
+      { role: 'Master of Digital Media', org: 'University of British Columbia', location: 'Vancouver, Canada',  date: 'Sept 2020 – Sept 2021' },
+      { role: 'Bachelor of Business',    org: 'University of Queensland',      location: 'Brisbane, Australia', date: 'Mar 2013 – July 2016' }
     ],
     exhibits: [
       { org: 'Oslo Art Weekend',              date: 'June 2026' },
@@ -211,7 +213,7 @@ window.siteProfile = {
       { org: 'Grafia, Helsinki',              date: 'July – Sept 2025' },
       { org: 'Kunstnernes Hus',               date: 'June 2025' },
       { org: 'White Box Gallery, KHiO',       date: 'Nov 2024' },
-      { org: 'Van Art Gallery – Installation', date: 'March – Oct 2022' }
+      { org: 'Van Art Gallery (Installation)', date: 'March – Oct 2022' }
     ]
   }
 };

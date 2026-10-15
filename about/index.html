@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Umami analytics. Cookieless and no personal data, so no consent banner is
+       needed. The data-domains list is what keeps local previews, which run on
+       127.0.0.1, out of the reports: the tracker matches the visitor's hostname
+       against it and does nothing anywhere else. -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="df11a0aa-ba9c-4ef5-83f4-12195afd38c2" data-domains="marywildesign.com,www.marywildesign.com" data-performance="true"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="About Mary G. Wilson – UX/UI designer with nearly ten years’ experience across startups, agencies, and enterprise clients.">
+  <meta name="theme-color" content="#0000cd">
+  <title>About – Mary G. Wilson</title>
+  <!-- canonical: the folder URL, not /index.html (Pages serves both, and redirects neither) -->
+  <link rel="canonical" href="https://marywildesign.com/about/" />
+
+  <link rel="icon" type="image/svg+xml" href="../mw.svg" />
+  <link rel="stylesheet" href="../style.css" />
+  <script src="../projects.js" defer></script>
+  <script src="../script.js" defer></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+</head>
+
+<body class="about-page">
+
+  <div class="layout about-open">
+
+    <!-- the home page's own panel, the one the About view slides in beside there -->
+    <aside class="sidebar" id="sidebar">
+      <div class="project-view-header">
+        <button class="sidebar-close" id="sidebar-close" aria-label="Close menu">✕</button>
+        <div class="sidebar-top">
+          <a href="../" class="project-view-home-link">Mary G. Wilson</a>
+        </div>
+      </div>
+
+      <p class="bio">
+        UX/UI designer with nearly ten years’ experience working across startups, agencies, and enterprise clients. Two Masters in UX and Graphic Design from Canada and Norway. Expert in nav systems, B2C products, and agentic workflows.
+      </p>
+
+      <div class="sidebar-bottom">
+        <nav class="sidebar-links" aria-label="External links">
+          <a href="https://drive.google.com/file/d/1vJQT7nzT0Jh-cYgugH08rDDmF4s7uFco/view?usp=sharing" target="_blank" rel="noopener noreferrer">resume.pdf ↗</a>
+          <a href="https://drive.google.com/file/d/154rOSybpMvjC_LpU055DL15ylRA56IEj/view?usp=sharing" target="_blank" rel="noopener noreferrer">portfolio.pdf ↗</a>
+          <a href="https://www.linkedin.com/in/marygracewilson/" target="_blank" rel="noopener noreferrer">linkedin ↗</a>
+          <a href="https://www.instagram.com/marywildesign/" target="_blank" rel="noopener noreferrer">instagram ↗</a>
+          <a href="https://www.lomography.com/homes/marycastawayball/photos" target="_blank" rel="noopener noreferrer">photography ↗</a>
+          <a href="tel:+4792072025">+47 920 720 25 ↗</a>
+        </nav>
+        <p class="made">Set in Neue Montreal,<br> by Pangram Pangram.<br> Design and dev by Yours Truly.</p>
+      </div>
+    </aside>
+
+    <!-- mobile backdrop -->
+    <div class="menu-backdrop" id="menu-backdrop"></div>
+
+    <!-- main content -->
+    <main class="content about-open" id="content">
+
+      <!-- the same two classes the home page's slide-in builds, so this page
+           inherits the About layout; the body class turns the entrance
+           animation off, since nothing slides in here -->
+      <div class="case-study-view about-view">
+
+        <div class="topbar">
+          <button class="topbar-menu" id="menu-toggle" aria-label="Open menu">menu</button>
+          <span class="breadcrumb"><a href="../">projects</a> / <span class="breadcrumb-current">About</span></span>
+        </div>
+
+        <!-- kept in step with <template id="about-template"> in the home page's
+             index.html, which is the copy the slide-in shows -->
+        <section class="about-layout" aria-labelledby="about-headline">
+          <img class="about-portrait" src="../portrait-of-the-artist.jpg" alt="Mary Wilson seated on a grassy slope in the mountains">
+          <dl class="about-facts">
+            <div>
+              <dt>Currently</dt>
+              <dd>Lead UX Designer, freelance</dd>
+            </div>
+            <div>
+              <dt>Experience</dt>
+              <dd>Since 2017</dd>
+            </div>
+            <div>
+              <dt>Focus</dt>
+              <dd>B2C, end-to-end experiences, meganavigations, agentic workflows</dd>
+            </div>
+            <div>
+              <dt>Work rights</dt>
+              <dd>Australia, Canada, EU, UK</dd>
+            </div>
+          </dl>
+          <div class="about-copy">
+            <h1 class="about-headline" id="about-headline" aria-label="Understanding problems is my bread and butter, designing solutions is my jam.">Understanding problems is my bread <br>and butter, designing solutions is my jam.</h1>
+            <div class="about-bio">
+            <p>I’ve always wanted to be a designer and have always made things in my free time, though I somehow started out in business management. After a few years working in finance in Vancouver, Canada, I took a night course in UX/UI and made the big switch. My first role was as a UX designer at a VR startup, where great mentors taught me a lot quickly. It also made me want a stronger foundation, so I went on to a Master’s in Digital Media at UBC, majoring in UX design.</p>
+            <p>From there I joined a B Corp design agency, working across all kinds of briefs and industries, and I loved it, especially the B Corp side of things.</p>
+            <p>When I moved to Oslo, I stayed on with the same agency while completing a second Master’s in Graphic Design and Illustration at Oslo National Academy of the Arts, a chance to go back to the core concepts of design.</p>
+            <p>Today, close to ten years in, I work across cross-sector enterprise clients, B2C products, and speculative projects that blend design and agentic workflows. Startups, consultancies, and two Masters later, the thing I always did in my free time is now what I do all the time.</p>
+          </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- right sidebar (cv) - filled by script.js from projects.js -->
+    <aside class="sidebar-right" id="sidebar-right"></aside>
+
+  </div>
+
+  <div id="custom-cursor"></div>
+</body>
+</html>
