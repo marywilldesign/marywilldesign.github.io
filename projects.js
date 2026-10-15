@@ -159,6 +159,12 @@ window.portfolioProjects = [
     // the home card title, which has to hold one line. "Remixed" stays at case
     // study level only, in the <h2>, the breadcrumb and document.title.
     shortTitle: 'First Collaborative Sentence',
+    // The footer's prev/next cell is only about half the pane, and on the narrow
+    // layout that is 113px at 320px wide and 140px at 375px, against the 179px
+    // this name needs - so the footer gets a shorter form again below 640px.
+    // "Long Sentence →" measures 102px, which is one line at every width down to
+    // 320px; anything longer (the 150px "Collaborative Sentence") wraps there.
+    navShortTitle: 'Long Sentence',
     href: 'collaborativesentence/',
     category: 'code',
     // the card-info set, which carries "front-end dev" that the case-study tag

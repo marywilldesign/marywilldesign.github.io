@@ -1283,6 +1283,15 @@ body.case-page .filters { display: none; }
   font-family: var(--font-sans);
 }
 .back-to-top:hover { color: var(--blue-hover); }
+/* the footer's prev/next sits in a cell about half the pane wide, which at 375px
+   is 140px - too little for a long project name like "First Collaborative
+   Sentence →" (179px), so those wrap onto two lines. Projects can carry a
+   shorter footer label (navShortTitle in projects.js) and the two swap here. */
+.nav-label-short { display: none; }
+@media (max-width: 640px) {
+  .nav-label-full { display: none; }
+  .nav-label-short { display: inline; }
+}
 
 /* the home grid is long and has no footer nav of its own to carry a back to
    top, so it gets a floating one, in the same pill language as the snapshot

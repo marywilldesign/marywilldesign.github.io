@@ -958,16 +958,31 @@ function initProjectFooterNav(scope, projectId, onNavigate) {
 
   // label each link with the project name - the part before the colon
   const name = (p) => p.title.split(':')[0].trim();
+  // the narrow layout has less room still, so a project may carry a shorter
+  // footer label; the stylesheet swaps the two at 640px
+  const shortName = (p) => p.navShortTitle || name(p);
   nav.style.display = '';
 
   const prev = nav.querySelector('.nav-prev');
   const next = nav.querySelector('.nav-next');
   const top = nav.querySelector('.back-to-top');
 
-  function bindLink(el, project, label) {
+  function labelSpan(className, text) {
+    const span = document.createElement('span');
+    span.className = className;
+    span.textContent = text;
+    return span;
+  }
+
+  function bindLink(el, project, label, shortLabel) {
     if (!el) return;
     el.href = siteUrl(project.href);
-    el.textContent = label;
+    // both labels go into the DOM and the stylesheet - which is the thing that
+    // knows the width - picks one, so no resize listener is needed
+    el.replaceChildren(
+      labelSpan('nav-label-full', label),
+      labelSpan('nav-label-short', shortLabel)
+    );
     if (onNavigate) {
       el.addEventListener('click', (e) => {
         // a modified click opens the real page in a new tab, as the href says
@@ -982,8 +997,8 @@ function initProjectFooterNav(scope, projectId, onNavigate) {
   // prev/next loop never dead-ends
   const prevProject = projects[(current - 1 + projects.length) % projects.length];
   const nextProject = projects[(current + 1) % projects.length];
-  bindLink(prev, prevProject, '← ' + name(prevProject));
-  bindLink(next, nextProject, name(nextProject) + ' →');
+  bindLink(prev, prevProject, '← ' + name(prevProject), '← ' + shortName(prevProject));
+  bindLink(next, nextProject, name(nextProject) + ' →', shortName(nextProject) + ' →');
 
   if (top) {
     top.addEventListener('click', () => {
