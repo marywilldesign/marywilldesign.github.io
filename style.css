@@ -743,19 +743,16 @@ body.case-page .filters { display: none; }
 }
 /* Columns 1-2, filling row 1: the width is those two tracks plus the gutter, so
    the portrait's right edge sits exactly one --about-gap from the table. Height
-   follows the row, and cover crops the 1200x1398 source into whatever landscape
-   shape the row turns out to be.
+   follows the row, and cover crops the 2048x1365 source down to whatever shape
+   the row turns out to be.
    The aspect-ratio is doing two jobs. It is not a size for the photo - the
    height above overrides it whenever the row has spare height - it is the
    shape floor: an in-flow image reports its own height as the flexible row's
    base size, and at 1.3:1 that report is exactly photo width / 1.3, which is
    the narrowest row 1 is allowed to be. Squeeze the pane below that and the row
    holds its floor and the pane scrolls, so the crop can never get wider than
-   1.3:1 and take the top of the hair or the chin with it. If an engine ever
-   ignored height: 100% the photo would simply sit at that same 1.3:1 crop.
-   The floor was 1.35; 1.3 shows a little more of the shoulders, and at the
-   shortest row it allows (a 923-row window) the crop still clears the hair by
-   82 source rows and the chin by 168. */
+   1.3:1. If an engine ever ignored height: 100% the photo would simply sit at
+   that same 1.3:1 crop. */
 .about-portrait {
   grid-column: 1 / 3;
   grid-row: 1;
@@ -764,11 +761,14 @@ body.case-page .filters { display: none; }
   height: 100%;
   aspect-ratio: 1.3 / 1;
   object-fit: cover;
-  /* 20% of the way down the source, which at the floor's 923-row window puts the
-     crop's top at source y=95: 82 rows above the hair's top (177) and 168 below
-     the chin (850). The stacked layout's 4:3 box is taller and keeps its own
-     25%. */
-  object-position: 50% 20%;
+  /* The source (2048x1365) is wider than any box this rule allows, so cover
+     always fills the height and crops the sides - the horizontal position is
+     the only one that matters, and the vertical one is inert. The subject sits
+     right of centre in the frame (jacket x 1293-1569), so a centred crop drops
+     her out of frame in the narrow windows the tall viewports produce; 80%
+     keeps her inside every window (980-1803 at the narrowest, 219-1993 at the
+     widest). The stacked layout's 4:3 box is wider and uses the same 80%. */
+  object-position: 80% 50%;
   display: block;
   border-radius: var(--radius);
 }
@@ -859,10 +859,10 @@ body.case-page .filters { display: none; }
     grid-row: auto;
   }
   /* the stacked portrait: full column width so its edges line up with the table,
-     headline and bio, at a 4:3 landscape crop whose visible band sits a quarter
-     of the way down the source. Height is its own again (row 1's stretch and
-     height: 100% belong to the desktop state), and the 4:3 restores the crop
-     the desktop row height would otherwise take over. */
+     headline and bio, at a 4:3 crop of the landscape source. Height is its own
+     again (row 1's stretch and height: 100% belong to the desktop state), and
+     the 4:3 restores the crop the desktop row height would otherwise take over.
+     The same 80% horizontal position keeps the subject in frame. */
   .about-portrait {
     align-self: start;
     width: 100%;
@@ -870,7 +870,7 @@ body.case-page .filters { display: none; }
     height: auto;
     aspect-ratio: 4 / 3;
     object-fit: cover;
-    object-position: 50% 25%;
+    object-position: 80% 50%;
   }
   /* the stack spaces its blocks by --about-gap, so the type block's own gap
      matches that rather than keeping the tighter desktop value */
