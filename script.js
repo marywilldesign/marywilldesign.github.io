@@ -17,8 +17,8 @@ function siteUrl(path) {
   return new URL(String(path).replace(/^\//, ''), SITE_ROOT).href;
 }
 
-// The download resume button, built in one place because it appears in the
-// drawer and at the head of the CV column. Its arrow is the panel's own ↗
+// The download resume button, at the head of the CV column. The About view
+// carries a static copy of the same markup. Its arrow is the panel's own ↗
 // glyph with a class that turns it down, so the two arrows are the same
 // character and cannot drift apart. The site serves the file itself, and the
 // download attribute needs a same-origin href, which siteUrl() supplies
@@ -204,19 +204,8 @@ function renderProjectSidebar(sidebar, currentId, onNavigate) {
   header.className = 'project-view-header';
   header.append(closeButton, profile);
 
-  // The drawer's copy of the CV download. Its own nav, so it takes the panel
-  // links' type rather than the project list's, and .panel-download keeps it
-  // to the screens where the CV column is gone; that column carries the button
-  // everywhere else.
-  const drawerAction = document.createElement('nav');
-  drawerAction.className = 'sidebar-links';
-  drawerAction.setAttribute('aria-label', 'Resume');
-  const drawerDownload = buildDownloadLink();
-  drawerDownload.classList.add('panel-download');
-  drawerAction.appendChild(drawerDownload);
-
   sidebar.innerHTML = '';
-  sidebar.append(header, drawerAction, nav);
+  sidebar.append(header, nav);
 }
 
 // declared up here (not next to bindMobileMenu) so onReady callbacks that
@@ -760,8 +749,8 @@ onReady(function () {
   const column = document.getElementById('sidebar-right');
   if (column) {
     // The CV file, hosted with this site rather than on Drive, so it is one
-    // click from every page the column appears on. The button is built by
-    // buildDownloadLink(), the same one the drawer uses.
+    // click from every page the column appears on - the home page and every
+    // project page.
     const actions = document.createElement('div');
     actions.className = 'cv-actions';
     actions.appendChild(buildDownloadLink());

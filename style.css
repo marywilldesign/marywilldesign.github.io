@@ -300,9 +300,9 @@ button, a, [data-href] { cursor: pointer; }
 }
 
 .sidebar-links a,
-/* The download resume button, wherever it appears: the panel's own type, so
-   the two cannot drift apart. The fallback is the panel's blue for the places
-   outside the panel, where --sidebar-link is not in scope. */
+/* The download resume button, wherever it appears: the left panel links' own
+   type, so the two cannot drift apart. The fallback is the panel's blue for
+   the places outside the panel, where --sidebar-link is not in scope. */
 .download-link {
   color: var(--sidebar-link, #0040FF);
   font-size: 0.8rem;
@@ -317,15 +317,6 @@ button, a, [data-href] { cursor: pointer; }
 .download-link .arrow {
   display: inline-block;
   transform: rotate(135deg);
-}
-
-/* On a screen wide enough to keep the CV panel, the drawer drops this row: the
-   CV column carries the download instead. Below that width the column is gone
-   (it is hidden by the 1024px query further down), so this is the only
-   download left in the drawer. */
-.panel-download { display: none; }
-@media (max-width: 1024px) {
-  .panel-download { display: block; }
 }
 
 /* project list - self-contained, no longer borrows .sidebar-links styles.
@@ -415,6 +406,11 @@ button, a, [data-href] { cursor: pointer; }
   background: #ffffff;
   color: #000000;
   padding: var(--sp-6);
+  /* The download row at the head of the column shares a line with the
+     topbar's own row - the "Select projects..." line and the about link -
+     which starts at the content's page padding. Matching it here is what puts
+     the two on one baseline rather than 8px apart. */
+  padding-top: var(--page-pad);
   border-left: 1px solid var(--blue);
   /* same as .sidebar: fill the layout, do not name a viewport unit that can be
      taller than what the browser is showing */
@@ -834,6 +830,9 @@ body.case-page .filters { display: none; }
   font-size: 0.75rem;
   line-height: 1.4;
 }
+/* The resume row's download button keeps the shared link colour and weight but
+   takes the row's own type size, so it does not out-size the other values. */
+.about-facts .download-link { font-size: inherit; }
 /* Row 2: the headline and bio as one block. The 40px above it comes from the
    grid's row gap, the 16px between them from this block's own gap, and its
    bottom edge is the grid's bottom edge - so the bio ends the pane's own
