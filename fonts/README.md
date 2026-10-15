@@ -25,9 +25,12 @@ portfolio (PDF, print or web!)". A commercial project would need a licence from
 them (from $40 a style, and web use is its own tier). The credit sits under the
 sidebar bio on the home page.
 
-Only the Medium weight is in the file, so 400 and 500 both render as Medium and
-600 upwards is synthesised bold. The wordmark's hover draws its own weight with
-`-webkit-text-stroke` partly for that reason.
+Only the Medium weight is in the file, and that is what the whole site is set
+in: the face is declared at 500, the weight it was drawn at, and nothing asks
+for more, so the browser never synthesises a bold over it. A 400 request lands
+on the same file (font matching checks 500 first for that weight), which is why
+the stylesheet's 400s and 500s are the same drawing. The wordmark's hover draws
+its own weight with `-webkit-text-stroke`.
 
 The master is not shipped with the site. `NeueMontreal-Medium.otf` (v1.000,
 2018) lives in `_originals/fonts/`, which is gitignored, since nothing loads it.
