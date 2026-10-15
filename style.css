@@ -299,10 +299,33 @@ button, a, [data-href] { cursor: pointer; }
   gap: var(--sp-3);
 }
 
-.sidebar-links a {
-  color: var(--sidebar-link);
+.sidebar-links a,
+/* The download resume button, wherever it appears: the panel's own type, so
+   the two cannot drift apart. The fallback is the panel's blue for the places
+   outside the panel, where --sidebar-link is not in scope. */
+.download-link {
+  color: var(--sidebar-link, #0040FF);
   font-size: 0.8rem;
   font-weight: 500;
+}
+
+/* The panel's own arrow glyph turned to point down. Rotating the same ↗ rather
+   than setting a ↓ is what keeps stem and head at the weight and length the
+   panel's arrows carry - including when the face has no arrow of its own and
+   both fall back to the same glyph. 135deg takes ↗ (45deg above the
+   horizontal) to straight down. */
+.download-link .arrow {
+  display: inline-block;
+  transform: rotate(135deg);
+}
+
+/* On a screen wide enough to keep the CV panel, the drawer drops this row: the
+   CV column carries the download instead. Below that width the column is gone
+   (it is hidden by the 1024px query further down), so this is the only
+   download left in the drawer. */
+.panel-download { display: none; }
+@media (max-width: 1024px) {
+  .panel-download { display: block; }
 }
 
 /* project list - self-contained, no longer borrows .sidebar-links styles.
@@ -432,17 +455,12 @@ button, a, [data-href] { cursor: pointer; }
 
 /* the CV column's one action: the CV as a file. The hairline is the same one
    the sub-items indent behind, so this reads as the column's header rather
-   than as another CV entry. */
+   than as another CV entry. The link itself is a .download-link. */
 .cv-actions {
   padding-bottom: var(--sp-4);
   margin-bottom: var(--sp-5);
   border-bottom: 1px solid var(--gray-100);
 }
-.cv-actions a {
-  font-size: 0.75rem;
-  font-weight: 500;
-}
-.cv-actions a:hover { color: var(--blue-hover); }
 
 /* main content */
 .content {
@@ -1759,12 +1777,7 @@ html.is-touch #custom-cursor { display: none !important; }
   color: var(--gray-600);
   margin-top: var(--sp-1);
 }
-.resume-download {
-  font-size: 0.8rem;
-  font-weight: 500;
-  white-space: nowrap;
-}
-.resume-download:hover { color: var(--blue-hover); }
+.resume-download { white-space: nowrap; }
 
 .resume-page .cv-section { margin-bottom: var(--sp-8); }
 .resume-page .cv-section h4 {

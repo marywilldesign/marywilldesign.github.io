@@ -17,6 +17,26 @@ function siteUrl(path) {
   return new URL(String(path).replace(/^\//, ''), SITE_ROOT).href;
 }
 
+// The download resume button, built in one place because it appears in the
+// drawer and at the head of the CV column. Its arrow is the panel's own ↗
+// glyph with a class that turns it down, so the two arrows are the same
+// character and cannot drift apart. The site serves the file itself, and the
+// download attribute needs a same-origin href, which siteUrl() supplies
+// whatever the page's depth.
+function buildDownloadLink() {
+  const link = document.createElement('a');
+  link.className = 'download-link';
+  link.href = siteUrl('mary-wilson-resume.pdf');
+  link.setAttribute('download', '');
+  link.append('download resume ');
+  const arrow = document.createElement('span');
+  arrow.className = 'arrow';
+  arrow.setAttribute('aria-hidden', 'true');
+  arrow.textContent = '↗';
+  link.appendChild(arrow);
+  return link;
+}
+
 // Run once the DOM is ready AND deferred scripts (projects.js) have run,
 // even if a page loads script.js at the end of <body> without `defer`.
 function onReady(fn) {
@@ -184,8 +204,19 @@ function renderProjectSidebar(sidebar, currentId, onNavigate) {
   header.className = 'project-view-header';
   header.append(closeButton, profile);
 
+  // The drawer's copy of the CV download. Its own nav, so it takes the panel
+  // links' type rather than the project list's, and .panel-download keeps it
+  // to the screens where the CV column is gone; that column carries the button
+  // everywhere else.
+  const drawerAction = document.createElement('nav');
+  drawerAction.className = 'sidebar-links';
+  drawerAction.setAttribute('aria-label', 'Resume');
+  const drawerDownload = buildDownloadLink();
+  drawerDownload.classList.add('panel-download');
+  drawerAction.appendChild(drawerDownload);
+
   sidebar.innerHTML = '';
-  sidebar.append(header, nav);
+  sidebar.append(header, drawerAction, nav);
 }
 
 // declared up here (not next to bindMobileMenu) so onReady callbacks that
@@ -729,15 +760,11 @@ onReady(function () {
   const column = document.getElementById('sidebar-right');
   if (column) {
     // The CV file, hosted with this site rather than on Drive, so it is one
-    // click from every page the column appears on. The download attribute
-    // needs a same-origin href, which siteUrl() gives it whatever the depth.
+    // click from every page the column appears on. The button is built by
+    // buildDownloadLink(), the same one the drawer uses.
     const actions = document.createElement('div');
     actions.className = 'cv-actions';
-    const download = document.createElement('a');
-    download.href = siteUrl('mary-wilson-resume.pdf');
-    download.setAttribute('download', '');
-    download.textContent = 'download pdf ↓';
-    actions.appendChild(download);
+    actions.appendChild(buildDownloadLink());
 
     column.innerHTML = '';
     column.appendChild(actions);
