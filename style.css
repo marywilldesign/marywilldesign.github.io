@@ -430,6 +430,20 @@ button, a, [data-href] { cursor: pointer; }
 .cv-subitem .cv-org { font-size: 0.7rem; }
 .cv-subitem .cv-date { font-size: 0.6rem; }
 
+/* the CV column's one action: the CV as a file. The hairline is the same one
+   the sub-items indent behind, so this reads as the column's header rather
+   than as another CV entry. */
+.cv-actions {
+  padding-bottom: var(--sp-4);
+  margin-bottom: var(--sp-5);
+  border-bottom: 1px solid var(--gray-100);
+}
+.cv-actions a {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+.cv-actions a:hover { color: var(--blue-hover); }
+
 /* main content */
 .content {
   flex: 1;
@@ -1716,6 +1730,91 @@ html.is-touch #custom-cursor { display: none !important; }
   .side-by-side { flex-direction: column; }
 }
 
+/* resume page - the CV at document size, from the same data as the right-hand
+   column (script.js builds both). One column with a bounded measure, which the
+   column's own 220px cannot give it; the entries restate the column's markup
+   rather than repeating it. */
+.resume-doc {
+  max-width: 46rem;
+  padding-bottom: var(--sp-10);
+}
+
+.resume-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-3) var(--sp-6);
+  padding-bottom: var(--sp-5);
+  margin-bottom: var(--sp-8);
+  border-bottom: 1px solid var(--gray-200);
+}
+.resume-name {
+  font-size: 1.4rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.resume-role {
+  font-size: 0.9rem;
+  color: var(--gray-600);
+  margin-top: var(--sp-1);
+}
+.resume-download {
+  font-size: 0.8rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.resume-download:hover { color: var(--blue-hover); }
+
+.resume-page .cv-section { margin-bottom: var(--sp-8); }
+.resume-page .cv-section h4 {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba(81, 81, 81, 0.5);
+  margin-bottom: var(--sp-4);
+}
+
+/* role, org and location stack in the first track; the date holds the second
+   one, so every date on the page lines up whatever lengths precede it */
+.resume-page .cv-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: var(--sp-6);
+  margin-bottom: var(--sp-4);
+  line-height: 1.4;
+}
+.resume-page .cv-role,
+.resume-page .cv-org,
+.resume-page .cv-location { grid-column: 1; }
+.resume-page .cv-role { font-size: 0.95rem; font-weight: 500; }
+.resume-page .cv-org { font-size: 0.9rem; opacity: 0.9; }
+.resume-page .cv-location { font-size: 0.8rem; opacity: 0.75; }
+.resume-page .cv-date {
+  grid-column: 2;
+  grid-row: 1 / span 3;
+  align-self: start;
+  font-size: 0.8rem;
+  text-align: right;
+  white-space: nowrap;
+  opacity: 0.75;
+}
+.resume-page .cv-subitem { padding-left: var(--sp-4); }
+.resume-page .cv-subitem .cv-org { font-size: 0.85rem; }
+.resume-page .cv-subitem .cv-date { font-size: 0.8rem; }
+
+/* One track on a phone: the date drops under the entry instead of holding a
+   column of its own, which at this width squeezes the role into two lines. */
+@media (max-width: 640px) {
+  .resume-page .cv-item { grid-template-columns: minmax(0, 1fr); }
+  .resume-page .cv-date {
+    grid-column: 1;
+    grid-row: auto;
+    margin-top: var(--sp-1);
+    text-align: left;
+  }
+}
+
 /* cursor handling */
 @media (hover: hover) and (pointer: fine) {
   html:not(.is-touch) * { cursor: none !important; }
@@ -1739,6 +1838,14 @@ html.is-touch [data-href] { cursor: pointer !important; }
   .content { overflow: visible; padding: 0; }
   .cards { grid-template-columns: repeat(2, 1fr); }
   .case-card { break-inside: avoid; }
+  /* /resume/ prints as the document it is: no breadcrumb, no download button,
+     and the measure opens out to the page. Entries hold together, and a
+     heading is never left stranded at the foot of a page. */
+  .resume-page .breadcrumb,
+  .resume-page .resume-download { display: none !important; }
+  .resume-page .resume-doc { max-width: none; padding-bottom: 0; }
+  .resume-page .cv-item { break-inside: avoid; }
+  .resume-page .cv-section h4 { break-after: avoid; }
 }
 
 .case-page .sidebar {
