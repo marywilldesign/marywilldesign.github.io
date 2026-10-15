@@ -415,6 +415,11 @@ initClock();
     const wrapper = document.createElement('div');
     wrapper.className = 'case-study-view about-view';
     wrapper.innerHTML = aboutTemplate.innerHTML;
+    // The address bar moves to /about/ just below, and the template's relative
+    // src would then resolve against that folder rather than the site root -
+    // which is a 404. So the portrait goes through siteUrl() like every link.
+    const portrait = wrapper.querySelector('.about-portrait');
+    if (portrait) portrait.src = siteUrl('portrait-of-the-artist.jpg');
     content.innerHTML = '';
     content.appendChild(wrapper);
     content.classList.add('about-open');
@@ -424,7 +429,7 @@ initClock();
     initClock();
 
     if (!opts || opts.push !== false) {
-      setUrl(siteUrl('./') + '#about', { about: true });
+      setUrl(siteUrl('about/'), { about: true });
     }
 
     addBreadcrumbToCaseView('', 'About', 'all');
@@ -456,14 +461,14 @@ initClock();
       }
     });
 
-    // build: <span class="breadcrumb">All / Project</span>
+    // build: <span class="breadcrumb">projects / Project</span>
     const container = document.createElement('span');
     container.id = 'dynamic-breadcrumb';
     container.className = 'breadcrumb';
 
     const link1 = document.createElement('a');
     link1.href = '#';
-    link1.textContent = 'All';
+    link1.textContent = 'projects';
     link1.addEventListener('click', function(e) {
       e.preventDefault();
       showGrid();
@@ -611,7 +616,16 @@ initClock();
   });
 
   bindCards();
-  if (window.location.hash === '#about') showAbout({ push: false });
+  // '#about' links predate the About page's own folder URL. They still open the
+  // view, and the address bar is moved onto the URL the view owns now.
+  if (window.location.hash === '#about') {
+    showAbout({ push: false });
+    try {
+      history.replaceState({ about: true }, '', siteUrl('about/'));
+    } catch (err) {
+      /* no history API: the view still opens, only the URL keeps the hash */
+    }
+  }
 })();
 
 // standalone project pages (direct load, refresh, Live Server on a subpage)
@@ -684,6 +698,13 @@ onReady(function () {
       org.className = 'cv-org';
       org.textContent = entry.org;
       item.appendChild(org);
+
+      if (entry.location) {
+        const location = document.createElement('span');
+        location.className = 'cv-location';
+        location.textContent = entry.location;
+        item.appendChild(location);
+      }
 
       if (entry.date) {
         const date = document.createElement('span');
