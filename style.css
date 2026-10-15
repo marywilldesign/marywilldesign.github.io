@@ -77,11 +77,15 @@
    at all and comes from the system face either way.
    The family is named NeueMontreal rather than "Neue Montreal" so it cannot be
    substituted by a locally installed copy - every visitor gets this file and
-   the same spacing. */
+   the same spacing.
+   The file is the Medium cut, so it is declared at the weight it was drawn at,
+   500, rather than at 400: a 400 request still lands here (font matching checks
+   500 first for that weight), and with nothing on the site asking for more than
+   500 the browser has no reason to synthesise a bold over the top. */
 @font-face {
   font-family: 'NeueMontreal';
   font-style: normal;
-  font-weight: 400;
+  font-weight: 500;
   font-display: swap;
   src: url('fonts/NeueMontreal-Medium.woff2') format('woff2');
 }
@@ -192,7 +196,9 @@ a[aria-current="page"] {
 
 h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 500; }
 h2 { font-size: 1.5rem; color: var(--gray-900); }
-h3 { font-size: 1rem; font-weight: 600; }
+/* the shared 500 above is the heaviest the family has, so h3 does not ask for
+   a weight of its own: a 600 here would only be drawn by synthesis */
+h3 { font-size: 1rem; }
 
 p { max-width: 72ch; }
 
@@ -590,7 +596,7 @@ button, a, [data-href] { cursor: pointer; }
 .clock-status {
   font-family: var(--font-sans);
   font-size: 0.62rem;
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--gray-400);
@@ -1058,7 +1064,7 @@ body.case-page .filters { display: none; }
 .snapshot-box h4 {
   display: inline-block;
   font-size: 0.65rem;
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: #0040FF;
@@ -1135,10 +1141,11 @@ body.case-page .filters { display: none; }
      and copy-paste gives the natural casing. Flipping this back to sentence case
      is this one line.
      No letter-spacing, unlike the CV's equivalent (.sidebar-right h4, which is
-     0.7rem, uppercase, 500 weight, light grey, 0.06em) - only the size is shared. */
+     0.7rem, uppercase, 500 weight, light grey, 0.06em) - size and weight are
+     shared, the tracking is not. */
   font-family: var(--font-sans);
   font-size: 0.7rem;
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
   color: var(--gray-900);
   margin-bottom: var(--sp-2);
@@ -1194,7 +1201,7 @@ body.case-page .filters { display: none; }
 }
 .metrics-table thead th {
   font-size: 0.7rem;
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--gray-500);
@@ -1236,7 +1243,7 @@ body.case-page .filters { display: none; }
 }
 .results-highlight h3 {
   font-size: 0.7rem;
-  font-weight: 600;
+  font-weight: 500;
   color: #0040FF;
   text-transform: uppercase;
   letter-spacing: 0.1em;
