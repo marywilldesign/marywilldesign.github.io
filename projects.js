@@ -205,7 +205,7 @@ window.siteProfile = {
     education: [
       { role: 'MA in Graphic Design',    org: 'National Academy of the Arts', location: 'Oslo, Norway',       date: 'Sept 2024 – June 2026' },
       { role: 'Master of Digital Media', org: 'University of British Columbia', location: 'Vancouver, Canada',  date: 'Sept 2020 – Sept 2021' },
-      { role: 'Bachelor of Business',    org: 'University of Queensland',      location: 'Brisbane, Australia', date: 'Mar 2013 – July 2016' }
+      { role: 'Bachelor of Business Mgmt.', org: 'University of Queensland', location: 'Brisbane, Australia', date: 'Mar 2013 – July 2016' }
     ],
     exhibits: [
       { org: 'Oslo Art Weekend',              date: 'June 2026' },
