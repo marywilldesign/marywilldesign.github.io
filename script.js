@@ -685,8 +685,7 @@ onReady(function () {
 
 // CV - single source of truth: window.siteProfile.cv in projects.js. Renders
 // into the right-hand column (<aside id="sidebar-right">) on the home page and
-// on every project page, and into the /resume/ page, so the CV is only ever
-// edited in one place.
+// on every project page, so the CV is only ever edited in one place.
 function buildCvSections(cv) {
   function buildSection(title, items) {
     const wrap = document.createElement('div');
@@ -758,13 +757,6 @@ onReady(function () {
     column.innerHTML = '';
     column.appendChild(actions);
     buildCvSections(cv).forEach((section) => column.appendChild(section));
-  }
-
-  // the /resume/ page reads the same data, at document size
-  const doc = document.getElementById('resume-cv');
-  if (doc) {
-    doc.innerHTML = '';
-    buildCvSections(cv).forEach((section) => doc.appendChild(section));
   }
 });
 
