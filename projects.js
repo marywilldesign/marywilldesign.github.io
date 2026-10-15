@@ -138,7 +138,10 @@ window.portfolioProjects = [
   {
     id: 'blackbox',
     title: 'VJ Controller: MA Thesis',
-    href: 'blackbox/',
+    // Not "blackbox/": GitHub Pages reserves that path for the separate
+    // `blackbox` repo, whose blackboxvj.me custom domain 301s everything under
+    // it away from marywildesign.com - page, video and posters alike.
+    href: 'vj-controller/',
     category: 'code',
     // electronics sits directly after 3D design + printing so the two making tags
     // land side by side on the same row of the card. Three rows either way, but the
