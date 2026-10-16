@@ -331,6 +331,22 @@ button, a, [data-href] { cursor: pointer; }
   transform: rotate(135deg);
 }
 
+/* What a thumb has to hit. The link's own line box is 61x14px on a 390px
+   viewport - under a third of the 44px a tap target is asked to be - and it is
+   the only thing in its row, so a miss lands on the row's own label and nothing
+   happens. The overlay grows only the area that answers to the tap: the text,
+   the arrow and the facts table's rules and baselines are untouched. Measured
+   at 390px, -15px reaches y=574 against the row above ending at 567, so the
+   overlay stays inside the Resume row and the 12px gap under it. */
+@media (hover: none) and (pointer: coarse) {
+  .download-link { position: relative; }
+  .download-link::after {
+    content: '';
+    position: absolute;
+    inset: -15px -12px;
+  }
+}
+
 /* project list - self-contained, no longer borrows .sidebar-links styles.
    gap matches the external links on the home page for consistency */
 .project-view-links {
