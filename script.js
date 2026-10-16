@@ -541,10 +541,21 @@ initClock();
     wrapper.className = 'case-study-view about-view';
     wrapper.innerHTML = aboutTemplate.innerHTML;
     // The address bar moves to /about/ just below, and the template's relative
-    // src would then resolve against that folder rather than the site root -
-    // which is a 404. So the portrait goes through siteUrl() like every link.
+    // src or href would then resolve against that folder rather than the site
+    // root - which is a 404. That is what the resume row did: it pointed at
+    // /about/mary-wilson-resume.pdf on desktop, where the download attribute
+    // hands the link straight to the browser. (On iOS the tap is answered by
+    // the blob save above instead, which builds its own URL, so only the
+    // desktop download ever failed.) Both go through siteUrl() like every
+    // link: the portrait directly, the resume row the same way the CV column's
+    // button is built, so the two point at one URL and cannot drift apart.
     const portrait = wrapper.querySelector('.about-portrait');
     if (portrait) portrait.src = siteUrl('portrait-of-the-artist.jpg');
+    const resume = wrapper.querySelector('.about-facts .download-link');
+    if (resume) {
+      resume.href = siteUrl(RESUME_FILE);
+      resume.download = RESUME_FILE;
+    }
     content.innerHTML = '';
     content.appendChild(wrapper);
     content.classList.add('about-open');
