@@ -59,11 +59,15 @@ function fallBackToStill(media) {
 // character and cannot drift apart. The site serves the file itself, and the
 // download attribute needs a same-origin href, which siteUrl() supplies
 // whatever the page's depth.
+const RESUME_FILE = 'mary-wilson-resume.pdf';
+
 function buildDownloadLink() {
   const link = document.createElement('a');
   link.className = 'download-link';
-  link.href = siteUrl('mary-wilson-resume.pdf');
-  link.setAttribute('download', '');
+  link.href = siteUrl(RESUME_FILE);
+  // Named rather than left empty: the mobile save below reads it back, and a
+  // browser that reads the name out of the URL instead gets the same one.
+  link.download = RESUME_FILE;
   link.append('download resume ');
   const arrow = document.createElement('span');
   arrow.className = 'arrow';
@@ -82,6 +86,71 @@ function onReady(fn) {
     fn();
   }
 }
+
+// The resume, saved as a file on iOS. It is the one place the download
+// attribute cannot be relied on for a PDF: iOS may hand the file to its viewer
+// rather than to the file system, and an in-app browser has no download handling
+// of its own, so the tap can open the file in place or do nothing at all.
+// Handing the browser a blob instead makes the tap a save, and names the file
+// while it is at it. Everywhere else the plain link is already the download, so
+// it keeps the browser's own progress and downloads sheet. Android is left out
+// on purpose: its in-app browsers answer a blob download by asking the host app
+// to fetch a blob: URL, which most of them cannot do.
+function isIOS() {
+  return /iP(hone|ad|od)/.test(navigator.userAgent) ||
+    // iPadOS 13 and up report a desktop user agent; the touch points are what
+    // separate an iPad from the Mac it claims to be
+    (/Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
+}
+
+// One fetch, kept: a second tap saves the blob already in hand rather than
+// asking for the megabyte again.
+let resumeRequest = null;
+function fetchedResume() {
+  if (!resumeRequest) {
+    resumeRequest = fetch(siteUrl(RESUME_FILE))
+      .then((res) => {
+        if (!res.ok) throw new Error('resume: HTTP ' + res.status);
+        return res.blob();
+      })
+      .catch((err) => {
+        // let a later tap try again rather than hold the failure forever
+        resumeRequest = null;
+        throw err;
+      });
+  }
+  return resumeRequest;
+}
+
+function saveResumeToFile(event) {
+  event.preventDefault();
+  fetchedResume().then((blob) => {
+    const objectUrl = URL.createObjectURL(blob);
+    const saver = document.createElement('a');
+    saver.href = objectUrl;
+    saver.download = RESUME_FILE;
+    document.body.appendChild(saver);
+    saver.click();
+    saver.remove();
+    // Safari reads the blob after the click has returned, so the URL outlives
+    // the click rather than being revoked underneath a save still starting.
+    setTimeout(() => URL.revokeObjectURL(objectUrl), 60000);
+  }).catch(() => {
+    // nothing to hand over: follow the link the way the browser would have
+    window.location.href = siteUrl(RESUME_FILE);
+  });
+}
+
+// Delegated from the document, because the About view's copy of the button is
+// markup rather than something this file builds and the CV column is built
+// after load.
+onReady(function () {
+  if (!isIOS()) return;
+  document.addEventListener('click', (event) => {
+    const link = event.target.closest && event.target.closest('.download-link');
+    if (link) saveResumeToFile(event);
+  }, true);
+});
 
 // The clock and the breadcrumb share one row on every project view, so the
 // page's own <span class="breadcrumb"> is moved into the topbar. The home
