@@ -68,7 +68,7 @@ function buildDownloadLink() {
   // Named rather than left empty: the mobile save below reads it back, and a
   // browser that reads the name out of the URL instead gets the same one.
   link.download = RESUME_FILE;
-  link.append('download resume ');
+  link.append('download resume.pdf ');
   const arrow = document.createElement('span');
   arrow.className = 'arrow';
   arrow.setAttribute('aria-hidden', 'true');
