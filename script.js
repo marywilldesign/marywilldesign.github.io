@@ -184,6 +184,36 @@ function renderProjectTags(root, tags) {
   });
 }
 
+// The tag row carries the tools as well as the disciplines, so a card or a case
+// header answers "what was this made with?" without opening anything. Tools are
+// lowercased to sit with the rest of the tags; the Tools section keeps proper
+// casing. Same array feeds both, so the two can never drift.
+function projectTagList(project) {
+  const tools = (project.tools || []).map((tool) => tool.name.toLowerCase());
+  return (project.tags || []).concat(tools);
+}
+
+// The Tools section on a project page: each tool, then what it was used for.
+function renderProjectTools(root, tools) {
+  if (!root || !tools || !tools.length) return;
+  root.querySelectorAll('.case-tools').forEach((box) => {
+    box.innerHTML = '';
+    const list = document.createElement('dl');
+    list.className = 'tool-list';
+    tools.forEach((tool) => {
+      const row = document.createElement('div');
+      row.className = 'tool-row';
+      const name = document.createElement('dt');
+      name.textContent = tool.name;
+      const use = document.createElement('dd');
+      use.textContent = tool.use;
+      row.append(name, use);
+      list.appendChild(row);
+    });
+    box.appendChild(list);
+  });
+}
+
 // The snapshot bar (year / role / credits / links) comes from projects.js too,
 // so every project page shows the same groups in the same order. A group with
 // nothing in it is left out rather than rendered empty.
@@ -485,7 +515,7 @@ initClock();
     }
     card.dataset.href = siteUrl(project.href);
     card.dataset.category = project.category;
-    renderProjectTags(card, project.tags);
+    renderProjectTags(card, projectTagList(project));
   });
 
   function saveGrid() {
@@ -679,8 +709,9 @@ initClock();
       // tags for the slid-in project, from projects.js
       const loadedProject = projects.find((p) => p.id === cardId);
       if (loadedProject) {
-        renderProjectTags(wrapper, loadedProject.tags);
+        renderProjectTags(wrapper, projectTagList(loadedProject));
         renderProjectMeta(wrapper, loadedProject.meta);
+        renderProjectTools(wrapper, loadedProject.tools);
       }
       syncTagRowWidth(wrapper);
       document.fonts.ready.then(() => syncTagRowWidth(wrapper));
@@ -787,8 +818,9 @@ onReady(function () {
     current.textContent = project.title;
   });
 
-  renderProjectTags(document, project.tags);
+  renderProjectTags(document, projectTagList(project));
   renderProjectMeta(document, project.meta);
+  renderProjectTools(document, project.tools);
   syncTagRowWidth(document);
   // the display face may still be swapping in, which changes the title width
   document.fonts.ready.then(() => syncTagRowWidth(document));

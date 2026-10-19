@@ -1186,6 +1186,45 @@ body.case-page .filters { display: none; }
   max-width: 75ch;
 }
 
+/* Tools: the tool carries the weight, the use runs as prose beside it, so the
+   section reads as a set of decisions rather than a second row of badges. The
+   rows are hairlined like the sections themselves, with the first rule dropped
+   so the list starts flush under its heading. */
+.tool-list {
+  max-width: 75ch;
+  margin-bottom: var(--sp-5);
+}
+.tool-row {
+  display: grid;
+  grid-template-columns: 8.5rem 1fr;
+  gap: var(--sp-2) var(--sp-5);
+  padding: var(--sp-3) 0;
+  border-top: 1px solid var(--gray-100);
+}
+.tool-row:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+.tool-row dt {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--gray-900);
+}
+.tool-row dd {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--gray-700);
+}
+@media (max-width: 640px) {
+  /* the tool name sits above its use rather than in a column, where 8.5rem of
+     label left too little for the sentence */
+  .tool-row {
+    grid-template-columns: 1fr;
+    gap: var(--sp-1);
+  }
+}
+
 .case-section figure {
   margin: var(--sp-6) 0;
 }
