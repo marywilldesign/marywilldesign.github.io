@@ -112,7 +112,7 @@ window.portfolioProjects = [
     tags: ['site refresh', 'IA', 'card design', 'navigation design'],
     tools: [
       { name: 'Figma', use: "Wireframed the rebuilt site page by page, then designed the hi-fi navigation, fleet selection and booking screens inside Modo's existing brand." },
-      { name: 'FigJam', use: 'Ran the stakeholder workshops and kept the competitive analysis and the franken-site audit on one board, so the team could see what was going and what was staying.' }
+      { name: 'FigJam', use: 'Ran the interest-holder workshops and kept the competitive analysis and the franken-site audit on one board, so the team could see what was going and what was staying.' }
     ],
     meta: {
       year: '2022 - ongoing',
