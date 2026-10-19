@@ -434,11 +434,10 @@ button, a, [data-href] { cursor: pointer; }
   background: #ffffff;
   color: #000000;
   padding: var(--sp-6);
-  /* The download row at the head of the column shares a line with the
-     topbar's own row - the "Select projects..." line and the about link -
-     which starts at the content's page padding. Matching it here is what puts
-     the two on one baseline rather than 8px apart. */
-  padding-top: var(--page-pad);
+  /* No top padding: the download row owns it now, so that the row can be
+     sticky without a strip of scrolling CV text appearing above it. The 32px
+     still puts the link on the topbar's line. See .cv-actions. */
+  padding-top: 0;
   border-left: 1px solid var(--blue);
   /* same as .sidebar: fill the layout, do not name a viewport unit that can be
      taller than what the browser is showing */
@@ -486,14 +485,23 @@ button, a, [data-href] { cursor: pointer; }
 
 /* the CV column's one action: the CV as a file. The hairline is the same one
    the sub-items indent behind, so this reads as the column's header rather
-   than as another CV entry. The link itself is a .download-link. */
+   than as another CV entry. The link itself is a .download-link.
+   Sticky, so the link stays at the head of the column while the CV scrolls
+   under it. The panel keeps no top padding for this reason: this row owns the
+   page padding, which is both what lines the link up with the topbar and what
+   gives it clearance once it is pinned. */
 .cv-actions {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #ffffff;
   /* 24, not the 16 the rest of the spacing uses: it puts this hairline on the
      same y as the About view's first facts hairline, so the two read as one
-     line across the page. Measured at 1440px: the column's 32px top padding,
+     line across the page. Measured at 1440px: the row's 32px top padding, then
      the link's 20.47px line box, then 24 lands the rule at 76.47 - which is
      where the facts table starts (32px page padding plus the breadcrumb's
      44.47px row). Both sides have to move together if either is retuned. */
+  padding-top: var(--page-pad);
   padding-bottom: var(--sp-6);
   margin-bottom: var(--sp-5);
   border-bottom: 1px solid var(--gray-100);
@@ -871,6 +879,13 @@ body.case-page .filters { display: none; }
   color: var(--gray-900);
   font-size: 0.75rem;
   line-height: 1.4;
+}
+/* Skills are grouped by area rather than run together: the bracketed label
+   takes the label colour so the eye can find it while skimming, and the
+   values follow in the value colour. */
+.about-facts .skills-group {
+  color: var(--gray-500);
+  font-weight: 500;
 }
 /* The resume row's download button keeps the shared link colour and weight but
    takes the row's own type size, so it does not out-size the other values. */
