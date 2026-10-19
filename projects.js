@@ -56,10 +56,10 @@ window.portfolioProjects = [
     title: 'Van Art Gallery: AI Installation',
     href: 'vancouverartgallery/',
     category: 'ux',
-    tags: ['experience design', 'design system creation', 'installation', 'project management', 'scrum master'],
+    tags: ['service design', 'design system creation', 'installation', 'project management', 'scrum master'],
     meta: {
       year: '2021',
-      role: 'UX/UI Designer, User Research, Project Manager',
+      role: 'Service Designer, User Research, Project Manager',
       credits: [
         'Lead Programmer, Artist, UI Designer: Cindy Shi',
         'Concept Artist: Yuri Wu',
@@ -201,7 +201,7 @@ window.siteProfile = {
       { sub: true, org: 'IBM',                                                        date: 'July 2024 – Jan 2025' },
       { sub: true, org: 'Telus',                                                      date: 'Sept 2021 – Dec 2024' },
       { sub: true, org: 'Vancouver Board of Trade',                                   date: 'Jan 2023 – July 2023' },
-      { role: 'UX Designer',                  org: 'Van Art Gallery (Installation)', date: 'Jan 2020 – Sept 2021' },
+      { role: 'Service Designer',             org: 'Van Art Gallery (Installation)', date: 'Jan 2020 – Sept 2021' },
       { role: 'UX Designer',                  org: 'JIBC',                           date: 'Sept 2020 – Jan 2021' },
       { role: 'UX Designer',                  org: 'Virtro',                         date: 'Jan 2017 – July 2020' }
     ],
