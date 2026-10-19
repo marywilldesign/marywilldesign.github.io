@@ -1201,6 +1201,24 @@ body.case-page .filters { display: none; }
   max-width: 75ch;
 }
 
+/* The closing thought of a case's Insights section: a short first-person
+   takeaway under a small label, ruled in the site blue so it reads as the
+   point of the section rather than another paragraph. */
+.case-section .takeaway {
+  margin-top: var(--sp-6);
+  padding-left: var(--sp-4);
+  border-left: 2px solid #0040FF;
+}
+.case-section .takeaway .takeaway-label {
+  display: block;
+  margin-bottom: var(--sp-1);
+  font-size: 0.65rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--gray-500);
+}
+
 /* Tools: the tool carries the weight, the use runs as prose beside it, so the
    section reads as a set of decisions rather than a second row of badges. The
    rows are hairlined like the sections themselves, with the first rule dropped
