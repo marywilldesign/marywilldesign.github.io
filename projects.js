@@ -234,6 +234,7 @@ window.siteProfile = {
   // sub: true  -> indented client under the entry above it
   // location   -> own line under org; institution and city are separate fields
   //               on education entries, where the city carries its country
+  // skills/tools -> the About facts table stays short; the panel lists tools
   cv: {
     experience: [
       { role: 'Lead UX Designer',             org: 'KHiO Research Project',          date: 'July 2026 – Present' },
@@ -259,6 +260,18 @@ window.siteProfile = {
       { org: 'Kunstnernes Hus',               date: 'June 2025' },
       { org: 'White Box Gallery, KHiO',       date: 'Nov 2024' },
       { org: 'Van Art Gallery (Installation)', date: 'March – Oct 2022' }
+    ],
+    // Tools only, grouped by what they are for; the panel lists them and the
+    // About view repeats the same list on narrow screens, where the panel is
+    // hidden.
+    tools: [
+      { group: 'design', items: ['Figma', 'FigJam', 'Figma Make', 'Adobe CC', 'Canva', 'Framer'] },
+      { group: 'research', items: ['Miro', 'Maze', 'UserTesting', 'Optimal Workshop', 'Dovetail', 'Typeform'] },
+      { group: 'data', items: ['Decibel', 'Google Analytics', 'Hotjar'] },
+      { group: 'delivery', items: ['Notion', 'Jira', 'Slack'] },
+      { group: 'build & AI', items: ['VS Code', 'Cursor', 'Copilot', 'ChatGPT', 'Claude', 'GitHub', 'HTML/CSS'] },
+      { group: 'web', items: ['Webflow', 'WordPress', 'Squarespace', 'Readymag'] },
+      { group: 'code & 3D', items: ['p5.js', 'Python', 'Fusion 360'] }
     ]
   }
 };

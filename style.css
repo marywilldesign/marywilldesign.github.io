@@ -483,6 +483,40 @@ button, a, [data-href] { cursor: pointer; }
 .cv-subitem .cv-org { font-size: 0.7rem; }
 .cv-subitem .cv-date { font-size: 0.6rem; }
 
+/* The CV column's tool list. Each group is one list item, so the panel reads
+   as a list rather than one long run of comma-separated names, and the About
+   facts table stays short. */
+.cv-tool-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.cv-tool-list li {
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: rgba(0, 0, 0, 0.85);
+  margin-bottom: var(--sp-2);
+}
+.cv-tool-list li:last-child { margin-bottom: 0; }
+.cv-tool-group {
+  color: rgba(81, 81, 81, 0.5);
+}
+
+/* The CV column is hidden below 1024px, so the About view repeats the tools
+   list after the bio on the narrow layouts. */
+.about-tools-mobile { display: none; }
+@media (max-width: 1024px) {
+  .about-tools-mobile {
+    display: block;
+    margin-top: var(--sp-6);
+  }
+  .about-tools-mobile .cv-section { margin-bottom: 0; }
+  .about-tools-mobile .cv-tool-list li {
+    font-size: 0.78rem;
+    color: var(--gray-700);
+  }
+}
+
 /* the CV column's one action: the CV as a file. The hairline is the same one
    the sub-items indent behind, so this reads as the column's header rather
    than as another CV entry. The link itself is a .download-link.
@@ -879,13 +913,6 @@ body.case-page .filters { display: none; }
   color: var(--gray-900);
   font-size: 0.75rem;
   line-height: 1.4;
-}
-/* Skills are grouped by area rather than run together: the bracketed label
-   takes the label colour so the eye can find it while skimming, and the
-   values follow in the value colour. */
-.about-facts .skills-group {
-  color: var(--gray-500);
-  font-weight: 500;
 }
 /* The resume row's download button keeps the shared link colour and weight but
    takes the row's own type size, so it does not out-size the other values. */
