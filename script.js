@@ -588,7 +588,6 @@ initClock();
     }
     content.innerHTML = '';
     content.appendChild(wrapper);
-    renderAboutTools(wrapper);
     content.classList.add('about-open');
     if (layout) layout.classList.add('about-open');
     content.scrollTop = 0;
@@ -861,18 +860,6 @@ function buildToolsSection(tools) {
   return wrap;
 }
 
-// The right-hand CV column is hidden below 1024px; the About view repeats the
-// tools there from the same data.
-function renderAboutTools(root) {
-  const cv = window.siteProfile && window.siteProfile.cv;
-  if (!cv) return;
-  (root || document).querySelectorAll('.about-tools-mobile').forEach((box) => {
-    box.innerHTML = '';
-    const section = buildToolsSection(cv.tools);
-    if (section) box.appendChild(section);
-  });
-}
-
 // CV - single source of truth: window.siteProfile.cv in projects.js. Renders
 // into the right-hand column (<aside id="sidebar-right">) on the home page and
 // on every project page, so the CV is only ever edited in one place.
@@ -951,7 +938,6 @@ onReady(function () {
   }
 
   // the same tools list, for the About view where the panel is hidden
-  renderAboutTools(document);
 });
 
 // filtering

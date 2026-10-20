@@ -502,21 +502,6 @@ button, a, [data-href] { cursor: pointer; }
   color: rgba(81, 81, 81, 0.5);
 }
 
-/* The CV column is hidden below 1024px, so the About view repeats the tools
-   list after the bio on the narrow layouts. */
-.about-tools-mobile { display: none; }
-@media (max-width: 1024px) {
-  .about-tools-mobile {
-    display: block;
-    margin-top: var(--sp-6);
-  }
-  .about-tools-mobile .cv-section { margin-bottom: 0; }
-  .about-tools-mobile .cv-tool-list li {
-    font-size: 0.78rem;
-    color: var(--gray-700);
-  }
-}
-
 /* the CV column's one action: the CV as a file. The hairline is the same one
    the sub-items indent behind, so this reads as the column's header rather
    than as another CV entry. The link itself is a .download-link.
@@ -823,6 +808,12 @@ body.case-page .filters { display: none; }
   min-height: 100%;
 }
 .about-view .topbar { flex: 0 0 auto; }
+/* On phones the page's own 12px gutter leaves the bio reading as if it were
+   falling off the edge, so the About view takes a second gutter of its own -
+   double the page padding, on both sides. */
+@media (max-width: 640px) {
+  .about-view { padding-left: var(--sp-3); padding-right: var(--sp-3); }
+}
 /* ---- about: the middle column is a strict four-column grid ----------------
    Every left edge on the page is a grid line: the portrait over columns 1-2,
    the info table over columns 3-4, and the type block spanning the whole
