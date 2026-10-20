@@ -588,6 +588,7 @@ initClock();
     }
     content.innerHTML = '';
     content.appendChild(wrapper);
+    renderAboutTools(wrapper);
     content.classList.add('about-open');
     if (layout) layout.classList.add('about-open');
     content.scrollTop = 0;
@@ -831,6 +832,47 @@ onReady(function () {
   bindMobileMenu();   // the close button was just rebuilt
 });
 
+// A section whose body is a plain list rather than CV entries.
+function buildListSection(title) {
+  const wrap = document.createElement('div');
+  wrap.className = 'cv-section';
+  const heading = document.createElement('h4');
+  heading.textContent = title;
+  wrap.appendChild(heading);
+  return wrap;
+}
+
+// Tools keep their groups, each one list item, so the column reads as a list
+// rather than one long run of comma-separated names.
+function buildToolsSection(tools) {
+  if (!tools || !tools.length) return null;
+  const wrap = buildListSection('Tools');
+  const list = document.createElement('ul');
+  list.className = 'cv-tool-list';
+  tools.forEach((group) => {
+    const item = document.createElement('li');
+    const label = document.createElement('span');
+    label.className = 'cv-tool-group';
+    label.textContent = '(' + group.group + ')';
+    item.append(label, ' ' + group.items.join(', '));
+    list.appendChild(item);
+  });
+  wrap.appendChild(list);
+  return wrap;
+}
+
+// The right-hand CV column is hidden below 1024px; the About view repeats the
+// tools there from the same data.
+function renderAboutTools(root) {
+  const cv = window.siteProfile && window.siteProfile.cv;
+  if (!cv) return;
+  (root || document).querySelectorAll('.about-tools-mobile').forEach((box) => {
+    box.innerHTML = '';
+    const section = buildToolsSection(cv.tools);
+    if (section) box.appendChild(section);
+  });
+}
+
 // CV - single source of truth: window.siteProfile.cv in projects.js. Renders
 // into the right-hand column (<aside id="sidebar-right">) on the home page and
 // on every project page, so the CV is only ever edited in one place.
@@ -882,8 +924,9 @@ function buildCvSections(cv) {
   return [
     buildSection('Experience', cv.experience),
     buildSection('Education', cv.education),
-    buildSection('Exhibits', cv.exhibits)
-  ];
+    buildSection('Exhibits', cv.exhibits),
+    buildToolsSection(cv.tools)
+  ].filter(Boolean);
 }
 
 onReady(function () {
@@ -906,6 +949,9 @@ onReady(function () {
     column.appendChild(actions);
     buildCvSections(cv).forEach((section) => column.appendChild(section));
   }
+
+  // the same tools list, for the About view where the panel is hidden
+  renderAboutTools(document);
 });
 
 // filtering
