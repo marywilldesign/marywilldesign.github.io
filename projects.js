@@ -221,7 +221,7 @@ window.portfolioProjects = [
       links: [
         // the artwork lives on its own Pages repo under the marywilsondesign
         // account, not under marywildesign.com like the rest of the site
-        { label: 'view site ↗', href: 'https://marywilsondesign.github.io/lcsremixed/' }
+        { label: 'view site ↗', href: 'https://marywildesign.com/lcsremixed/' }
       ]
     }
   }
