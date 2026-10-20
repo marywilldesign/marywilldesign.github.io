@@ -1332,6 +1332,27 @@ onReady(function () {
     set();
   }
 
+  // Live embed (kogl): an iframe takes the wheel for itself, so a scroll over
+  // the demo would stop dead instead of moving the case study. An overlay
+  // button covers the frame until it is entered on purpose; pressing it hands
+  // the pointer back and moves focus inside. Bound once per embed, since
+  // apply() runs again on anything injected later.
+  function bindEmbed(box) {
+    if (box.dataset.embedBound) return;
+    const frame = box.querySelector('iframe');
+    const start = box.querySelector('.case-embed-start');
+    if (!frame || !start) return;
+    box.dataset.embedBound = 'true';
+
+    start.addEventListener('click', () => {
+      box.classList.add('is-live');
+      frame.focus();
+    });
+
+    // tabbing into the frame is the same intent, so drop the overlay too
+    frame.addEventListener('focus', () => box.classList.add('is-live'));
+  }
+
   function apply(root) {
     root.querySelectorAll('video[data-autoplay]').forEach((video) => {
       if (video.dataset.mediaBound) return;
@@ -1353,6 +1374,7 @@ onReady(function () {
     });
 
     root.querySelectorAll('[data-before-after]').forEach(bindBeforeAfter);
+    root.querySelectorAll('.case-embed').forEach(bindEmbed);
   }
 
   function init() {
