@@ -1581,6 +1581,53 @@ body.case-page .filters { display: none; }
   display: block;
 }
 
+/* live demo embed (kogl) - a real page in its own document, so nothing inside
+   it can collide with the case study's styles or scripts. The height is capped
+   so it reads as a window onto the site rather than a takeover of the column;
+   the fill matches the demo's own backdrop, shown only while it loads.
+
+   An overlay button covers the frame until it is entered on purpose: an iframe
+   swallows the wheel, so without this a scroll over the demo would stop dead
+   instead of moving the page. Being a real button, it keeps the frame reachable
+   by keyboard too. */
+.case-embed { margin: var(--sp-6) 0; }
+.case-embed-frame {
+  position: relative;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--white);
+  height: clamp(380px, 58vh, 620px);
+}
+.case-embed iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.case-embed-start {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: var(--sp-3);
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+.case-embed-start span {
+  padding: 0.4em 0.8em;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.72);
+  color: #fff;
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+}
+.case-embed.is-live .case-embed-start { display: none; }
+.case-embed-start:focus-visible { outline: 2px solid #0040FF; outline-offset: -2px; }
+
 /* before/after compare - two images stacked, the top one clipped at --ba-split,
    with a transparent range input over the box as the control. Going through a
    range input means dragging and arrow keys both work with no JS beyond one

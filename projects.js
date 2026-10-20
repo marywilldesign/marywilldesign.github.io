@@ -98,7 +98,7 @@ window.portfolioProjects = [
     meta: {
       year: '2024',
       role: 'UX/UI Design',
-      credits: ['Previous: Wendi Ma'],
+      credits: ['Collaborator: Wendi Ma'],
       links: [
         { label: 'view live page ↗', href: 'https://www.ibm.com/responsibility/programs/volunteerism-giving' }
       ]
