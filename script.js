@@ -1337,6 +1337,36 @@ onReady(function () {
   // button covers the frame until it is entered on purpose; pressing it hands
   // the pointer back and moves focus inside. Bound once per embed, since
   // apply() runs again on anything injected later.
+  // The demo is its own document, so it would otherwise show the system cursor
+  // and leave the site's blue dot frozen at the frame edge. Hide the cursor in
+  // there and relay its pointer position out, in page coordinates, so the dot
+  // keeps tracking across the boundary.
+  const cursor = document.getElementById('custom-cursor');
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches &&
+                      !window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+
+  function trackCursor(frame) {
+    if (!cursor || !finePointer) return;
+    const doc = frame.contentDocument;
+    if (!doc || !doc.head) return;
+
+    const style = doc.createElement('style');
+    style.textContent = '*, *::before, *::after { cursor: none !important; }';
+    doc.head.appendChild(style);
+
+    // measured rather than read per move: the frame moves with the page, and a
+    // rect read on every mousemove would force layout on every move
+    let rect = frame.getBoundingClientRect();
+    const measure = () => { rect = frame.getBoundingClientRect(); };
+    window.addEventListener('scroll', measure, { passive: true, capture: true });
+    window.addEventListener('resize', measure);
+
+    doc.addEventListener('mousemove', (event) => {
+      cursor.style.left = (rect.left + event.clientX) + 'px';
+      cursor.style.top = (rect.top + event.clientY) + 'px';
+    });
+  }
+
   function bindEmbed(box) {
     if (box.dataset.embedBound) return;
     const frame = box.querySelector('iframe');
@@ -1351,6 +1381,9 @@ onReady(function () {
 
     // tabbing into the frame is the same intent, so drop the overlay too
     frame.addEventListener('focus', () => box.classList.add('is-live'));
+
+    frame.addEventListener('load', () => trackCursor(frame));
+    trackCursor(frame);   // a cached frame may already be loaded
   }
 
   function apply(root) {
