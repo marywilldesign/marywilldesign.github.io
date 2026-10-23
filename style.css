@@ -354,6 +354,14 @@ button, a, [data-href] { cursor: pointer; }
 .cv-subitem .cv-org { font-size: 0.7rem; }
 .cv-subitem .cv-date { font-size: 0.6rem; }
 
+/* curved arrow before each tools line */
+.cv-tool-items::before {
+  content: "↪";
+  content: "↪" / "";
+  margin-right: 0.4em;
+  color: #000;
+}
+
 /* sticky download row at the top of the cv */
 .cv-actions {
   position: sticky;
@@ -863,7 +871,6 @@ body.case-page .filters { display: none; }
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: #0040FF;
-  background: rgba(0, 64, 255, 0.06);
   border: 1px solid #0040FF;
   border-radius: 999px;
   padding: 0.3em 0.75em;
@@ -961,6 +968,7 @@ body.case-page .filters { display: none; }
   content: "→";
   position: absolute;
   left: 0;
+  color: #0040FF;
 }
 
 /* run-in process step names */
@@ -1014,11 +1022,18 @@ body.case-page .filters { display: none; }
   font-size: 0.65rem;
   letter-spacing: 0.08em;
   color: #0040FF;
-  background: rgba(0, 64, 255, 0.06);
   border: 1px solid #0040FF;
   border-radius: 999px;
   padding: 0.3em 0.75em;
   margin-bottom: var(--sp-3);
+}
+
+/* arrow before the first paragraph under a heading, skipped by screen readers */
+.case-page .case-section h3 + p:not(.takeaway)::before {
+  content: "↪";
+  content: "↪" / "";
+  margin-right: 0.4em;
+  color: #0040FF;
 }
 
 /* tools list, name and use per row */

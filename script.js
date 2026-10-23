@@ -753,7 +753,7 @@ function buildToolsSection(tools) {
     label.className = 'cv-role';
     label.textContent = group.group;
     const list = document.createElement('span');
-    list.className = 'cv-org';
+    list.className = 'cv-org cv-tool-items';
     list.textContent = group.items.join(', ');
     item.append(label, list);
     wrap.appendChild(item);
