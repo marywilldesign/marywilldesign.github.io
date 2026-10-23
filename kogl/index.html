@@ -2,14 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <!-- Umami analytics. Cookieless and no personal data, so no consent banner is
-       needed. The data-domains list is what keeps local previews, which run on
-       127.0.0.1, out of the reports: the tracker matches the visitor's hostname
-       against it and does nothing anywhere else. -->
+  <!-- umami analytics, live domain only -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="df11a0aa-ba9c-4ef5-83f4-12195afd38c2" data-domains="marywildesign.com,www.marywildesign.com" data-performance="true"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KOGL – Site Launch</title>
-  <!-- canonical: the folder URL, not /index.html (Pages serves both, and redirects neither) -->
+  <title>Kogl: Establishing Web Presence</title>
+  <!-- canonical url -->
   <link rel="canonical" href="https://marywildesign.com/kogl/" />
 
   <link rel="icon" type="image/svg+xml" href="../mw.svg" />
@@ -25,27 +22,27 @@
 
 <div class="layout">
 
-  <!-- sidebar - left empty on purpose: script.js builds it from projects.js -->
+  <!-- left sidebar, filled from projects.js -->
   <aside class="sidebar" id="sidebar"></aside>
 
-  <!-- Mobile backdrop -->
+  <!-- mobile backdrop -->
   <div class="menu-backdrop" id="menu-backdrop"></div>
 
   <!-- main content -->
   <main class="content" id="content">
 
-    <!-- Topbar -->
+    <!-- topbar -->
     <div class="topbar">
       <button class="topbar-menu" id="menu-toggle" aria-label="Open menu">menu</button>
       <span class="clock" id="clock"></span>
     </div>
 
-    <span class="breadcrumb"><a href="../">projects</a> / <span class="breadcrumb-current">KOGL: Establishing Web Presence</span></span>
+    <span class="breadcrumb"><a href="../">projects</a> / <span class="breadcrumb-current">Kogl: Establishing Web Presence</span></span>
 
     <!-- header -->
     <div class="case-header-grid">
       <div class="case-header-text">
-          <h2>KOGL: Establishing Web Presence</h2>
+          <h2>Kogl: Establishing Web Presence</h2>
         <div class="tags"></div>
         <p>
           Kogl, an emerging furniture design studio based in Oslo, sought a digital presence that reflected the ambition and quality of its work. While the studio had a growing number of products and an existing outreach strategy, its visual identity lacked a digital presence capable of attracting prospective customers, manufacturers, and design collaborators.
@@ -54,7 +51,7 @@
     </div>
 
     <div class="hero-image">
-      <img src="../kogl/result.webp" alt="KOGL site result" width="2000" height="683" decoding="async" class="js-lightbox-item" >
+      <img src="../kogl/result.webp" alt="Kogl site result" width="2000" height="683" decoding="async" class="js-lightbox-item" >
     </div>
 
     <div class="snapshot-box"></div>
@@ -66,17 +63,17 @@
 
     <div class="case-section">
       <h3>Insights</h3>
-      <p>The client expressed slight frustration that people often struggled with how to pronounce the brand name (KOGL), particularly at international events. As the site needed to launch ahead of Milan Design Week, I created a phonetic animation that acted as a unique landing page, giving every visitor the pronunciation and building slight anticipation before entering the site.</p>
-      <p class="takeaway"><span class="takeaway-label">What I learned</span> The first thing a visitor needs isn't the catalogue, it's confidence. Paying attention to the small moments, like answering the smallest question on how to pronounce their name, shows what the KOGL team values: the details.</p>
+      <p>The client expressed slight frustration that people often struggled with how to pronounce the brand name (Kogl), particularly at international events. As the site needed to launch ahead of Milan Design Week, I created a phonetic animation that acted as a unique landing page, giving every visitor the pronunciation and building slight anticipation before entering the site.</p>
+      <p class="takeaway"><span class="takeaway-label">What I learned</span> The first thing a visitor needs isn't the catalogue, it's confidence. Paying attention to the small moments, like answering the smallest question on how to pronounce their name, shows what the Kogl team values: the details.</p>
     </div>
 
     <div class="case-section">
       <h3>Contribution</h3>
       <ul>
-        <li>Led UX, content strategy, and visual design of Kogl's e-commerce site, from discovery and concept through to design and implementation.</li>
-        <li>Translated the brand positioning into a structured digital experience, supported by a scalable design system.</li>
-        <li>Set the typography, spacing, and grid system used across the site.</li>
-        <li>Worked closely with the developer and client through frequent check-ins to meet a quick turnaround.</li>
+        <li>Led UX, content strategy, and visual design of Kogl's product listing site, from discovery and concept through to design and implementation</li>
+        <li>Translated the brand positioning into a structured digital experience, supported by a scalable design system</li>
+        <li>Set the typography, spacing, and grid system used across the site</li>
+        <li>Worked closely with the developer and client through frequent check-ins to meet a quick turnaround</li>
       </ul>
     </div>
 
@@ -87,24 +84,19 @@
 
     <div class="case-section">
       <h3>Outcome</h3>
-      <p>Designed a minimalist product listing site that places the furniture at the centre of the experience. The site combines streamlined navigation with a curated project index to showcase the studio's growing collection of furniture and lighting designs. A dedicated studio section introduces the founders, their design philosophy, and exhibition / press history.</p>
-    </div>
-
-    <div class="case-section">
-      <h3>Responsive behaviour</h3>
-      <p>The index was built to reflow rather than to exist at three fixed sizes: three cards across on desktop, two on tablet, one on mobile, with each image's crop following the column it lands in. This is the working index, so it can be handled rather than watched. Drag the frame edges, or jump between the breakpoints, and the cards re-sort instead of snapping to a new layout.</p>
+      <p>Designed a minimalist B2C product listing site that places the furniture at the centre of the experience. The site combined streamlined navigation with a curated project index to showcase the studio's growing collection of furniture and lighting designs.</p>
+      <p>It was designed mobile-first to be responsive. With three cards across on desktop, two on tablet, one on mobile, each image's crop followed the column it landed in. Below, interact to jump between the breakpoints, and the cards re-sort instead of snapping to a new layout.</p>
     </div>
 
     <figure class="case-embed">
       <div class="case-embed-frame">
-        <iframe src="../kogl/responsive/" title="The KOGL product index reflowing between desktop, tablet and mobile widths" loading="lazy"></iframe>
-        <button class="case-embed-start" type="button"><span>click to interact</span></button>
+        <iframe src="../kogl/responsive/" title="The Kogl product index reflowing between desktop, tablet and mobile widths" loading="lazy"></iframe>
       </div>
       <figcaption class="caption">Card order never changes, only how many fit across and the ratio each image is cropped to.</figcaption>
     </figure>
 
     <div class="case-section case-section-media">
-      <h3>Project media</h3>
+      <h3>Media</h3>
       <p>Here are some key artefacts from the project, with captions explaining each of them.</p>
     </div>
 
@@ -115,7 +107,7 @@
 
     <figure class="case-image">
       <img src="../kogl/card-typographic-exploration.png" alt="The same product card set four times over, each with the product name in a different face" width="1209" height="422" loading="lazy" decoding="async" class="js-lightbox-item" >
-      <figcaption class="caption">Card exploration, with a product name "Sentrum," where my main focus was how to display information hierarchy on a card</figcaption>
+      <figcaption class="caption">Card exploration, with a product name, 'Sentrum', where my main focus was how to display information hierarchy on a card</figcaption>
     </figure>
 
     <div class="side-by-side three-up">
@@ -156,7 +148,7 @@
 
   </main>
 
-  <!-- cv panel - left empty on purpose: script.js fills it from projects.js -->
+  <!-- cv panel, filled from projects.js -->
   <aside class="sidebar-right" id="sidebar-right"></aside>
 
 </div>

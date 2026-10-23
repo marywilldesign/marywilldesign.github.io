@@ -2,16 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- Umami analytics. Cookieless and no personal data, so no consent banner is
-       needed. The data-domains list is what keeps local previews, which run on
-       127.0.0.1, out of the reports: the tracker matches the visitor's hostname
-       against it and does nothing anywhere else. -->
+  <!-- umami analytics, live domain only -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="df11a0aa-ba9c-4ef5-83f4-12195afd38c2" data-domains="marywildesign.com,www.marywildesign.com" data-performance="true"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Mary Wil – User Experience designer with nearly ten years experience from startups to consulting agencies.">
   <meta name="theme-color" content="#0000cd">
-  <title>Telus: Plans Page (Informing Customers)</title>
-  <!-- canonical: the folder URL, not /index.html (Pages serves both, and redirects neither) -->
+  <title>Telus: Informing Customers</title>
+  <!-- canonical url -->
   <link rel="canonical" href="https://marywildesign.com/telus-informing-customers/">
   <link rel="icon" type="image/svg+xml" href="../mw.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,10 +22,10 @@
 
   <div class="layout">
 
-    <!-- sidebar - left empty on purpose: script.js builds it from projects.js -->
+    <!-- left sidebar, filled from projects.js -->
     <aside class="sidebar" id="sidebar"></aside>
 
-    <!-- Mobile backdrop -->
+    <!-- mobile backdrop -->
     <div class="menu-backdrop" id="menu-backdrop"></div>
 
     <!-- main content -->
@@ -38,14 +35,14 @@
         <span class="clock" id="clock"></span>
       </div>
 
-      <span class="breadcrumb"><a href="../">projects</a> / <span class="breadcrumb-current">Telus: Plans Page (Informing Customers)</span></span>
+      <span class="breadcrumb"><a href="../">projects</a> / <span class="breadcrumb-current">Telus: Informing Customers</span></span>
 
       <div class="case-header-grid">
         <div class="case-header-text">
-          <h2>Telus: Plans Page (Informing Customers)</h2>
+          <h2>Telus: Informing Customers</h2>
           <div class="tags"></div>
           <p>
-            All Purpose Creative was a preferred vendor for Telus Canada, an enterprise level telecommunications company. This is the second project from the same retainer to increase internet sales: where the <a href="../telus/">meganav work</a> covered wayfinding, this one covers educating customers on the Plans Page. We were tasked with helping prospective customers commit to a plan without being pushed, with educational elements woven through the card design.
+            All Purpose Creative was a preferred vendor for Telus Canada, an enterprise-level telecommunications company. This is the second project from the same retainer to increase internet sales: where the <a href="../telus/">meganav work</a> covered wayfinding, this one covered educating customers on the Plans Page. We were tasked with helping prospective customers commit to a plan without being pushed, with educational elements woven through the card design.
           </p>
         </div>
       </div>
@@ -66,7 +63,9 @@
       <div class="case-section">
         <h3>Insights</h3>
         <p>One key design decision that Mike, Marie, and I worked closely on was weaving educational elements throughout. This was to ensure users were buying internet plans that served them, in an attempt to avoid dark patterns.</p>
-        <p class="takeaway"><span class="takeaway-label">What I learned</span> It seemed users weren't reluctant to commit; they were reluctant to commit to something they did not feel they fully understood. Carefully surfacing key pieces of information on Plans Page (like putting the term and what happens after it next to the choice) did more than another line of copy.</p>
+        <p>Paraphrasing our buyer survey: one respondent couldn't tell what 'fast' even means when providers advertise it. Another had changed plans three times in four years because the speed never matched what they'd asked for. Others pointed to hidden fees and contract terms. The term, the speed and the price were all things people felt they couldn't verify.</p>
+        <p>Interest-holder review shaped the design as much as research did. Tooltips didn't survive mobile, so we moved their content into the plan modals. The Fast, Faster and Fastest names stayed because they carried internal history, though we proposed alternatives. We gave the fourth card, usually reserved for offers, to the internet quiz, so people who weren't sure what speed they needed had somewhere to go. Telus.com is constantly changing, so the live page may look different today.</p>
+        <p class="takeaway"><span class="takeaway-label">What I learned</span> It seemed users weren't reluctant to commit; they were reluctant to commit to something they did not feel they fully understood. Carefully surfacing key pieces of information on the Plans Page (like putting the term and what happens after it next to the choice) did more than another line of copy.</p>
       </div>
 
       <div class="case-section">
@@ -87,40 +86,39 @@
       <div class="case-section">
         <h3>Validation</h3>
         <p>We ran a lot of A/B tests across this engagement. One of them looked at how the term was explained, because the term was where confidence was breaking down.</p>
-        <p>Our hypothesis: surfacing term selection out of the plan cards and clarifying what happens after the term is over will help customers better understand the deal and improve their trust and confidence in Telus.</p>
+        <p>Our hypothesis: surfacing term selection out of the plan cards and clarifying what happens after the term is over would help customers better understand the deal and improve their trust and confidence in Telus.</p>
         <p>Three versions went to testing:</p>
-        <ul>
-          <li><strong>A</strong> — current plan cards, with the term as a checkbox inside each card.</li>
-          <li><strong>B</strong> — term selection embedded in the savings toggle, with the mobility saving alongside it.</li>
-          <li><strong>C</strong> — term selection surfaced as its own choice above the plans.</li>
-        </ul>
-        <figure class="case-image">
-          <img src="../telus-informing-customers/ab-test-a-current-cards.webp" alt="Version A: current plan cards with the term as a checkbox inside each card" width="898" height="768" loading="lazy" decoding="async" class="js-lightbox-item">
-          <figcaption class="caption">A — the current plan cards, with the term as a checkbox inside each card.</figcaption>
-        </figure>
-        <figure class="case-image">
-          <img src="../telus-informing-customers/ab-test-b-term-toggle.webp" alt="Version B: term selection embedded in the savings toggle, with mobility savings" width="849" height="768" loading="lazy" decoding="async" class="js-lightbox-item">
-          <figcaption class="caption">B — term selection moved into the savings toggle, with the mobility saving beside it.</figcaption>
-        </figure>
-        <figure class="case-image">
-          <img src="../telus-informing-customers/ab-test-c-term-cta.webp" alt="Version C: term selection surfaced as a call to action above the plans" width="816" height="768" loading="lazy" decoding="async" class="js-lightbox-item">
-          <figcaption class="caption">C — term selection surfaced as its own choice above the plans.</figcaption>
-        </figure>
+        <div class="side-by-side three-up">
+          <div class="sbs-item">
+            <img src="../telus-informing-customers/ab-test-a-current-cards.webp" alt="Version A: current plan cards with the term as a checkbox inside each card" width="898" height="768" loading="lazy" decoding="async" class="js-lightbox-item">
+            <div class="caption">A — the current plan cards, with the term as a checkbox inside each card</div>
+          </div>
+          <div class="sbs-item">
+            <img src="../telus-informing-customers/ab-test-b-term-toggle.webp" alt="Version B: term selection embedded in the savings toggle, with mobility savings" width="849" height="768" loading="lazy" decoding="async" class="js-lightbox-item">
+            <div class="caption">B — term selection moved into the savings toggle, with the mobility saving beside it</div>
+          </div>
+          <div class="sbs-item">
+            <img src="../telus-informing-customers/ab-test-c-term-cta.webp" alt="Version C: term selection surfaced as a call to action above the plans" width="816" height="768" loading="lazy" decoding="async" class="js-lightbox-item">
+            <div class="caption">C — term selection surfaced as its own choice above the plans</div>
+          </div>
+        </div>
+        <p>The version that gave people the most information was favoured.</p>
       </div>
 
       <div class="results-highlight">
         <h3>Results</h3>
         <div class="results-cards">
           <div class="result-card">
-            <strong>-0.5%</strong>
-            <span>decrease in overall<br>engagement*</span>
+            <strong>−0.5%</strong>
+            <span>change in overall<br>engagement*</span>
           </div>
         </div>
-        <p><em>*User researchers rationalized this as users getting the info they need in the context of other data (entering the purchase funnel etc.)</em></p>
+        <p><em>*User researchers read this as a good sign: users were getting the information they needed and moving on, such as into the purchase funnel.</em></p>
+        <p>Earlier rounds of small A/B tweaks hadn't moved the numbers, so the engagement shifted towards larger structural changes. A slight dip in engagement meant people were reaching the purchase funnel already informed, which was the aim.</p>
       </div>
 
       <div class="case-section case-section-media">
-        <h3>Project media</h3>
+        <h3>Media</h3>
         <p>Here are some key artefacts from the project, with captions explaining each of them.</p>
       </div>
 
@@ -131,7 +129,7 @@
 
       <figure class="case-image">
         <img src="../telus-informing-customers/card-option-a.webp" alt="Card option A: the internet needs quiz" width="2000" height="523" loading="lazy" decoding="async" class="js-lightbox-item">
-        <figcaption class="caption">Card option A, leading with 'need help choosing?' and a quiz, for the people who don't yet know which speed they need</figcaption>
+        <figcaption class="caption">Card option A, leading with 'need help choosing?' and a quiz, for the people who didn't yet know which speed they needed</figcaption>
       </figure>
 
       <figure class="case-image">
@@ -146,7 +144,7 @@
 
       <figure class="case-image">
         <img src="../telus-informing-customers/plans-page.webp" alt="The restructured plans page" width="1302" height="2000" loading="lazy" decoding="async" class="js-lightbox-item">
-        <figcaption class="caption">The page itself, restructured so the decision comes before the detail. The educational content is woven in at the point where someone is choosing, which was the point of the whole thing</figcaption>
+        <figcaption class="caption">The page itself, restructured so the decision came before the detail. The educational content was woven in at the point where someone was choosing, which was the point of the whole thing</figcaption>
       </figure>
 
       <figure class="case-image-wide">
@@ -162,7 +160,7 @@
 
     </main>
 
-    <!-- cv panel - left empty on purpose: script.js fills it from projects.js -->
+    <!-- cv panel, filled from projects.js -->
     <aside class="sidebar-right" id="sidebar-right"></aside>
 
   </div>

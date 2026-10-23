@@ -1,14 +1,7 @@
-/* ------------------------------------------------------------------
-   projects.js - the ONE place project + profile data lives.
-   Edit here; the home page, every project page, the sidebars, the
-   CV panel and the prev/next footer all read from this file.
-
-   hrefs are relative to the site root (no leading slash needed).
-   `id` is what you put in <body data-project="…"> on each project page.
-   `tools` feeds two places: the names join the tag row on the cards and the
-   case headers, and each project page lists the same tools with what they
-   were used for.
------------------------------------------------------------------- */
+/* projects.js: all project and profile data for the site
+   href: page path from site root
+   id: matches body data-project on each project page
+   tools: tool tags on cards and case headers, plus the tools list on each page */
 
 window.portfolioProjects = [
   {
@@ -16,9 +9,7 @@ window.portfolioProjects = [
     title: 'Telus: Enterprise IA Refresh',
     href: 'telus/',
     category: 'ux',
-    // IA leads, since it is what the project is about, and starting with the
-    // shortest tag is also what lets these seven pack into three rows on a card
-    // instead of four. Identical to the list on telus-informing-customers below.
+    // tags shown on the card and case header
     tags: ['IA', 'allium design system', 'enterprise', 'a/b testing', 'analytics', 'user research', 'workshop facilitation'],
     tools: [
       { name: 'Figma', use: 'Specced each menu tier as wireframes, then built the hi-fi menu states for desktop and mobile.' },
@@ -112,7 +103,8 @@ window.portfolioProjects = [
     tags: ['site refresh', 'IA', 'card design', 'navigation design'],
     tools: [
       { name: 'Figma', use: "Wireframed the rebuilt site page by page, then designed the hi-fi navigation, fleet selection and booking screens inside Modo's existing brand." },
-      { name: 'FigJam', use: 'Ran the interest-holder workshops and kept the competitive analysis and the franken-site audit on one board, so the team could see what was going and what was staying.' }
+      { name: 'FigJam', use: 'Ran the interest-holder workshops and kept the competitive analysis and the franken-site audit on one board, so the team could see what was going and what was staying.' },
+      { name: 'Webflow', use: "The site was designed for Webflow so Modo's marketing team could run it themselves, with the build done alongside the developer." }
     ],
     meta: {
       year: '2022 - ongoing',
@@ -138,7 +130,7 @@ window.portfolioProjects = [
     tools: [
       { name: 'Figma', use: 'Set the type, grid and spacing, then designed the cards, index and studio pages. Both card options came out of this file.' },
       { name: 'FigJam', use: 'Collected the competitive review and the first card explorations, with a note on what each reference site actually does well.' },
-      { name: 'p5.js', use: 'Made the phonetic animation that plays before the site opens, so visitors hear how to say KOGL before they read anything.' }
+      { name: 'p5.js', use: 'Made the phonetic animation that plays before the site opens, so visitors hear how to say Kogl before they read anything.' }
     ],
     meta: {
       year: '2026',
@@ -170,14 +162,10 @@ window.portfolioProjects = [
   {
     id: 'blackbox',
     title: 'VJ Controller: MA Thesis',
-    // Not "blackbox/": GitHub Pages reserves that path for the separate
-    // `blackbox` repo, whose blackboxvj.me custom domain 301s everything under
-    // it away from marywildesign.com - page, video and posters alike.
+    // project page path
     href: 'vj-controller/',
     category: 'code',
-    // electronics sits directly after 3D design + printing so the two making tags
-    // land side by side on the same row of the card. Three rows either way, but the
-    // rows come out more even this way round.
+    // tags shown on the card and case header
     tags: ['graphic design', 'installation', '3D design + printing', 'electronics', 'single board computing'],
     tools: [
       { name: 'Figma', use: 'Designed the browser controller and labelled its on-screen controls. The physical controller stayed unlabelled on purpose.' },
@@ -195,20 +183,13 @@ window.portfolioProjects = [
   {
     id: 'collaborativesentence',
     title: 'First Collaborative Sentence: Remixed',
-    // Compact form for the two places with no room: the 191px panel column, and
-    // the home card title, which has to hold one line. "Remixed" stays at case
-    // study level only, in the <h2>, the breadcrumb and document.title.
+    // shorter title for the panel and home card
     shortTitle: 'First Collaborative Sentence',
-    // The footer's prev/next cell is only about half the pane, and on the narrow
-    // layout that is 113px at 320px wide and 140px at 375px, against the 179px
-    // this name needs - so the footer gets a shorter form again below 640px.
-    // "Long Sentence →" measures 102px, which is one line at every width down to
-    // 320px; anything longer (the 150px "Collaborative Sentence") wraps there.
+    // footer prev/next label for narrow screens
     navShortTitle: 'Long Sentence',
     href: 'collaborativesentence/',
     category: 'code',
-    // the card-info set, which carries "front-end dev" that the case-study tag
-    // line left off. One list feeds both places, so both now show these five.
+    // tags shown on the card and case header
     tags: ['web scraping', 'graphic design', 'typography', 'front-end dev', 'creative development'],
     tools: [
       { name: 'Python', use: 'Wrote the scraper that pulled the million-word sentence out of the archive and prepared it for the banned-word pass.' },
@@ -219,8 +200,7 @@ window.portfolioProjects = [
       year: '2025',
       role: 'Design (Typography, UI) & Build (Web Scraping, Front-end Development)',
       links: [
-        // the artwork lives on its own Pages repo under the marywilsondesign
-        // account, not under marywildesign.com like the rest of the site
+        // links to the artwork site
         { label: 'view site ↗', href: 'https://marywildesign.com/lcsremixed/' }
       ]
     }
@@ -230,15 +210,11 @@ window.portfolioProjects = [
 window.siteProfile = {
   name: 'Mary G. Wilson',
 
-  // rendered into <aside id="sidebar-right"> on every page
-  // sub: true  -> indented client under the entry above it
-  // location   -> own line under org; institution and city are separate fields
-  //               on education entries, where the city carries its country
-  // skills/tools -> the About facts table stays short; the panel lists tools
+  // cv data for the right sidebar; sub entries are indented clients
   cv: {
     experience: [
       { role: 'Lead UX Designer',             org: 'KHiO Research Project',          date: 'July 2026 – Present' },
-      { role: 'Strategy, UX & Graphic Design', org: 'KOGL',                          date: 'Jan 2026 – April 2026' },
+      { role: 'Strategy, UX & Graphic Design', org: 'Kogl',                          date: 'Jan 2026 – April 2026' },
       { role: 'Snr. UX Designer (contract)',  org: 'All Purpose Creative',           date: '2021 – Present' },
       { sub: true, org: 'Modo',                                                       date: 'Feb 2022 – 2025' },
       { sub: true, org: 'IBM',                                                        date: 'July 2024 – Jan 2025' },
@@ -261,17 +237,15 @@ window.siteProfile = {
       { org: 'White Box Gallery, KHiO',       date: 'Nov 2024' },
       { org: 'Van Art Gallery (Installation)', date: 'March – Oct 2022' }
     ],
-    // Tools only, grouped by what they are for; the panel lists them and the
-    // About view repeats the same list on narrow screens, where the panel is
-    // hidden.
+    // tools grouped by use, for the panel and about view
     tools: [
-      { group: 'design', items: ['Figma', 'FigJam', 'Figma Make', 'Adobe CC', 'Canva', 'Framer'] },
-      { group: 'research', items: ['Miro', 'Maze', 'UserTesting', 'Optimal Workshop', 'Dovetail', 'Typeform'] },
-      { group: 'data', items: ['Decibel', 'Google Analytics', 'Hotjar'] },
-      { group: 'delivery', items: ['Notion', 'Jira', 'Slack'] },
-      { group: 'build & AI', items: ['VS Code', 'Cursor', 'Copilot', 'ChatGPT', 'Claude', 'GitHub', 'HTML/CSS'] },
-      { group: 'web', items: ['Webflow', 'WordPress', 'Squarespace', 'Readymag'] },
-      { group: 'code & 3D', items: ['p5.js', 'Python', 'Fusion 360'] }
+      { group: 'Design', items: ['Figma', 'FigJam', 'Figma Make', 'Adobe CC', 'Canva', 'Framer'] },
+      { group: 'Research', items: ['Miro', 'Maze', 'UserTesting', 'Optimal Workshop', 'Dovetail', 'Typeform'] },
+      { group: 'Data', items: ['Decibel', 'Google Analytics', 'Hotjar'] },
+      { group: 'Delivery', items: ['Notion', 'Jira', 'Slack'] },
+      { group: 'Build & AI', items: ['VS Code', 'Cursor', 'Copilot', 'ChatGPT', 'Claude', 'GitHub', 'HTML/CSS'] },
+      { group: 'Web', items: ['Webflow', 'WordPress', 'Squarespace', 'Readymag'] },
+      { group: 'Code & 3D', items: ['p5.js', 'Python', 'Fusion 360'] }
     ]
   }
 };

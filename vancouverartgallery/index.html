@@ -2,14 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <!-- Umami analytics. Cookieless and no personal data, so no consent banner is
-       needed. The data-domains list is what keeps local previews, which run on
-       127.0.0.1, out of the reports: the tracker matches the visitor's hostname
-       against it and does nothing anywhere else. -->
+  <!-- umami analytics, live domain only -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="df11a0aa-ba9c-4ef5-83f4-12195afd38c2" data-domains="marywildesign.com,www.marywildesign.com" data-performance="true"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Van Art Gallery (Installation)</title>
-  <!-- canonical: the folder URL, not /index.html (Pages serves both, and redirects neither) -->
+  <title>Van Art Gallery: AI Installation</title>
+  <!-- canonical url -->
   <link rel="canonical" href="https://marywildesign.com/vancouverartgallery/" />
 
   <link rel="icon" type="image/svg+xml" href="../mw.svg" />
@@ -25,10 +22,10 @@
 
 <div class="layout">
 
-  <!-- sidebar - left empty on purpose: script.js builds it from projects.js -->
+  <!-- left sidebar, filled from projects.js -->
   <aside class="sidebar" id="sidebar"></aside>
 
-  <!-- Mobile backdrop -->
+  <!-- mobile backdrop -->
   <div class="menu-backdrop" id="menu-backdrop"></div>
 
   <!-- main content -->
@@ -40,12 +37,12 @@
       <span class="clock" id="clock"></span>
     </div>
 
-    <span class="breadcrumb"><a href="../">projects</a> / <span class="breadcrumb-current">Service Design @ Van Art Gallery</span></span>
+    <span class="breadcrumb"><a href="../">projects</a> / <span class="breadcrumb-current">Van Art Gallery: AI Installation</span></span>
 
     <!-- case header -->
     <div class="case-header-grid">
       <div class="case-header-text">
-        <h2>Service Design @ Van Art Gallery</h2>
+        <h2>Van Art Gallery: AI Installation</h2>
         <div class="tags"></div>
         <p>
           An AI-art installation made for the 2022 Imitation Game exhibit at the Vancouver Art Gallery, where the visitors became the artwork.
@@ -64,14 +61,14 @@
       <p>Vancouver Art Gallery's 2022 exhibit, named Imitation Game, explored the transformative influence of AI on the development and production of visual culture. My team was approached by the gallery's head curators to design, develop, and implement an installation. They wanted:</p>
       <ul>
         <li>A functional art piece that could be implemented in the Imitation Game exhibit</li>
-        <li>Non-invasive data gathering method that does not impede visitor's experience</li>
-        <li>Attractive and "accurate-ish" visualization output of visitor data</li>
+        <li>Non-invasive data gathering method that did not impede visitors' experience</li>
+        <li>Attractive and "accurate-ish" visualisation output of visitor data</li>
       </ul>
     </div>
 
     <div class="case-section">
       <h3>Insights</h3>
-      <p>We worked on my idea, which was to use real-time human-detection software to track each visitor as an anonymized numbered, coloured path, plotting movement and "dwell time" live on a nearby monitor as it happened. Turning visitor behaviour into an immediate, visible pattern let the installation double as both artwork and research tool, fitting naturally into an exhibition about AI itself: the visitors became the artists.</p>
+      <p>We worked on my idea, which was to use real-time human-detection software to track each visitor as an anonymised numbered, coloured path, plotting movement and "dwell time" live on a nearby monitor as it happened. Turning visitor behaviour into an immediate, visible pattern let the installation double as both artwork and research tool, fitting naturally into an exhibition about AI itself: the visitors became the artists.</p>
       <p class="takeaway"><span class="takeaway-label">What I learned</span> You can't design one explanation for a room full of people who arrive with completely different relationships to AI. The piece had to work as an artwork, a research tool, and a label at once, so the rules had to be explained through the piece itself.</p>
     </div>
 
@@ -80,7 +77,7 @@
       <ul>
         <li>Designed core visual system translating visitor movement into real-time generative output (and named it: 'Creepers')</li>
         <li>Defined the balance between unobtrusive data capture and meaningful visual feedback within an exhibition context</li>
-        <li>Developed the visual language and rules governing how movement data was represented in the installation and the customization tool we also supplied</li>
+        <li>Developed the visual language and rules governing how movement data was represented in the installation and the customisation tool we also supplied</li>
         <li>Worked on the didactic panel content and the visual design system / assets which informed the app for the installation</li>
         <li>Mapped the full visitor journey and exhibition layout for the installation space based on the user personas and journeys</li>
       </ul>
@@ -118,7 +115,7 @@
 
 
     <div class="case-section case-section-media">
-      <h3>Project media</h3>
+      <h3>Media</h3>
       <p>Here are some key artefacts from the project, with captions explaining each of them.</p>
     </div>
 
@@ -128,8 +125,8 @@
     </figure>
 
     <figure class="case-image">
-      <img src="../vancouverartgallery/user-matrix.webp" alt="Audience spectrum matrix, plotting attitudes to AI across jagged to seamless and analog to digital" width="2000" height="1443" loading="lazy" decoding="async" class="js-lightbox-item" >
-      <figcaption class="caption">The audience spectrum, which is really where the whole piece came from. Four positions on AI plotted at once: jagged against seamless, analog against digital, from 'the user is in control' through to 'the AI is a companion'. The installation had to hold all of them at the same time.</figcaption>
+      <img src="../vancouverartgallery/user-matrix.webp" alt="Audience spectrum matrix, plotting attitudes to AI across jagged to seamless and analogue to digital" width="2000" height="1443" loading="lazy" decoding="async" class="js-lightbox-item" >
+      <figcaption class="caption">The audience spectrum, which was really where the whole piece came from. Four positions on AI plotted at once: jagged against seamless, analogue against digital, from 'the user is in control' through to 'the AI is a companion'. The installation had to hold all of them at the same time.</figcaption>
     </figure>
 
     <figure class="case-image">
@@ -175,7 +172,7 @@
 
     <figure class="case-image-wide">
       <video src="../vancouverartgallery/recording-input.webm" poster="../vancouverartgallery/recording-input-poster.webp" width="1200" height="674" data-autoplay preload="none" loop muted playsinline class="js-lightbox-item"></video>
-      <figcaption class="caption">What the piece actually saw. Every visitor detected, boxed, numbered and given a colour. The number and the colour are all anybody becomes.</figcaption>
+      <figcaption class="caption">What the piece actually saw. Every visitor detected, boxed, numbered and given a colour. The number and the colour were all anybody became.</figcaption>
     </figure>
 
     <figure class="case-image">
@@ -195,7 +192,7 @@
       </div>
       <div class="sbs-item">
         <img src="../vancouverartgallery/ID-recording.webp" alt="Visitors in the exhibition space, each already carrying an id and a colour" width="1840" height="2000" loading="lazy" decoding="async" class="js-lightbox-item" >
-        <div class="caption">The room in use. By the time anyone reaches the wall they are already an id and a colour.</div>
+        <div class="caption">The room in use. By the time anyone reached the wall they were already an id and a colour.</div>
       </div>
     </div>
 
@@ -207,7 +204,7 @@
 
   </main>
 
-  <!-- cv panel - left empty on purpose: script.js fills it from projects.js -->
+  <!-- cv panel, filled from projects.js -->
   <aside class="sidebar-right" id="sidebar-right"></aside>
 
 </div>

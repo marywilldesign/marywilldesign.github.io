@@ -1,4 +1,4 @@
-/* mary wil design - portfolio styles */
+/* mary wil design portfolio styles */
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -25,18 +25,11 @@
   --gray-800: #1f2937;
   --gray-900: #111827;
 
-  /* One typeface for the whole site, with Inter as the fallback and a
-     metric-matched local sans behind that so the first paint cannot reflow the
-     cqw-sized wordmark. See the @font-face rules below for why the order is
-     what it is. --font-mono is the clock, and nothing else. */
+  /* site font stack and clock font */
   --font-sans: 'NeueMontreal', 'Inter', 'NeueMontreal-metric Arial', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  /* Nothing on the site is tracked inwards. The face is tight as drawn and
-     carries its own kerning - the subset keeps GPOS, so pairs are spaced by the
-     foundry's own figures - and the display sizes used to be pulled in by up to
-     -0.035em, which is the point at which letters start to touch. Only the
-     uppercase labels are spaced out, and that is deliberate. */
+  /* spacing scale */
 
   --sp-1: 0.25rem;
   --sp-2: 0.5rem;
@@ -56,32 +49,11 @@
 
   --media-gap: 12px;
 
-  /* The page's own headline size, shared so the two cannot drift apart: the
-     case-study title sets it outright, and the About headline caps its clamp()
-     with it. */
+  /* shared page headline size */
   --title-size: 2.4rem;
 }
 
-/* Neue Montreal Medium, self-hosted, and now the only typeface the site uses:
-   it sets the wordmark, the page titles and the body copy alike.
-   Pangram Pangram Foundry's free terms cover this use directly. Their FAQ says
-   the fonts are "free to try for personal use as long as it is not used in a
-   commercial project", and then names the case: "You can use them in your
-   portfolio (PDF, print or web!)". A commercial project would need a licence
-   from them. The credit sits under the sidebar bio on the home page.
-   Subset and compressed the way the serif used to be: 41 KB of OTF arrives as
-   14 KB of woff2 over 215 glyphs. The cut is Latin-1, General Punctuation and
-   the whole Arrows block, because the site sets ↑ and ↗ in its links and ↑
-   again on the back-to-top pill. Re-run the subset (fonts/README.md) if copy
-   ever needs a character outside that; ✕ in the lightbox is not in the family
-   at all and comes from the system face either way.
-   The family is named NeueMontreal rather than "Neue Montreal" so it cannot be
-   substituted by a locally installed copy - every visitor gets this file and
-   the same spacing.
-   The file is the Medium cut, so it is declared at the weight it was drawn at,
-   500, rather than at 400: a 400 request still lands here (font matching checks
-   500 first for that weight), and with nothing on the site asking for more than
-   500 the browser has no reason to synthesise a bold over the top. */
+/* neue montreal medium, self-hosted */
 @font-face {
   font-family: 'NeueMontreal';
   font-style: normal;
@@ -90,49 +62,16 @@
   src: url('fonts/NeueMontreal-Medium.woff2') format('woff2');
 }
 
-/* The local face the stack falls back to, rescaled to Neue Montreal's
-   proportions. It sits BEHIND Inter for a specific reason: Inter is a remote
-   webfont, so it is not available for the very first paint either, and the only
-   faces guaranteed to be there are the local ones. Released a whole wordmark
-   without it, that first paint is a local sans whose width does not match, and
-   the wordmark below is sized to fill its column by measurement.
-   "Mary G. Wilson" at font-size 100px: 649.0 in Neue Montreal Medium, 683.4 in
-   Arial. The wordmark is 15.33cqw, which only fits a face up to 6.52x, so
-   unadjusted Arial at 6.834x would take it onto a second line and shove the bio
-   down until the woff2 landed. size-adjust rescales a face's advances and its
-   metrics together, so this occupies Neue Montreal's width exactly and the swap
-   costs no layout at all: 649.0 / 683.4 = 94.97%. Liberation Sans is metrically
-   an Arial clone, so it takes the same figure.
-   Inter sits above this face in the stack and is wider still, at 7.204x, which
-   the wordmark cannot take. Measured, by blocking the woff2 at the network
-   layer: the browser fell back to THIS face rather than fetching Inter, so the
-   wordmark stayed on one line and the local fallback is doing the work, not
-   Inter. Inter can only appear if it is already in the cache from an earlier
-   page, and then the wordmark takes two lines for that moment. Dropping 'Inter'
-   from --font-sans removes even that.
-   The percentage is per-string, so regenerate it if the wordmark's text changes
-   (measure the string at 100px in each face and divide 649.0 by it).
-   Measured against the subset itself, not the master: the woff2 reproduces the
-   same 6.490x, so the cut did not move the advances. */
+/* metric-matched local fallback for neue montreal */
 @font-face {
   font-family: 'NeueMontreal-metric Arial';
   src: local('Arial'), local('Liberation Sans');
   size-adjust: 94.97%;
 }
 
-/* The clock glyphs are Egyptian hieroglyphs, which are not in Neue Montreal and
-   are only present on a system if it happens to ship a font for that block -
-   macOS does, most Linux installs do not. Rather than leave those visitors
-   looking at empty boxes, the ten codepoints the clock actually uses are
-   served as a webfont. Subsetting takes the file from ~150 KB to 6 KB, and
-   the unicode-range means it is only fetched when one of these characters is
-   on the page. Regenerate by asking Google Fonts for the same `text=` subset
-   (see fonts/README.md if a glyph ever changes).
-   Noto Sans Egyptian Hieroglyphs, SIL Open Font License 1.1 - fonts/OFL.txt */
+/* hieroglyph font for the clock */
 @font-face {
-  /* named for its job rather than after the upstream family. The file is Noto
-     Sans Egyptian Hieroglyphs, but a family name no system font shares means a
-     locally installed copy can never be picked instead of this one. */
+  /* unique family name for the clock font */
   font-family: 'Clock Hieroglyphs';
   font-style: normal;
   font-weight: 400;
@@ -141,11 +80,7 @@
   unicode-range: U+13005, U+13007, U+13009, U+13020-13022, U+13024, U+13028-13029, U+1303f;
 }
 
-/* Form controls do not inherit type from the page, so the buttons that carry a
-   glyph rather than a word - the lightbox close and its arrows, the drawer's
-   close - were drawing in the browser's own UI font (Arial here) rather than the
-   site's face. Nothing below sets a family on them, so this is the one place it
-   has to happen. */
+/* form controls use the site font */
 button,
 input,
 select,
@@ -181,11 +116,7 @@ a[aria-current="page"] {
   text-decoration: underline;
 }
 
-/* Keyboard focus, stated rather than left to the browser. The default ring is
-   1px and measures 2.41:1 against white - under the 3:1 that SC 1.4.11 asks of
-   a focus indicator, and thin enough to miss. The panel is white again, so the
-   ring inside it is the site blue, read from the panel's own palette so a
-   re-light carries the ring with it. */
+/* keyboard focus ring */
 :focus-visible {
   outline: 2px solid #0040FF;
   outline-offset: 2px;
@@ -196,8 +127,7 @@ a[aria-current="page"] {
 
 h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 500; }
 h2 { font-size: 1.5rem; color: var(--gray-900); }
-/* the shared 500 above is the heaviest the family has, so h3 does not ask for
-   a weight of its own: a 600 here would only be drawn by synthesis */
+/* h3 size */
 h3 { font-size: 1rem; }
 
 p { max-width: 72ch; }
@@ -210,33 +140,17 @@ button, a, [data-href] { cursor: pointer; }
 /* layout */
 .layout {
   display: flex;
-  /* 100vh is the LARGE viewport on a phone or tablet: it counts the strip that
-     the browser's own chrome (address bar, toolbars) is drawn over, so on an
-     iPad in landscape the full-height panels ran past the bottom of the screen
-     and .layout's overflow cut the end off the project list with nothing able
-     to scroll it back. dvh is the height the browser is actually showing and it
-     tracks the address bar as it hides and shows. 100vh stays as the fallback,
-     so browsers without dvh (older than Chromium 108 / Safari 15.4) keep the old
-     behaviour rather than breaking; the site's own floor is still Chromium 105,
-     set by the container queries. Measured 2026-09-24: 915px of 100vh against
-     about 835px visible on a Pixel 6a. */
+  /* full-height layout that fits the visible screen */
   height: 100vh;
   height: 100dvh;
   overflow: hidden;
 }
 
-/* left sidebar - a white panel with black type and blue links. Every colour in
-   the panel reads from the four variables here, so re-lighting it is one edit:
-   for the blue panel it carried from 8919aa3 until 2026-09-22, set --sidebar-bg
-   to #0040FF, --sidebar-fg and --sidebar-link to #ffffff, and
-   --sidebar-fg-muted to rgba(255, 255, 255, 0.8). */
+/* left sidebar colours */
 .sidebar {
   --sidebar-bg: var(--white);
   --sidebar-fg: #000000;
-  /* the credit caption and the drawer's close button, the two things the panel
-     deliberately keeps secondary. --gray-400 was the light panel's value but
-     measures 2.54:1 on white, so 500 here keeps the demotion and passes AA at
-     4.83:1 - close to the 4.69:1 the blue panel carried for the same pair. */
+  /* muted text and link colours for the sidebar */
   --sidebar-fg-muted: var(--gray-500);
   --sidebar-link: #0040FF;
 
@@ -244,17 +158,12 @@ button, a, [data-href] { cursor: pointer; }
   min-width: var(--sidebar-w);
   background: var(--sidebar-bg);
   color: var(--sidebar-fg);
-  /* the panel's edge against the white page, as it was before the blue panel,
-     and the same hairline the CV panel carries on its left */
+  /* sidebar right edge hairline */
   border-right: 1px solid var(--blue);
   display: flex;
   flex-direction: column;
   padding: var(--sp-6);
-  /* fills .layout rather than naming a viewport unit of its own, so it can
-     never be taller than the height .layout settled on (see the note there).
-     On the mobile drawer this resolves against the initial containing block,
-     which also excludes browser chrome - that is the fix for the project list
-     running off the bottom of the screen, see the 1024px query below. */
+  /* sidebar fills the layout height */
   height: 100%;
   overflow: hidden;
   position: sticky;
@@ -262,10 +171,7 @@ button, a, [data-href] { cursor: pointer; }
   z-index: 10;
 }
 
-/* The panel carried its own ::selection while it was blue, because white type
-   selected on the same blue it already sat on was unreadable. On white the
-   page's own blue selection works inside the panel unchanged, so there is no
-   override here; a re-light to blue needs one again. */
+/* drawer close button, hidden on desktop */
 
 .sidebar-close {
   display: none;
@@ -285,7 +191,7 @@ button, a, [data-href] { cursor: pointer; }
   flex: 1 1 auto;
   min-width: 0;
   margin-bottom: var(--sp-4);
-  /* the wordmark is sized against this box (see .project-view-home-link) */
+  /* size the wordmark against this box */
   container-type: inline-size;
 }
 
@@ -295,10 +201,7 @@ button, a, [data-href] { cursor: pointer; }
   color: var(--sidebar-fg);
   margin-top: var(--sp-4);
   margin-bottom: var(--sp-5);
-  /* ragged right rather than justified: at this column width - roughly 30
-     characters a line - justification opens rivers between the words that no
-     amount of hyphenation closes. Hyphenation is left on because it is the
-     ragged edge, not the rivers, that a narrow column makes worse without it. */
+  /* bio text, ragged right with hyphenation */
   text-align: left;
   hyphens: auto;
 }
@@ -312,32 +215,20 @@ button, a, [data-href] { cursor: pointer; }
 }
 
 .sidebar-links a,
-/* The download resume button, wherever it appears: the left panel links' own
-   type, so the two cannot drift apart. The fallback is the panel's blue for
-   the places outside the panel, where --sidebar-link is not in scope. */
+/* download resume button */
 .download-link {
   color: var(--sidebar-link, #0040FF);
   font-size: 0.8rem;
   font-weight: 500;
 }
 
-/* The panel's own arrow glyph turned to point down. Rotating the same ↗ rather
-   than setting a ↓ is what keeps stem and head at the weight and length the
-   panel's arrows carry - including when the face has no arrow of its own and
-   both fall back to the same glyph. 135deg takes ↗ (45deg above the
-   horizontal) to straight down. */
+/* download arrow, rotated to point down */
 .download-link .arrow {
   display: inline-block;
   transform: rotate(135deg);
 }
 
-/* What a thumb has to hit. The link's own line box is 61x14px on a 390px
-   viewport - under a third of the 44px a tap target is asked to be - and it is
-   the only thing in its row, so a miss lands on the row's own label and nothing
-   happens. The overlay grows only the area that answers to the tap: the text,
-   the arrow and the facts table's rules and baselines are untouched. Measured
-   at 390px, -15px reaches y=574 against the row above ending at 567, so the
-   overlay stays inside the Resume row and the 12px gap under it. */
+/* bigger tap target on touch screens */
 @media (hover: none) and (pointer: coarse) {
   .download-link { position: relative; }
   .download-link::after {
@@ -347,8 +238,7 @@ button, a, [data-href] { cursor: pointer; }
   }
 }
 
-/* project list - self-contained, no longer borrows .sidebar-links styles.
-   gap matches the external links on the home page for consistency */
+/* project list in the sidebar */
 .project-view-links {
   display: flex;
   flex-direction: column;
@@ -365,9 +255,7 @@ button, a, [data-href] { cursor: pointer; }
   font-size: 0.72rem;
   font-weight: 500;
   line-height: 1.25;
-  /* no nowrap: it silently clipped the longest title ("Live Open Call: Mobile
-     Submissions" measures 196px in a 191px column, hidden by the panel's
-     overflow), so a long title wraps rather than losing its last letters */
+  /* long project titles wrap instead of clipping */
 }
 
 .project-view-links a.active {
@@ -377,23 +265,12 @@ button, a, [data-href] { cursor: pointer; }
 
 .project-view-home-link {
   font-family: var(--font-sans);
-  /* 1.5rem is the fallback; the cqw size fills the sidebar column, so the
-     wordmark ends where the bio's text does.
-     Neue Montreal Medium sets "Mary G. Wilson" at 6.490x its font-size, so
-     100 / 6.490 = 15.41cqw lands exactly on the column edge - which leaves
-     nothing over for rounding, and a wordmark that misses by a fraction wraps
-     onto a second line. 15.33cqw is that less half a percent, about 1px at the
-     sidebar's width. The local fallback is rescaled to Neue Montreal's
-     proportions (see the @font-face rule above) so that a fallback cannot
-     overflow this before the woff2 lands either - it was doing exactly that, in
-     an unadjusted local face, until that was added.
-     Reduces to fit the close button on mobile, since the container is measured
-     after that button has taken its space. */
+  /* wordmark sized to fill the sidebar column */
   font-size: 1.5rem;
   font-size: 15.33cqw;
   line-height: 1;
   color: var(--sidebar-fg);
-  /* Keep the measured wordmark on one line across hover and focus states. */
+  /* keep the wordmark on one line */
   white-space: nowrap;
 }
 .project-view-header {
@@ -434,13 +311,10 @@ button, a, [data-href] { cursor: pointer; }
   background: #ffffff;
   color: #000000;
   padding: var(--sp-6);
-  /* No top padding: the download row owns it now, so that the row can be
-     sticky without a strip of scrolling CV text appearing above it. The 32px
-     still puts the link on the topbar's line. See .cv-actions. */
+  /* no top padding, the download row has it */
   padding-top: 0;
   border-left: 1px solid var(--blue);
-  /* same as .sidebar: fill the layout, do not name a viewport unit that can be
-     taller than what the browser is showing */
+  /* cv panel fills the layout height */
   height: 100%;
   overflow-y: auto;
   position: sticky;
@@ -458,10 +332,7 @@ button, a, [data-href] { cursor: pointer; }
 
 .cv-section { margin-bottom: var(--sp-6); }
 
-/* The column scrolls, so the last section's trailing margin - and the last
-   entry's, which collapses into it - would read as a deeper gap below the CV
-   than the panel's own padding gives it: trim both back to the padding, the
-   same 24px the left panel ends on. */
+/* trim the last bottom margin in the cv column */
 .sidebar-right > *:last-child,
 .sidebar-right > *:last-child .cv-item:last-child { margin-bottom: 0; }
 
@@ -483,43 +354,13 @@ button, a, [data-href] { cursor: pointer; }
 .cv-subitem .cv-org { font-size: 0.7rem; }
 .cv-subitem .cv-date { font-size: 0.6rem; }
 
-/* The CV column's tool list. Each group is one list item, so the panel reads
-   as a list rather than one long run of comma-separated names, and the About
-   facts table stays short. */
-.cv-tool-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.cv-tool-list li {
-  font-size: 0.72rem;
-  line-height: 1.5;
-  color: rgba(0, 0, 0, 0.85);
-  margin-bottom: var(--sp-2);
-}
-.cv-tool-list li:last-child { margin-bottom: 0; }
-.cv-tool-group {
-  color: rgba(81, 81, 81, 0.5);
-}
-
-/* the CV column's one action: the CV as a file. The hairline is the same one
-   the sub-items indent behind, so this reads as the column's header rather
-   than as another CV entry. The link itself is a .download-link.
-   Sticky, so the link stays at the head of the column while the CV scrolls
-   under it. The panel keeps no top padding for this reason: this row owns the
-   page padding, which is both what lines the link up with the topbar and what
-   gives it clearance once it is pinned. */
+/* sticky download row at the top of the cv */
 .cv-actions {
   position: sticky;
   top: 0;
   z-index: 2;
   background: #ffffff;
-  /* 24, not the 16 the rest of the spacing uses: it puts this hairline on the
-     same y as the About view's first facts hairline, so the two read as one
-     line across the page. Measured at 1440px: the row's 32px top padding, then
-     the link's 20.47px line box, then 24 lands the rule at 76.47 - which is
-     where the facts table starts (32px page padding plus the breadcrumb's
-     44.47px row). Both sides have to move together if either is retuned. */
+  /* line the cv hairline up with the about table */
   padding-top: var(--page-pad);
   padding-bottom: var(--sp-6);
   margin-bottom: var(--sp-5);
@@ -544,25 +385,24 @@ button, a, [data-href] { cursor: pointer; }
   gap: var(--sp-4);
 }
 
-/* slide-in case study topbar: back on left, clock on right */
+/* case study topbar, back on left, clock on right */
 .case-study-view .topbar {
   justify-content: space-between;
 }
 
-/* breadcrumb + home intro share the clock's row, vertically centred with it */
+/* breadcrumb and intro centred on the clock row */
 .topbar > .breadcrumb,
 .topbar > .bridging-line {
   flex: 1 1 auto;
   min-width: 0;
   margin-bottom: 0;
 }
-/* home: the intro line sits top-aligned with the clock */
+/* home intro top-aligned with the clock */
 .topbar > .bridging-line,
 .topbar > .bridging-line ~ .clock {
   align-self: flex-start;
 }
-/* the breadcrumb now shares the clock's row, so the gap down to the
-   case header is set here (it used to be the breadcrumb's own margin) */
+/* gap below the topbar on case pages */
 .case-page .topbar,
 .case-study-view .topbar {
   margin-bottom: var(--sp-6);
@@ -595,10 +435,7 @@ button, a, [data-href] { cursor: pointer; }
 }
 .topbar-back:hover { text-decoration: underline; }
 
-/* clock - always Mary's time in Oslo, never the visitor's. The zone
-   abbreviation beside the time is the conventional marker for whose clock
-   this is; the status borrows the site's micro-label treatment (uppercase,
-   letter-spaced, grey) so it reads as part of the system. */
+/* clock showing oslo time */
 .clock {
   display: inline-flex;
   align-items: baseline;
@@ -609,7 +446,7 @@ button, a, [data-href] { cursor: pointer; }
   color: #0040FF;
   white-space: nowrap;
 }
-/* Keep project-page clocks available to restore later, but bench them visually. */
+/* hide the clock on project pages */
 .case-page .clock,
 .case-study-view .clock {
   display: none;
@@ -625,15 +462,10 @@ button, a, [data-href] { cursor: pointer; }
   white-space: nowrap;
 }
 .clock-glyph {
-  /* this has to lead, and in particular has to come before the generic. On
-     macOS `sans-serif` resolves to a hieroglyph font of its own (Noto Sans
-     EgyptHiero), so with the system stack first the platform's shapes won and
-     the file above was never reached. Leading, every visitor gets the same
-     drawing; the system stack behind it covers a failed load. */
+  /* clock font first so the hieroglyphs show */
   font-family: 'Clock Hieroglyphs', var(--font-sans);
   font-size: 0.85rem;
-  /* every glyph is a text-presentation hieroglyph, but this keeps a platform
-     that disagrees from substituting a colour emoji instead */
+  /* stop clock glyphs turning into emoji */
   font-variant-emoji: text;
 }
 .clock-status {
@@ -644,9 +476,7 @@ button, a, [data-href] { cursor: pointer; }
   letter-spacing: 0.08em;
   color: var(--gray-400);
 }
-/* the brackets are punctuation rather than content, so they are drawn in CSS,
-   untracked by the label's letter-spacing and set a weight lighter than the
-   words they wrap */
+/* clock status brackets */
 .clock-status::before { content: '['; }
 .clock-status::after { content: ']'; }
 .clock-status::before,
@@ -654,8 +484,7 @@ button, a, [data-href] { cursor: pointer; }
   letter-spacing: 0;
   font-weight: 400;
 }
-/* when the row gets tight the status is the first thing to go - the time and
-   the zone are the parts that carry meaning */
+/* hide clock status when space is tight */
 @media (max-width: 1200px) {
   .clock-status { display: none; }
 }
@@ -747,8 +576,7 @@ body.case-page .filters { display: none; }
 
 .card-title {
   font-family: var(--font-sans);
-  /* always one line: the longest of the nine home titles, "Kogl: Establishing
-     Web Presence", fits at the full 1.2rem size in a two-column card. */
+  /* card title size, one line */
   font-size: 1.2rem;
   font-weight: 400;
   color: var(--gray-900);
@@ -756,8 +584,7 @@ body.case-page .filters { display: none; }
   line-height: 1.2;
 }
 
-/* The card title is a real link to the case study, so it can be opened in a new
-   tab and followed by crawlers. */
+/* card title link */
 .card-link { color: inherit; }
 .card-link:hover,
 .card-link:focus-visible,
@@ -796,8 +623,7 @@ body.case-page .filters { display: none; }
 .case-study-view {
   animation: slideIn 0.35s ease both;
 }
-/* the About page loads directly at /about/ rather than sliding in beside the
-   grid, so its copy of the view keeps the layout but not the entrance */
+/* no slide-in on the about page */
 .about-page .case-study-view { animation: none; }
 
 .content.about-open { overflow-y: auto; }
@@ -808,56 +634,29 @@ body.case-page .filters { display: none; }
   min-height: 100%;
 }
 .about-view .topbar { flex: 0 0 auto; }
-/* On phones the page's own 12px gutter leaves the bio reading as if it were
-   falling off the edge, so the About view takes a second gutter of its own -
-   double the page padding, on both sides. */
+/* extra side padding for about on phones */
 @media (max-width: 640px) {
   .about-view { padding-left: var(--sp-3); padding-right: var(--sp-3); }
 }
-/* ---- about: the middle column is a strict four-column grid ----------------
-   Every left edge on the page is a grid line: the portrait over columns 1-2,
-   the info table over columns 3-4, and the type block spanning the whole
-   width. The bio's own two columns are sized so that its second column lands on
-   the same line as the table does - with equal tracks that works out for any
-   width, as long as the grid and the bio share one gap. Hence --about-gap
-   below, used for both. */
+/* about page four-column grid */
 .about-layout {
-  --about-gap: 24px;       /* the grid's gutters, and the bio's column gap */
-  --about-row-gap: 16px;   /* headline to bio, inside the type block */
-  --about-block-gap: 40px; /* row 1 down to that block */
+  --about-gap: 24px;       /* grid gutters and bio column gap */
+  --about-row-gap: 16px;   /* headline to bio gap */
+  --about-block-gap: 40px; /* row 1 to copy block gap */
 
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  /* Two rows. Row 1 takes whatever height is left over, which is what pins row
-     2 - the headline and bio - to the bottom of the pane. Its minimum comes
-     from the portrait's own aspect-ratio (see below), so row 1 can never be
-     shorter than photo width / 1.3: where the pane cannot fit that, the pane
-     scrolls instead of the photo being cropped wider or the text shrinking. */
+  /* two rows, headline and bio pinned to the bottom */
   grid-template-rows: minmax(auto, 1fr) auto;
   column-gap: var(--about-gap);
   row-gap: var(--about-block-gap);
   align-content: start;
   flex: 1 0 auto;
-  /* No max-width: the grid fills the pane's content box, so the image, table
-     and copy carry the pane's padding (2rem, or 1rem / 0.75rem on the narrow
-     layouts) evenly on all four sides, the way the project grid does. The
-     headline is sized in cqw, so the grid also has to be the container; it is
-     named because the bio's column count queries it below. */
+  /* about grid fills the pane, sized as a container */
   container-type: inline-size;
   container-name: about-grid;
 }
-/* Columns 1-2, filling row 1: the width is those two tracks plus the gutter, so
-   the portrait's right edge sits exactly one --about-gap from the table. Height
-   follows the row, and cover crops the 2048x1365 source down to whatever shape
-   the row turns out to be.
-   The aspect-ratio is doing two jobs. It is not a size for the photo - the
-   height above overrides it whenever the row has spare height - it is the
-   shape floor: an in-flow image reports its own height as the flexible row's
-   base size, and at 1.3:1 that report is exactly photo width / 1.3, which is
-   the narrowest row 1 is allowed to be. Squeeze the pane below that and the row
-   holds its floor and the pane scrolls, so the crop can never get wider than
-   1.3:1. If an engine ever ignored height: 100% the photo would simply sit at
-   that same 1.3:1 crop. */
+/* about portrait, columns 1-2 */
 .about-portrait {
   grid-column: 1 / 3;
   grid-row: 1;
@@ -866,21 +665,12 @@ body.case-page .filters { display: none; }
   height: 100%;
   aspect-ratio: 1.3 / 1;
   object-fit: cover;
-  /* The source (2048x1365) is wider than any box this rule allows, so cover
-     always fills the height and crops the sides - the horizontal position is
-     the only one that matters, and the vertical one is inert. The subject sits
-     right of centre in the frame (jacket x 1293-1569), so a centred crop drops
-     her out of frame in the narrow windows the tall viewports produce; 80%
-     keeps her inside every window (980-1803 at the narrowest, 219-1993 at the
-     widest). The stacked layout's 4:3 box is wider and uses the same 80%. */
+  /* portrait crop position */
   object-position: 80% 50%;
   display: block;
   border-radius: var(--radius);
 }
-/* columns 3-4: the first hairline lines up with the top of the portrait, and
-   the table keeps its natural height rather than stretching to the photo's.
-   The CV column's own hairline (.cv-actions) is padded to land on this same y,
-   so the line reads across the page. */
+/* about facts table, columns 3-4 */
 .about-facts {
   grid-column: 3 / 5;
   grid-row: 1;
@@ -892,7 +682,7 @@ body.case-page .filters { display: none; }
   display: grid;
   grid-template-columns: minmax(5rem, 0.65fr) minmax(0, 1.35fr);
   gap: var(--sp-2);
-  /* one value for every row, so the hairlines stay evenly spaced */
+  /* even row spacing for the facts table */
   padding-top: var(--sp-2);
   border-top: 1px solid var(--gray-200);
 }
@@ -905,13 +695,9 @@ body.case-page .filters { display: none; }
   font-size: 0.75rem;
   line-height: 1.4;
 }
-/* The resume row's download button keeps the shared link colour and weight but
-   takes the row's own type size, so it does not out-size the other values. */
+/* resume link at the table's text size */
 .about-facts .download-link { font-size: inherit; }
-/* Row 2: the headline and bio as one block. The 40px above it comes from the
-   grid's row gap, the 16px between them from this block's own gap, and its
-   bottom edge is the grid's bottom edge - so the bio ends the pane's own
-   padding (2rem) above the bottom of the pane. */
+/* about headline and bio block */
 .about-copy {
   grid-column: 1 / -1;
   grid-row: 2;
@@ -921,8 +707,7 @@ body.case-page .filters { display: none; }
 }
 .about-headline {
   color: var(--gray-900);
-  /* capped at --title-size, the case-study title's own size: at the full grid
-     width the cqw term always saturates, so the cap is what this renders at */
+  /* about headline size */
   font-size: clamp(0.9rem, 5.6cqw, var(--title-size));
   font-weight: 400;
   line-height: 1.1;
@@ -935,29 +720,21 @@ body.case-page .filters { display: none; }
   max-width: none;
   margin-bottom: 0.75em;
   color: var(--gray-800);
-  /* 0.9375rem is the 15px floor this copy is allowed to shrink to, in rem so
-     it still follows a reader who has raised their default size */
+  /* about bio text size */
   font-size: 0.9375rem;
   line-height: 1.6;
   break-inside: avoid;
 }
 .about-bio p:last-child { margin-bottom: 0; }
-/* Two bio columns only while each one is at least 240px wide, which needs a grid
-   of 504px (2 x 240 + the 24px gap). The grid is narrower than that only in the
-   band where the CV panel is back and the middle column is squeezed - 1025px to
-   1027px of viewport, three pixels wide - so there the bio becomes a single
-   full-width column. The stacked layout below 640px sets one column of its own. */
+/* single bio column when the grid is narrow */
 @container about-grid (max-width: 503.9px) {
   .about-bio { column-count: 1; }
 }
-/* Below 640px - phones, where the four tracks would be too narrow to read - the
-   grid becomes one column and the source order carries the stack: portrait,
-   table, headline, bio. Everything from 641px up keeps the four-column desktop
-   layout, with the portrait over columns 1-2 and the table over 3-4. */
+/* stack the about page on phones */
 @media (max-width: 640px) {
   .about-layout {
     grid-template-columns: minmax(0, 1fr);
-    /* the two desktop rows go: the stack sizes every row to its content */
+    /* drop the desktop rows */
     grid-template-rows: none;
     row-gap: var(--about-gap);
   }
@@ -967,11 +744,7 @@ body.case-page .filters { display: none; }
     grid-column: 1 / -1;
     grid-row: auto;
   }
-  /* the stacked portrait: full column width so its edges line up with the table,
-     headline and bio, at a 4:3 crop of the landscape source. Height is its own
-     again (row 1's stretch and height: 100% belong to the desktop state), and
-     the 4:3 restores the crop the desktop row height would otherwise take over.
-     The same 80% horizontal position keeps the subject in frame. */
+  /* stacked portrait, full width at 4:3 */
   .about-portrait {
     align-self: start;
     width: 100%;
@@ -981,8 +754,7 @@ body.case-page .filters { display: none; }
     object-fit: cover;
     object-position: 80% 50%;
   }
-  /* the stack spaces its blocks by --about-gap, so the type block's own gap
-     matches that rather than keeping the tighter desktop value */
+  /* match the copy gap to the stack */
   .about-copy { gap: var(--about-gap); }
   .about-bio { column-count: 1; }
 }
@@ -998,13 +770,7 @@ body.case-page .filters { display: none; }
   border: 0;
 }
 @keyframes slideIn {
-  /* The distance is a variable so the narrow layouts can keep the shift inside
-     the pane's own padding. That padding is 2rem above 1024px, 1rem down to
-     640px and 0.75rem below it, so a fixed 30px shift pushed 14 to 18px of a
-     full-width view past the pane and gave the page a real horizontal scroll
-     for the length of the animation. Matching the shift to the space is the fix
-     rather than clipping the scroll pane: an overflow that does not exist
-     cannot be scrolled, and scrollWidth stays an honest signal in the sweeps. */
+  /* slide-in distance, smaller on narrow screens */
   from { opacity: 0; transform: translateX(var(--slide-in-x, 30px)); }
   to   { opacity: 1; transform: none; }
 }
@@ -1016,11 +782,7 @@ body.case-page .filters { display: none; }
   gap: var(--sp-1);
   line-height: 1;
 }
-/* The horizontal padding was 10px, which cost a row on the two longest lists. At
-   8px the seven Telus tags fit in three rows rather than four on a 240px card, and
-   the five on Live Open Call in two rather than three, with no change to the type
-   size or to the 4px gap. Two pixels a side is 28px across seven pills, and that
-   is enough to close a row. */
+/* tag pill */
 .tag {
   display: inline-block;
   font-size: 0.65rem;
@@ -1045,8 +807,7 @@ body.case-page .filters { display: none; }
 .case-card.hidden { display: none; }
 
 /* case study pages */
-/* the header is just the title block - the snapshot sits below the hero image
-   and floats beside the first section, so the hero stays high on the page */
+/* case header title block */
 .case-header-grid {
   display: flex;
   gap: var(--sp-10);
@@ -1060,9 +821,7 @@ body.case-page .filters { display: none; }
 .case-header-text h2 {
   margin-bottom: var(--sp-3);
   font-family: var(--font-sans);
-  /* the page's own name: the size carries the hierarchy here, at the top of the
-     reading column, while the identity in the panel keeps the smaller size and
-     the hover treatment */
+  /* case study page title */
   font-size: var(--title-size);
   font-weight: 400;
   line-height: 1.1;
@@ -1073,14 +832,7 @@ body.case-page .filters { display: none; }
   max-width: 75ch;
 }
 
-/* snapshot row - year / role / credits / links across the content width,
-   above the first section. Content is rendered from projects.js.
-   The box itself is unstyled: only the labels carry the site-blue pill,
-   and the values hang underneath them like columns.
-   The groups are packed against the left edge with a fixed gap rather than
-   spread across the content width. Justified, the shared slack opened the
-   gaps to 227px at 1920px, which read as four separate blocks instead of one
-   row of columns; the unused width now sits to the right of the last one. */
+/* snapshot row: year, role, credits, links */
 .snapshot-box {
   display: flex;
   flex-wrap: nowrap;
@@ -1093,18 +845,12 @@ body.case-page .filters { display: none; }
   line-height: 1.6;
   color: var(--gray-600);
 }
-/* width: auto keeps each group only as wide as its own content, so the column
-   gaps stay even; min-width: 0 lets the row narrow a group instead of
-   overflowing the content width. */
+/* snapshot groups only as wide as their content */
 .snapshot-group {
   min-width: 0;
 }
 @media (max-width: 760px) {
-  /* Stacked, one group per row. A 150px basis wrapped to two groups a line,
-     which left "Role" and "Credits" sharing one row while "Year" and "Links"
-     shared another, so it read as a broken table rather than a list. Measured:
-     the row still holds as four columns at 761px with the narrowest at 72px, so
-     760 is the width where the columns give way. */
+  /* stack snapshot groups one per row */
   .snapshot-box {
     flex-wrap: wrap;
   }
@@ -1170,28 +916,13 @@ body.case-page .filters { display: none; }
   border-top: 1px solid var(--gray-100);
 }
 
-/* The media label closes the reading sections and opens the gallery, so its divider
-   is blue where the sections above it get a hairline - the same device the results
-   block uses rather than a new one. Same 1px as those hairlines, so the vertical
-   rhythm is untouched and only the colour changes, which is the point: the hairline
-   is #f3f4f6, about 1.1:1 against the white pane.
-   Same specificity as the sibling rule above and declared after it, so this wins
-   without !important. */
+/* blue divider above the media section */
 .case-section.case-section-media {
   border-top: 1px solid #0040FF;
   padding-top: var(--sp-5);
 }
 .case-section h3 {
-  /* Neue Montreal, at the size the CV's section headings use in the right panel, so
-     these labels sit at the same scale as the panel beside them rather than being
-     their own size. Black rather than the grey they started as.
-     Caps are drawn here rather than written: the markup holds the headings in
-     sentence case, so a screen reader says "Ask" instead of spelling out A-S-K,
-     and copy-paste gives the natural casing. Flipping this back to sentence case
-     is this one line.
-     No letter-spacing, unlike the CV's equivalent (.sidebar-right h4, which is
-     0.7rem, uppercase, 500 weight, light grey, 0.06em) - size and weight are
-     shared, the tracking is not. */
+  /* case section labels */
   font-family: var(--font-sans);
   font-size: 0.7rem;
   font-weight: 500;
@@ -1218,10 +949,26 @@ body.case-page .filters { display: none; }
   color: var(--gray-700);
   max-width: 75ch;
 }
+/* arrow bullets for lists */
+.case-section ul {
+  list-style: none;
+}
+.case-section ul li {
+  position: relative;
+  padding-left: 1.5em;
+}
+.case-section ul li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+}
 
-/* The closing thought of a case's Insights section: a short first-person
-   takeaway under a small label, ruled in the site blue so it reads as the
-   point of the section rather than another paragraph. */
+/* run-in process step names */
+.case-section .process-step {
+  color: var(--gray-900);
+}
+
+/* closing takeaway in insights */
 .case-section .takeaway {
   margin-top: var(--sp-6);
   padding-left: var(--sp-4);
@@ -1237,10 +984,44 @@ body.case-page .filters { display: none; }
   color: var(--gray-500);
 }
 
-/* Tools: the tool carries the weight, the use runs as prose beside it, so the
-   section reads as a set of decisions rather than a second row of badges. The
-   rows are hairlined like the sections themselves, with the first rule dropped
-   so the list starts flush under its heading. */
+/* client quote */
+.case-testimonial {
+  max-width: 75ch;
+  margin: 0 0 var(--sp-10);
+}
+.case-testimonial-mark {
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  margin-bottom: var(--sp-3);
+}
+.case-testimonial p {
+  margin-bottom: var(--sp-2);
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: #0040FF;
+}
+.case-testimonial cite {
+  display: block;
+  font-size: 0.78rem;
+  font-style: normal;
+  color: var(--gray-500);
+}
+
+/* case study section headings, drawn as pills */
+.case-page .case-section h3 {
+  display: inline-block;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  color: #0040FF;
+  background: rgba(0, 64, 255, 0.06);
+  border: 1px solid #0040FF;
+  border-radius: 999px;
+  padding: 0.3em 0.75em;
+  margin-bottom: var(--sp-3);
+}
+
+/* tools list, name and use per row */
 .tool-list {
   max-width: 75ch;
   margin-bottom: var(--sp-5);
@@ -1268,8 +1049,7 @@ body.case-page .filters { display: none; }
   color: var(--gray-700);
 }
 @media (max-width: 640px) {
-  /* the tool name sits above its use rather than in a column, where 8.5rem of
-     label left too little for the sentence */
+  /* tool name above its use */
   .tool-row {
     grid-template-columns: 1fr;
     gap: var(--sp-1);
@@ -1280,13 +1060,7 @@ body.case-page .filters { display: none; }
   margin: var(--sp-6) 0;
 }
 
-/* A small data table inside a case section (the scroll-time figures on the
-   sentence case study). The site had no table before this one, so the rules are
-   written here rather than left to the browser default. One row rule, gray-200,
-   the same as the stat block's interior divider, and the header takes the CV
-   panel's label treatment (0.7rem, uppercase, grey, 0.06em). The two figure
-   columns sit right so they line up on their values; the label column stays
-   left. Same 75ch measure as the prose it sits in. */
+/* small data table in a case section */
 .metrics-table {
   width: 100%;
   max-width: 75ch;
@@ -1319,7 +1093,7 @@ body.case-page .filters { display: none; }
   padding-right: 0;
   text-align: right;
 }
-/* the last row's rule would double up against whatever follows the table */
+/* no rule under the last table row */
 .metrics-table tbody tr:last-child th,
 .metrics-table tbody tr:last-child td {
   border-bottom: none;
@@ -1344,7 +1118,7 @@ body.case-page .filters { display: none; }
 .results-highlight {
   margin: var(--sp-8) 0;
   padding-top: var(--sp-6);
-  /* 1px, to match the section hairlines: every divider on a case page is one weight */
+  /* blue divider above the results */
   border-top: 1px solid #0040FF;
 }
 .results-highlight h3 {
@@ -1355,7 +1129,7 @@ body.case-page .filters { display: none; }
   letter-spacing: 0.1em;
   margin-bottom: var(--sp-5);
 }
-/* footnote that qualifies the figures above (e.g. the asterisk on a metric) */
+/* footnote under the results */
 .results-highlight p {
   font-size: 0.78rem;
   line-height: 1.6;
@@ -1413,7 +1187,7 @@ body.case-page .filters { display: none; }
   }
 }
 
-/* strong used as section label (legacy pattern) */
+/* strong used as section label */
 .case-section > p > strong:first-child {
   font-family: var(--font-sans);
   font-size: 1.3rem;
@@ -1431,7 +1205,7 @@ body.case-page .filters { display: none; }
   border-top: 1px solid var(--gray-100);
 }
 .project-nav-footer .nav-next { justify-self: end; }
-/* back to top sits centred between the two sidebars */
+/* back to top centred in the footer */
 .project-nav-footer .back-to-top { justify-self: center; }
 .project-nav-footer a {
   font-size: 0.85rem;
@@ -1447,19 +1221,14 @@ body.case-page .filters { display: none; }
   font-family: var(--font-sans);
 }
 .back-to-top:hover { color: var(--blue-hover); }
-/* the footer's prev/next sits in a cell about half the pane wide, which at 375px
-   is 140px - too little for a long project name like "First Collaborative
-   Sentence →" (179px), so those wrap onto two lines. Projects can carry a
-   shorter footer label (navShortTitle in projects.js) and the two swap here. */
+/* short prev/next labels on phones */
 .nav-label-short { display: none; }
 @media (max-width: 640px) {
   .nav-label-full { display: none; }
   .nav-label-short { display: inline; }
 }
 
-/* the home grid is long and has no footer nav of its own to carry a back to
-   top, so it gets a floating one, in the same pill language as the snapshot
-   labels. Hidden until there is something to go back from. */
+/* floating back to top on the home grid */
 .to-top {
   position: fixed;
   right: var(--sp-5);
@@ -1504,16 +1273,14 @@ body.case-page .filters { display: none; }
   font-weight: 500;
   margin-bottom: var(--sp-6);
   color: var(--gray-400);
-  /* lowercase in every breadcrumb - "projects / blackbox vj" - while the
-     project's own headings and document title keep their real casing */
+  /* lowercase breadcrumbs */
   text-transform: lowercase;
 }
 .breadcrumb a {
   color: #0040FF;
 }
 .breadcrumb-current {
-  /* was --gray-400, which measures 2.54:1 on white and fails AA; 500 is 4.83:1.
-     Same fix reaches the case-study breadcrumbs, which share this class. */
+  /* breadcrumb colour */
   color: var(--gray-500);
 }
 
@@ -1526,15 +1293,10 @@ body.case-page .filters { display: none; }
   margin: var(--sp-4) 0;
   align-items: flex-start;
 }
-/* a two-up that has to read as one band rather than two artefacts: no gap, so
-   the halves add up to the full column width and line up inside the same
-   padding as the text above them, instead of each half being inset by the gap */
+/* side-by-side with no gap */
 .side-by-side.flush { gap: 0; }
 
-/* Mirrored media - the black cursor clip is flipped so its blob moves opposite
-   the white one. Kept on the element itself rather than on a wrapper, so the
-   lightbox (which rebuilds the element from its src) can carry the class across
-   and the full-size view matches the thumbnail it was opened from. */
+/* mirrored media */
 .is-mirrored { transform: scaleX(-1); }
 .sbs-item {
   flex: 1;
@@ -1553,16 +1315,13 @@ body.case-page .filters { display: none; }
 .sbs-item video:hover { opacity: 0.92; }
 .sbs-item .caption { margin-bottom: 0; }
 
-/* three images across (kogl). This class had no rule at all - the row only
-   looked like thirds because .sbs-item is flex: 1 with min-width: 0. Stating
-   the thirds makes the intent explicit, so a later change to .sbs-item can't
-   quietly break this row. */
+/* three images across */
 .side-by-side.three-up > .sbs-item {
   flex: 1 1 33.333%;
   min-width: 0;
 }
 
-/* full-width case-study figure - images and video both fill the column */
+/* full-width case study figure */
 .case-image img,
 .case-image video,
 .case-image-wide img,
@@ -1572,15 +1331,7 @@ body.case-page .filters { display: none; }
   display: block;
 }
 
-/* live demo embed (kogl) - a real page in its own document, so nothing inside
-   it can collide with the case study's styles or scripts. The height is capped
-   so it reads as a window onto the site rather than a takeover of the column;
-   the fill matches the demo's own backdrop, shown only while it loads.
-
-   An overlay button covers the frame until it is entered on purpose: an iframe
-   swallows the wheel, so without this a scroll over the demo would stop dead
-   instead of moving the page. Being a real button, it keeps the frame reachable
-   by keyboard too. */
+/* live demo embed */
 .case-embed { margin: var(--sp-6) 0; }
 .case-embed-frame {
   position: relative;
@@ -1596,43 +1347,8 @@ body.case-page .filters { display: none; }
   height: 100%;
   border: 0;
 }
-.case-embed-start {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: flex-end;
-  padding: var(--sp-3);
-  border: 0;
-  background: none;
-  cursor: pointer;
-  font: inherit;
-  text-align: left;
-}
-.case-embed-start span {
-  padding: 0.4em 0.8em;
-  border-radius: 999px;
-  background: rgba(0, 0, 0, 0.72);
-  color: #fff;
-  font-size: 0.72rem;
-  letter-spacing: 0.02em;
-}
-.case-embed.is-live .case-embed-start { display: none; }
-.case-embed-start:focus-visible { outline: 2px solid #0040FF; outline-offset: -2px; }
 
-/* before/after compare - two images stacked, the top one clipped at --ba-split,
-   with a transparent range input over the box as the control. Going through a
-   range input means dragging and arrow keys both work with no JS beyond one
-   property write, and the control is focusable and announced rather than a
-   div that only responds to a mouse.
-
-   The before image is the one left in flow, so the box height comes from the
-   real file: no hardcoded ratio to go stale when the pair is swapped for a
-   different size. 50% is the pre-JS default, so with scripting off the
-   comparison still shows both halves.
-
-   These images are deliberately NOT .js-lightbox-item: the click belongs to the
-   slider. Declared after .case-image-wide img above so its width/height win on
-   source order. */
+/* before/after compare slider */
 .before-after {
   position: relative;
   --ba-split: 50%;
@@ -1662,7 +1378,7 @@ body.case-page .filters { display: none; }
   left: var(--ba-split);
   width: 1px;
   background: var(--blue-hover);
-  /* drawn above the control so it stays visible, but it must not eat the drag */
+  /* divider ignores pointer so dragging works */
   pointer-events: none;
 }
 .ba-divider::after {
@@ -1689,38 +1405,22 @@ body.case-page .filters { display: none; }
   appearance: none;
   background: none;
 }
-/* The control is invisible, so its own focus ring is too. Put the indication on
-   the handle instead. The range is the divider's previous sibling, which is why
-   the markup order is image, layer, input, divider. */
+/* focus ring on the slider handle */
 .ba-range:focus-visible + .ba-divider::after {
   outline: 2px solid var(--blue-hover);
   outline-offset: 2px;
 }
 
-/* a row of artefacts that shares one caption. Items keep their own .caption
-   inside .sbs-item; the shared line is the group's figcaption, so a set of
-   images can be introduced as a whole ("installed at the White Box…"). */
+/* row of media with one shared caption */
 .media-group { margin: var(--sp-8) 0; }
 .media-group .side-by-side { margin: 0; }
 .media-group .caption { margin-bottom: 0; max-width: 75ch; }
 .media-group > figcaption.caption { margin-top: var(--sp-4); }
 
-/* stacked artefact rows need more air than the 1rem .side-by-side default */
+/* space between stacked media rows */
 .side-by-side + .side-by-side { margin-top: var(--sp-8); }
 
-/* a media box holds its place while the file arrives, then fades in once it
-   decodes. script.js sets the opacity, and only on elements still loading, so
-   with JS off nothing is ever hidden, and the img box itself is what reserves
-   the space. The fade reuses the 0.2s these elements already transition on
-   hover, so a loaded image behaves exactly as before.
-   No background of any kind here: a good number of these files are diagrams
-   and product shots exported onto transparency. telus' site-map-plan.webp and
-   vancouverartgallery's user-matrix.webp are transparent edge to edge, the
-   Telus card-option webps are transparent at their edges, and kogl's
-   exploration.webp and logomarkoption1.webp are transparent around the
-   artwork. A tint behind any of them filled the box as a grey field instead of
-   reading as reserved space. The home cards are left out on purpose -
-   .card-image already reserves its 3:2 box and is designed black. */
+/* media fades in once loaded */
 .hero-image img,
 .hero-image video,
 .hero-image-pair > img,
@@ -1783,7 +1483,7 @@ html.is-touch #custom-cursor { display: none !important; }
     white-space: nowrap;
   }
 
-  /* sidebar slides in from left - fits without scrolling */
+  /* sidebar slides in from left */
   .sidebar {
     position: fixed;
     inset: 0 auto 0 0;
@@ -1797,18 +1497,7 @@ html.is-touch #custom-cursor { display: none !important; }
     overflow-y: hidden;
     display: flex;
     flex-direction: column;
-    /* The drawer has to fit the screen it is on, not the tallest the browser can
-       ever be. 100vh is the large viewport here, so on a Pixel 6a the panel was
-       915px tall against about 835px of visible screen: the bottom-anchored
-       project list (margin-top: auto) ran 80px past the fold and its last three
-       links sat behind the address bar, unreachable because the page scroll
-       cannot move a fixed panel. 100% resolves against the initial containing
-       block, which excludes browser chrome, so the list ends 16px above the
-       visible bottom; 100dvh tracks that as the address bar hides and shows, and
-       100% covers browsers without dvh. Measured 2026-09-24: the list's last link
-       ended at y=899 in a panel whose visible bottom was around 835, and the
-       cutoff she reported (Kogl at 798-814, Live Open Call starting at 826) is
-       that same figure to the pixel. */
+    /* drawer fits the visible screen */
     height: 100%;
     height: 100dvh;
   }
@@ -1818,12 +1507,7 @@ html.is-touch #custom-cursor { display: none !important; }
   }
   .sidebar.open .sidebar-close { display: block; }
 
-  /* The drawer is 300px wide against the desktop panel's 240px, so the cqw
-     wordmark scaled up with it: 37.5px in a 244px box on a phone against 29.3px
-     in the desktop's 191px. Capped at 1.75rem, which is the desktop size to
-     within a pixel and leaves 182px of text in the 244px box - one line, and the
-     nowrap guard on the rule itself still holds. min() keeps the cqw term for
-     anything narrower than a normal phone, where the drawer is under 85vw. */
+  /* cap the wordmark size in the drawer */
   .project-view-home-link { font-size: min(15.33cqw, 1.75rem); }
 
   .sidebar .bio {
@@ -1865,7 +1549,7 @@ html.is-touch #custom-cursor { display: none !important; }
     font-size: 0.9rem;
   }
 
-  /* breadcrumb / intro line drop to their own full-width row under "menu" */
+  /* breadcrumb and intro on their own row */
   .topbar > .breadcrumb,
   .topbar > .bridging-line {
     flex: 1 1 100%;
@@ -1895,9 +1579,7 @@ html.is-touch #custom-cursor { display: none !important; }
 
   .content { padding: var(--sp-4); }
 
-  /* the entrance slide has to fit inside that padding - see @keyframes slideIn.
-     10px clears both paddings this query and the 640px one set (16px and 12px),
-     so one override covers the whole narrow range */
+  /* smaller slide-in on narrow screens */
   .case-study-view { --slide-in-x: 10px; }
 
   .layout { height: auto; min-height: 100vh; }

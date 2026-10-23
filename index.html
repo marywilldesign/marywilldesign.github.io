@@ -2,16 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- Umami analytics. Cookieless and no personal data, so no consent banner is
-       needed. The data-domains list is what keeps local previews, which run on
-       127.0.0.1, out of the reports: the tracker matches the visitor's hostname
-       against it and does nothing anywhere else. -->
+  <!-- umami analytics, live domain only -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="df11a0aa-ba9c-4ef5-83f4-12195afd38c2" data-domains="marywildesign.com,www.marywildesign.com" data-performance="true"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Mary Wilson – User Experience designer with nearly ten years experience from startups to consulting agencies.">
   <meta name="theme-color" content="#0000cd">
   <title>Mary Wilson Portfolio</title>
-  <!-- canonical: the folder URL, not /index.html (Pages serves both, and redirects neither) -->
+  <!-- canonical url -->
   <link rel="canonical" href="https://marywildesign.com/">
   <link rel="icon" type="image/svg+xml" href="mw.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -58,7 +55,7 @@
 
       <div class="topbar home-topbar">
         <button class="topbar-menu" id="menu-toggle" aria-label="Open menu">menu</button>
-        <!-- bridging line - shares the clock's row, top-aligned with it -->
+        <!-- intro line beside the clock -->
         <p class="bridging-line">Select projects showcasing a primary focus on UX/UI design, with additional work across graphic design, creative coding, and installation design.</p>
         <a class="about-link" id="about-link" href="./about/">about</a>
       </div>
@@ -73,7 +70,7 @@
       <!-- project card grid -->
       <div class="cards">
 
-        <!-- telus: enterprise IA refresh -->
+        <!-- telus: enterprise ia refresh -->
         <article class="case-card" data-id="telus" data-category="ux" data-href="/telus/">
           <div class="card-image">
             <img src="./telus/cover.webp" alt="Telus Internet Sales redesign" loading="lazy">
@@ -103,7 +100,7 @@
           </div>
         </article>
 
-        <!-- van art gallery: AI installation -->
+        <!-- van art gallery: ai installation -->
         <article class="case-card" data-id="creepers" data-category="ux" data-href="/vancouverartgallery/">
           <div class="card-image">
             <img src="./vancouverartgallery/cover.webp" alt="Van Art Gallery – AI Installation" loading="lazy">
@@ -140,7 +137,7 @@
           </div>
           <div class="card-body">
             <h3 class="card-title"><a class="card-link" href="./modo/">Modo: B2C Site Redesign</a></h3>
-            <p class="card-summary">Owned the full lifecycle for Vancouver's largest B-Corp carsharing coop, from initial site audit through launch. Mapped functional flows across marketing and member touchpoints, working with developers in an agile process.</p>
+            <p class="card-summary">Owned the full lifecycle for Vancouver's largest B Corp car sharing coop, from initial site audit through build and maintenance. Mapped functional flows across marketing and member touchpoints, working with developers in an agile process.</p>
             <div class="card-meta">
               <div class="tags"></div>
               <a href="https://www.modo.coop/" class="ext-link" target="_blank" rel="noopener noreferrer" title="Shows the current live site, which may differ from the original deliverable.">view site ↗</a>
@@ -148,10 +145,10 @@
           </div>
         </article>
 
-        <!-- kogl: establishing digital presence -->
+        <!-- kogl: establishing web presence -->
         <article class="case-card" data-id="kogl" data-category="ux" data-href="/kogl/">
           <div class="card-image">
-            <img src="./kogl/cover.webp" alt="KOGL furniture design studio" loading="lazy">
+            <img src="./kogl/cover.webp" alt="Kogl furniture design studio" loading="lazy">
           </div>
           <div class="card-body">
             <h3 class="card-title"><a class="card-link" href="./kogl/">Kogl: Establishing Web Presence</a></h3>
@@ -163,13 +160,13 @@
           </div>
         </article>
 
-        <!-- live open call: mobile submissions -->
+        <!-- live open call: installation -->
         <article class="case-card" data-id="liveopencall" data-category="code" data-href="/liveopencall/">
           <div class="card-image">
             <video src="./liveopencall/cover.webm" poster="./liveopencall/cover-poster.webp" data-autoplay preload="none" loop muted playsinline></video>
           </div>
           <div class="card-body">
-            <h3 class="card-title"><a class="card-link" href="./liveopencall/">Interactive Installation: Live Open Call</a></h3>
+            <h3 class="card-title"><a class="card-link" href="./liveopencall/">Live Open Call: Installation</a></h3>
             <p class="card-summary">Designed and built an interface for gallery visitors to scan a QR code and send text + images from their phone to a live receipt printer, bridging digital and physical.</p>
             <div class="card-meta">
               <div class="tags"></div>
@@ -178,14 +175,14 @@
           </div>
         </article>
 
-        <!-- vj controller: MA thesis -->
+        <!-- vj controller: ma thesis -->
         <article class="case-card" data-id="blackbox" data-category="code" data-href="/vj-controller/">
           <div class="card-image">
             <video src="./vj-controller/cover.webm" poster="./vj-controller/cover-poster.webp" data-autoplay preload="none" loop muted playsinline></video>
           </div>
           <div class="card-body">
             <h3 class="card-title"><a class="card-link" href="./vj-controller/">VJ Controller: MA Thesis</a></h3>
-            <p class="card-summary">An analogue-to-digital visual synthesizer with a custom 3D-printed controller, built as part of an MA thesis exploring co-creation between hand, hardware, and real-time visuals.</p>
+            <p class="card-summary">An analogue-to-digital visual synthesiser with a custom 3D-printed controller, built as part of an MA thesis exploring co-creation between hand, hardware, and real-time visuals.</p>
             <div class="card-meta">
               <div class="tags"></div>
               <a href="https://blackboxvj.me" class="ext-link" target="_blank" rel="noopener noreferrer" title="Shows the current live site, which may differ from the original deliverable.">view site ↗</a>
@@ -199,12 +196,12 @@
             <video src="./collaborativesentence/card-cover.webm" poster="./collaborativesentence/card-cover-poster.webp" data-autoplay preload="none" loop muted playsinline></video>
           </div>
           <div class="card-body">
-            <!-- short label: script.js also writes this from projects.js -->
+            <!-- short label, filled from projects.js -->
             <h3 class="card-title"><a class="card-link" href="./collaborativesentence/">First Collaborative Sentence</a></h3>
             <p class="card-summary">Scraped a million-word net art sentence from the early internet and became its editor, blurring what a banned word list flags and letting the text autoscroll as one continuous stream.</p>
             <div class="card-meta">
               <div class="tags"></div>
-              <a href="https://marywilldesign.github.io/lcsremixed/" class="ext-link" target="_blank" rel="noopener noreferrer" title="Shows the current live site, which may differ from the original deliverable.">view site ↗</a>
+              <a href="https://marywildesign.com/lcsremixed/" class="ext-link" target="_blank" rel="noopener noreferrer" title="Shows the current live site, which may differ from the original deliverable.">view site ↗</a>
             </div>
           </div>
         </article>
@@ -214,7 +211,7 @@
       <button class="to-top" id="to-top" type="button" aria-label="Back to top">back to top ↑</button>
     </main>
 
-    <!-- right sidebar (cv) - filled by script.js from projects.js -->
+    <!-- right sidebar (cv), filled from projects.js -->
     <aside class="sidebar-right" id="sidebar-right"></aside>
 
   </div>
