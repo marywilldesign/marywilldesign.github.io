@@ -82,7 +82,7 @@ address{font-style:normal;margin:36px 0 34px;line-height:1.5;font-size:12px}
 <article class="t"><div class="m c" style="--r:1.5000"><img src="media/20.webp" alt="Untitled [2026], side board" width="900" height="600" loading="lazy" decoding="async"></div><div class="inf"><div class="row"><span>Available for purchase</span><span>Side board</span></div><h3>UNTITLED [2026]</h3><a class="sp" href="#">SPECS</a></div></article>
 <article class="t"><div class="m c" style="--r:1.5000"><img src="media/21.webp" alt="Untitled [2026], writing desk" width="900" height="600" loading="lazy" decoding="async"></div><div class="inf"><div class="row"><span>Available for purchase</span><span>Writing desk</span></div><h3>UNTITLED [2026]</h3><a class="sp" href="#">SPECS</a></div></article>
 <article class="t"><div class="m" style="--r:1.5000"><img src="media/22.webp" alt="Untitled [2026], bookstand" width="900" height="600" loading="lazy" decoding="async"></div><div class="inf"><div class="row"><span>Available for purchase</span><span>Bookstand</span></div><h3>UNTITLED [2026]</h3><a class="sp" href="#">SPECS</a></div></article>
-<article class="t"><div class="m" style="--r:0.9371"><img src="media/23.webp" alt="Untitled [2026], literature organizer" width="596" height="636" loading="lazy" decoding="async"></div><div class="inf"><div class="row"><span>Available for purchase</span><span>Literature organizer</span></div><h3>UNTITLED [2026]</h3><a class="sp" href="#">SPECS</a></div></article>
+<article class="t"><div class="m" style="--r:0.9371"><img src="media/23.webp" alt="Untitled [2026], literature organiser" width="596" height="636" loading="lazy" decoding="async"></div><div class="inf"><div class="row"><span>Available for purchase</span><span>Literature organizer</span></div><h3>UNTITLED [2026]</h3><a class="sp" href="#">SPECS</a></div></article>
 <article class="t"><div class="m c" style="--r:1.5000"><img src="media/24.webp" alt="Untitled [2026], sofa" width="900" height="600" loading="lazy" decoding="async"></div><div class="inf"><div class="row"><span>Available for purchase</span><span>Sofa</span></div><h3>UNTITLED [2026]</h3><a class="sp" href="#">SPECS</a></div></article>
 <article class="t"><div class="m c" style="--r:1.5000"><img src="media/25.webp" alt="Monument [2026], console table" width="900" height="600" loading="lazy" decoding="async"></div><div class="inf"><div class="row"><span>Available for purchase</span><span>Console table</span></div><h3>MONUMENT [2026]</h3><a class="sp" href="#">SPECS</a></div></article>
 <article class="t"><div class="m c" style="--r:1.5000"><img src="media/26.webp" alt="Regent [2025], wall shelf" width="900" height="600" loading="lazy" decoding="async"></div><div class="inf"><div class="row"><span>Available for purchase</span><span>Wall shelf</span></div><h3>REGENT [2025]</h3><a class="sp" href="#">SPECS</a></div></article>
@@ -102,8 +102,7 @@ const $=s=>document.querySelector(s),fr=$('#fr'),vp=$('#vp'),st=$('#stage'),tile
 const modeOf=w=>w>=900?3:w>=600?2:1;
 const still=matchMedia('(prefers-reduced-motion: reduce)').matches;
 let W=1280,mode=3,rects=[],anim,run=0,stW=0,stH=0;
-// the stage only changes size on resize, so measuring it here keeps the
-// animation from reading layout on every frame
+// measure the stage on resize only
 function measure(){stW=st.clientWidth;stH=st.clientHeight}
 function fit(){const s=Math.min(1,(stW-56)/Math.min(W,1280));fr.style.zoom=s;fr.style.height=((stH-6)/s)+'px';return s}
 const snap=()=>{rects=tiles.map(t=>[t.offsetLeft,t.offsetTop])};
@@ -111,7 +110,7 @@ function set(w){
   W=w;fr.style.width=w+'px';$('#w').textContent=Math.round(w);
   const m=modeOf(w);
   document.querySelectorAll('[data-w]').forEach(b=>{const on=modeOf(+b.dataset.w)===m;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)});
-  if(m!==mode&&rects.length){ // columns changed: glide tiles from old to new positions
+  if(m!==mode&&rects.length){ // glide tiles to their new columns
     tiles.forEach((t,i)=>{const dx=rects[i][0]-t.offsetLeft,dy=rects[i][1]-t.offsetTop;
       if(dx||dy)t.animate([{transform:`translate(${dx}px,${dy}px)`},{transform:'none'}],{duration:750,easing:'cubic-bezier(.2,.8,.2,1)'})});
   }

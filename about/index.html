@@ -2,16 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <!-- Umami analytics. Cookieless and no personal data, so no consent banner is
-       needed. The data-domains list is what keeps local previews, which run on
-       127.0.0.1, out of the reports: the tracker matches the visitor's hostname
-       against it and does nothing anywhere else. -->
+  <!-- umami analytics, live domain only -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="df11a0aa-ba9c-4ef5-83f4-12195afd38c2" data-domains="marywildesign.com,www.marywildesign.com" data-performance="true"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="About Mary G. Wilson – UX/UI designer with nearly ten years’ experience across startups, agencies, and enterprise clients.">
   <meta name="theme-color" content="#0000cd">
   <title>About – Mary G. Wilson</title>
-  <!-- canonical: the folder URL, not /index.html (Pages serves both, and redirects neither) -->
+  <!-- canonical url -->
   <link rel="canonical" href="https://marywildesign.com/about/" />
 
   <link rel="icon" type="image/svg+xml" href="../mw.svg" />
@@ -27,7 +24,7 @@
 
   <div class="layout about-open">
 
-    <!-- the home page's own panel, the one the About view slides in beside there -->
+    <!-- cv panel -->
     <aside class="sidebar" id="sidebar">
       <div class="project-view-header">
         <button class="sidebar-close" id="sidebar-close" aria-label="Close menu">✕</button>
@@ -59,9 +56,7 @@
     <!-- main content -->
     <main class="content about-open" id="content">
 
-      <!-- the same two classes the home page's slide-in builds, so this page
-           inherits the About layout; the body class turns the entrance
-           animation off, since nothing slides in here -->
+      <!-- about layout, no slide-in -->
       <div class="case-study-view about-view">
 
         <div class="topbar">
@@ -69,8 +64,7 @@
           <span class="breadcrumb"><a href="../">projects</a> / <span class="breadcrumb-current">About</span></span>
         </div>
 
-        <!-- kept in step with <template id="about-template"> in the home page's
-             index.html, which is the copy the slide-in shows -->
+        <!-- matches the about template on the home page -->
         <section class="about-layout" aria-labelledby="about-headline">
           <img class="about-portrait" src="../portrait-of-the-artist.jpg" alt="Mary Wilson seated on a grassy slope in the mountains">
           <dl class="about-facts">
@@ -109,7 +103,7 @@
       </div>
     </main>
 
-    <!-- right sidebar (cv) - filled by script.js from projects.js -->
+    <!-- right sidebar (cv), filled from projects.js -->
     <aside class="sidebar-right" id="sidebar-right"></aside>
 
   </div>

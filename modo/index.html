@@ -2,14 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <!-- Umami analytics. Cookieless and no personal data, so no consent banner is
-       needed. The data-domains list is what keeps local previews, which run on
-       127.0.0.1, out of the reports: the tracker matches the visitor's hostname
-       against it and does nothing anywhere else. -->
+  <!-- umami analytics, live domain only -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="df11a0aa-ba9c-4ef5-83f4-12195afd38c2" data-domains="marywildesign.com,www.marywildesign.com" data-performance="true"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Modo – B2C Site Redesign</title>
-  <!-- canonical: the folder URL, not /index.html (Pages serves both, and redirects neither) -->
+  <title>Modo: B2C Site Redesign</title>
+  <!-- canonical url -->
   <link rel="canonical" href="https://marywildesign.com/modo/" />
 
   <link rel="icon" type="image/svg+xml" href="../mw.svg" />
@@ -25,7 +22,7 @@
 
 <div class="layout">
 
-  <!-- sidebar - left empty on purpose: script.js builds it from projects.js -->
+  <!-- left sidebar, filled from projects.js -->
   <aside class="sidebar" id="sidebar"></aside>
 
   <!-- mobile backdrop -->
@@ -40,15 +37,15 @@
       <span class="clock" id="clock"></span>
     </div>
 
-    <span class="breadcrumb"><a href="../">projects</a> / <span class="breadcrumb-current">Modo: Marketing Site Redesign (B2C)</span></span>
+    <span class="breadcrumb"><a href="../">projects</a> / <span class="breadcrumb-current">Modo: B2C Site Redesign</span></span>
 
     <!-- content -->
     <div class="case-header-grid">
       <div class="case-header-text">
-        <h2>Modo: Marketing Site Redesign (B2C)</h2>
+        <h2>Modo: B2C Site Redesign</h2>
         <div class="tags"></div>
         <p>
-          Vancouver's largest B-Corp car sharing coop needed a complete business-to-consumer website overhaul to simplify the content experience across marketing and member touch points, aligned with a broader brand and app refresh.
+          Vancouver's largest B Corp car sharing coop needed a complete business-to-consumer website overhaul to simplify the content experience across marketing and member touch points, aligned with a broader brand and app refresh.
         </p>
       </div>
     </div>
@@ -59,6 +56,20 @@
 
     <div class="snapshot-box"></div>
 
+    <blockquote class="case-testimonial">
+      <svg class="case-testimonial-mark" viewBox="0 0 512 512" aria-hidden="true" focusable="false">
+        <circle cx="256" cy="256" r="256" fill="#0040FF"/>
+        <g fill="#fff">
+          <circle cx="160" cy="205" r="58"/>
+          <path d="M218 205 C218 285 178 342 122 382 C112 389 101 376 110 367 C146 333 165 300 170 262 Z"/>
+          <circle cx="330" cy="205" r="58"/>
+          <path d="M388 205 C388 285 348 342 292 382 C282 389 271 376 280 367 C316 333 335 300 340 262 Z"/>
+        </g>
+      </svg>
+      <p>Mary is an incisive thinker and creative problem-solver. When it came to designing a clear flow for new members to learn about carsharing, Mary brought empathy and pragmatism and supported the delivery of a successful project.</p>
+      <cite>Jane Hope, Director of Marketing &amp; Communications, Modo</cite>
+    </blockquote>
+
     <div class="case-section">
       <h3>Ask</h3>
       <p>Modo approached All Purpose Creative to re-platform and redesign their website, as their marketing team wanted a more efficient and autonomous content management process.</p>
@@ -68,8 +79,29 @@
 
     <div class="case-section">
       <h3>Insights</h3>
-      <p>The All Purpose team rebuilt the site experience from the ground up. Starting with IA, led by me, we worked through each flow, page-by-page and considered what information was pertinent and what could be removed. A key through line was getting the user the information they need at each crucial step in the decision process, allowing them to have confidence when securing a vehicle. We cut the number of steps between "I need a car" and "I've booked one."</p>
+      <p>The All Purpose team rebuilt the site experience from the ground up. Starting with IA, led by me, we worked through each flow, page-by-page and considered what information was pertinent and what could be removed. A key through line was getting the user the information they needed at each crucial step in the decision process, allowing them to have confidence when securing a vehicle. We cut the number of steps between "I need a car" and "I've booked one."</p>
+      <p>The proposed architecture put five direct-to-page buttons on the home screen and three action-based drop-downs, 'Use Modo', 'Meet Modo' and 'Living with Modo'. That shaped the rest of the site, giving each piece of information a clear place to nest.</p>
       <p class="takeaway"><span class="takeaway-label">What I learned</span> The site didn't have a <em>navigation</em> problem, it had a content problem. Once we agreed on the five things a prospective member actually needs to know, the IA and the menu restructuring became extremely clear.</p>
+    </div>
+
+    <div class="case-section">
+      <h3>Process</h3>
+      <p><span class="process-step">Discovery:</span> Interviews with seven Modo interest-holders, a review of six competitor sites, a survey of 28 non-members, a partial content audit and a read of Modo's existing research.</p>
+
+      <p><span class="process-step">Definition:</span> Journey mapping with the Modo team across seven audience segments, then opportunities, IA, user flows, a style guide from Modo's app design system and a messaging framework.</p>
+
+      <p><span class="process-step">Design and content:</span> Page specs and content blocks, from low fidelity to high fidelity.</p>
+
+      <p><span class="process-step">Testing:</span> Five moderated sessions on the prototype, with findings feeding revisions. Most of the five non-members we tested with tried to click 'How Modo Works' from the hero, vehicle specs put off anyone who isn't a car person, and the how-it-works content ran long. We recommended trimming text, adding media and showing what happens after sign-up, and grouped the fleet by use case rather than by vehicle.</p>
+      <p>The FAQs were a significant undertaking. I reworked all of the major questions into clear groupings, so visitors oriented themselves first, as a member who needs urgent help or as someone looking to join, before narrowing down to their question.</p>
+
+      <p><span class="process-step">Handoff:</span> Modo's marketing team wanted to run the site without developer support, so most of it was built in Webflow, and the work then continued as a maintenance engagement. I worked closely with Jason Landry, the developer, running check-in meetings through the build so what I designed matched what could be built.</p>
+      <p>Two trade-offs came out of that:</p>
+      <ul>
+        <li><span class="process-step">Webflow vs full autonomy:</span> most of the site could be edited by Modo's marketing team, but the home page car selection and map tool were custom widgets with nothing equivalent in Webflow, so they had to be coded. Those still needed a developer, so this couldn't be a fully autonomous project for Modo's team.</li>
+        <li><span class="process-step">Map clarity vs map functionality:</span> testing found the map noisy and hard to read for people who don't think about cars. But Modo's team wanted more accurate vehicle icons, and people expect to find and book particular vehicles from the map, so simpler and more capable pulled in different directions. We chose clarity for users.</li>
+      </ul>
+      <p>The interviews also gave the developer-facing requirements that shaped the design: site analytics, gated or drip-fed content, and a marketing site kept separate from the Engage app.</p>
     </div>
 
     <div class="case-section">
@@ -80,6 +112,7 @@
         <li>Worked within Modo's accessibility constraints and existing brand system, extending it rather than replacing it: a secondary colour palette for cards, pill design and other design system pieces</li>
         <li>Redesigned the map widget and fleet selection tools, supported user testing, and implemented improvements that streamlined the vehicle selection process</li>
         <li>Reworked the Q&amp;A page to group similar questions together, allowing site visitors to get their questions answered quickly</li>
+        <li>Supported discovery alongside design</li>
       </ul>
     </div>
 
@@ -90,12 +123,12 @@
 
     <div class="case-section">
       <h3>Outcome</h3>
-      <p>The redesigned marketing site delivered a streamlined digital experience for Modo and a more coherent and navigable website that aligns with the mobile app and reflects the coop's brand more consistently across various touchpoints.</p>
-      <p>Our engagement on the project saw an increase in content clarity, streamlined new member journey, and, most importantly, a significant decrease to customer calls to the Help Desk.</p>
+      <p>The redesigned marketing site delivered a streamlined digital experience for Modo and a more coherent and navigable website that aligned with the mobile app and reflected the coop's brand more consistently across various touchpoints.</p>
+      <p>Our engagement saw an increase in content clarity and a more streamlined new member journey. Most importantly, the Modo team told us there was a significant decrease in Help Desk calls.</p>
     </div>
 
     <div class="case-section case-section-media">
-      <h3>Project media</h3>
+      <h3>Media</h3>
       <p>Here are some key artefacts from the project, with captions explaining each of them.</p>
     </div>
 
@@ -148,7 +181,7 @@
 
   </main>
 
-  <!-- cv panel - left empty on purpose: script.js fills it from projects.js -->
+  <!-- cv panel, filled from projects.js -->
   <aside class="sidebar-right" id="sidebar-right"></aside>
 
 </div>

@@ -1,37 +1,19 @@
-/* mary wil design - portfolio scripts */
+/* mary wil design portfolio scripts */
 
-/* ------------------------------------------------------------------
-   shared helpers - used by the home page AND every project page
------------------------------------------------------------------- */
+// shared helpers for the home page and project pages
 
-// Site root = the folder script.js itself was loaded from. Every link
-// below is built from this, so pages behave the same no matter how deep
-// they are or which folder Live Server / your host treats as its root.
+// site root, taken from where script.js loaded
 const SITE_ROOT = (function () {
   const src = document.currentScript && document.currentScript.src;
   return new URL('.', src || window.location.href);
 })();
 
-// 'kogl/' or '/kogl/'  ->  absolute URL under the site root
+// turn a site path into a full url
 function siteUrl(path) {
   return new URL(String(path).replace(/^\//, ''), SITE_ROOT).href;
 }
 
-// Every video on the site is tracked alongside a still of its own - the
-// cover-poster / hero-poster / camera-test-poster webp that sits next to each
-// clip. That still is already the poster, so it covers the wait while the file
-// arrives, but it does not cover a clip that never arrives at all: a file moved
-// or renamed out from under the markup, a request a host redirects away
-// (GitHub Pages 301s everything under a path one of the other repos owns, which
-// is how the VJ case study's whole folder went black), or a codec the browser
-// cannot play. On a failure the browser drops the image and the poster goes
-// with it, leaving only the element's own box - which is painted black on
-// purpose for a video. Put the still in as real markup instead, so the box
-// always holds the picture that was prepared for it.
-//
-// The class comes across with it: that keeps the lightbox hook and a mirrored
-// clip's flip, and the stylesheet sizes img and video identically in every one
-// of these containers, so the swap cannot move anything.
+// swap a broken video for its poster image
 function fallBackToStill(media) {
   const poster = media.getAttribute('poster');
   if (!poster) return null;
@@ -41,32 +23,23 @@ function fallBackToStill(media) {
   still.alt = media.getAttribute('alt') || '';
   if (media.className) still.className = media.className;
 
-  // no still there either: take the broken one back out, leaving the box as it
-  // was rather than adding a broken-image icon to it
+  // remove the still if it fails too
   still.addEventListener('error', () => still.remove(), { once: true });
 
   media.replaceWith(still);
-  // the lightbox binds its items once, by element, when the script runs - a
-  // still created after that would carry the class and no handler, so say so
-  // and let it bind the new one
+  // tell the lightbox to bind the new still
   document.dispatchEvent(new CustomEvent('media-fallback', { detail: still }));
   return still;
 }
 
-// The download resume button, at the head of the CV column. The About view
-// carries a static copy of the same markup. Its arrow is the panel's own ↗
-// glyph with a class that turns it down, so the two arrows are the same
-// character and cannot drift apart. The site serves the file itself, and the
-// download attribute needs a same-origin href, which siteUrl() supplies
-// whatever the page's depth.
+// resume file name
 const RESUME_FILE = 'mary-wilson-resume.pdf';
 
 function buildDownloadLink() {
   const link = document.createElement('a');
   link.className = 'download-link';
   link.href = siteUrl(RESUME_FILE);
-  // Named rather than left empty: the mobile save below reads it back, and a
-  // browser that reads the name out of the URL instead gets the same one.
+  // set the file name for the download
   link.download = RESUME_FILE;
   link.append('download resume.pdf ');
   const arrow = document.createElement('span');
@@ -77,8 +50,7 @@ function buildDownloadLink() {
   return link;
 }
 
-// Run once the DOM is ready AND deferred scripts (projects.js) have run,
-// even if a page loads script.js at the end of <body> without `defer`.
+// run fn once the dom is ready
 function onReady(fn) {
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', fn);
@@ -87,24 +59,14 @@ function onReady(fn) {
   }
 }
 
-// The resume, saved as a file on iOS. It is the one place the download
-// attribute cannot be relied on for a PDF: iOS may hand the file to its viewer
-// rather than to the file system, and an in-app browser has no download handling
-// of its own, so the tap can open the file in place or do nothing at all.
-// Handing the browser a blob instead makes the tap a save, and names the file
-// while it is at it. Everywhere else the plain link is already the download, so
-// it keeps the browser's own progress and downloads sheet. Android is left out
-// on purpose: its in-app browsers answer a blob download by asking the host app
-// to fetch a blob: URL, which most of them cannot do.
+// check if the visitor is on ios
 function isIOS() {
   return /iP(hone|ad|od)/.test(navigator.userAgent) ||
-    // iPadOS 13 and up report a desktop user agent; the touch points are what
-    // separate an iPad from the Mac it claims to be
+    // ipads that report as a mac
     (/Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
 }
 
-// One fetch, kept: a second tap saves the blob already in hand rather than
-// asking for the megabyte again.
+// fetch the resume once and reuse it
 let resumeRequest = null;
 function fetchedResume() {
   if (!resumeRequest) {
@@ -114,7 +76,7 @@ function fetchedResume() {
         return res.blob();
       })
       .catch((err) => {
-        // let a later tap try again rather than hold the failure forever
+        // clear the cache so the next tap retries
         resumeRequest = null;
         throw err;
       });
@@ -132,18 +94,15 @@ function saveResumeToFile(event) {
     document.body.appendChild(saver);
     saver.click();
     saver.remove();
-    // Safari reads the blob after the click has returned, so the URL outlives
-    // the click rather than being revoked underneath a save still starting.
+    // revoke the blob url after a minute
     setTimeout(() => URL.revokeObjectURL(objectUrl), 60000);
   }).catch(() => {
-    // nothing to hand over: follow the link the way the browser would have
+    // on failure, just open the resume link
     window.location.href = siteUrl(RESUME_FILE);
   });
 }
 
-// Delegated from the document, because the About view's copy of the button is
-// markup rather than something this file builds and the CV column is built
-// after load.
+// save the resume as a file on ios
 onReady(function () {
   if (!isIOS()) return;
   document.addEventListener('click', (event) => {
@@ -152,10 +111,7 @@ onReady(function () {
   }, true);
 });
 
-// The clock and the breadcrumb share one row on every project view, so the
-// page's own <span class="breadcrumb"> is moved into the topbar. The home
-// slide-in builds its breadcrumb inside the topbar already
-// (see addBreadcrumbToCaseView); this covers the standalone project pages.
+// move the breadcrumb into the topbar
 function placeBreadcrumbInTopbar(root) {
   const scope = root || document;
   const topbar = scope.querySelector('.topbar');
@@ -169,8 +125,7 @@ function placeBreadcrumbInTopbar(root) {
   }
 }
 
-// Tags live in projects.js so a project's home card and its case study header
-// always show the same set. Fills every .tags wrapper inside `root`.
+// fill the tag rows from projects.js
 function renderProjectTags(root, tags) {
   if (!root || !tags || !tags.length) return;
   root.querySelectorAll('.tags').forEach((wrap) => {
@@ -184,16 +139,13 @@ function renderProjectTags(root, tags) {
   });
 }
 
-// The tag row carries the tools as well as the disciplines, so a card or a case
-// header answers "what was this made with?" without opening anything. Tools are
-// lowercased to sit with the rest of the tags; the Tools section keeps proper
-// casing. Same array feeds both, so the two can never drift.
+// combine a project's tags and tool names
 function projectTagList(project) {
   const tools = (project.tools || []).map((tool) => tool.name.toLowerCase());
   return (project.tags || []).concat(tools);
 }
 
-// The Tools section on a project page: each tool, then what it was used for.
+// build the tools list on a project page
 function renderProjectTools(root, tools) {
   if (!root || !tools || !tools.length) return;
   root.querySelectorAll('.case-tools').forEach((box) => {
@@ -214,9 +166,7 @@ function renderProjectTools(root, tools) {
   });
 }
 
-// The snapshot bar (year / role / credits / links) comes from projects.js too,
-// so every project page shows the same groups in the same order. A group with
-// nothing in it is left out rather than rendered empty.
+// build the snapshot bar from projects.js
 function renderProjectMeta(root, meta) {
   if (!root || !meta) return;
   root.querySelectorAll('.snapshot-box').forEach((box) => {
@@ -259,10 +209,7 @@ function renderProjectMeta(root, meta) {
   });
 }
 
-// The tag row wraps in line with the heading: the title's text width is
-// measured and the tags are capped to it, so they break near where the title
-// ends instead of running the full column width. The title is set in a
-// fixed-size display face, so the measurement holds at any viewport width.
+// cap the tag row to the title width
 function syncTagRowWidth(root) {
   (root || document).querySelectorAll('.case-header-text').forEach((block) => {
     const heading = block.querySelector('h2');
@@ -275,8 +222,7 @@ function syncTagRowWidth(root) {
   });
 }
 
-// Which project is this page? <body data-project="kogl"> is the source of
-// truth; falls back to matching the folder name in the URL path.
+// find which project this page is
 function getCurrentProject() {
   const projects = window.portfolioProjects || [];
   const id = document.body && document.body.dataset.project;
@@ -285,10 +231,7 @@ function getCurrentProject() {
   return projects.find((p) => segments.includes(p.href.replace(/^\/|\/$/g, ''))) || null;
 }
 
-// THE project-view sidebar (name header + project list). Used by the
-// home page slide-in AND by standalone project pages, so both are identical.
-//   onNavigate(project) -> optional; intercepts clicks (home-page slide-in)
-//                          leave undefined for normal page navigation
+// build the project sidebar
 function renderProjectSidebar(sidebar, currentId, onNavigate) {
   const projects = window.portfolioProjects || [];
   const name = (window.siteProfile && window.siteProfile.name) || 'Mary G. Wilson';
@@ -300,16 +243,14 @@ function renderProjectSidebar(sidebar, currentId, onNavigate) {
   projects.forEach((project) => {
     const link = document.createElement('a');
     link.href = siteUrl(project.href);
-    // The panel column is 191px, so a project can carry a shorter label for the
-    // places with no room (here and the home card). The case study page itself
-    // always uses the full title.
+    // use the short title if there is one
     link.textContent = project.shortTitle || project.title;
     const isCurrent = project.id === currentId;
     link.className = isCurrent ? 'active' : '';
     if (isCurrent) link.setAttribute('aria-current', 'page');
     if (onNavigate) {
       link.addEventListener('click', (e) => {
-        // a modified click opens the real page in a new tab, as the href says
+        // let modified clicks open normally
         if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
         e.preventDefault();
         onNavigate(project);
@@ -327,9 +268,7 @@ function renderProjectSidebar(sidebar, currentId, onNavigate) {
   const profile = document.createElement('div');
   profile.className = 'sidebar-top';
   const homeLink = document.createElement('a');
-  // './' rather than 'index.html': the folder URL is what GitHub Pages serves
-  // the home page from, so the address bar reads marywildesign.com/ and not
-  // marywildesign.com/index.html. Pages does not redirect the file form.
+  // link home to the site root
   homeLink.href = siteUrl('./');
   homeLink.className = 'project-view-home-link';
   homeLink.textContent = name;
@@ -343,8 +282,7 @@ function renderProjectSidebar(sidebar, currentId, onNavigate) {
   sidebar.append(header, nav);
 }
 
-// declared up here (not next to bindMobileMenu) so onReady callbacks that
-// call bindMobileMenu() can never hit a "used before initialised" error
+// track whether the mobile menu is bound
 let menuBound = false;
 
 // custom cursor
@@ -359,12 +297,7 @@ let menuBound = false;
     document.documentElement.classList.add('is-touch');
     if (cursor) cursor.style.display = 'none';
   } else if (cursor) {
-    // the dot is the site blue, which reads on the white page and on the white
-    // panel alike, so it is placed and left alone. It used to flip colour over
-    // the left panel, which was blue until 2026-09-22; that panel is white
-    // again, so the flip, its cached panel rect and the .on-panel class are all
-    // gone. (The rect was cached rather than measured per move, because reading
-    // a rect forces layout.)
+    // move the cursor dot with the mouse
     document.addEventListener('mousemove', (e) => {
       cursor.style.left = e.clientX + 'px';
       cursor.style.top = e.clientY + 'px';
@@ -372,9 +305,7 @@ let menuBound = false;
   }
 })();
 
-// clock - always Mary's time in Oslo, never the visitor's. The zone
-// abbreviation beside the time is the conventional way to say whose clock
-// this is, and the daypart adds a little character.
+// clock showing oslo time
 const CLOCK_TZ = 'Europe/Oslo';
 const clockTimeFmt = new Intl.DateTimeFormat('en-GB', {
   timeZone: CLOCK_TZ,
@@ -384,9 +315,7 @@ const clockTimeFmt = new Intl.DateTimeFormat('en-GB', {
 });
 const clockDayFmt = new Intl.DateTimeFormat('en-GB', { timeZone: CLOCK_TZ, weekday: 'short' });
 
-// each entry starts at that minute of the Oslo day; the last one runs through
-// midnight and the 0 entry picks up again after it. Every glyph is an Egyptian
-// hieroglyph (U+13000 block) - figures at work, at rest and at play.
+// status glyphs for each part of the day
 const DAYPARTS = [
   { at: 0, glyph: '\u{1303F}', status: 'recharging' },
   { at: 8 * 60 + 30, glyph: '\u{13029}', status: 'coffee' },
@@ -396,9 +325,7 @@ const DAYPARTS = [
   { at: 17 * 60, glyph: '\u{13009}', status: 'chilling' }
 ];
 
-// from Friday 17:00 until Monday 08:30 the week pattern doesn't apply at all.
-// Four poses to choose between, picked once when the weekend starts rather
-// than once a minute, which would flicker.
+// weekend glyphs and status
 const AFK_GLYPHS = ['\u{13024}', '\u{13022}', '\u{13020}', '\u{13021}'];
 const AFK_STATUS = 'off the clock';
 let afkGlyph = '';
@@ -433,18 +360,17 @@ function initClock() {
   const timeEl = el.querySelector('.clock-time');
   const statusEl = el.querySelector('.clock-status');
 
-  // only write when the text actually changes: the clock shares its row with
-  // the breadcrumb, so pointless writes shuffle the layout about
+  // only update text when it changes
   const set = (node, text) => { if (node.textContent !== text) node.textContent = text; };
 
   el.title = "Mary's local time in Oslo, not yours";
 
   const tick = () => {
     const now = new Date();
-    const time = clockTimeFmt.format(now); // HH:MM, Oslo
-    const weekday = clockDayFmt.format(now); // Mon…Sun, Oslo
+    const time = clockTimeFmt.format(now); // hh:mm
+    const weekday = clockDayFmt.format(now); // weekday
 
-    // nothing changes inside a minute, so only touch the DOM when it does
+    // update only when the minute changes
     const key = weekday + ' ' + time;
     if (el.dataset.key !== key) {
       el.dataset.key = key;
@@ -470,12 +396,12 @@ function initClock() {
 }
 initClock();
 
-// card click → slide-in case study
+// card click opens the case study in place
 (function () {
   const content = document.getElementById('content');
   if (!content) return;
 
-  // save original grid content for restoration
+  // saved grid state
   let gridContent = null;
   let scrollPos = 0;
   let lastActiveFilter = 'all';
@@ -486,15 +412,12 @@ initClock();
   const projects = window.portfolioProjects || [];
   const projectTitles = Object.fromEntries(projects.map((project) => [project.id, project.title]));
 
-  // Keep the address bar in step with the case study on screen. The view is
-  // swapped in place rather than navigated to, so without this the URL would
-  // stay on the grid for every project. Wrapped because pushState throws on
-  // file:// and is rate-limited by some browsers.
+  // update the url without reloading
   function setUrl(path, state) {
     try {
       history.pushState(state, '', path);
     } catch (err) {
-      /* no history API: the view change still works, only the URL does not */
+      /* no history api, skip the url change */
     }
   }
 
@@ -502,9 +425,7 @@ initClock();
     const card = document.querySelector(`.case-card[data-id="${project.id}"]`);
     if (!card) return;
     const title = card.querySelector('.card-title');
-    // The short label, so a long title cannot wrap or outgrow the card. The
-    // title text sits inside its own link in the HTML (so the card is a real
-    // link), so write into that instead of replacing the h3's contents.
+    // set the card title, link and data
     const titleLink = title ? title.querySelector('a') : null;
     const label = project.shortTitle || project.title;
     if (titleLink) {
@@ -525,8 +446,7 @@ initClock();
     scrollPos = window.scrollY;
   }
 
-  // `push: false` is for the history handler, where the address bar is already
-  // correct and pushing again would trap the back button.
+  // restore the project grid
   function showGrid(opts) {
     if (!gridContent) return;
     content.innerHTML = gridContent;
@@ -535,7 +455,7 @@ initClock();
     gridContent = null;
     if (sidebar) sidebar.innerHTML = originalSidebarContent;
     window.scrollTo(0, scrollPos);
-    // remove dynamic breadcrumb added by slide-in
+    // remove the slide-in breadcrumb
     const db = document.getElementById('dynamic-breadcrumb');
     if (db) db.remove();
     bindCards();
@@ -548,7 +468,7 @@ initClock();
 
   function showProjectNav(currentId) {
     if (!sidebar) return;
-    // same sidebar every project page builds for itself; here, clicks slide in
+    // build the sidebar with slide-in clicks
     renderProjectSidebar(sidebar, currentId, (project) => {
       loadCaseStudy(siteUrl(project.href), project.title, project.category, lastActiveFilter, project.id);
     });
@@ -561,24 +481,13 @@ initClock();
     }
 
     saveGrid();
-    // The About page's panel is the home page's panel - wordmark, the short bio,
-    // the contact links and the credit - rather than the project list, which
-    // stays on the case studies (and on the grid, where showGrid restores this
-    // same markup).
+    // show the home sidebar on about
     if (sidebar) sidebar.innerHTML = originalSidebarContent;
 
     const wrapper = document.createElement('div');
     wrapper.className = 'case-study-view about-view';
     wrapper.innerHTML = aboutTemplate.innerHTML;
-    // The address bar moves to /about/ just below, and the template's relative
-    // src or href would then resolve against that folder rather than the site
-    // root - which is a 404. That is what the resume row did: it pointed at
-    // /about/mary-wilson-resume.pdf on desktop, where the download attribute
-    // hands the link straight to the browser. (On iOS the tap is answered by
-    // the blob save above instead, which builds its own URL, so only the
-    // desktop download ever failed.) Both go through siteUrl() like every
-    // link: the portrait directly, the resume row the same way the CV column's
-    // button is built, so the two point at one URL and cannot drift apart.
+    // fix the portrait and resume links
     const portrait = wrapper.querySelector('.about-portrait');
     if (portrait) portrait.src = siteUrl('portrait-of-the-artist.jpg');
     const resume = wrapper.querySelector('.about-facts .download-link');
@@ -618,7 +527,7 @@ initClock();
   });
 
   function addBreadcrumbToCaseView(category, title, activeFilter) {
-    // remove any existing breadcrumb from wrapper (fixes duplicate)
+    // remove any existing breadcrumb
     const wrapper = document.querySelector('.case-study-view');
     if (!wrapper) return;
     wrapper.querySelectorAll('.breadcrumb').forEach(function(el) {
@@ -627,7 +536,7 @@ initClock();
       }
     });
 
-    // build: <span class="breadcrumb">projects / Project</span>
+    // build the breadcrumb
     const container = document.createElement('span');
     container.id = 'dynamic-breadcrumb';
     container.className = 'breadcrumb';
@@ -648,7 +557,7 @@ initClock();
     container.appendChild(document.createTextNode(' / '));
     container.appendChild(current);
 
-    // share the clock's row so the breadcrumb lines up with it
+    // put the breadcrumb next to the clock
     const topbar = wrapper.querySelector('.topbar');
     const clock = topbar ? topbar.querySelector('.clock') : null;
     if (topbar && clock) {
@@ -690,23 +599,20 @@ initClock();
       content.scrollTop = 0;
       window.scrollTo(0, 0);
 
-      // give the slid-in project its own address so it can be copied or shared;
-      // skipped when the history handler is restoring a view it already owns
+      // update the url for this project
       if (!opts || opts.push !== false) setUrl(url, { project: cardId });
 
-      // prev/next + back to top at the base of the slid-in project: same
-      // markup as a standalone page, but it slides between projects
+      // set up prev/next and back to top
       initProjectFooterNav(wrapper, cardId, (nextProject) => {
         loadCaseStudy(siteUrl(nextProject.href), nextProject.title, nextProject.category, lastActiveFilter, nextProject.id);
       });
 
-      // breadcrumb, placed on the clock's row inside the topbar. The full title,
-      // not the card's short label, so it matches the <h2> above it.
+      // add the breadcrumb with the full title
       if (cardTitle) {
         addBreadcrumbToCaseView(cardCategory, projectTitles[cardId] || cardTitle, activeFilter);
       }
 
-      // tags for the slid-in project, from projects.js
+      // fill tags, meta and tools for this project
       const loadedProject = projects.find((p) => p.id === cardId);
       if (loadedProject) {
         renderProjectTags(wrapper, projectTagList(loadedProject));
@@ -716,7 +622,7 @@ initClock();
       syncTagRowWidth(wrapper);
       document.fonts.ready.then(() => syncTagRowWidth(wrapper));
 
-      // mobile "projects" button in topbar (right side)
+      // add the mobile projects button
       document.querySelectorAll('.topbar-back').forEach(el => el.remove());
       const topbar = wrapper.querySelector('.topbar');
       if (topbar) {
@@ -727,11 +633,11 @@ initClock();
         topbar.appendChild(projectsBtn);
       }
 
-      // re-init clock + menu
+      // restart the clock and menu
       initClock();
       bindMobileMenu();
     } catch (e) {
-      // fallback: navigate directly
+      // on failure, go to the page directly
       window.location.href = url;
     }
   }
@@ -743,9 +649,7 @@ initClock();
   function bindCards() {
     document.querySelectorAll('.case-card[data-href]').forEach((card) => {
       card.addEventListener('click', (e) => {
-        // The card title is a real link. Let the external "view site" link and
-        // any modified click (new tab or window) behave natively; intercept a
-        // plain left click anywhere else on the card and slide the project in.
+        // slide the project in on a plain click
         const link = e.target.closest('a');
         if (link && !link.classList.contains('card-link')) return;
         if (link && (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey)) return;
@@ -753,7 +657,7 @@ initClock();
         e.preventDefault();
         const titleEl = card.querySelector('.card-title');
         const title = titleEl ? titleEl.textContent.trim() : '';
-        // capture the active filter before content is cleared
+        // remember the active filter
         const activeBtn = document.querySelector('.filter-btn.active');
         const activeFilter = activeBtn ? activeBtn.dataset.filter : 'all';
         lastActiveFilter = activeFilter;
@@ -762,9 +666,7 @@ initClock();
     });
   }
 
-  // Back and forward. An entry carrying a project id reopens that project in
-  // place; anything else is the grid. Neither pushes a new entry, so the
-  // browser's own back button stays in charge.
+  // handle browser back and forward
   window.addEventListener('popstate', (e) => {
     if (e.state && e.state.about) {
       showAbout({ push: false });
@@ -783,20 +685,18 @@ initClock();
   });
 
   bindCards();
-  // '#about' links predate the About page's own folder URL. They still open the
-  // view, and the address bar is moved onto the URL the view owns now.
+  // open about from an old #about link
   if (window.location.hash === '#about') {
     showAbout({ push: false });
     try {
       history.replaceState({ about: true }, '', siteUrl('about/'));
     } catch (err) {
-      /* no history API: the view still opens, only the URL keeps the hash */
+      /* no history api, keep the hash */
     }
   }
 })();
 
-// standalone project pages (direct load, refresh, Live Server on a subpage)
-// Builds the SAME sidebar the home-page slide-in shows, from projects.js.
+// set up a standalone project page
 onReady(function () {
   if (!document.body.classList.contains('case-page')) return;
 
@@ -808,7 +708,7 @@ onReady(function () {
   }
 
   const sidebar = document.getElementById('sidebar');
-  if (sidebar) renderProjectSidebar(sidebar, project.id);   // plain links, normal navigation
+  if (sidebar) renderProjectSidebar(sidebar, project.id);   // plain links
 
   document.title = project.title;
   document.querySelectorAll('.case-header-text h2').forEach((heading) => {
@@ -822,16 +722,16 @@ onReady(function () {
   renderProjectMeta(document, project.meta);
   renderProjectTools(document, project.tools);
   syncTagRowWidth(document);
-  // the display face may still be swapping in, which changes the title width
+  // resync once fonts load
   document.fonts.ready.then(() => syncTagRowWidth(document));
 
-  // line the breadcrumb up with the clock
+  // move the breadcrumb next to the clock
   placeBreadcrumbInTopbar(document);
 
-  bindMobileMenu();   // the close button was just rebuilt
+  bindMobileMenu();   // rebind the menu
 });
 
-// A section whose body is a plain list rather than CV entries.
+// build an empty cv section with a heading
 function buildListSection(title) {
   const wrap = document.createElement('div');
   wrap.className = 'cv-section';
@@ -841,28 +741,27 @@ function buildListSection(title) {
   return wrap;
 }
 
-// Tools keep their groups, each one list item, so the column reads as a list
-// rather than one long run of comma-separated names.
+// build the tools section of the cv
 function buildToolsSection(tools) {
   if (!tools || !tools.length) return null;
   const wrap = buildListSection('Tools');
-  const list = document.createElement('ul');
-  list.className = 'cv-tool-list';
+  // one cv item per group, laid out like the experience entries
   tools.forEach((group) => {
-    const item = document.createElement('li');
+    const item = document.createElement('div');
+    item.className = 'cv-item';
     const label = document.createElement('span');
-    label.className = 'cv-tool-group';
-    label.textContent = '(' + group.group + ')';
-    item.append(label, ' ' + group.items.join(', '));
-    list.appendChild(item);
+    label.className = 'cv-role';
+    label.textContent = group.group;
+    const list = document.createElement('span');
+    list.className = 'cv-org';
+    list.textContent = group.items.join(', ');
+    item.append(label, list);
+    wrap.appendChild(item);
   });
-  wrap.appendChild(list);
   return wrap;
 }
 
-// CV - single source of truth: window.siteProfile.cv in projects.js. Renders
-// into the right-hand column (<aside id="sidebar-right">) on the home page and
-// on every project page, so the CV is only ever edited in one place.
+// build the cv sections from projects.js
 function buildCvSections(cv) {
   function buildSection(title, items) {
     const wrap = document.createElement('div');
@@ -925,9 +824,7 @@ onReady(function () {
 
   const column = document.getElementById('sidebar-right');
   if (column) {
-    // The CV file, hosted with this site rather than on Drive, so it is one
-    // click from every page the column appears on - the home page and every
-    // project page.
+    // add the resume download button
     const actions = document.createElement('div');
     actions.className = 'cv-actions';
     actions.appendChild(buildDownloadLink());
@@ -937,7 +834,7 @@ onReady(function () {
     buildCvSections(cv).forEach((section) => column.appendChild(section));
   }
 
-  // the same tools list, for the About view where the panel is hidden
+  // tools list for the about view
 });
 
 // filtering
@@ -956,7 +853,7 @@ onReady(function () {
 
     cards.forEach((card) => {
       const cats = card.dataset.category ? card.dataset.category.split(' ') : [];
-      // 'all' keeps every project in the grid
+      // show the card if it matches the filter
       const show = filter === 'all' || cats.includes(filter);
       card.classList.toggle('hidden', !show);
 
@@ -965,7 +862,7 @@ onReady(function () {
       }
     });
 
-    // randomize order - physically reorder DOM nodes
+    // shuffle the visible cards
     const container = document.querySelector('.cards');
     if (!container) return;
     shuffle(visible);
@@ -973,14 +870,14 @@ onReady(function () {
       container.appendChild(card);
     });
 
-    // trigger entrance animation
+    // replay the entrance animation
     visible.forEach((card) => {
       card.classList.remove('card-animate');
       void card.offsetWidth;
       card.classList.add('card-animate');
     });
 
-    // stagger delays
+    // stagger the animation delays
     visible.forEach((card, i) => {
       card.style.animationDelay = `${i * 40}ms`;
     });
@@ -1001,13 +898,13 @@ onReady(function () {
 
   bindFilterButtons();
 
-  // default to ALL on load (matches the active button in the HTML)
+  // show all on load
   applyFilter('all');
 
-  // expose so showGrid() can re-bind and re-apply after restoring the DOM
+  // let showgrid rebind the filters
   window.rebindFilters = function () {
     bindFilterButtons();
-    // apply the filter matching the currently active button
+    // reapply the active filter
     const activeBtn = document.querySelector('.filter-btn.active');
     if (activeBtn) {
       applyFilter(activeBtn.dataset.filter);
@@ -1023,7 +920,7 @@ function bindMobileMenu() {
   const backdrop = document.getElementById('menu-backdrop');
   if (!toggle || !sidebar) return;
 
-  // remove old listeners by cloning
+  // clone the toggle to drop old listeners
   if (menuBound) {
     const newToggle = toggle.cloneNode(true);
     toggle.parentNode.replaceChild(newToggle, toggle);
@@ -1065,7 +962,7 @@ document.addEventListener('keydown', (e) => {
 
 bindMobileMenu();
 
-// media lightbox (images + videos + carousel)
+// media lightbox
 (function () {
   const lightbox = document.getElementById('media-lightbox');
   const content = document.getElementById('lightbox-content');
@@ -1096,14 +993,11 @@ bindMobileMenu();
     } else if (el.tagName === 'VIDEO') {
       const vid = document.createElement('video');
       vid.src = el.src;
-      // carry the still across, so the full-size view opens on the poster rather
-      // than on a black box while the video itself is still arriving
+      // use the same poster
       if (el.poster) vid.poster = el.poster;
-      // and carry a mirrored state, so the full-size view is not the one place
-      // the clip appears the other way round
+      // keep the mirrored flip
       if (el.classList.contains('is-mirrored')) vid.classList.add('is-mirrored');
-      // the same fallback as on the page: a clip that will not load should open
-      // on its still at full size, not on a black box at full size
+      // fall back to the still on error
       vid.addEventListener('error', () => fallBackToStill(vid), { once: true });
       vid.autoplay = true;
       vid.loop = true;
@@ -1138,7 +1032,7 @@ bindMobileMenu();
     render();
   }
 
-  // bind click on lightbox items
+  // bind clicks on lightbox items
   function bind() {
     getItems().forEach((el, i) => {
       if (el.dataset.lbBound) return;
@@ -1148,12 +1042,10 @@ bindMobileMenu();
     });
   }
 
-  // a clip that failed on the page is replaced by its still, which arrives
-  // wearing the lightbox class but with no handler on it - bind it so the
-  // fallback opens full size like the clip it stands in for
+  // bind fallback stills too
   document.addEventListener('media-fallback', bind);
 
-  // nav buttons
+  // prev and next buttons
   btnNext?.addEventListener('click', (e) => {
     e.stopPropagation();
     next();
@@ -1178,7 +1070,7 @@ bindMobileMenu();
     if (e.key === 'ArrowLeft') prev();
   });
 
-  // bind click - runs immediately if lightbox exists, otherwise on load
+  // bind items now or on load
   if (document.getElementById('media-lightbox')) {
     bind();
   } else {
@@ -1186,12 +1078,7 @@ bindMobileMenu();
   }
 })();
 
-// project navigation (prev/next) + back to top.
-// order comes from projects.js - no second list to keep in sync.
-// `scope` is the document on a standalone project page, or the injected
-// .case-study-view wrapper when a project is opened from the home grid.
-// onNavigate(project) intercepts prev/next (home slide-in); leave it
-// undefined for normal page navigation.
+// project footer nav and back to top
 function initProjectFooterNav(scope, projectId, onNavigate) {
   const nav = (scope || document).querySelector('#project-nav');
   if (!nav || !projectId) return;
@@ -1200,10 +1087,9 @@ function initProjectFooterNav(scope, projectId, onNavigate) {
   const current = projects.findIndex((p) => p.id === projectId);
   if (current === -1) return;
 
-  // label each link with the project name - the part before the colon
+  // project name before the colon
   const name = (p) => p.title.split(':')[0].trim();
-  // the narrow layout has less room still, so a project may carry a shorter
-  // footer label; the stylesheet swaps the two at 640px
+  // short footer label
   const shortName = (p) => p.navShortTitle || name(p);
   nav.style.display = '';
 
@@ -1221,15 +1107,14 @@ function initProjectFooterNav(scope, projectId, onNavigate) {
   function bindLink(el, project, label, shortLabel) {
     if (!el) return;
     el.href = siteUrl(project.href);
-    // both labels go into the DOM and the stylesheet - which is the thing that
-    // knows the width - picks one, so no resize listener is needed
+    // add full and short labels
     el.replaceChildren(
       labelSpan('nav-label-full', label),
       labelSpan('nav-label-short', shortLabel)
     );
     if (onNavigate) {
       el.addEventListener('click', (e) => {
-        // a modified click opens the real page in a new tab, as the href says
+        // let modified clicks open normally
         if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
         e.preventDefault();
         onNavigate(project);
@@ -1237,8 +1122,7 @@ function initProjectFooterNav(scope, projectId, onNavigate) {
     }
   }
 
-  // wrap around at both ends, so every project links to two others and the
-  // prev/next loop never dead-ends
+  // wrap around at both ends
   const prevProject = projects[(current - 1 + projects.length) % projects.length];
   const nextProject = projects[(current + 1) % projects.length];
   bindLink(prev, prevProject, '← ' + name(prevProject), '← ' + shortName(prevProject));
@@ -1246,14 +1130,13 @@ function initProjectFooterNav(scope, projectId, onNavigate) {
 
   if (top) {
     top.addEventListener('click', () => {
-      // desktop scrolls inside <main class="content">, mobile scrolls the window
+      // find the scrolling element
       const scroller = nav.closest('.content') || document.getElementById('content');
       [scroller, document.scrollingElement].forEach((el) => {
         if (!el || el.scrollTop === 0) return;
         const from = el.scrollTop;
         el.scrollTo({ top: 0, behavior: 'smooth' });
-        // some engines ignore smooth scrolling on a nested scroll container,
-        // so make sure we actually land at the top
+        // force the jump if smooth scroll did nothing
         setTimeout(() => {
           if (el.scrollTop === from) el.scrollTop = 0;
         }, 300);
@@ -1262,36 +1145,20 @@ function initProjectFooterNav(scope, projectId, onNavigate) {
   }
 }
 
-// standalone project pages (direct load / refresh)
+// footer nav on standalone project pages
 onReady(function () {
   const project = getCurrentProject();
   if (project) initProjectFooterNav(document, project.id);
 });
 
-// media that waits to be looked at
-// --------------------------------
-// Two halves of the same idea: don't spend bytes on media nobody has looked at
-// yet.
-//
-// Videos carry data-autoplay rather than the autoplay attribute, so the file is
-// not fetched at load. They still start on their own, with nothing to click -
-// just on coming into view instead of all at once. (autoplay + preload="none"
-// would not help: autoplay forces the download regardless of the hint.)
-//
-// Images that have not decoded yet are held at zero opacity and faded in, so a
-// slow one settles into place rather than appearing mid-layout. Only elements
-// still loading are touched, so with JS off nothing is ever hidden - and an
-// error reveals too, rather than leaving a hole where something is missing.
-//
-// Both are re-applied to anything injected later, since opening a project from
-// the home grid swaps in new content.
+// lazy autoplay videos and fade-in images
 (function () {
   const FADE = '.hero-image img, .sbs-item img,' +
                '.case-image img, .case-image-wide img';
 
   const play = (v) => {
     const started = v.play();
-    if (started && started.catch) started.catch(() => {});   // autoplay refusal
+    if (started && started.catch) started.catch(() => {});   // ignore autoplay refusal
   };
 
   const observer = 'IntersectionObserver' in window
@@ -1303,11 +1170,7 @@ onReady(function () {
       }, { rootMargin: '150px 0px' })   // start just before it scrolls in
     : null;
 
-  // Before/after compare: two stacked images with the top one clipped at a
-  // custom property, and a transparent range input across the box as the
-  // control. The range brings dragging and arrow keys with it, so all this does
-  // is write one property. Bound once per slider, since apply() runs again on
-  // anything injected later.
+  // bind a before/after slider
   function bindBeforeAfter(slider) {
     if (slider.dataset.beforeAfterBound) return;
     const range = slider.querySelector('.ba-range');
@@ -1318,15 +1181,7 @@ onReady(function () {
     set();
   }
 
-  // Live embed (kogl): an iframe takes the wheel for itself, so a scroll over
-  // the demo would stop dead instead of moving the case study. An overlay
-  // button covers the frame until it is entered on purpose; pressing it hands
-  // the pointer back and moves focus inside. Bound once per embed, since
-  // apply() runs again on anything injected later.
-  // The demo is its own document, so it would otherwise show the system cursor
-  // and leave the site's blue dot frozen at the frame edge. Hide the cursor in
-  // there and relay its pointer position out, in page coordinates, so the dot
-  // keeps tracking across the boundary.
+  // hide the cursor in the embed and track it
   const cursor = document.getElementById('custom-cursor');
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches &&
                       !window.matchMedia('(hover: none) and (pointer: coarse)').matches;
@@ -1340,8 +1195,7 @@ onReady(function () {
     style.textContent = '*, *::before, *::after { cursor: none !important; }';
     doc.head.appendChild(style);
 
-    // measured rather than read per move: the frame moves with the page, and a
-    // rect read on every mousemove would force layout on every move
+    // cache the frame position
     let rect = frame.getBoundingClientRect();
     const measure = () => { rect = frame.getBoundingClientRect(); };
     window.addEventListener('scroll', measure, { passive: true, capture: true });
@@ -1356,27 +1210,18 @@ onReady(function () {
   function bindEmbed(box) {
     if (box.dataset.embedBound) return;
     const frame = box.querySelector('iframe');
-    const start = box.querySelector('.case-embed-start');
-    if (!frame || !start) return;
+    if (!frame) return;
     box.dataset.embedBound = 'true';
 
-    start.addEventListener('click', () => {
-      box.classList.add('is-live');
-      frame.focus();
-    });
-
-    // tabbing into the frame is the same intent, so drop the overlay too
-    frame.addEventListener('focus', () => box.classList.add('is-live'));
-
     frame.addEventListener('load', () => trackCursor(frame));
-    trackCursor(frame);   // a cached frame may already be loaded
+    trackCursor(frame);   // frame may already be loaded
   }
 
   function apply(root) {
     root.querySelectorAll('video[data-autoplay]').forEach((video) => {
       if (video.dataset.mediaBound) return;
       video.dataset.mediaBound = 'true';
-      // a source that already failed has no event left to catch, so look first
+      // fall back now if the video already failed
       if (video.error) { fallBackToStill(video); return; }
       video.addEventListener('error', () => fallBackToStill(video), { once: true });
       observer ? observer.observe(video) : play(video);
@@ -1411,25 +1256,14 @@ onReady(function () {
   onReady(init);
 })();
 
-// back to top on the home grid
-// ----------------------------
-// The case pages carry one in their footer nav; the home page is a long grid
-// with no footer of its own to hold one. On a desktop the page scrolls inside
-// <main class="content"> rather than the window, so both have to be watched or
-// the button never appears.
+// back to top button on the home grid
 (function () {
   const button = document.getElementById('to-top');
   if (!button) return;
 
   const pane = document.querySelector('.content') || document.getElementById('content');
 
-  // Which element scrolls depends on the layout: on a desktop the page scrolls
-  // inside <main class="content">, on a phone the window scrolls. Ask the pane
-  // whether it actually overflows rather than testing the width, so this stays
-  // in step with the stylesheet instead of duplicating its breakpoints.
-  // (Using whichever is taller would be wrong: in the phone layout the pane is
-  // the full height of its content, which would put the button a screen and a
-  // half down the page.)
+  // check which element scrolls
   const paneScrolls = () => !!pane && pane.scrollHeight > pane.clientHeight + 1;
   const scrolled = () => (paneScrolls() ? pane.scrollTop : window.scrollY || 0);
   const viewport = () => (paneScrolls() ? pane.clientHeight : window.innerHeight);
@@ -1449,15 +1283,7 @@ onReady(function () {
     window.scrollTo({ top: 0, behavior });
   });
 })();
-// analytics (Umami)
-// Observation only. Nothing here changes an existing handler, and none of it sends
-// anything unless the tracker itself loaded, which only happens on the live domain
-// (see the data-domains attribute on the tag in each page head). So it is inert
-// during local work.
-//
-// The events that matter most are the ones a pageview cannot see. The home page opens
-// a project by fetching it and swapping the content in, with no navigation, so no
-// pageview is recorded for it: case-study-open is the only trace of that.
+// umami analytics
 (function () {
   const projects = () => window.portfolioProjects || [];
 
@@ -1470,8 +1296,7 @@ onReady(function () {
   const baseName = (path) => String(path || '').split('/').pop().split('?')[0];
   const tidy = (text) => String(text || '').replace(/[\u2190\u2192]/g, '').trim().slice(0, 40);
 
-  // sidebar links carry a project href, cards carry data-id; match either back to
-  // projects.js so the event names the project the way the site does
+  // find a project from its href
   function projectFromHref(href) {
     if (!href) return null;
     return projects().find((p) => {
@@ -1480,13 +1305,12 @@ onReady(function () {
     }) || null;
   }
 
-  // clicks are captured, so an event is still recorded when a handler stops
-  // propagation or prevents the default
+  // track clicks
   document.addEventListener('click', (event) => {
     const target = event.target;
     if (!target || !target.closest) return;
 
-    // leaving the site: the card links, the snapshot links, the press link
+    // outbound links
     const outbound = target.closest('a.ext-link, .snapshot-box a');
     if (outbound && outbound.href) {
       let host = '';
@@ -1495,7 +1319,7 @@ onReady(function () {
       return;
     }
 
-    // one piece of media, and stepping through the lightbox
+    // lightbox open and step
     const media = target.closest('.js-lightbox-item');
     if (media) {
       track('lightbox-open', {
@@ -1509,14 +1333,14 @@ onReady(function () {
       return;
     }
 
-    // the home-page filter
+    // home filter
     const filter = target.closest('.filter-btn');
     if (filter) {
       track('filter', { category: filter.dataset.filter || '' });
       return;
     }
 
-    // prev / next at the foot of a project
+    // prev / next project
     const nav = target.closest('#project-nav .nav-prev, #project-nav .nav-next');
     if (nav) {
       track('project-nav', {
@@ -1526,9 +1350,7 @@ onReady(function () {
       return;
     }
 
-    // opening a project. Only the home page swaps content in place; on a project
-    // page the same link is a real navigation and the pageview already covers it,
-    // so firing here would double count.
+    // project opened from the home page
     if (document.body && !document.body.classList.contains('case-page')) {
       const card = target.closest('.case-card');
       const sidebarLink = target.closest('#sidebar .project-view-links a');
@@ -1543,10 +1365,7 @@ onReady(function () {
     }
   }, true);
 
-  // Time on page and scroll depth, counted per view. The home page changes view
-  // without changing the URL, so a view is identified by the URL plus the project
-  // heading rather than by a navigation event. That covers sliding into a project,
-  // sliding on to another, and coming back to the grid, with nothing hooked.
+  // track time on page and scroll depth
   const DEPTHS = [25, 50, 75, 100];
   const MARKS = [30, 120];
 
@@ -1596,13 +1415,13 @@ onReady(function () {
     });
   }
 
-  // desktop scrolls inside <main class="content">, phones scroll the window
+  // listen for scroll on the pane and window
   const pane = document.querySelector('.content');
   [window, pane].forEach((target) => {
     if (target) target.addEventListener('scroll', onScroll, { passive: true });
   });
 
-  // a second counts only while the tab is actually being looked at
+  // count seconds while the tab is visible
   syncView();
   const ticker = window.setInterval(() => {
     if (document.visibilityState !== 'visible') return;
