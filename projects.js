@@ -222,7 +222,7 @@ window.siteProfile = {
       { sub: true, org: 'Vancouver Board of Trade',                                   date: 'Jan 2023 – July 2023' },
       { role: 'Service Designer',             org: 'Van Art Gallery (Installation)', date: 'Jan 2020 – Sept 2021' },
       { role: 'UX Designer',                  org: 'JIBC',                           date: 'Sept 2020 – Jan 2021' },
-      { role: 'UX Designer',                  org: 'Virtro',                         date: 'Jan 2017 – July 2020' }
+      { role: 'UX Designer',                  org: 'Virtro',                         date: 'Jan 2018 – July 2020' }
     ],
     education: [
       { role: 'MA in Graphic Design',    org: 'National Academy of the Arts', location: 'Oslo, Norway',       date: 'Sept 2024 – June 2026' },

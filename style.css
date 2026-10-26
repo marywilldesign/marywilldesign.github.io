@@ -1618,6 +1618,9 @@ html.is-touch #custom-cursor { display: none !important; }
   .content { padding: var(--sp-3); }
 
   .side-by-side { flex-direction: column; }
+  /* stacked media, full width */
+  .side-by-side > .sbs-item,
+  .side-by-side.three-up > .sbs-item { flex: none; width: 100%; }
 }
 
 /* cursor handling */
