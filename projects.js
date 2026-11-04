@@ -65,7 +65,7 @@ window.portfolioProjects = [
       { name: 'Webflow', use: "The site was designed for Webflow so Modo's marketing team could run it themselves, with the build done alongside the developer." }
     ],
     meta: {
-      year: '2022 - ongoing',
+      year: '2022 - 2025',
       role: 'UX/UI Design Lead, User Testing Support',
       credits: [
         'Project Management: Thelma Wiegert (previous: Sarah Bain)',
@@ -165,7 +165,7 @@ window.portfolioProjects = [
       { name: 'Figma', use: "Drew the audience spectrum, both personas and the visitor journey, then the room plan and the wall mockup. The rules for the drawing were written in this file before anything was built." }
     ],
     meta: {
-      year: '2021',
+      year: '2020 - 2021',
       role: 'Service Designer, User Research, Project Manager',
       credits: [
         'Lead Programmer, Artist, UI Designer: Cindy Shi',
@@ -217,7 +217,7 @@ window.portfolioProjects = [
         'Built the archive every submission ends up in'
       ],
       impact: [
-        { figure: '100+', label: 'submissions across both open calls' },
+        { figure: '85+', label: 'submissions across both open calls' },
         { figure: '0', label: 'technical glitches on the night' }
       ]
     },
@@ -247,13 +247,13 @@ window.portfolioProjects = [
         'Modelled and printed the hardware controller',
         'Wired the electronics and the Python bridge'
       ],
-      impact: 'Exhibited at Oslo Art Weekend. User testing led me to leave the physical controller unlabelled, so people played instead of reading.'
+      impact: [{ figure: '150+', label: 'visitors at Oslo Art Weekend' }]
     },
     // tags shown on the card and case header
     tags: ['graphic design', 'installation', '3D design + printing', 'electronics', 'single board computing'],
     tools: [
       { name: 'Figma', use: 'Designed the browser controller and labelled its on-screen controls. The physical controller stayed unlabelled on purpose.' },
-      { name: 'Copilot', use: 'Came after the control logic and the unlabelled-controller decision were settled, then wrote the front end and the Python bridge that read the switches and knobs into the visuals.' },
+      { name: 'Copilot', use: 'Came after the control logic and the unlabelled-controller decision were settled. I built the front end as far as my own skills went, and Copilot bridged the rest, including the Python link that reads the switches and knobs into the visuals.' },
       { name: 'Fusion 360', use: 'Modelled the enclosure around the single-board computer and wiring, within what the print bed could take.' }
     ],
     meta: {
