@@ -2070,3 +2070,63 @@ a[aria-current="page"],
 .topbar-back:active {
   color: #fff !important;
 }
+
+/* at a glance: a ruled three-column summary under each case study title */
+.glance {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1.6fr);
+  column-gap: var(--sp-6);
+  margin: var(--sp-6) 0 var(--sp-8);
+  padding: var(--sp-4) 0 var(--sp-5);
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+}
+.glance dt {
+  margin-bottom: var(--sp-2);
+  font-size: 0.65rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gray-500);
+}
+.glance dd {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: #000;
+}
+.glance-impact dd {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3) var(--sp-6);
+}
+.glance-figure {
+  display: block;
+  flex: 0 1 9rem;
+  min-width: 0;
+}
+.glance-figure strong {
+  display: block;
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: #000;
+}
+.glance-figure span {
+  display: block;
+  margin-top: 0.3em;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: var(--gray-500);
+}
+/* the header text cap does not apply to the summary */
+.case-header-text .glance { max-width: none; }
+
+/* stack the columns when the page or panel is narrow */
+@container panel (max-width: 640px) {
+  .panel-view .glance { grid-template-columns: minmax(0, 1fr); row-gap: var(--sp-4); }
+}
+@media (max-width: 767px) {
+  .glance { grid-template-columns: minmax(0, 1fr); row-gap: var(--sp-4); }
+}

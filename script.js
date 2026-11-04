@@ -209,6 +209,56 @@ function renderProjectMeta(root, meta) {
   });
 }
 
+// at a glance: role, what I did and impact, under the case study title
+function renderProjectGlance(root, project) {
+  const glance = project && project.glance;
+  if (!root || !glance) return;
+  root.querySelectorAll('.case-header-text').forEach((header) => {
+    const old = header.querySelector('.glance');
+    if (old) old.remove();
+
+    const block = document.createElement('dl');
+    block.className = 'glance';
+    block.setAttribute('aria-label', 'At a glance');
+
+    function column(label, fill, extraClass) {
+      const col = document.createElement('div');
+      col.className = 'glance-col' + (extraClass ? ' ' + extraClass : '');
+      const term = document.createElement('dt');
+      term.textContent = label;
+      const value = document.createElement('dd');
+      fill(value);
+      col.append(term, value);
+      block.appendChild(col);
+    }
+
+    column('Role', (dd) => { dd.textContent = glance.role; });
+    column('What I did', (dd) => { dd.textContent = glance.did; });
+    column('Impact', (dd) => {
+      if (Array.isArray(glance.impact)) {
+        glance.impact.forEach((item) => {
+          const row = document.createElement('span');
+          row.className = 'glance-figure';
+          const figure = document.createElement('strong');
+          figure.textContent = item.figure;
+          const label = document.createElement('span');
+          label.textContent = item.label;
+          row.append(figure, label);
+          dd.appendChild(row);
+        });
+      } else {
+        dd.textContent = glance.impact;
+      }
+    }, 'glance-impact');
+
+    // straight after the title and tags, before the intro
+    const tags = header.querySelector('.tags');
+    const after = tags || header.querySelector('h2');
+    if (after) after.after(block);
+    else header.prepend(block);
+  });
+}
+
 // cap the tag row to the title width
 function syncTagRowWidth(root) {
   (root || document).querySelectorAll('.case-header-text').forEach((block) => {
@@ -656,6 +706,7 @@ function initHome(initial) {
 
     addBreadcrumb(wrapper, project.title);
     renderProjectTags(wrapper, projectTagList(project));
+    renderProjectGlance(wrapper, project);
     renderProjectMeta(wrapper, project.meta);
     renderProjectTools(wrapper, project.tools);
     initProjectFooterNav(wrapper, project.id, (next) => openProject(next));
@@ -840,6 +891,7 @@ onReady(function () {
   });
 
   renderProjectTags(document, projectTagList(project));
+  renderProjectGlance(document, project);
   renderProjectMeta(document, project.meta);
   renderProjectTools(document, project.tools);
   syncTagRowWidth(document);
@@ -959,14 +1011,6 @@ onReady(function () {
 
 // filtering
 (function () {
-  function shuffle(arr) {
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr;
-  }
-
   function applyFilter(filter) {
     const cards = document.querySelectorAll('.case-card');
     const visible = [];
@@ -982,10 +1026,15 @@ onReady(function () {
       }
     });
 
-    // shuffle the visible cards
+    // cards follow the order in projects.js, strongest work first
     const container = document.querySelector('.cards');
     if (!container) return;
-    shuffle(visible);
+    const order = (window.portfolioProjects || []).map((p) => p.id);
+    const rank = (card) => {
+      const i = order.indexOf(card.dataset.id);
+      return i === -1 ? order.length : i;
+    };
+    visible.sort((a, b) => rank(a) - rank(b));
     visible.forEach((card) => {
       container.appendChild(card);
     });
