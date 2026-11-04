@@ -40,7 +40,8 @@
   --sp-8: 2rem;
   --sp-10: 2.5rem;
 
-  --sidebar-w: 240px;
+  /* left panel share of the screen, narrowed where the cv column needs room */
+  --sidebar-w: 50%;
   --sidebar-right-w: 220px;
   --page-pad: 2rem;
   --radius: 3px;
@@ -48,6 +49,9 @@
   --transition-slow: 300ms ease;
 
   --media-gap: 12px;
+
+  /* ⤷ arrow for the intro lines */
+  --hook-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.1' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M4 2v11.5a3.5 3.5 0 0 0 3.5 3.5H20'/%3E%3Cpath d='M15 12l5 5-5 5'/%3E%3C/svg%3E");
 
   /* shared page headline size */
   --title-size: 2.4rem;
@@ -60,6 +64,22 @@
   font-weight: 500;
   font-display: swap;
   src: url('fonts/NeueMontreal-Medium.woff2') format('woff2');
+}
+
+/* real bold and italic, so the browser never fakes them */
+@font-face {
+  font-family: 'NeueMontreal';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('fonts/NeueMontreal-Bold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'NeueMontreal';
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url('fonts/NeueMontreal-MediumItalic.woff2') format('woff2');
 }
 
 /* metric-matched local fallback for neue montreal */
@@ -154,21 +174,104 @@ button, a, [data-href] { cursor: pointer; }
   --sidebar-fg-muted: var(--gray-500);
   --sidebar-link: #0040FF;
 
+  flex: 0 0 var(--sidebar-w);
   width: var(--sidebar-w);
-  min-width: var(--sidebar-w);
+  min-width: 0;
   background: var(--sidebar-bg);
   color: var(--sidebar-fg);
   /* sidebar right edge hairline */
   border-right: 1px solid var(--blue);
   display: flex;
   flex-direction: column;
-  padding: var(--sp-6);
-  /* sidebar fills the layout height */
+  padding: var(--page-pad);
+  /* sidebar fills the layout height and scrolls an open case study */
   height: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   position: sticky;
   top: 0;
   z-index: 10;
+  /* the intro type is sized against this panel */
+  container-type: inline-size;
+  container-name: panel;
+}
+
+/* the panel shows the intro, or an opened case study / about */
+.panel-home {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+}
+.panel-view:empty { display: none; }
+.layout.view-open .panel-home { display: none; }
+/* phone-menu project list, only while a case study is open on a phone */
+#panel-projects { display: none; }
+
+/* intro, set large and flush left */
+.intro-name {
+  font-size: clamp(1.9rem, 5.2cqw, 5.5rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: #000;
+  margin-bottom: 0.85em;
+}
+.intro-lines {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: clamp(1.05rem, 2.95cqw, 3.1rem);
+  line-height: 1.16;
+  letter-spacing: -0.012em;
+  color: #000;
+}
+.intro-lines li {
+  position: relative;
+  max-width: none;
+  margin: 0;
+  /* wrapped lines hang off the arrow */
+  padding-left: 1.05em;
+}
+/* drawn arrow, the font has no ⤷ of its own */
+.intro-lines li::before {
+  content: '';
+  position: absolute;
+  left: 0.02em;
+  top: 0.16em;
+  width: 0.72em;
+  height: 0.72em;
+  background: currentColor;
+  -webkit-mask: var(--hook-arrow) no-repeat center / contain;
+  mask: var(--hook-arrow) no-repeat center / contain;
+}
+.intro-lines strong { font-weight: 700; }
+.intro-lines em { font-style: italic; }
+
+.panel-home .sidebar-bottom { padding-top: var(--sp-10); }
+.panel-home .sidebar-links {
+  gap: 0.55em;
+  font-size: clamp(0.95rem, 2.1cqw, 2rem);
+}
+.panel-home .sidebar-links a {
+  font-size: inherit;
+  line-height: 1.1;
+  text-decoration: underline;
+  text-decoration-thickness: 0.06em;
+  text-underline-offset: 0.14em;
+}
+.made-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--sp-6);
+  margin-top: var(--sp-10);
+}
+.panel-home .made {
+  margin: 0;
+  font-size: clamp(0.8rem, 1.85cqw, 1.7rem);
+  line-height: 1.15;
+  color: #000;
 }
 
 /* drawer close button, hidden on desktop */
@@ -292,8 +395,8 @@ button, a, [data-href] { cursor: pointer; }
   margin-top: var(--sp-6);
 }
 
-/* breadcrumb in sidebar */
-.sidebar .breadcrumb {
+/* breadcrumb sitting directly in the sidebar */
+.sidebar > .breadcrumb {
   margin-left: 0;
   padding-left: 0;
   font-size: 0.78rem;
@@ -302,7 +405,7 @@ button, a, [data-href] { cursor: pointer; }
   margin-bottom: var(--sp-4);
   letter-spacing: 0.01em;
 }
-.sidebar .breadcrumb a { color: var(--sidebar-link); }
+.sidebar > .breadcrumb a { color: var(--sidebar-link); }
 
 /* right sidebar (cv) */
 .sidebar-right {
@@ -539,9 +642,9 @@ button, a, [data-href] { cursor: pointer; }
 
 body.case-page .filters { display: none; }
 
-/* home: card grid - two-column masonry layout */
+/* home: cards in one column */
 .cards {
-  column-count: 2;
+  column-count: 1;
   column-gap: var(--sp-5);
   margin: 0;
   text-align: left;
@@ -1477,10 +1580,25 @@ body.case-page .filters { display: none; }
 }
 html.is-touch #custom-cursor { display: none !important; }
 
+/* laptops: a little less panel so the single card column keeps its width */
+@media (min-width: 1025px) and (max-width: 1199px) {
+  .layout { --sidebar-w: 46%; }
+}
+
+/* tablets: no cv column, the panel takes a bit more */
 @media (max-width: 1024px) {
   .sidebar-right { display: none; }
+  .layout { --sidebar-w: 55%; }
+  .sidebar { padding: var(--sp-6); }
+  .content { padding: var(--sp-6); }
+}
 
+/* standalone pages keep the narrow project list if the home layout cannot load */
+.case-page .layout,
+.about-page .layout { --sidebar-w: 240px; }
 
+/* phones: the panel becomes a drawer */
+@media (max-width: 767px) {
   .project-view-header .sidebar-close {
     display: block;
     order: 2;
@@ -1509,7 +1627,7 @@ html.is-touch #custom-cursor { display: none !important; }
     z-index: 1300;
     border-right: 1px solid var(--gray-200);
     padding: var(--sp-4);
-    overflow-y: hidden;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     /* drawer fits the visible screen */
@@ -1521,6 +1639,20 @@ html.is-touch #custom-cursor { display: none !important; }
     transform: translateX(0);
   }
   .sidebar.open .sidebar-close { display: block; }
+  .sidebar > .sidebar-close {
+    position: absolute;
+    top: var(--sp-3);
+    right: var(--sp-3);
+    margin: 0;
+  }
+  .intro-name { padding-right: var(--sp-8); }
+
+  /* while a case study is open, the drawer lists the projects */
+  .layout.view-open .panel-home { display: flex; flex: 0 0 auto; }
+  .layout.view-open .intro-lines,
+  .layout.view-open .panel-home .sidebar-bottom { display: none; }
+  .layout.view-open .intro-name { margin-bottom: var(--sp-6); }
+  .layout.view-open #panel-projects { display: flex; }
 
   /* cap the wordmark size in the drawer */
   .project-view-home-link { font-size: min(15.33cqw, 1.75rem); }
@@ -1748,4 +1880,72 @@ html.is-touch [data-href] { cursor: pointer !important; }
   background: #ffffff;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
   transform: scale(1.05);
+}
+
+/* wide screens: an open case study blurs and dims the grid and cv */
+.content,
+.sidebar-right {
+  transition: filter var(--transition-slow);
+}
+@media (min-width: 768px) {
+  .layout.view-open .content,
+  .layout.view-open .sidebar-right {
+    filter: blur(6px) brightness(0.8);
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .layout.view-open .to-top { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .content,
+  .sidebar-right { transition: none; }
+}
+
+/* close / open pill that follows the pointer over the blurred side */
+.view-pill {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+  pointer-events: none;
+  padding: 0.6em 1.15em;
+  border-radius: 999px;
+  background: #0040FF;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.9);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.view-pill.is-visible {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+/* on touch screens it sits at the top of the grid and can be tapped */
+.view-pill.is-fixed { pointer-events: auto; }
+/* the pill stands in for the cursor dot */
+html.pill-active #custom-cursor { opacity: 0; }
+
+/* hide a standalone page while it swaps in the home layout */
+html.boot-home { background: #fff; }
+html.boot-home body { visibility: hidden; }
+
+/* case studies in the left panel follow the panel's width, not the screen's */
+.panel-view .snapshot-box { flex-wrap: wrap; }
+.panel-view .snapshot-group { flex: 0 1 auto; max-width: 100%; }
+@container panel (max-width: 560px) {
+  .panel-view .case-header-grid { flex-direction: column; gap: var(--sp-5); }
+  .panel-view .side-by-side,
+  .panel-view .hero-image-pair { flex-direction: column; }
+  .panel-view .side-by-side > .sbs-item,
+  .panel-view .side-by-side.three-up > .sbs-item,
+  .panel-view .hero-image-pair > img,
+  .panel-view .hero-image-pair > video { flex: none; width: 100%; }
+  .panel-view .results-cards { flex-direction: column; gap: var(--sp-5); }
+  .panel-view .result-card,
+  .panel-view .result-card + .result-card { padding: 0; border-left: none; }
+  .panel-view .snapshot-group { flex: 1 1 100%; }
 }

@@ -5,7 +5,7 @@
   <!-- umami analytics, live domain only -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="df11a0aa-ba9c-4ef5-83f4-12195afd38c2" data-domains="marywildesign.com,www.marywildesign.com" data-performance="true"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Mary Wilson – User Experience designer with nearly ten years experience from startups to consulting agencies.">
+  <meta name="description" content="Mary G. Wilson – UX/UI designer with nearly ten years of international experience across in-house teams and consulting agencies.">
   <meta name="theme-color" content="#0000cd">
   <title>Mary Wilson Portfolio</title>
   <!-- canonical url -->
@@ -21,30 +21,42 @@
 
   <div class="layout">
 
-    <!-- left sidebar -->
+    <!-- left panel: the intro, or the open case study / about -->
     <aside class="sidebar" id="sidebar">
-      <div class="project-view-header">
-        <button class="sidebar-close" id="sidebar-close" aria-label="Close menu">✕</button>
-        <div class="sidebar-top">
-          <a href="./" class="project-view-home-link">Mary G. Wilson</a>
+      <button class="sidebar-close" id="sidebar-close" type="button" aria-label="Close menu">✕</button>
+
+      <div class="panel-home" id="panel-home">
+        <h1 class="intro-name">I’m Mary G. Wilson,</h1>
+        <ul class="intro-lines">
+          <li>a seasoned <strong>UX/UI designer</strong></li>
+          <li>with <strong>nearly ten years</strong> of international experience</li>
+          <li>sprinkled across <strong>in-house</strong> teams and consulting <strong>agencies</strong>,</li>
+          <li>contributing to teams with startup and enterprise clients alike,</li>
+          <li>holding <strong>two Master’s</strong> <em>degrees</em> in UX (Canada) and Graphic Design (Norway)</li>
+          <li>and specializing in navigation systems, B2C products, agentic workflows, and end-to-end experiences.</li>
+        </ul>
+
+        <div class="sidebar-bottom">
+          <nav class="sidebar-links" aria-label="External links">
+            <a href="https://www.linkedin.com/in/marygracewilson/" target="_blank" rel="noopener noreferrer">linkedin ↗</a>
+            <a href="https://www.instagram.com/marywildesign/" target="_blank" rel="noopener noreferrer">instagram ↗</a>
+            <a href="https://www.lomography.com/homes/marycastawayball/photos" target="_blank" rel="noopener noreferrer">photography ↗</a>
+            <a href="https://github.com/marywilldesign" target="_blank" rel="noopener noreferrer">github ↗</a>
+            <a href="tel:+4792072025">+47 920 720 25 ↗</a>
+            <a href="mailto:marywildesign@gmail.com">marywildesign@gmail.com ↗</a>
+          </nav>
+          <div class="made-row">
+            <p class="made">Design &amp; agentically<br> developed by Yours Truly.</p>
+            <p class="made">Set in Neue Montreal,<br> by Pangram Pangram.</p>
+          </div>
         </div>
       </div>
 
-      <p class="bio">
-        UX/UI designer with nearly ten years’ experience working across startups, agencies, and enterprise clients. Two Masters in UX and Graphic Design from Canada and Norway. Expert in nav systems, B2C products, and agentic workflows.
-      </p>
+      <!-- project list for the phone menu, filled from projects.js -->
+      <nav class="project-view-links" id="panel-projects" aria-label="Projects"></nav>
 
-      <div class="sidebar-bottom">
-        <nav class="sidebar-links" aria-label="External links">
-          <a href="https://www.linkedin.com/in/marygracewilson/" target="_blank" rel="noopener noreferrer">linkedin ↗</a>
-          <a href="https://www.instagram.com/marywildesign/" target="_blank" rel="noopener noreferrer">instagram ↗</a>
-          <a href="https://www.lomography.com/homes/marycastawayball/photos" target="_blank" rel="noopener noreferrer">photography ↗</a>
-          <a href="https://github.com/marywilldesign" target="_blank" rel="noopener noreferrer">github ↗</a>
-          <a href="tel:+4792072025">+47 920 720 25 ↗</a>
-          <a href="mailto:marywildesign@gmail.com">marywildesign@gmail.com ↗</a>
-        </nav>
-        <p class="made">Set in Neue Montreal,<br> by Pangram Pangram.<br> Design and dev by Yours Truly.</p>
-      </div>
+      <!-- an opened case study or about lands here on wide screens -->
+      <div class="panel-view" id="panel-view"></div>
     </aside>
 
     <!-- mobile backdrop -->
@@ -52,6 +64,8 @@
 
     <!-- main content -->
     <main class="content" id="content">
+
+      <div class="grid-view" id="grid-view">
 
       <div class="topbar home-topbar">
         <button class="topbar-menu" id="menu-toggle" aria-label="Open menu">menu</button>
@@ -208,6 +222,8 @@
 
       </div>
 
+      </div>
+
       <button class="to-top" id="to-top" type="button" aria-label="Back to top">back to top ↑</button>
     </main>
 
@@ -256,7 +272,17 @@
     </section>
   </template>
 
+  <!-- pill over the blurred side while a case study is open -->
+  <div class="view-pill" id="view-pill" aria-hidden="true">close</div>
+
   <div id="custom-cursor"></div>
+
+  <div class="media-lightbox" id="media-lightbox">
+    <button class="lightbox-close" id="lightbox-close">✕</button>
+    <button class="lightbox-nav left" id="lightbox-prev">←</button>
+    <button class="lightbox-nav right" id="lightbox-next">→</button>
+    <div class="media-lightbox-content" id="lightbox-content"></div>
+  </div>
   <script src="script.js" defer></script>
 </body>
 </html>

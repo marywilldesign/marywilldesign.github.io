@@ -282,9 +282,77 @@ function renderProjectSidebar(sidebar, currentId, onNavigate) {
   sidebar.append(header, nav);
 }
 
-// track whether the mobile menu is bound
-let menuBound = false;
+// screens wide enough for the two-panel layout (desktop and tablet)
+const WIDE_QUERY = '(min-width: 768px)';
+const HOME_TITLE = 'Mary Wilson Portfolio';
+const ABOUT_TITLE = 'About – Mary G. Wilson';
 
+// send an event to umami if it has loaded
+function trackEvent(name, data) {
+  if (window.umami && typeof window.umami.track === 'function') {
+    window.umami.track(name, data);
+  }
+}
+
+// make relative src, href and poster links absolute against base
+function absolutizeUrls(root, base) {
+  root.querySelectorAll('[src], [href], [poster]').forEach((el) => {
+    ['src', 'href', 'poster'].forEach((attr) => {
+      const value = el.getAttribute(attr);
+      if (!value || /^(#|mailto:|tel:|data:|javascript:)/i.test(value)) return;
+      try {
+        el.setAttribute(attr, new URL(value, base).href);
+      } catch (err) {
+        /* leave a link we cannot parse as it is */
+      }
+    });
+  });
+}
+
+// swap a standalone page's body for the home page's, keeping the url
+async function swapInHomeShell() {
+  const homeUrl = siteUrl('./');
+  const res = await fetch(homeUrl);
+  if (!res.ok) throw new Error('home: HTTP ' + res.status);
+  const doc = new DOMParser().parseFromString(await res.text(), 'text/html');
+  if (!doc.getElementById('grid-view')) throw new Error('home page has no grid view');
+  doc.body.querySelectorAll('script').forEach((script) => script.remove());
+  absolutizeUrls(doc.body, homeUrl);
+  document.body.className = doc.body.className;
+  delete document.body.dataset.project;
+  document.body.innerHTML = doc.body.innerHTML;
+}
+
+// on wide screens, a direct visit to a case study or about opens it on the home layout
+async function boot() {
+  const body = document.body;
+  const standalone = body.classList.contains('case-page') || body.classList.contains('about-page');
+  let initial = null;
+
+  if (standalone && window.matchMedia(WIDE_QUERY).matches) {
+    const project = body.classList.contains('case-page') ? getCurrentProject() : null;
+    const wanted = body.classList.contains('about-page') ? { about: true }
+      : (project ? { project: project.id } : null);
+    if (wanted) {
+      try {
+        await swapInHomeShell();
+        initial = wanted;
+      } catch (err) {
+        console.warn('[portfolio] Could not load the home layout, showing this page on its own.', err);
+      }
+    }
+  } else if (!standalone && window.location.hash === '#about') {
+    // old #about links
+    initial = { about: true, fromHash: true };
+  }
+
+  const opened = startSite(initial);
+  const reveal = () => document.documentElement.classList.remove('boot-home');
+  Promise.resolve(opened).then(reveal, reveal);
+}
+
+// everything that touches the page, run once the right body is in place
+function startSite(initial) {
 // custom cursor
 (function () {
   const cursor = document.getElementById('custom-cursor');
@@ -396,98 +464,219 @@ function initClock() {
 }
 initClock();
 
-// card click opens the case study in place
-(function () {
-  const content = document.getElementById('content');
-  if (!content) return;
-
-  // saved grid state
-  let gridContent = null;
-  let scrollPos = 0;
-  let lastActiveFilter = 'all';
-  const sidebar = document.getElementById('sidebar');
+// home: a card opens its case study in the left panel on wide screens,
+// or in place of the grid on phones
+function initHome(initial) {
   const layout = document.querySelector('.layout');
+  const content = document.getElementById('content');
+  const gridView = document.getElementById('grid-view');
+  const panelView = document.getElementById('panel-view');
+  const panelProjects = document.getElementById('panel-projects');
+  const sidebar = document.getElementById('sidebar');
+  const pill = document.getElementById('view-pill');
   const aboutTemplate = document.getElementById('about-template');
-  const originalSidebarContent = sidebar ? sidebar.innerHTML : '';
+  if (!layout || !content || !gridView || !panelView || !sidebar) return null;
+
+  const wide = window.matchMedia(WIDE_QUERY);
+  const isTouch = () => document.documentElement.classList.contains('is-touch');
   const projects = window.portfolioProjects || [];
-  const projectTitles = Object.fromEntries(projects.map((project) => [project.id, project.title]));
+  const findProject = (id) => projects.find((p) => p.id === id) || null;
+  const modified = (e) => e.metaKey || e.ctrlKey || e.shiftKey || e.altKey;
 
-  // update the url without reloading
-  function setUrl(path, state) {
-    try {
-      history.pushState(state, '', path);
-    } catch (err) {
-      /* no history api, skip the url change */
-    }
-  }
+  let view = null;      // the open case study or about view
+  let gridScroll = 0;   // phone scroll position to come back to
+  let loadToken = 0;    // ignore a fetch that a newer click overtook
 
+  // pin relative links to this page before the url starts changing,
+  // so lazy images and the favicon still resolve once it reads /telus/
+  absolutizeUrls(document.body, document.baseURI);
+  document.querySelectorAll('link[rel~="icon"]').forEach((link) => { link.href = link.href; });
+
+  // fill card titles, links and tags from projects.js
   projects.forEach((project) => {
-    const card = document.querySelector(`.case-card[data-id="${project.id}"]`);
+    const card = gridView.querySelector(`.case-card[data-id="${project.id}"]`);
     if (!card) return;
-    const title = card.querySelector('.card-title');
-    // set the card title, link and data
-    const titleLink = title ? title.querySelector('a') : null;
-    const label = project.shortTitle || project.title;
+    const titleLink = card.querySelector('.card-title a');
     if (titleLink) {
-      titleLink.textContent = label;
+      titleLink.textContent = project.shortTitle || project.title;
       titleLink.href = siteUrl(project.href);
-    } else if (title) {
-      title.textContent = label;
     }
     card.dataset.href = siteUrl(project.href);
     card.dataset.category = project.category;
     renderProjectTags(card, projectTagList(project));
   });
 
-  function saveGrid() {
-    if (!gridContent) {
-      gridContent = content.innerHTML;
-    }
-    scrollPos = window.scrollY;
-  }
-
-  // restore the project grid
-  function showGrid(opts) {
-    if (!gridContent) return;
-    content.innerHTML = gridContent;
-    content.classList.remove('about-open');
-    if (layout) layout.classList.remove('about-open');
-    gridContent = null;
-    if (sidebar) sidebar.innerHTML = originalSidebarContent;
-    window.scrollTo(0, scrollPos);
-    // remove the slide-in breadcrumb
-    const db = document.getElementById('dynamic-breadcrumb');
-    if (db) db.remove();
-    bindCards();
-    initClock();
-    removeBackButtons();
-    bindMobileMenu();
-    if (window.rebindFilters) window.rebindFilters();
-    if (!opts || opts.push !== false) setUrl(siteUrl('./'), { project: null });
-  }
-
-  function showProjectNav(currentId) {
-    if (!sidebar) return;
-    // build the sidebar with slide-in clicks
-    renderProjectSidebar(sidebar, currentId, (project) => {
-      loadCaseStudy(siteUrl(project.href), project.title, project.category, lastActiveFilter, project.id);
+  // project list for the phone menu while a case study is open
+  if (panelProjects) {
+    projects.forEach((project) => {
+      const link = document.createElement('a');
+      link.href = siteUrl(project.href);
+      link.dataset.id = project.id;
+      link.textContent = project.shortTitle || project.title;
+      link.addEventListener('click', (e) => {
+        if (modified(e)) return;
+        e.preventDefault();
+        openProject(project);
+      });
+      panelProjects.appendChild(link);
     });
   }
 
-  function showAbout(opts) {
+  function markProjectNav(id) {
+    if (!panelProjects) return;
+    panelProjects.querySelectorAll('a').forEach((link) => {
+      const on = link.dataset.id === id;
+      link.classList.toggle('active', on);
+      if (on) link.setAttribute('aria-current', 'page');
+      else link.removeAttribute('aria-current');
+    });
+  }
+
+  function setUrl(path, state, replace) {
+    try {
+      if (replace) history.replaceState(state, '', path);
+      else history.pushState(state, '', path);
+    } catch (err) {
+      /* no history api, skip the url change */
+    }
+  }
+
+  function host() {
+    return wide.matches ? panelView : content;
+  }
+
+  function scroller() {
+    return wide.matches ? sidebar : null;
+  }
+
+  // keep classes, the view's position and the pill in step with the screen size
+  function sync() {
+    const open = !!view;
+    layout.classList.toggle('view-open', open);
+    if (view && view.parentNode !== host()) host().appendChild(view);
+    gridView.hidden = open && !wide.matches;
+    if (open && wide.matches && isTouch()) {
+      showPillAt(null);
+    } else if (!open || !wide.matches) {
+      hidePill();
+    }
+  }
+
+  function mount(wrapper) {
+    if (!view && !wide.matches) gridScroll = window.scrollY;
+    if (view) view.remove();
+    view = wrapper;
+    host().appendChild(view);
+    sync();
+    const pane = scroller();
+    if (pane) pane.scrollTop = 0;
+    content.scrollTop = wide.matches ? content.scrollTop : 0;
+    if (!wide.matches) window.scrollTo(0, 0);
+    if (window.closeMobileMenu) window.closeMobileMenu();
+    // the pointer is usually already over the blurred side
+    if (lastPoint) updatePill(lastPoint);
+    document.dispatchEvent(new CustomEvent('view-mounted', { detail: wrapper }));
+  }
+
+  function closeView(opts) {
+    loadToken++;
+    if (!view) return;
+    view.remove();
+    view = null;
+    sync();
+    sidebar.scrollTop = 0;
+    if (!wide.matches) window.scrollTo(0, gridScroll);
+    markProjectNav(null);
+    document.title = HOME_TITLE;
+    if (!opts || opts.push !== false) setUrl(siteUrl('./'), { project: null });
+  }
+
+  // breadcrumb in the view's topbar, with projects closing the view
+  function addBreadcrumb(wrapper, title) {
+    wrapper.querySelectorAll('.breadcrumb').forEach((el) => el.remove());
+    const crumb = document.createElement('span');
+    crumb.className = 'breadcrumb';
+
+    const back = document.createElement('a');
+    back.href = siteUrl('./');
+    back.textContent = 'projects';
+    back.addEventListener('click', (e) => {
+      if (modified(e)) return;
+      e.preventDefault();
+      closeView();
+    });
+
+    const current = document.createElement('span');
+    current.className = 'breadcrumb-current';
+    current.textContent = title;
+    crumb.append(back, document.createTextNode(' / '), current);
+
+    let topbar = wrapper.querySelector('.topbar');
+    if (!topbar) {
+      topbar = document.createElement('div');
+      topbar.className = 'topbar';
+      wrapper.prepend(topbar);
+    }
+    const clock = topbar.querySelector('.clock');
+    topbar.insertBefore(crumb, clock || null);
+
+    // phone back button
+    const projectsBtn = document.createElement('button');
+    projectsBtn.className = 'topbar-back';
+    projectsBtn.type = 'button';
+    projectsBtn.textContent = 'projects';
+    projectsBtn.addEventListener('click', () => closeView());
+    topbar.appendChild(projectsBtn);
+  }
+
+  async function openProject(project, opts) {
+    const token = ++loadToken;
+    const url = siteUrl(project.href);
+    let caseContent;
+    try {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const doc = new DOMParser().parseFromString(await res.text(), 'text/html');
+      caseContent = doc.querySelector('.content');
+      if (!caseContent) throw new Error('no .content in ' + url);
+    } catch (err) {
+      // on failure, go to the page directly
+      window.location.href = url;
+      return;
+    }
+    if (token !== loadToken) return;
+
+    absolutizeUrls(caseContent, url);
+    const wrapper = document.createElement('div');
+    wrapper.className = 'case-study-view';
+    wrapper.dataset.project = project.id;
+    wrapper.innerHTML = caseContent.innerHTML;
+    wrapper.querySelectorAll('.case-header-text h2').forEach((h) => { h.textContent = project.title; });
+
+    addBreadcrumb(wrapper, project.title);
+    renderProjectTags(wrapper, projectTagList(project));
+    renderProjectMeta(wrapper, project.meta);
+    renderProjectTools(wrapper, project.tools);
+    initProjectFooterNav(wrapper, project.id, (next) => openProject(next));
+
+    mount(wrapper);
+    markProjectNav(project.id);
+    document.title = project.title;
+    if (!opts || opts.push !== false) setUrl(url, { project: project.id }, opts && opts.replace);
+
+    syncTagRowWidth(wrapper);
+    document.fonts.ready.then(() => syncTagRowWidth(wrapper));
+  }
+
+  function openAbout(opts) {
     if (!aboutTemplate) {
       console.error('[portfolio] About view template is missing.');
       return;
     }
-
-    saveGrid();
-    // show the home sidebar on about
-    if (sidebar) sidebar.innerHTML = originalSidebarContent;
-
+    loadToken++;
     const wrapper = document.createElement('div');
     wrapper.className = 'case-study-view about-view';
     wrapper.innerHTML = aboutTemplate.innerHTML;
-    // fix the portrait and resume links
     const portrait = wrapper.querySelector('.about-portrait');
     if (portrait) portrait.src = siteUrl('portrait-of-the-artist.jpg');
     const resume = wrapper.querySelector('.about-facts .download-link');
@@ -495,206 +684,138 @@ initClock();
       resume.href = siteUrl(RESUME_FILE);
       resume.download = RESUME_FILE;
     }
-    content.innerHTML = '';
-    content.appendChild(wrapper);
-    content.classList.add('about-open');
-    if (layout) layout.classList.add('about-open');
-    content.scrollTop = 0;
-    window.scrollTo(0, 0);
-    initClock();
+    addBreadcrumb(wrapper, 'About');
 
-    if (!opts || opts.push !== false) {
-      setUrl(siteUrl('about/'), { about: true });
-    }
-
-    addBreadcrumbToCaseView('', 'About', 'all');
-    const topbar = wrapper.querySelector('.topbar');
-    if (topbar) {
-      const projectsBtn = document.createElement('button');
-      projectsBtn.className = 'topbar-back';
-      projectsBtn.textContent = 'projects';
-      projectsBtn.addEventListener('click', () => showGrid());
-      topbar.appendChild(projectsBtn);
-    }
-    bindMobileMenu();
+    mount(wrapper);
+    markProjectNav(null);
+    document.title = ABOUT_TITLE;
+    if (!opts || opts.push !== false) setUrl(siteUrl('about/'), { about: true }, opts && opts.replace);
   }
 
-  content.addEventListener('click', (e) => {
-    const link = e.target.closest('#about-link');
-    if (!link || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-    e.preventDefault();
-    showAbout();
-  });
-
-  function addBreadcrumbToCaseView(category, title, activeFilter) {
-    // remove any existing breadcrumb
-    const wrapper = document.querySelector('.case-study-view');
-    if (!wrapper) return;
-    wrapper.querySelectorAll('.breadcrumb').forEach(function(el) {
-      if (el.id === 'dynamic-breadcrumb' || !el.closest('.sidebar')) {
-        el.remove();
-      }
-    });
-
-    // build the breadcrumb
-    const container = document.createElement('span');
-    container.id = 'dynamic-breadcrumb';
-    container.className = 'breadcrumb';
-
-    const link1 = document.createElement('a');
-    link1.href = '#';
-    link1.textContent = 'projects';
-    link1.addEventListener('click', function(e) {
+  // clicks on the grid while nothing covers it
+  gridView.addEventListener('click', (e) => {
+    if (view && wide.matches) return;
+    const aboutLink = e.target.closest('#about-link');
+    if (aboutLink) {
+      if (modified(e)) return;
       e.preventDefault();
-      showGrid();
-    });
-
-    const current = document.createElement('span');
-    current.className = 'breadcrumb-current';
-    current.textContent = title;
-
-    container.appendChild(link1);
-    container.appendChild(document.createTextNode(' / '));
-    container.appendChild(current);
-
-    // put the breadcrumb next to the clock
-    const topbar = wrapper.querySelector('.topbar');
-    const clock = topbar ? topbar.querySelector('.clock') : null;
-    if (topbar && clock) {
-      topbar.insertBefore(container, clock);
-    } else if (topbar) {
-      topbar.appendChild(container);
-    } else {
-      const header = wrapper.querySelector('.case-header-grid');
-      if (header) {
-        wrapper.insertBefore(container, header);
-      } else {
-        wrapper.prepend(container);
-      }
-    }
-  }
-
-  async function loadCaseStudy(url, cardTitle, cardCategory, activeFilter, cardId, opts) {
-    try {
-      const res = await fetch(url);
-      const html = await res.text();
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, 'text/html');
-      const caseContent = doc.querySelector('.content');
-      if (!caseContent) return;
-
-      saveGrid();
-      showProjectNav(cardId);
-
-      const wrapper = document.createElement('div');
-      wrapper.className = 'case-study-view';
-      wrapper.innerHTML = caseContent.innerHTML;
-      const loadedTitle = wrapper.querySelector('.case-header-text h2');
-      if (loadedTitle && projectTitles[cardId]) {
-        loadedTitle.textContent = projectTitles[cardId];
-      }
-
-      content.innerHTML = '';
-      content.appendChild(wrapper);
-      content.scrollTop = 0;
-      window.scrollTo(0, 0);
-
-      // update the url for this project
-      if (!opts || opts.push !== false) setUrl(url, { project: cardId });
-
-      // set up prev/next and back to top
-      initProjectFooterNav(wrapper, cardId, (nextProject) => {
-        loadCaseStudy(siteUrl(nextProject.href), nextProject.title, nextProject.category, lastActiveFilter, nextProject.id);
-      });
-
-      // add the breadcrumb with the full title
-      if (cardTitle) {
-        addBreadcrumbToCaseView(cardCategory, projectTitles[cardId] || cardTitle, activeFilter);
-      }
-
-      // fill tags, meta and tools for this project
-      const loadedProject = projects.find((p) => p.id === cardId);
-      if (loadedProject) {
-        renderProjectTags(wrapper, projectTagList(loadedProject));
-        renderProjectMeta(wrapper, loadedProject.meta);
-        renderProjectTools(wrapper, loadedProject.tools);
-      }
-      syncTagRowWidth(wrapper);
-      document.fonts.ready.then(() => syncTagRowWidth(wrapper));
-
-      // add the mobile projects button
-      document.querySelectorAll('.topbar-back').forEach(el => el.remove());
-      const topbar = wrapper.querySelector('.topbar');
-      if (topbar) {
-        const projectsBtn = document.createElement('button');
-        projectsBtn.className = 'topbar-back';
-        projectsBtn.textContent = 'projects';
-        projectsBtn.addEventListener('click', () => showGrid());
-        topbar.appendChild(projectsBtn);
-      }
-
-      // restart the clock and menu
-      initClock();
-      bindMobileMenu();
-    } catch (e) {
-      // on failure, go to the page directly
-      window.location.href = url;
-    }
-  }
-
-  function removeBackButtons() {
-    document.querySelectorAll('.topbar-back').forEach(el => el.remove());
-  }
-
-  function bindCards() {
-    document.querySelectorAll('.case-card[data-href]').forEach((card) => {
-      card.addEventListener('click', (e) => {
-        // slide the project in on a plain click
-        const link = e.target.closest('a');
-        if (link && !link.classList.contains('card-link')) return;
-        if (link && (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey)) return;
-        if (!link && e.target.closest('button')) return;
-        e.preventDefault();
-        const titleEl = card.querySelector('.card-title');
-        const title = titleEl ? titleEl.textContent.trim() : '';
-        // remember the active filter
-        const activeBtn = document.querySelector('.filter-btn.active');
-        const activeFilter = activeBtn ? activeBtn.dataset.filter : 'all';
-        lastActiveFilter = activeFilter;
-        loadCaseStudy(card.dataset.href, title, card.dataset.category, activeFilter, card.dataset.id);
-      });
-    });
-  }
-
-  // handle browser back and forward
-  window.addEventListener('popstate', (e) => {
-    if (e.state && e.state.about) {
-      showAbout({ push: false });
+      openAbout();
       return;
     }
-    const id = e.state && e.state.project;
-    if (id) {
-      const project = projects.find((p) => p.id === id);
-      if (project) {
-        loadCaseStudy(siteUrl(project.href), project.shortTitle || project.title,
-          project.category, lastActiveFilter, project.id, { push: false });
-        return;
-      }
-    }
-    if (document.querySelector('.case-study-view')) showGrid({ push: false });
+    const card = e.target.closest('.case-card[data-href]');
+    if (!card) return;
+    const link = e.target.closest('a');
+    if (link && !link.classList.contains('card-link')) return;   // view site links
+    if (link && modified(e)) return;
+    if (!link && e.target.closest('button')) return;
+    e.preventDefault();
+    const project = findProject(card.dataset.id);
+    if (project) openProject(project);
   });
 
-  bindCards();
-  // open about from an old #about link
-  if (window.location.hash === '#about') {
-    showAbout({ push: false });
-    try {
-      history.replaceState({ about: true }, '', siteUrl('about/'));
-    } catch (err) {
-      /* no history api, keep the hash */
-    }
+  // the blurred side: a card opens, anywhere else closes
+  function inBlurredZone(target) {
+    if (!view || !wide.matches || !target || !target.closest) return false;
+    return !!target.closest('#content, #sidebar-right');
   }
-})();
+
+  window.addEventListener('click', (e) => {
+    if (!inBlurredZone(e.target)) return;
+    e.preventDefault();
+    e.stopPropagation();
+    const card = e.target.closest('.case-card[data-id]');
+    const project = card ? findProject(card.dataset.id) : null;
+    if (project) {
+      trackEvent('case-study-open', { project: project.title, from: 'blurred grid' });
+      openProject(project);
+    } else {
+      closeView();
+    }
+  }, true);
+
+  // pill that follows the pointer over the blurred side
+  let lastPoint = null;
+
+  function hidePill() {
+    if (!pill) return;
+    pill.classList.remove('is-visible', 'is-fixed');
+    document.documentElement.classList.remove('pill-active');
+  }
+
+  // with a point, follow the pointer; without one, sit at the top of the grid (touch)
+  function showPillAt(point, label) {
+    if (!pill) return;
+    if (point) {
+      pill.style.left = point.x + 'px';
+      pill.style.top = point.y + 'px';
+      pill.classList.remove('is-fixed');
+      document.documentElement.classList.add('pill-active');
+    } else {
+      const rect = content.getBoundingClientRect();
+      pill.style.left = (rect.left + rect.width / 2) + 'px';
+      pill.style.top = (rect.top + 48) + 'px';
+      pill.classList.add('is-fixed');
+    }
+    pill.textContent = label || 'close';
+    pill.classList.add('is-visible');
+  }
+
+  function updatePill(point) {
+    lastPoint = point;
+    if (isTouch()) return;
+    const target = document.elementFromPoint(point.x, point.y);
+    if (!inBlurredZone(target)) {
+      hidePill();
+      return;
+    }
+    const overCard = !!target.closest('.case-card[data-id]');
+    showPillAt(point, overCard ? 'open →' : 'close');
+  }
+
+  window.addEventListener('mousemove', (e) => updatePill({ x: e.clientX, y: e.clientY }), { passive: true });
+  document.documentElement.addEventListener('mouseleave', hidePill);
+  // the card under a still pointer changes as the grid scrolls
+  content.addEventListener('scroll', () => { if (lastPoint && view) updatePill(lastPoint); }, { passive: true });
+  if (pill) pill.addEventListener('click', () => closeView());
+
+  window.addEventListener('resize', () => { if (view && wide.matches && isTouch()) showPillAt(null); });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape' || !view) return;
+    if (document.querySelector('.media-lightbox.active')) return;
+    if (sidebar.classList.contains('open')) return;
+    closeView();
+  });
+
+  if (wide.addEventListener) wide.addEventListener('change', sync);
+  else if (wide.addListener) wide.addListener(sync);
+
+  // browser back and forward
+  window.addEventListener('popstate', (e) => {
+    const state = e.state || {};
+    if (state.about) {
+      openAbout({ push: false });
+      return;
+    }
+    const project = state.project ? findProject(state.project) : null;
+    if (project) {
+      openProject(project, { push: false });
+      return;
+    }
+    closeView({ push: false });
+  });
+
+  // open what the url asked for
+  if (initial && initial.about) {
+    openAbout({ replace: true });
+  } else if (initial && initial.project) {
+    const project = findProject(initial.project);
+    if (project) return openProject(project, { replace: true });
+  }
+  return null;
+}
+
+const opened = initHome(initial);
 
 // set up a standalone project page
 onReady(function () {
@@ -728,7 +849,6 @@ onReady(function () {
   // move the breadcrumb next to the clock
   placeBreadcrumbInTopbar(document);
 
-  bindMobileMenu();   // rebind the menu
 });
 
 // build an empty cv section with a heading
@@ -900,67 +1020,44 @@ onReady(function () {
 
   // show all on load
   applyFilter('all');
-
-  // let showgrid rebind the filters
-  window.rebindFilters = function () {
-    bindFilterButtons();
-    // reapply the active filter
-    const activeBtn = document.querySelector('.filter-btn.active');
-    if (activeBtn) {
-      applyFilter(activeBtn.dataset.filter);
-    }
-  };
 })();
 
-// mobile menu
-function bindMobileMenu() {
-  const toggle = document.getElementById('menu-toggle');
+// mobile menu, bound once and delegated so swapped-in topbars work too
+function initMobileMenu() {
   const sidebar = document.getElementById('sidebar');
-  const close = document.getElementById('sidebar-close');
   const backdrop = document.getElementById('menu-backdrop');
-  if (!toggle || !sidebar) return;
-
-  // clone the toggle to drop old listeners
-  if (menuBound) {
-    const newToggle = toggle.cloneNode(true);
-    toggle.parentNode.replaceChild(newToggle, toggle);
-  }
-
-  const t = document.getElementById('menu-toggle');
-  const s = document.getElementById('sidebar');
-  const c = document.getElementById('sidebar-close');
-  const b = document.getElementById('menu-backdrop');
-  if (!t || !s) return;
+  if (!sidebar) return;
 
   function openMenu() {
-    s.classList.add('open');
-    if (b) b.classList.add('visible');
+    sidebar.classList.add('open');
+    if (backdrop) backdrop.classList.add('visible');
     document.documentElement.classList.add('no-scroll');
   }
 
   function closeMenu() {
-    s.classList.remove('open');
-    if (b) b.classList.remove('visible');
-    document.documentElement.classList.remove('no-scroll');
-  }
-
-  t.addEventListener('click', openMenu);
-  if (c) c.addEventListener('click', closeMenu);
-  if (b) b.addEventListener('click', closeMenu);
-  menuBound = true;
-}
-
-document.addEventListener('keydown', (e) => {
-  const sidebar = document.getElementById('sidebar');
-  if (e.key === 'Escape' && sidebar && sidebar.classList.contains('open')) {
     sidebar.classList.remove('open');
-    const backdrop = document.getElementById('menu-backdrop');
     if (backdrop) backdrop.classList.remove('visible');
     document.documentElement.classList.remove('no-scroll');
   }
-});
 
-bindMobileMenu();
+  document.addEventListener('click', (e) => {
+    const target = e.target;
+    if (!target || !target.closest) return;
+    if (target.closest('.topbar-menu')) {
+      openMenu();
+    } else if (target.closest('.sidebar-close') || target === backdrop) {
+      closeMenu();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && sidebar.classList.contains('open')) closeMenu();
+  });
+
+  window.closeMobileMenu = closeMenu;
+}
+
+initMobileMenu();
 
 // media lightbox
 (function () {
@@ -1044,6 +1141,8 @@ bindMobileMenu();
 
   // bind fallback stills too
   document.addEventListener('media-fallback', bind);
+  // and media in a case study opened on the home page
+  document.addEventListener('view-mounted', bind);
 
   // prev and next buttons
   btnNext?.addEventListener('click', (e) => {
@@ -1131,7 +1230,7 @@ function initProjectFooterNav(scope, projectId, onNavigate) {
   if (top) {
     top.addEventListener('click', () => {
       // find the scrolling element
-      const scroller = nav.closest('.content') || document.getElementById('content');
+      const scroller = nav.closest('.sidebar, .content') || document.getElementById('content');
       [scroller, document.scrollingElement].forEach((el) => {
         if (!el || el.scrollTop === 0) return;
         const from = el.scrollTop;
@@ -1147,6 +1246,7 @@ function initProjectFooterNav(scope, projectId, onNavigate) {
 
 // footer nav on standalone project pages
 onReady(function () {
+  if (!document.body.classList.contains('case-page')) return;
   const project = getCurrentProject();
   if (project) initProjectFooterNav(document, project.id);
 });
@@ -1287,11 +1387,7 @@ onReady(function () {
 (function () {
   const projects = () => window.portfolioProjects || [];
 
-  function track(name, data) {
-    if (window.umami && typeof window.umami.track === 'function') {
-      window.umami.track(name, data);
-    }
-  }
+  const track = trackEvent;
 
   const baseName = (path) => String(path || '').split('/').pop().split('?')[0];
   const tidy = (text) => String(text || '').replace(/[\u2190\u2192]/g, '').trim().slice(0, 40);
@@ -1375,7 +1471,7 @@ onReady(function () {
   let markSent = {};
 
   function viewKey() {
-    const heading = document.querySelector('.content .case-header-text h2');
+    const heading = document.querySelector('.case-study-view .case-header-text h2');
     return location.pathname + '|' + (heading ? heading.textContent.trim() : 'grid');
   }
 
@@ -1388,8 +1484,14 @@ onReady(function () {
     markSent = {};
   }
 
+  // the open view scrolls in the left panel on wide screens
+  function readingPane() {
+    const panelView = document.querySelector('.layout.view-open #panel-view .case-study-view');
+    return panelView ? document.getElementById('sidebar') : document.querySelector('.content');
+  }
+
   function percentRead() {
-    const pane = document.querySelector('.content');
+    const pane = readingPane();
     if (pane && pane.scrollHeight > pane.clientHeight + 2) {
       return ((pane.scrollTop + pane.clientHeight) / pane.scrollHeight) * 100;
     }
@@ -1416,8 +1518,7 @@ onReady(function () {
   }
 
   // listen for scroll on the pane and window
-  const pane = document.querySelector('.content');
-  [window, pane].forEach((target) => {
+  [window, document.querySelector('.content'), document.getElementById('sidebar')].forEach((target) => {
     if (target) target.addEventListener('scroll', onScroll, { passive: true });
   });
 
@@ -1436,3 +1537,7 @@ onReady(function () {
     if (MARKS.every((seconds) => markSent[seconds])) window.clearInterval(ticker);
   }, 1000);
 })();
+return opened;
+}
+
+onReady(boot);

@@ -5,6 +5,8 @@
   <!-- umami analytics, live domain only -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="df11a0aa-ba9c-4ef5-83f4-12195afd38c2" data-domains="marywildesign.com,www.marywildesign.com" data-performance="true"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- wide screens open this page on the home layout; hide it until that is ready -->
+  <script>if(window.matchMedia&&matchMedia('(min-width: 768px)').matches){document.documentElement.classList.add('boot-home');setTimeout(function(){document.documentElement.classList.remove('boot-home')},4000)}</script>
   <title>First Collaborative Sentence: Remixed</title>
   <!-- canonical url -->
   <link rel="canonical" href="https://marywildesign.com/collaborativesentence/" />
