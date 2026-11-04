@@ -2361,3 +2361,11 @@ a[aria-current="page"],
 
 /* a figure that already has its own edge sits without the black field */
 .figure-frame.is-bare { background: none; padding: 0; }
+
+/* a transparent or edge-less image gets a white mat inside the black field */
+.figure-frame.is-matted img,
+.figure-frame.is-matted video {
+  box-sizing: border-box;
+  background: #fff;
+  padding: clamp(0.75rem, 3%, 2rem);
+}
