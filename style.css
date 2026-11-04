@@ -2169,6 +2169,9 @@ a[aria-current="page"],
    section labels down the first column and the reading in the other three */
 .panel-view .case-study-view {
   --grid-gap: var(--sp-6);
+}
+/* case studies are capped and centred; about keeps the full width */
+.panel-view .case-study-view:not(.about-view) {
   max-width: 68rem;
   margin-inline: auto;
 }
