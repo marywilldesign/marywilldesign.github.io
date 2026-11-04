@@ -1633,8 +1633,8 @@ body.case-page .filters { display: none; }
   position: fixed;
   top: 0;
   left: 0;
-  width: 10px;
-  height: 10px;
+  width: 14px;
+  height: 14px;
   /* white, inverted against whatever is underneath: black on the page, white on dark media */
   background: #fff;
   mix-blend-mode: difference;
