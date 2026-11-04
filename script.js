@@ -430,9 +430,9 @@ function startSite(initial) {
       cursor.style.left = e.clientX + 'px';
       cursor.style.top = e.clientY + 'px';
     });
-    // over a link the blue highlight sits behind the dot, so it turns plain white there
+    // over a link or filter the blue highlight sits behind the dot, so it turns plain white there
     document.addEventListener('mouseover', (e) => {
-      const onLink = !!(e.target.closest && e.target.closest('a'));
+      const onLink = !!(e.target.closest && e.target.closest('a, .filter-btn'));
       cursor.classList.toggle('on-link', onLink);
     });
   }
