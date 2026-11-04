@@ -233,7 +233,17 @@ function renderProjectGlance(root, project) {
     }
 
     column('Role', (dd) => { dd.textContent = glance.role; });
-    column('What I did', (dd) => { dd.textContent = glance.did; });
+    column('What I did', (dd) => {
+      const items = Array.isArray(glance.did) ? glance.did : [glance.did];
+      const list = document.createElement('ul');
+      list.className = 'glance-list';
+      items.forEach((text) => {
+        const li = document.createElement('li');
+        li.textContent = text;
+        list.appendChild(li);
+      });
+      dd.appendChild(list);
+    }, 'glance-did');
     column('Impact', (dd) => {
       if (Array.isArray(glance.impact)) {
         glance.impact.forEach((item) => {

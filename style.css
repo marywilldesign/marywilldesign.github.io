@@ -2130,3 +2130,71 @@ a[aria-current="page"],
 @media (max-width: 767px) {
   .glance { grid-template-columns: minmax(0, 1fr); row-gap: var(--sp-4); }
 }
+
+/* what I did, as a short arrow list */
+.glance-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.glance-list li {
+  position: relative;
+  max-width: none;
+  margin: 0 0 0.3em;
+  padding-left: 1.4em;
+}
+.glance-list li:last-child { margin-bottom: 0; }
+.glance-list li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: #0040FF;
+}
+
+/* case studies on wide panels: a centred column on a four-column grid,
+   section labels down the first column and the reading in the other three */
+.panel-view .case-study-view {
+  --grid-gap: var(--sp-6);
+  max-width: 68rem;
+  margin-inline: auto;
+}
+@container panel (min-width: 56rem) {
+  .panel-view .case-study-view:not(.about-view) .case-header-text,
+  .panel-view .case-study-view:not(.about-view) .glance,
+  .panel-view .case-study-view:not(.about-view) .snapshot-box,
+  .panel-view .case-study-view:not(.about-view) .case-section,
+  .panel-view .case-study-view:not(.about-view) .results-highlight {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: var(--grid-gap);
+  }
+
+  /* header: title, tags and the summary run full width, the intro reads in columns 2-4 */
+  .panel-view .case-header-text > * { grid-column: 1 / -1; }
+  .panel-view .case-header-text > p { grid-column: 2 / -1; }
+
+  /* at a glance: role | what I did (2 cols) | impact */
+  .panel-view .glance-did { grid-column: span 2; }
+
+  /* snapshot: one group per column */
+  .panel-view .snapshot-box { row-gap: var(--sp-5); }
+  .panel-view .snapshot-group { max-width: none; }
+
+  /* sections: label in column 1, everything else in 2-4 */
+  .panel-view .case-section > *,
+  .panel-view .results-highlight > * { grid-column: 2 / -1; }
+  .panel-view .case-section > h3,
+  .panel-view .results-highlight > h3 {
+    grid-column: 1;
+    grid-row: 1 / span 99;
+    align-self: start;
+    /* sit on the first line of the text beside it */
+    margin-top: 0.4rem;
+  }
+
+  /* quotes start on column 2 too */
+  .panel-view .case-testimonial {
+    max-width: none;
+    padding-left: calc((100% - 3 * var(--grid-gap)) / 4 + var(--grid-gap));
+  }
+}
