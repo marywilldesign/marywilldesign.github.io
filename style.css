@@ -238,6 +238,44 @@ button, a, [data-href] { cursor: pointer; }
 /* phone-menu project list, only while a case study is open on a phone */
 #panel-projects { display: none; }
 
+/* the name opens about; the underline draws under the name only */
+.intro-name-link,
+.intro-name-link:hover,
+.intro-name-link:focus-visible,
+.intro-name-link:active {
+  color: #000;
+  background-image: none;
+}
+.intro-name-text {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0 max(1px, 0.04em);
+  transition: background-size 0.3s ease;
+}
+.intro-name-link:hover .intro-name-text,
+.intro-name-link:focus-visible .intro-name-text,
+.intro-name-link:active .intro-name-text {
+  background-size: 100% max(1px, 0.04em);
+}
+/* (about), set small at the cap line like a footnote */
+.intro-about {
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 0.12em;
+  font-size: clamp(0.78rem, 1.5cqw, 1.2rem);
+  line-height: 1;
+  letter-spacing: 0;
+  color: #0040FF;
+}
+@media (prefers-reduced-motion: reduce) {
+  .intro-name-text { transition: none; }
+}
+/* wide screens open about from the name; phones keep it in the top bar */
+@media (min-width: 768px) {
+  .home-topbar > .about-link { display: none; }
+}
+
 /* intro, set large and flush left */
 .intro-name {
   font-size: clamp(1.9rem, 5.2cqw, 5.5rem);

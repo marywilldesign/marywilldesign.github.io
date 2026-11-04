@@ -693,6 +693,14 @@ function initHome(initial) {
     if (!opts || opts.push !== false) setUrl(siteUrl('about/'), { about: true }, opts && opts.replace);
   }
 
+  // the name in the left panel opens about
+  sidebar.addEventListener('click', (e) => {
+    const link = e.target.closest('.js-open-about');
+    if (!link || modified(e)) return;
+    e.preventDefault();
+    openAbout();
+  });
+
   // clicks on the grid while nothing covers it
   gridView.addEventListener('click', (e) => {
     if (view && wide.matches) return;
