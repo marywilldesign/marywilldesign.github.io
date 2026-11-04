@@ -141,9 +141,7 @@ img { display: block; max-width: 100%; height: auto; }
 /* links: on hover, focus and press a blue highlight sweeps in left to right
    and the text turns white; the current page keeps its highlight */
 a,
-.topbar-back,
-.intro-name-text,
-.intro-about {
+.topbar-back {
   --hl: #0040FF;
   text-decoration: none;
   background-image: linear-gradient(var(--hl), var(--hl));
@@ -172,9 +170,7 @@ a[aria-current="page"] {
 }
 @media (prefers-reduced-motion: reduce) {
   a,
-  .topbar-back,
-  .intro-name-text,
-  .intro-about { transition: none; }
+  .topbar-back { transition: none; }
 }
 
 /* keyboard focus ring */
@@ -249,24 +245,19 @@ button, a, [data-href] { cursor: pointer; }
 /* phone-menu project list, only while a case study is open on a phone */
 #panel-projects { display: none; }
 
-/* the name opens about; the name and (about) each take the highlight */
-.intro-name-link,
-.intro-name-link:hover,
-.intro-name-link:focus-visible,
-.intro-name-link:active {
+/* the name opens about; one highlight sweeps across the name and on into (about) */
+.intro-name-link {
   color: #0040FF;
-  background-image: none;
-  padding: 0;
-  margin: 0;
+  /* one continuous sweep even when (about) wraps onto its own line */
+  -webkit-box-decoration-break: slice;
+  box-decoration-break: slice;
 }
-.intro-name-link:hover .intro-name-text,
-.intro-name-link:focus-visible .intro-name-text,
-.intro-name-link:active .intro-name-text,
 .intro-name-link:hover .intro-about,
 .intro-name-link:focus-visible .intro-about,
 .intro-name-link:active .intro-about {
-  background-size: 100% 100%;
   color: #fff;
+  /* turn white as the sweep reaches it, not before */
+  transition-delay: 0.12s;
 }
 /* (about), set small at the cap line like a footnote */
 .intro-about {
@@ -277,6 +268,7 @@ button, a, [data-href] { cursor: pointer; }
   line-height: 1;
   letter-spacing: 0;
   color: #0040FF;
+  transition: color 0.18s ease-out;
 }
 /* wide screens open about from the name; phones keep it in the top bar */
 @media (min-width: 768px) {
