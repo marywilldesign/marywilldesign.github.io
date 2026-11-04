@@ -29,7 +29,7 @@ sidebar bio on the home page.
 `NeueMontreal-Bold.woff2` (700) and `NeueMontreal-MediumItalic.woff2` (500 italic)
 now ship too, cut with the same command from the OTFs in `_originals/fonts/`. With
 them declared, `<strong>` and `<em>` anywhere on the site get the real drawings
-instead of a faux bold or slanted Medium. The intro's ⤷ arrows are not in the
+instead of a faux bold or slanted Medium. The curved ↪ arrows (intro, CV tools, What I did) are not in the
 family at all, so they are drawn as an SVG mask (`--hook-arrow` in `style.css`).
 
 The intro's grey connecting words are set in Regular (`NeueMontreal-Regular.woff2`),
