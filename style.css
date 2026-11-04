@@ -2329,7 +2329,7 @@ a[aria-current="page"],
     column-gap: var(--grid-gap);
   }
   .panel-view .case-quote > h3 { grid-column: 1; margin-top: 0.45rem; }
-  .panel-view .case-quote .case-testimonial { grid-column: 2 / -1; }
+  .panel-view .case-quote .case-testimonial { grid-column: 2 / -1; padding-left: 0; max-width: 75ch; }
 }
 .case-quote > h3 {
   font-size: 0.8rem;
@@ -2348,4 +2348,11 @@ a[aria-current="page"],
   background: #fff;
   padding: clamp(0.75rem, 3%, 2rem);
   border-radius: 0.75rem;
+}
+
+/* a short instruction set on the black field, above an interactive figure */
+.frame-hint {
+  margin: 0 0 var(--sp-3);
+  font-size: 0.8rem;
+  color: #fff;
 }
