@@ -585,6 +585,8 @@ button, a, [data-href] { cursor: pointer; }
   min-width: 0;
   margin-bottom: 0;
 }
+/* home intro starts flush with the filters and cards at every width */
+.home-topbar { justify-content: flex-start; }
 /* home intro top-aligned with the clock */
 .topbar > .bridging-line,
 .topbar > .bridging-line ~ .clock {
