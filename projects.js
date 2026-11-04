@@ -9,6 +9,15 @@ window.portfolioProjects = [
     title: 'Telus: Enterprise IA Refresh',
     href: 'telus/',
     category: 'ux',
+    // at a glance block at the top of the case study
+    glance: {
+      role: 'UX/UI Design Lead',
+      did: 'Audited the meganav, rebuilt the internet IA and its labels, and validated the new structure with card sorts, usability tests and A/B tests.',
+      impact: [
+        { figure: '+42%', label: 'desired page visits after launch' },
+        { figure: '+4%', label: 'click-through from the menu to the Plans Page' }
+      ]
+    },
     // tags shown on the card and case header
     tags: ['IA', 'allium design system', 'enterprise', 'a/b testing', 'analytics', 'user research', 'workshop facilitation'],
     tools: [
@@ -31,75 +40,15 @@ window.portfolioProjects = [
     }
   },
   {
-    id: 'telus-informing-customers',
-    title: 'Telus: Informing Customers',
-    href: 'telus-informing-customers/',
-    category: 'ux',
-    tags: ['IA', 'allium design system', 'enterprise', 'a/b testing', 'analytics', 'user research', 'workshop facilitation'],
-    tools: [
-      { name: 'Figma', use: 'Wireframed the three card options, then designed the final cards and the plan page states.' },
-      { name: 'Decibel', use: 'Read the funnel data to see where people stalled on the plans page, and set the measures for the A/B test.' },
-      { name: 'FigJam', use: 'Mapped each behavioural segment and its journey before design, so the cards answered the objections that came up most.' }
-    ],
-    meta: {
-      year: '2022 - 2024',
-      role: 'UX/UI Design Lead, User Research & Workshop Facilitation',
-      credits: [
-        'UX Design: Chris Samuel (previous: Marie Louka)',
-        'Project Management: Thelma Wiegert (previous: Sarah Bain)',
-        'User Research: Rebecca Harrington',
-        'Content Strategy: Mike MacKinnon'
-      ],
-      links: [
-        { label: 'view site ↗', href: 'https://www.telus.com/en/shop/home-services/internet/plans/' }
-      ]
-    }
-  },
-  {
-    id: 'creepers',
-    title: 'Van Art Gallery: AI Installation',
-    href: 'vancouverartgallery/',
-    category: 'ux',
-    tags: ['service design', 'design system creation', 'installation', 'project management', 'scrum master'],
-    tools: [
-      { name: 'Figma', use: "Drew the audience spectrum, both personas and the visitor journey, then the room plan and the wall mockup. The rules for the drawing were written in this file before anything was built." }
-    ],
-    meta: {
-      year: '2021',
-      role: 'Service Designer, User Research, Project Manager',
-      credits: [
-        'Lead Programmer, Artist, UI Designer: Cindy Shi',
-        'Concept Artist: Yuri Wu',
-        'Project Management, UX Support: Shruti Sharma'
-      ],
-      links: [
-        { label: 'view press ↗', href: 'https://preview-art.com/feature/the-imitation-game-visual-culture-in-the-age-of-artificial-intelligence/' }
-      ]
-    }
-  },
-  {
-    id: 'ibm',
-    title: 'IBM: Benevity Platform Flow',
-    href: 'ibm/',
-    category: 'ux',
-    tags: ['carbon design system', 'enterprise', 'benevity platform flow'],
-    tools: [
-      { name: 'Figma', use: "Built the flows from lo-fi to hi-fi on IBM's Carbon grid, extending existing components where the consent steps needed them. Layers and names stayed tidy so their team could pick the file up without me." }
-    ],
-    meta: {
-      year: '2024',
-      role: 'UX/UI Design',
-      credits: ['Collaborator: Wendi Ma'],
-      links: [
-        { label: 'view live page ↗', href: 'https://www.ibm.com/responsibility/programs/volunteerism-giving' }
-      ]
-    }
-  },
-  {
     id: 'modo',
     title: 'Modo: B2C Site Redesign',
     href: 'modo/',
     category: 'ux',
+    glance: {
+      role: 'UX/UI Design Lead',
+      did: 'Led the IA and navigation rebuild, redesigned fleet selection and the map, restructured the FAQs, and saw the site through to a Webflow build.',
+      impact: 'Modo reported a significant drop in Help Desk calls and a clearer, shorter journey for new members.'
+    },
     tags: ['site refresh', 'IA', 'card design', 'navigation design'],
     tools: [
       { name: 'Figma', use: "Wireframed the rebuilt site page by page, then designed the hi-fi navigation, fleet selection and booking screens inside Modo's existing brand." },
@@ -126,6 +75,11 @@ window.portfolioProjects = [
     title: 'Kogl: Establishing Web Presence',
     href: 'kogl/',
     category: 'ux',
+    glance: {
+      role: 'Strategy, UX & Graphic Design',
+      did: 'Led strategy, UX and visual design from discovery to launch, including the type and grid system and a splash that teaches visitors how to say the name.',
+      impact: 'Launched in time for Milan Design Week 2026, with a structure ready to grow into e-commerce.'
+    },
     tags: ['creative direction', 'end-to-end', 'animation'],
     tools: [
       { name: 'Figma', use: 'Set the type, grid and spacing, then designed the cards, index and studio pages. Both card options came out of this file.' },
@@ -142,10 +96,102 @@ window.portfolioProjects = [
     }
   },
   {
+    id: 'telus-informing-customers',
+    title: 'Telus: Informing Customers',
+    href: 'telus-informing-customers/',
+    category: 'ux',
+    glance: {
+      role: 'UX/UI Design Lead',
+      did: "Reworked the Plans Page journey for each behavioural segment and designed educational plan cards in Telus's Allium system, without dark patterns.",
+      impact: "Moved testing from small tweaks to structural changes. The version that explained the term most clearly was favoured."
+    },
+    tags: ['IA', 'allium design system', 'enterprise', 'a/b testing', 'analytics', 'user research', 'workshop facilitation'],
+    tools: [
+      { name: 'Figma', use: 'Wireframed the three card options, then designed the final cards and the plan page states.' },
+      { name: 'Decibel', use: 'Read the funnel data to see where people stalled on the plans page, and set the measures for the A/B test.' },
+      { name: 'FigJam', use: 'Mapped each behavioural segment and its journey before design, so the cards answered the objections that came up most.' }
+    ],
+    meta: {
+      year: '2022 - 2024',
+      role: 'UX/UI Design Lead, User Research & Workshop Facilitation',
+      credits: [
+        'UX Design: Chris Samuel (previous: Marie Louka)',
+        'Project Management: Thelma Wiegert (previous: Sarah Bain)',
+        'User Research: Rebecca Harrington',
+        'Content Strategy: Mike MacKinnon'
+      ],
+      links: [
+        { label: 'view site ↗', href: 'https://www.telus.com/en/shop/home-services/internet/plans/' }
+      ]
+    }
+  },
+  {
+    id: 'creepers',
+    title: 'Van Art Gallery: AI Installation',
+    href: 'vancouverartgallery/',
+    category: 'ux',
+    glance: {
+      role: 'Service Designer, User Research, Project Manager',
+      did: "Pitched the concept the gallery's head curators chose, then designed its visual system, the visitor journey and the room layout.",
+      impact: [
+        { figure: '~830', label: 'visitors a day' },
+        { figure: '8', label: 'months in the exhibit' },
+        { figure: '1', label: 'award for innovation in digital media' }
+      ]
+    },
+    tags: ['service design', 'design system creation', 'installation', 'project management', 'scrum master'],
+    tools: [
+      { name: 'Figma', use: "Drew the audience spectrum, both personas and the visitor journey, then the room plan and the wall mockup. The rules for the drawing were written in this file before anything was built." }
+    ],
+    meta: {
+      year: '2021',
+      role: 'Service Designer, User Research, Project Manager',
+      credits: [
+        'Lead Programmer, Artist, UI Designer: Cindy Shi',
+        'Concept Artist: Yuri Wu',
+        'Project Management, UX Support: Shruti Sharma'
+      ],
+      links: [
+        { label: 'view press ↗', href: 'https://preview-art.com/feature/the-imitation-game-visual-culture-in-the-age-of-artificial-intelligence/' }
+      ]
+    }
+  },
+  {
+    id: 'ibm',
+    title: 'IBM: Benevity Platform Flow',
+    href: 'ibm/',
+    category: 'ux',
+    glance: {
+      role: 'UX/UI Design',
+      did: "Extended the Volunteering & Giving consent flows from lo-fi to hi-fi inside IBM's Carbon Design System.",
+      impact: 'Delivered accessible, system-compliant flows on schedule, reusing Carbon patterns so internal review stayed fast.'
+    },
+    tags: ['carbon design system', 'enterprise', 'benevity platform flow'],
+    tools: [
+      { name: 'Figma', use: "Built the flows from lo-fi to hi-fi on IBM's Carbon grid, extending existing components where the consent steps needed them. Layers and names stayed tidy so their team could pick the file up without me." }
+    ],
+    meta: {
+      year: '2024',
+      role: 'UX/UI Design',
+      credits: ['Collaborator: Wendi Ma'],
+      links: [
+        { label: 'view live page ↗', href: 'https://www.ibm.com/responsibility/programs/volunteerism-giving' }
+      ]
+    }
+  },
+  {
     id: 'liveopencall',
     title: 'Live Open Call: Installation',
     href: 'liveopencall/',
     category: 'code',
+    glance: {
+      role: 'Design & Development',
+      did: 'Designed and built a QR-to-receipt-printer submission flow, and the archive site every submission ends up in.',
+      impact: [
+        { figure: '100+', label: 'submissions across both open calls' },
+        { figure: '0', label: 'technical glitches on the night' }
+      ]
+    },
     tags: ['backend dev', 'graphic design', 'print', 'installation', 'systems architecture'],
     tools: [
       { name: 'Figma', use: 'Designed the phone submission screen, the archive layout and the receipt template.' },
@@ -165,6 +211,11 @@ window.portfolioProjects = [
     // project page path
     href: 'vj-controller/',
     category: 'code',
+    glance: {
+      role: 'Design & Build',
+      did: 'Designed and built a browser VJ controller and a 3D-printed hardware twin, including the electronics and the Python bridge between them.',
+      impact: 'Exhibited at Oslo Art Weekend. User testing led me to leave the physical controller unlabelled, so people played instead of reading.'
+    },
     // tags shown on the card and case header
     tags: ['graphic design', 'installation', '3D design + printing', 'electronics', 'single board computing'],
     tools: [
@@ -189,6 +240,13 @@ window.portfolioProjects = [
     navShortTitle: 'Long Sentence',
     href: 'collaborativesentence/',
     category: 'code',
+    glance: {
+      role: 'Design & Build',
+      did: 'Scraped a million-word web artwork and designed a banned-word system that blurs rather than deletes, so the moderation stays visible.',
+      impact: [
+        { figure: '1M+', label: 'words, scrolling smoothly in the browser' }
+      ]
+    },
     // tags shown on the card and case header
     tags: ['web scraping', 'graphic design', 'typography', 'front-end dev', 'creative development'],
     tools: [
