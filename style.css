@@ -503,9 +503,7 @@ button, a, [data-href] { cursor: pointer; }
 }
 
 .sidebar-right h4 {
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+  font-size: 0.8rem;
   color: rgba(81, 81, 81, 0.5);
   margin-bottom: var(--sp-2);
 }
@@ -666,8 +664,6 @@ button, a, [data-href] { cursor: pointer; }
   font-family: var(--font-sans);
   font-size: 0.62rem;
   font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
   color: var(--gray-400);
 }
 /* clock status brackets */
@@ -1056,10 +1052,8 @@ body.case-page .filters { display: none; }
 }
 .snapshot-box h4 {
   display: inline-block;
-  font-size: 0.65rem;
+  font-size: 0.8rem;
   font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
   color: #0040FF;
   border: 1px solid #0040FF;
   border-radius: 999px;
@@ -1121,9 +1115,8 @@ body.case-page .filters { display: none; }
 .case-section h3 {
   /* case section labels */
   font-family: var(--font-sans);
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   font-weight: 500;
-  text-transform: uppercase;
   color: var(--gray-900);
   margin-bottom: var(--sp-2);
   padding-top: 0;
@@ -1177,8 +1170,6 @@ body.case-page .filters { display: none; }
   margin-bottom: var(--sp-1);
   font-size: 0.65rem;
   font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
   color: var(--gray-500);
 }
 
@@ -1287,8 +1278,6 @@ body.case-page .filters { display: none; }
 .metrics-table thead th {
   font-size: 0.7rem;
   font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
   color: var(--gray-500);
 }
 .metrics-table th:nth-child(2),
@@ -1327,11 +1316,9 @@ body.case-page .filters { display: none; }
   border-top: 1px solid #0040FF;
 }
 .results-highlight h3 {
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   font-weight: 500;
   color: #0040FF;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
   margin-bottom: var(--sp-5);
 }
 /* footnote under the results */
@@ -1450,8 +1437,6 @@ body.case-page .filters { display: none; }
   border-radius: 999px;
   font-family: var(--font-sans);
   font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
   opacity: 0;
   visibility: hidden;
   transition: opacity var(--transition), visibility var(--transition),
@@ -2091,10 +2076,8 @@ a[aria-current="page"],
 }
 .glance dt {
   margin-bottom: var(--sp-2);
-  font-size: 0.65rem;
+  font-size: 0.8rem;
   font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
   color: var(--gray-500);
 }
 .glance dd {
@@ -2237,10 +2220,8 @@ a[aria-current="page"],
 }
 .case-chapter h3,
 .case-learned h3 {
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
   color: var(--gray-900);
   margin-bottom: var(--sp-3);
 }
@@ -2351,10 +2332,8 @@ a[aria-current="page"],
   .panel-view .case-quote .case-testimonial { grid-column: 2 / -1; }
 }
 .case-quote > h3 {
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
   color: var(--gray-900);
   margin-bottom: var(--sp-3);
 }
