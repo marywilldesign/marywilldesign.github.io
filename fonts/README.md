@@ -25,7 +25,14 @@ portfolio (PDF, print or web!)". A commercial project would need a licence from
 them (from $40 a style, and web use is its own tier). The credit sits under the
 sidebar bio on the home page.
 
-Only the Medium weight is in the file, and that is what the whole site is set
+**November 2026:** the home intro sets a few words in bold and one in italic, so
+`NeueMontreal-Bold.woff2` (700) and `NeueMontreal-MediumItalic.woff2` (500 italic)
+now ship too, cut with the same command from the OTFs in `_originals/fonts/`. With
+them declared, `<strong>` and `<em>` anywhere on the site get the real drawings
+instead of a faux bold or slanted Medium. The intro's ⤷ arrows are not in the
+family at all, so they are drawn as an SVG mask (`--hook-arrow` in `style.css`).
+
+Before that, only the Medium weight was in the file, and that is what the whole site is set
 in: the face is declared at 500, the weight it was drawn at, and nothing asks
 for more, so the browser never synthesises a bold over it. A 400 request lands
 on the same file (font matching checks 500 first for that weight), which is why
