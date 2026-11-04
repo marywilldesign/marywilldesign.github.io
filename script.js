@@ -1062,9 +1062,25 @@ onReady(function () {
     });
   }
 
+  // project count after each filter label, e.g. UX/UI (6)
+  function labelFilterCounts() {
+    const projects = window.portfolioProjects || [];
+    document.querySelectorAll('.filter-btn').forEach((btn) => {
+      if (btn.querySelector('.filter-count')) return;
+      const filter = btn.dataset.filter;
+      const count = projects.filter((p) =>
+        filter === 'all' || String(p.category || '').split(' ').includes(filter)).length;
+      const span = document.createElement('span');
+      span.className = 'filter-count';
+      span.textContent = ' (' + count + ')';
+      btn.appendChild(span);
+    });
+  }
+
   function bindFilterButtons() {
     const buttons = document.querySelectorAll('.filter-btn');
     if (!buttons.length) return;
+    labelFilterCounts();
 
     buttons.forEach((btn) => {
       btn.addEventListener('click', () => {
