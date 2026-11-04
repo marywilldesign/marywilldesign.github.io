@@ -1450,8 +1450,9 @@ body.case-page .filters { display: none; }
   border-color: #0040FF;
   color: #0040FF;
 }
-@media (max-width: 640px) {
-  .to-top { right: var(--sp-3); bottom: var(--sp-3); }
+/* phones already have the back to top link in the footer nav */
+@media (max-width: 767px) {
+  .to-top { display: none; }
 }
 @media print {
   .to-top { display: none; }
