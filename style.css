@@ -1932,7 +1932,7 @@ html.is-touch [data-href] { cursor: pointer !important; }
   top: 0;
   z-index: 1000;
   pointer-events: none;
-  padding: 0.6em 1.15em;
+  padding: 0.4em 0.8em;
   border-radius: 999px;
   background: #0040FF;
   color: #fff;
