@@ -294,9 +294,9 @@ button, a, [data-href] { cursor: pointer; }
   font-size: clamp(1.1rem, 3.4cqw, 3.6rem);
   line-height: 1.12;
   letter-spacing: -0.015em;
-  /* connecting words recede in regular grey so the facts scan on their own */
-  font-family: 'NeueMontreal Regular', var(--font-sans);
-  font-weight: 400;
+  /* one weight throughout; the connecting words recede in grey so the facts scan on their own */
+  font-family: var(--font-sans);
+  font-weight: 500;
   color: var(--gray-500);
 }
 .intro-lines li {
