@@ -295,8 +295,8 @@ button, a, [data-href] { cursor: pointer; }
   line-height: 1.12;
   letter-spacing: -0.015em;
   /* one weight throughout; the connecting words recede in grey so the facts scan on their own */
-  font-family: var(--font-sans);
-  font-weight: 500;
+  font-family: 'NeueMontreal Regular', var(--font-sans);
+  font-weight: 400;
   color: var(--gray-500);
 }
 .intro-lines li {
@@ -322,8 +322,8 @@ button, a, [data-href] { cursor: pointer; }
   mask: var(--hook-arrow-thin) no-repeat center / contain;
 }
 .intro-lines strong {
-  font-family: var(--font-sans);
-  font-weight: 500;
+  font-family: inherit;
+  font-weight: inherit;
   color: #000;
   /* each fact stays in one piece when a line wraps */
   white-space: nowrap;
