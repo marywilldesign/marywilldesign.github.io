@@ -2268,7 +2268,7 @@ a[aria-current="page"],
 /* figures sit on a quiet field with even padding, so every image reads as one set */
 .chapter-figure { margin: var(--sp-8) 0 0; }
 .figure-frame {
-  background: #f3f3f2;
+  background: #000;
   padding: clamp(1rem, 6%, 4rem);
 }
 .figure-frame img,
