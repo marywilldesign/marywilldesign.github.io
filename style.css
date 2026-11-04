@@ -138,12 +138,32 @@ body {
 
 img { display: block; max-width: 100%; height: auto; }
 
-a { color: var(--blue); text-decoration: none; }
+/* links carry no underline at rest; one draws in left to right on hover,
+   keyboard focus and press, and stays drawn on the current page */
+a,
+.topbar-back {
+  color: var(--blue);
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0 var(--underline, max(1px, 0.06em));
+  transition: background-size 0.3s ease;
+}
 a:hover,
 a:focus-visible,
+a:active,
+.topbar-back:hover,
+.topbar-back:focus-visible,
+.topbar-back:active,
 a.active,
 a[aria-current="page"] {
-  text-decoration: underline;
+  text-decoration: none;
+  background-size: 100% var(--underline, max(1px, 0.06em));
+}
+@media (prefers-reduced-motion: reduce) {
+  a,
+  .topbar-back { transition: none; }
 }
 
 /* keyboard focus ring */
@@ -279,9 +299,6 @@ button, a, [data-href] { cursor: pointer; }
 .panel-home .sidebar-links a {
   font-size: inherit;
   line-height: 1.1;
-  text-decoration: underline;
-  text-decoration-thickness: 0.06em;
-  text-underline-offset: 0.14em;
 }
 .made-row {
   display: flex;
@@ -386,7 +403,6 @@ button, a, [data-href] { cursor: pointer; }
 
 .project-view-links a.active {
   font-weight: 500;
-  text-decoration: underline;
 }
 
 .project-view-home-link {
@@ -567,7 +583,6 @@ button, a, [data-href] { cursor: pointer; }
   font-family: var(--font-sans);
   line-height: 1;
 }
-.topbar-back:hover { text-decoration: underline; }
 
 /* clock showing oslo time */
 .clock {
@@ -725,7 +740,10 @@ body.case-page .filters { display: none; }
 .card-link.active,
 .card-link[aria-current="page"] {
   font-weight: inherit;
-  text-decoration: none;
+}
+/* the card title underlines while the whole card is hovered */
+.case-card[data-href]:hover .card-link {
+  background-size: 100% var(--underline, max(1px, 0.06em));
 }
 
 .card-summary {
@@ -1346,6 +1364,7 @@ body.case-page .filters { display: none; }
   border-top: 1px solid var(--gray-100);
 }
 .project-nav-footer .nav-next { justify-self: end; }
+.project-nav-footer .nav-prev { justify-self: start; }
 /* back to top centred in the footer */
 .project-nav-footer .back-to-top { justify-self: center; }
 .project-nav-footer a {
@@ -1997,3 +2016,7 @@ html.boot-home body { visibility: hidden; }
   .panel-view .result-card + .result-card { padding: 0; border-left: none; }
   .panel-view .snapshot-group { flex: 1 1 100%; }
 }
+
+/* stacked link lists: each link only as wide as its text, so the underline is too */
+.sidebar-links,
+.project-view-links { align-items: flex-start; }
