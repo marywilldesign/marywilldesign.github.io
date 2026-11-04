@@ -2316,7 +2316,7 @@ a[aria-current="page"],
 /* framed figures can hold a pair or a row of media, or a live embed */
 .figure-frame .side-by-side { margin: 0; }
 .figure-frame .side-by-side + .side-by-side { margin-top: var(--media-gap); }
-.figure-frame .case-embed-frame { border: 0; border-radius: 0; }
+.figure-frame .case-embed-frame { border: 0; border-radius: 0; background: transparent; }
 /* a narrow image or video sits centred in its frame rather than stretched */
 .figure-frame.is-narrow img,
 .figure-frame.is-narrow video { width: auto; max-width: 100%; height: min(70vh, 44rem); object-fit: contain; margin-inline: auto; }

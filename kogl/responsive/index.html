@@ -4,7 +4,7 @@
 <meta name="robots" content="noindex">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#fff;--pill:#2c2c2c;--tx:#111;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root{--bg:transparent;--pill:#2c2c2c;--tx:#111;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 *{box-sizing:inherit;margin:0}
 html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
 body{height:100%;background:var(--bg);color:var(--tx);font:12px "JetBrains Mono",ui-monospace,monospace;display:flex;flex-direction:column}
@@ -14,10 +14,10 @@ body{height:100%;background:var(--bg);color:var(--tx);font:12px "JetBrains Mono"
 .pill button.on{background:#444;color:#fff}.pill button svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.4}
 .pill span{padding:0 10px;color:#aaa}.pill b{font-weight:500;color:#fff;min-width:4ch;display:inline-block}
 #stage{flex:1;min-height:0;display:flex;justify-content:center;align-items:flex-start;padding:0 16px 10px}
-#fr{position:relative;flex:none;width:1280px}
-#vp{height:100%;overflow:auto;border-radius:14px;background:#E9E9E9;color:#323635;container-type:inline-size;overscroll-behavior:contain}
-.hd{position:absolute;top:50%;width:8px;height:96px;margin-top:-48px;background:#555;border-radius:4px;cursor:ew-resize;touch-action:none}
-.hd[data-s="l"]{left:-18px}.hd[data-s="r"]{right:-18px}.hd:hover{background:#999}
+#fr{position:relative;flex:none;width:1280px;background:#E9E9E9;border-radius:14px}
+#vp{position:relative;height:100%;overflow:auto;border-radius:14px;background:#E9E9E9;color:#323635;container-type:inline-size;overscroll-behavior:contain}
+.hd{position:absolute;top:50%;width:8px;height:96px;margin-top:-48px;background:#bbb;border-radius:4px;cursor:ew-resize;touch-action:none}
+.hd[data-s="l"]{left:-18px}.hd[data-s="r"]{right:-18px}.hd:hover{background:#fff}
 .pg{--p:clamp(8px,2cqw,24px);--g:clamp(8px,1.9cqw,24px);min-height:100%}
 header{position:sticky;top:0;z-index:5;background:#E9E9E9;height:60px;margin:0 var(--p);border-bottom:1px dotted #323635;display:flex;justify-content:space-between;align-items:center}
 .logo{height:clamp(18px,2.8cqw,24px);width:auto;fill:#323635;display:block}
@@ -25,7 +25,7 @@ nav{display:flex;gap:clamp(18px,4cqw,54px);font:400 14px Archivo,sans-serif}nav 
 #grid{position:relative;display:grid;grid-template-columns:repeat(6,1fr);gap:var(--g);padding:clamp(12px,3.4cqw,44px) var(--p) clamp(28px,3cqw,40px)}
 .t{grid-column:span 2;background:#fff;border:1px dashed #323635;display:flex;flex-direction:column;min-width:0}
 .t.w{grid-column:span 3}
-.m{position:relative;aspect-ratio:.9136;background:#fff;overflow:hidden;transition:aspect-ratio .7s cubic-bezier(.2,.8,.2,1)}
+.m{position:relative;aspect-ratio:.9136;background:#fff;overflow:hidden;transition:aspect-ratio .3s cubic-bezier(.2,.8,.2,1)}
 .t.w .m{aspect-ratio:1.466}
 .m img{display:block;width:100%;height:100%;object-fit:cover}.m.c img{object-fit:contain}.m.d{background:#2f3433}
 .dots{position:absolute;right:11px;bottom:11px;display:flex;gap:11px}.dots i{width:12px;height:12px;border:1px solid #E9E9E9}.dots i:first-child{background:#E9E9E9}
@@ -105,10 +105,16 @@ let W=1280,mode=3,rects=[],anim,run=0,stW=0,stH=0;
 // measure the stage on resize only
 function measure(){stW=st.clientWidth;stH=st.clientHeight}
 // one fixed scale for every width, so devices keep true proportions and nothing zooms mid-transition
-function fit(){const s=Math.min(1,(stW-56)/1280);fr.style.zoom=s;fr.style.height=((stH-6)/s)+'px';return s}
+function fit(){if(stW<=56)return 1;const s=Math.min(1,(stW-56)/1280);fr.style.zoom=s;fr.style.height=((stH-6)/s)+'px';return s}
 const snap=()=>{rects=tiles.map(t=>[t.offsetLeft,t.offsetTop])};
-function set(w){
-  W=w;fr.style.width=w+'px';$('#w').textContent=Math.round(w);
+// the outer frame can glide while the page inside is already laid out at its final width,
+// so the glide never passes through in-between layouts
+function frame(f){
+  fr.style.width=f+'px';const off=(f-W)/2;
+  vp.style.marginLeft=off+'px';vp.style.clipPath=off<0?`inset(0 ${-off}px round 14px)`:'';
+}
+function set(w,f=w){
+  W=w;vp.style.width=w+'px';frame(f);$('#w').textContent=Math.round(w);
   const m=modeOf(w);
   document.querySelectorAll('[data-w]').forEach(b=>{const on=modeOf(+b.dataset.w)===m;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)});
   if(m!==mode&&rects.length){ // glide tiles to their new columns, dropping any glide still running
@@ -118,10 +124,13 @@ function set(w){
   }
   mode=m;snap();fit();
 }
-const go=(to,d=320)=>new Promise(r=>{cancelAnimationFrame(anim);if(still){set(to);return r()}const a=W,t0=performance.now();
-  (function f(t){const k=Math.min(1,(t-t0)/d),e=k<.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2;set(a+(to-a)*e);k<1?anim=requestAnimationFrame(f):r()})(t0)});
-const wait=ms=>new Promise(r=>setTimeout(r,ms));
-document.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{run++;go(+b.dataset.w)});
+// device buttons: the page jumps to that device's layout, the frame glides to its size
+function glide(to,d=340){
+  cancelAnimationFrame(anim);const a=parseFloat(fr.style.width)||W;set(to,a);
+  if(still||a===to){frame(to);return}const t0=performance.now();
+  (function f(t){const k=Math.min(1,(t-t0)/d),e=1-Math.pow(1-k,3);frame(a+(to-a)*e);if(k<1)anim=requestAnimationFrame(f)})(t0);
+}
+document.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{run++;glide(+b.dataset.w)});
 document.addEventListener('click',e=>{const a=e.target.closest('a[href="#"]');if(a&&a.id!=='top')e.preventDefault()});
 $('#top').onclick=e=>{e.preventDefault();vp.scrollTo({top:0,behavior:'smooth'})};
 document.querySelectorAll('.hd').forEach(h=>h.onpointerdown=e=>{
