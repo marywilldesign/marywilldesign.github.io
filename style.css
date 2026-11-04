@@ -1936,7 +1936,7 @@ html.is-touch [data-href] { cursor: pointer !important; }
   border-radius: 999px;
   background: #0040FF;
   color: #fff;
-  font-size: 1rem;
+  font-size: 0.85rem;
   font-weight: 500;
   line-height: 1;
   white-space: nowrap;
