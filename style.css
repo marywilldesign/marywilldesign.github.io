@@ -2215,3 +2215,113 @@ a[aria-current="page"],
     padding-left: calc((100% - 3 * var(--grid-gap)) / 4 + var(--grid-gap));
   }
 }
+
+/* ---- case study template: lede, chapters, framed figures, learned quote ---- */
+
+/* one-line outcome under the title */
+.case-header-text .case-lede {
+  max-width: 40ch;
+  margin: 0 0 var(--sp-4);
+  font-size: 1.35rem;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--gray-700);
+}
+
+/* chapters: number and label, a highlight line, a short paragraph, one figure */
+.case-chapter,
+.case-learned {
+  margin-bottom: var(--sp-10);
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--gray-200);
+}
+.case-chapter h3,
+.case-learned h3 {
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--gray-900);
+  margin-bottom: var(--sp-3);
+}
+.chapter-num {
+  margin-right: 0.75em;
+  color: var(--gray-400);
+}
+.chapter-text p {
+  max-width: 68ch;
+  margin-bottom: var(--sp-4);
+  font-size: 0.9rem;
+  line-height: 1.75;
+  color: var(--gray-700);
+}
+.chapter-text p:last-child { margin-bottom: 0; }
+.chapter-text .chapter-highlight {
+  max-width: 34ch;
+  margin-bottom: var(--sp-4);
+  font-size: 1.25rem;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: #000;
+}
+
+/* figures sit on a quiet field with even padding, so every image reads as one set */
+.chapter-figure { margin: var(--sp-8) 0 0; }
+.figure-frame {
+  background: #f3f3f2;
+  padding: clamp(1rem, 6%, 4rem);
+}
+.figure-frame img,
+.figure-frame video {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.chapter-figure .caption {
+  margin: var(--sp-3) 0 0;
+  max-width: 75ch;
+}
+.fig-num {
+  margin-right: 0.75em;
+  color: var(--gray-500);
+}
+
+/* what I learned, set as a pull quote */
+.case-learned blockquote { margin: 0; }
+.case-learned blockquote p {
+  max-width: 40ch;
+  font-size: 1.35rem;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: #000;
+}
+
+/* credits close the page as reference */
+.snapshot-box.case-credits {
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--gray-200);
+}
+
+/* the template on the wide panel grid */
+@container panel (min-width: 56rem) {
+  .panel-view .case-chapter,
+  .panel-view .case-learned {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: var(--grid-gap);
+  }
+  .panel-view .case-chapter > h3,
+  .panel-view .case-learned > h3 {
+    grid-column: 1;
+    grid-row: 1;
+    margin-top: 0.45rem;
+  }
+  .panel-view .chapter-text,
+  .panel-view .case-learned blockquote { grid-column: 2 / -1; grid-row: 1; }
+  .panel-view .chapter-figure { grid-column: 1 / -1; grid-row: 2; }
+  /* the lede runs full width under the title */
+  .panel-view .case-header-text > .case-lede { grid-column: 1 / -1; }
+}
+
+/* the summary sits closer to the hero; the header grid already spaces it */
+.case-header-text .glance { margin-bottom: 0; }
