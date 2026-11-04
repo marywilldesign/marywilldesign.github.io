@@ -2318,10 +2318,43 @@ a[aria-current="page"],
   }
   .panel-view .chapter-text,
   .panel-view .case-learned blockquote { grid-column: 2 / -1; grid-row: 1; }
-  .panel-view .chapter-figure { grid-column: 1 / -1; grid-row: 2; }
+  .panel-view .chapter-figure { grid-column: 1 / -1; }
   /* the lede runs full width under the title */
   .panel-view .case-header-text > .case-lede { grid-column: 1 / -1; }
 }
 
 /* the summary sits closer to the hero; the header grid already spaces it */
 .case-header-text .glance { margin-bottom: 0; }
+
+/* framed figures can hold a pair or a row of media, or a live embed */
+.figure-frame .side-by-side { margin: 0; }
+.figure-frame .side-by-side + .side-by-side { margin-top: var(--media-gap); }
+.figure-frame .case-embed-frame { border: 0; border-radius: 0; }
+/* a narrow image or video sits centred in its frame rather than stretched */
+.figure-frame.is-narrow img,
+.figure-frame.is-narrow video { width: auto; max-width: 100%; height: min(70vh, 44rem); object-fit: contain; margin-inline: auto; }
+
+/* a client quote set in the template's rhythm */
+.case-quote {
+  margin-bottom: var(--sp-10);
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--gray-200);
+}
+.case-quote .case-testimonial { margin: 0; }
+@container panel (min-width: 56rem) {
+  .panel-view .case-quote {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: var(--grid-gap);
+  }
+  .panel-view .case-quote > h3 { grid-column: 1; margin-top: 0.45rem; }
+  .panel-view .case-quote .case-testimonial { grid-column: 2 / -1; }
+}
+.case-quote > h3 {
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--gray-900);
+  margin-bottom: var(--sp-3);
+}
