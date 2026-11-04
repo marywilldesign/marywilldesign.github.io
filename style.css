@@ -2011,8 +2011,11 @@ html.is-touch [data-href] { cursor: pointer !important; }
   pointer-events: none;
   padding: 0.4em 0.8em;
   border-radius: 999px;
-  background: #0040FF;
-  color: #fff;
+  /* inverts like the cursor dot: the pill flips what's underneath,
+     and the black text leaves it unflipped, so the label reads inverted against the pill */
+  background: #fff;
+  color: #000;
+  mix-blend-mode: difference;
   font-size: 0.85rem;
   font-weight: 500;
   line-height: 1;
