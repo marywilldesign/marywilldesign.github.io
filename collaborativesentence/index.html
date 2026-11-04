@@ -41,129 +41,145 @@
 
     <span class="breadcrumb"><a href="../">projects</a> / <span class="breadcrumb-current">First Collaborative Sentence: Remixed</span></span>
 
-    <!-- header -->
-    <div class="case-header-grid">
-      <div class="case-header-text">
-        <h2>First Collaborative Sentence: Remixed</h2>
-        <div class="tags"></div>
-        <p>
-          This project remixed a single sentence of more than one million words, taken from one source: Douglas Davis's <em>The World's First Collaborative Sentence</em>, an archival web art piece held by the Whitney Museum of American Art. This iteration explored what happens when the editor becomes the architect: where the line sits between curating and censorship. The result was a website where the text did the work, with as little interface around it as possible.
-        </p>
-      </div>
-    </div>
-
-    <div class="hero-image">
-      <video src="../collaborativesentence/cover.webm" poster="../collaborativesentence/cover-poster.webp" width="1912" height="1072" data-autoplay preload="none" loop muted playsinline class="js-lightbox-item"></video>
-    </div>
-
-    <div class="snapshot-box"></div>
-
-    <div class="case-section">
-      <h3>Ask (self-developed brief)</h3>
-      <p>Build a readable, engaging website from an enormous amount of collected text, using the role of the editor as a framework. The text should stay simple and easy to read, devoid of derogatory words, with other design elements adding interest without competing with it.</p>
-    </div>
-
-    <div class="case-section">
-      <h3>Insights</h3>
-      <p>The source material was an open forum before open forums had any regulation. Anyone could add to Davis's sentence, and the result was a colourful mix of poetry, nonsense, confessions and jokes, intermixed with some problematic entries. Scraping it took a Python script and a whole lot of time. Deciding what to do with what came back was harder. Reading every word was close to impossible, so editing had to become a system: a list of banned words, a way of marking them and a way of showing the result. The banned words list was a mix of me finding words that should not be included and researching commonly banned words / ideas to incorporate.</p>
-      <p>A key design decision was to blur banned words rather than remove them. Deleting them would have hidden the editor's hand and pretended the sentence was “cleaner” than it actually was. Blurring kept the sentence intact and showed that a decision was made, even when the reader cannot see what was cut. It also raised the question the project kept returning to: who decides where the line begins and ends, and what does it mean that the editor is one person against many contributors?</p>
-      <p>The second decision was to keep the text plain. The type was set in <em>Inconsolata</em>, a single typeface, so the volume of text read as a texture rather than a layout. Interest came from small additions instead: a gradient that ran through the text and a gradient cursor that followed the reader. Both made a very long page feel alive without adding anything to read.</p>
-      <p>Because the text was the focus, I made the site scroll itself. Nobody was expected to read a million words by hand, so autoscroll let the sentence run at its own pace. The colophon and credits stayed tucked away and opened only when the reader chose to interact with them, so the page stayed a single stream of words.</p>
-      <p>I set the site to autoscroll at 40 pixels a second, so the time it takes depends mainly on the user's screen width: a wider screen fits more characters per row, so there are fewer rows to scroll past. Allowing about six characters per word including spaces, for roughly six million characters:</p>
-      <table class="metrics-table">
-        <thead>
-          <tr>
-            <th scope="col">Screen</th>
-            <th scope="col">Columns per row</th>
-            <th scope="col">Time to scroll</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1920px wide</th>
-            <td>230</td>
-            <td>about 4h 21m</td>
-          </tr>
-          <tr>
-            <th scope="row">1440px wide</th>
-            <td>170</td>
-            <td>about 5h 53m</td>
-          </tr>
-          <tr>
-            <th scope="row">1280px wide</th>
-            <td>150</td>
-            <td>about 6h 40m</td>
-          </tr>
-          <tr>
-            <th scope="row">390px phone</th>
-            <td>42</td>
-            <td>about 23h 49m</td>
-          </tr>
-        </tbody>
-      </table>
-      <p class="takeaway"><span class="takeaway-label">What I learned</span> Editing is a design tool. Blurring a word keeps the decision, and the process, visible, which is more honest than deleting it and pretending the sentence came out clean.</p>
-    </div>
-
-    <div class="case-section">
-      <h3>Contribution</h3>
-      <ul>
-        <li>Independently designed and developed the site, deciding the typography, interaction and rendering approach first, then building to them with agentic workflows</li>
-        <li>Built the webscraper that collected the full sentence from a single source</li>
-        <li>Developed a banned word system to mark and blur words across the text, taking on the role of editor</li>
-        <li>Optimised rendering so more than one million words can scroll smoothly in the browser, keeping it light</li>
-        <li>Designed gradient cursor and autoscroll to keep a text-only site engaging</li>
-        <li>Shaped the concept and the technical implementation end-to-end</li>
-      </ul>
-    </div>
-
-    <div class="case-section case-section-tools">
-      <h3>Tools</h3>
-      <div class="case-tools"></div>
-    </div>
-
-    <div class="case-section">
-      <h3>Outcome</h3>
-      <p>The outcome became more of a philosophical one. It asked what an early internet relic becomes when someone edits it, whether open discussion can be preserved and made readable at the same time, and how much of an editor's judgement is visible in the finished text.</p>
-    </div>
-
-    <div class="case-section case-section-media">
-      <h3>Media</h3>
-      <p>Here are some key artefacts from the project, with captions explaining each of them.</p>
-    </div>
-
-    <figure class="case-image-wide">
-      <img src="../collaborativesentence/lcs-design-system.svg" alt="Design system board: the colour rules, a type specimen, component examples and the three colour roles" width="1600" height="1360" loading="lazy" decoding="async" class="js-lightbox-item" >
-      <figcaption class="caption">I developed a simple design system which informed various instances featured on the site. Kept it simple, to two primary colours only, one font family in two weights, and three colour roles that operate horizontally across the page, dictating what gradient will appear.</figcaption>
-    </figure>
-
-    <figure class="case-image-wide">
-      <div class="before-after" data-before-after>
-        <img class="ba-before" src="../collaborativesentence/lcs-editor-before.png" alt="A paragraph of the sentence before the banned word pass: plain black monospace text on white, with nothing marked" width="3360" height="1184" loading="lazy" decoding="async">
-        <div class="ba-after">
-          <img src="../collaborativesentence/lcs-editor-after.png" alt="The same paragraph after the banned word pass, with several words replaced by soft blurred blocks of colour" width="3360" height="1184" loading="lazy" decoding="async">
-        </div>
-        <input class="ba-range" type="range" min="0" max="100" value="50" step="1" aria-label="Compare the sentence before and after the banned word pass">
-        <span class="ba-divider" aria-hidden="true"></span>
-      </div>
-      <figcaption class="caption">Here is some placeholder text which showcases how banned words are handled, before and after (drag to reveal). Flagged words are blurred rather than removed, and each one takes its own shift of the gradient, so the reader can see that a decision was made without being shown what was cut.</figcaption>
-    </figure>
-
-    <figure class="media-group">
-      <div class="side-by-side flush">
-        <div class="sbs-item">
-          <video src="../collaborativesentence/cursor-blob-white-square.webm" poster="../collaborativesentence/cursor-blob-white-square-poster.webp" width="1080" height="1080" data-autoplay preload="none" loop muted playsinline class="js-lightbox-item"></video>
-        </div>
-        <div class="sbs-item">
-          <video src="../collaborativesentence/cursor-blob-black-square.webm" poster="../collaborativesentence/cursor-blob-black-square-poster.webp" width="1080" height="1080" data-autoplay preload="none" loop muted playsinline class="js-lightbox-item is-mirrored"></video>
+      <div class="case-header-grid">
+        <div class="case-header-text">
+          <h2>First Collaborative Sentence: Remixed</h2>
+          <p class="case-lede">I scraped, edited and rebuilt a million-word web artwork as a website where the text does the work.</p>
+          <div class="tags"></div>
         </div>
       </div>
-      <figcaption class="caption">The gradient cursor, which replaces the system cursor, on white and black.</figcaption>
-    </figure>
 
-    <figure class="case-image-wide">
-      <video src="../collaborativesentence/colophon.webm" poster="../collaborativesentence/colophon-poster.webp" width="1912" height="1072" data-autoplay preload="none" loop muted playsinline class="js-lightbox-item"></video>
-      <figcaption class="caption">The colophon, which stays out of the way until the reader seeks it out. Title, editor, date, typeface, and acknowledgements all live here for the viewer’s reference.</figcaption>
-    </figure>
+      <div class="hero-image">
+        <video src="../collaborativesentence/cover.webm" poster="../collaborativesentence/cover-poster.webp" width="1912" height="1072" data-autoplay preload="none" loop muted playsinline class="js-lightbox-item"></video>
+      </div>
+
+      <section class="case-chapter case-problem">
+        <h3>Brief</h3>
+        <div class="chapter-text">
+          <p>Douglas Davis's <em>The World's First Collaborative Sentence</em> is an archival web art piece held by the Whitney Museum of American Art: a single sentence of more than one million words. My brief: make it a readable website, using the role of the editor as a framework, with the text kept simple and free of derogatory words.</p>
+        </div>
+      </section>
+
+      <section class="case-chapter">
+        <h3><span class="chapter-num">01</span>Scrape</h3>
+        <div class="chapter-text">
+          <p class="chapter-highlight">The source was an open forum before open forums had any regulation, far too long to read word by word.</p>
+          <p>Anyone could add to it, so it is a colourful mix of poetry, nonsense, confessions and jokes, with some problematic entries. Scraping it took a Python script and a whole lot of time. Deciding what to do with it was harder, so editing had to become a system.</p>
+        </div>
+      </section>
+
+      <section class="case-chapter">
+        <h3><span class="chapter-num">02</span>Edit</h3>
+        <div class="chapter-text">
+          <p class="chapter-highlight">Banned words are blurred rather than removed, so the editor's hand stays visible.</p>
+          <p>The list mixed words I found myself with research into commonly banned words and ideas. Deleting them would have pretended the sentence was “cleaner” than it was. Blurring keeps it intact and shows a decision was made, and kept raising the project's real question: where curating ends and censorship begins, when one editor decides for many contributors.</p>
+        </div>
+        <figure class="chapter-figure">
+          <div class="figure-frame">
+            <div class="before-after" data-before-after>
+              <img class="ba-before" src="../collaborativesentence/lcs-editor-before.png" alt="A paragraph of the sentence before the banned word pass: plain black monospace text on white, with nothing marked" width="3360" height="1184" loading="lazy" decoding="async">
+              <div class="ba-after">
+                <img src="../collaborativesentence/lcs-editor-after.png" alt="The same paragraph after the banned word pass, with several words replaced by soft blurred blocks of colour" width="3360" height="1184" loading="lazy" decoding="async">
+              </div>
+              <input class="ba-range" type="range" min="0" max="100" value="50" step="1" aria-label="Compare the sentence before and after the banned word pass">
+              <span class="ba-divider" aria-hidden="true"></span>
+            </div>
+          </div>
+          <figcaption class="caption"><span class="fig-num">Fig. 1</span>Placeholder text before and after the banned word pass (drag to reveal).</figcaption>
+        </figure>
+      </section>
+
+      <section class="case-chapter">
+        <h3><span class="chapter-num">03</span>Design</h3>
+        <div class="chapter-text">
+          <p class="chapter-highlight">One typeface and two colours, so the volume of text reads as a texture rather than a layout.</p>
+          <p>The type is set in <em>Inconsolata</em>, in two weights. A gradient through the text and a gradient cursor make a very long page feel alive without adding anything to read. I decided typography, interaction and rendering first, then built to them with agentic workflows.</p>
+        </div>
+        <figure class="chapter-figure">
+          <div class="figure-frame">
+            <img src="../collaborativesentence/lcs-design-system.svg" alt="Design system board: the colour rules, a type specimen, component examples and the three colour roles" width="1600" height="1360" loading="lazy" decoding="async" class="js-lightbox-item">
+          </div>
+          <figcaption class="caption"><span class="fig-num">Fig. 2</span>The design system. Three colour roles run horizontally across the page and decide which gradient appears.</figcaption>
+        </figure>
+        <figure class="chapter-figure">
+          <div class="figure-frame">
+            <div class="side-by-side flush">
+              <div class="sbs-item">
+                <video src="../collaborativesentence/cursor-blob-white-square.webm" poster="../collaborativesentence/cursor-blob-white-square-poster.webp" width="1080" height="1080" data-autoplay preload="none" loop muted playsinline class="js-lightbox-item"></video>
+              </div>
+              <div class="sbs-item">
+                <video src="../collaborativesentence/cursor-blob-black-square.webm" poster="../collaborativesentence/cursor-blob-black-square-poster.webp" width="1080" height="1080" data-autoplay preload="none" loop muted playsinline class="js-lightbox-item is-mirrored"></video>
+              </div>
+            </div>
+          </div>
+          <figcaption class="caption"><span class="fig-num">Fig. 3</span>The gradient cursor, which replaces the system cursor, on white and black.</figcaption>
+        </figure>
+      </section>
+
+      <section class="case-chapter">
+        <h3><span class="chapter-num">04</span>Scroll</h3>
+        <div class="chapter-text">
+          <p class="chapter-highlight">The site scrolls itself at 40 pixels a second, because nobody was expected to read a million words by hand.</p>
+          <p>I optimised rendering so the whole sentence scrolls smoothly. At about six characters per word, roughly six million characters, scroll time depends mainly on screen width. The colophon and credits stay tucked away until opened, so the page stays a single stream of words.</p>
+          <table class="metrics-table">
+            <thead>
+              <tr>
+                <th scope="col">Screen</th>
+                <th scope="col">Columns per row</th>
+                <th scope="col">Time to scroll</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1920px wide</th>
+                <td>230</td>
+                <td>about 4h 21m</td>
+              </tr>
+              <tr>
+                <th scope="row">1440px wide</th>
+                <td>170</td>
+                <td>about 5h 53m</td>
+              </tr>
+              <tr>
+                <th scope="row">1280px wide</th>
+                <td>150</td>
+                <td>about 6h 40m</td>
+              </tr>
+              <tr>
+                <th scope="row">390px phone</th>
+                <td>42</td>
+                <td>about 23h 49m</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <figure class="chapter-figure">
+          <div class="figure-frame">
+            <video src="../collaborativesentence/colophon.webm" poster="../collaborativesentence/colophon-poster.webp" width="1912" height="1072" data-autoplay preload="none" loop muted playsinline class="js-lightbox-item"></video>
+          </div>
+          <figcaption class="caption"><span class="fig-num">Fig. 4</span>The colophon, out of the way until the reader seeks it out.</figcaption>
+        </figure>
+      </section>
+
+      <div class="results-highlight">
+        <h3>Results</h3>
+        <div class="results-cards">
+          <div class="result-card">
+            <strong>1M+</strong>
+            <span>words, scrolling smoothly<br>in the browser</span>
+          </div>
+        </div>
+      </div>
+
+      <section class="case-learned">
+        <h3>What I learned</h3>
+        <blockquote>
+          <p>Editing is a design tool. Blurring a word keeps the decision, and the process, visible, which is more honest than deleting it and pretending the sentence came out clean.</p>
+        </blockquote>
+      </section>
+
+      <!-- year, role, credits and links, filled from projects.js -->
+      <div class="snapshot-box case-credits"></div>
 
   <nav id="project-nav" class="project-nav-footer" style="display:none">
     <a class="nav-prev" href="#"></a>

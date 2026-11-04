@@ -46,10 +46,8 @@
     <div class="case-header-grid">
       <div class="case-header-text">
         <h2>Live Open Call: Installation</h2>
+        <p class="case-lede">Designing and building a QR-to-receipt-printer installation so visitors at an Oslo opening night could add to an open call from the room.</p>
         <div class="tags"></div>
-        <p>
-          For the opening night, I designed and built an interface which enabled visitors to scan a QR code and send text and images to a receipt printer, bridging digital and physical interactions. These digital submissions left an immediate tangible trace in the physical exhibition space, rather than disappearing into a screen or database.
-        </p>
       </div>
     </div>
 
@@ -58,86 +56,126 @@
       <video class="js-lightbox-item" src="../liveopencall/opencall.webm" poster="../liveopencall/opencall-poster.webp" width="2000" height="2206" data-autoplay preload="none" loop muted playsinline onloadedmetadata="this.playbackRate = 2.5"></video>
     </div>
 
-    <div class="snapshot-box"></div>
-
-    <div class="case-section">
-      <h3>Ask</h3>
-      <p>To compare a premeditated open call against a live one, side by side and on the same night. The first had already gone out ahead of the opening night as posters, posts and invitations across the UK, Canada and Norway, with the submissions printed on one long receipt and made into a website (<a href="https://art-kive.github.io/art-kive/" target="_blank" rel="noopener noreferrer">art-kive</a>). What was missing was a way for somebody standing in the room to add to it.</p>
-    </div>
-
-    <div class="case-section">
-      <h3>Insights</h3>
-      <p>A countdown was added to the submission site allowing promotion ahead of the opening night. Submissions were sent in remotely from Canada and Australia, when the opening night was in Oslo, Norway. This meant that there was a continuous stream of submissions coming in while the site was up.</p>
-      <p>A live thermal receipt printer was selected as the output instead of a screen display or regular printer, meaning the continuous nature of the output linked each submission in some form. There were also custom design elements in the receipt output, like typeface selection and image format.</p>
-      <p class="takeaway"><span class="takeaway-label">What I learned</span> Choosing a receipt printer as the medium became both a constraint and a method of unifying the project. Once something was printed, it couldn’t be edited, so every submission to either open call immediately became part of a unified archive or record.</p>
-    </div>
-
-    <div class="case-section">
-      <h3>Contribution</h3>
-      <ul>
-        <li>Established a backend to allow a QR-based submission flow for text and images, integrating the browser-based submission to the printer</li>
-        <li>Made a simple interface design for visitor input which connected to their camera and allowed a (limited character) text submission</li>
-        <li>Scanned both receipts and uploaded them to the site, allowing people's submissions to be permanently archived</li>
-      </ul>
-    </div>
-
-    <div class="case-section case-section-tools">
-      <h3>Tools</h3>
-      <div class="case-tools"></div>
-    </div>
-
-    <div class="case-section">
-      <h3>Outcome</h3>
-      <p>Had some great feedback from the opening night and managed to gather over 100 submissions between the open calls. The installation went ahead with no technical glitches and it became a piece that I would want to run again as it was another way of getting visitors to co-create.</p>
-    </div>
-
-    <div class="case-section case-section-media">
-      <h3>Media</h3>
-      <p>Here are some key artefacts from the project, with captions explaining each of them.</p>
-    </div>
-
-    <figure class="case-image">
-      <img src="../liveopencall/open-call.webp" alt="The archive's metadata fields, and the folders submissions were filed into" width="2000" height="1110" loading="lazy" decoding="async" class="js-lightbox-item" >
-      <figcaption class="caption">The call went out asking people to send 'anything that might fit in an online archive, in any state of completion, language or format', which was a generous brief and a hard one to build for. So before anything else the archive needed a field for every kind of thing somebody might send: title of work, medium, dimensions, date and place created, edition size, source of file, creator, contributors. It also needed a way to pick which of those to export for each object.</figcaption>
-    </figure>
-
-    <div class="side-by-side">
-      <div class="sbs-item">
-        <video class="js-lightbox-item" src="../liveopencall/timer-mobile.webm" poster="../liveopencall/timer-mobile-poster.webp" width="478" height="920" data-autoplay preload="none" loop muted playsinline></video>
-        <div class="caption">The countdown on the submission site, so the call could be promoted ahead of the night rather than announced on it.</div>
+    <section class="case-chapter case-problem">
+      <h3>Brief</h3>
+      <div class="chapter-text">
+        <p>Compare a premeditated open call against a live one on the same night. The first had gone out across the UK, Canada and Norway, then been printed on one long receipt and made into a website (<a href="https://art-kive.github.io/art-kive/" target="_blank" rel="noopener noreferrer">art-kive</a>). What was missing was a way for somebody in the room to add to it.</p>
       </div>
-      <div class="sbs-item">
-        <video class="js-lightbox-item" src="../liveopencall/full-receipt-mobile.webm" poster="../liveopencall/full-receipt-mobile-poster.webp" width="478" height="920" data-autoplay preload="none" loop muted playsinline></video>
-        <div class="caption">The submissions as the archive, on a phone: the same entries, before they became a receipt.</div>
+    </section>
+
+    <section class="case-chapter">
+      <h3><span class="chapter-num">01</span>Structure</h3>
+      <div class="chapter-text">
+        <p class="chapter-highlight">The call asked for anything in any format, so the archive needed a field for every kind of thing somebody might send.</p>
+        <p>Title, medium, dimensions, date and place, edition, creator, contributors, and a choice of which to export for each object.</p>
       </div>
-    </div>
-
-    <figure class="case-image">
-      <video class="js-lightbox-item" src="../liveopencall/desktop-site.webm" poster="../liveopencall/desktop-site-poster.webp" width="1902" height="1080" data-autoplay preload="none" loop muted playsinline></video>
-      <figcaption class="caption">The archive on desktop. Everything that came in stayed browsable, including the things that arrived as drawings, comics and photographs of notebooks.</figcaption>
-    </figure>
-
-    <figure class="case-image">
-      <video class="js-lightbox-item" src="../liveopencall/installation.webm" poster="../liveopencall/installation-poster.webp" width="1920" height="1080" data-autoplay preload="none" loop muted playsinline></video>
-      <figcaption class="caption">The live open call in action on the opening night. Unfortunately this is the only footage of it that exists.</figcaption>
-    </figure>
-
-    <figure class="case-image-wide">
-      <video class="js-lightbox-item" src="../liveopencall/receipt-printer-output.webm" poster="../liveopencall/receipt-printer-output-poster.webp" width="2318" height="404" data-autoplay preload="none" loop muted playsinline></video>
-      <figcaption class="caption">The printer working through a submission. Greyscale only, which is worth knowing before you send a photograph.</figcaption>
-    </figure>
-
-    <figure class="media-group">
-      <div class="side-by-side">
-        <div class="sbs-item">
-          <img src="../liveopencall/receipt-excerpt.webp" alt="A long thermal receipt printed with submissions" width="1000" height="5323" loading="lazy" decoding="async" class="js-lightbox-item" >
+      <figure class="chapter-figure">
+        <div class="figure-frame">
+          <img src="../liveopencall/open-call.webp" alt="The archive's metadata fields, and the folders submissions were filed into" width="2000" height="1110" loading="lazy" decoding="async" class="js-lightbox-item" >
         </div>
-        <div class="sbs-item">
-          <img src="../liveopencall/receipt-excerpt-1.webp" alt="A second receipt, printed with submitted photographs" width="1000" height="5602" loading="lazy" decoding="async" class="js-lightbox-item" >
+        <figcaption class="caption"><span class="fig-num">Fig. 1</span>The metadata fields and folders.</figcaption>
+      </figure>
+    </section>
+
+    <section class="case-chapter">
+      <h3><span class="chapter-num">02</span>Promote</h3>
+      <div class="chapter-text">
+        <p class="chapter-highlight">A countdown on the submission site meant the call could be promoted ahead of the night rather than announced on it.</p>
+        <p>Submissions came in from Canada and Australia while the night was in Oslo, a continuous stream for as long as the site was up.</p>
+      </div>
+      <figure class="chapter-figure">
+        <div class="figure-frame is-narrow">
+          <div class="side-by-side">
+            <div class="sbs-item">
+              <video class="js-lightbox-item" src="../liveopencall/timer-mobile.webm" poster="../liveopencall/timer-mobile-poster.webp" width="478" height="920" data-autoplay preload="none" loop muted playsinline></video>
+            </div>
+            <div class="sbs-item">
+              <video class="js-lightbox-item" src="../liveopencall/full-receipt-mobile.webm" poster="../liveopencall/full-receipt-mobile-poster.webp" width="478" height="920" data-autoplay preload="none" loop muted playsinline></video>
+            </div>
+          </div>
+        </div>
+        <figcaption class="caption"><span class="fig-num">Fig. 2</span>Left: the countdown. Right: the archive on a phone, before it became a receipt.</figcaption>
+      </figure>
+    </section>
+
+    <section class="case-chapter">
+      <h3><span class="chapter-num">03</span>Build</h3>
+      <div class="chapter-text">
+        <p class="chapter-highlight">Visitors scanned a QR code and their submission went straight from the browser to the printer.</p>
+        <p>I set up the backend and a simple input screen that opened the phone's camera and took a short text submission.</p>
+      </div>
+      <figure class="chapter-figure">
+        <div class="figure-frame">
+          <video class="js-lightbox-item" src="../liveopencall/installation.webm" poster="../liveopencall/installation-poster.webp" width="1920" height="1080" data-autoplay preload="none" loop muted playsinline></video>
+        </div>
+        <figcaption class="caption"><span class="fig-num">Fig. 3</span>Opening night. Unfortunately this is the only footage of it that exists.</figcaption>
+      </figure>
+    </section>
+
+    <section class="case-chapter">
+      <h3><span class="chapter-num">04</span>Print</h3>
+      <div class="chapter-text">
+        <p class="chapter-highlight">A thermal receipt printer replaced a screen, so every submission was linked to the next on one continuous roll.</p>
+        <p>I designed the receipt output too, including the typeface and the image format.</p>
+      </div>
+      <figure class="chapter-figure">
+        <div class="figure-frame">
+          <video class="js-lightbox-item" src="../liveopencall/receipt-printer-output.webm" poster="../liveopencall/receipt-printer-output-poster.webp" width="2318" height="404" data-autoplay preload="none" loop muted playsinline></video>
+        </div>
+        <figcaption class="caption"><span class="fig-num">Fig. 4</span>The printer working through a submission. Greyscale only, which is worth knowing before you send a photograph.</figcaption>
+      </figure>
+    </section>
+
+    <section class="case-chapter">
+      <h3><span class="chapter-num">05</span>Archive</h3>
+      <div class="chapter-text">
+        <p class="chapter-highlight">Both receipts were scanned and put back up on the site, so nothing that came in disappeared again.</p>
+        <p>Everything stayed browsable, drawings and comics included. It's a piece I'd want to run again as another way of getting visitors to co-create.</p>
+      </div>
+      <figure class="chapter-figure">
+        <div class="figure-frame is-narrow">
+          <div class="side-by-side">
+            <div class="sbs-item">
+              <img src="../liveopencall/receipt-excerpt.webp" alt="A long thermal receipt printed with submissions" width="1000" height="5323" loading="lazy" decoding="async" class="js-lightbox-item" >
+            </div>
+            <div class="sbs-item">
+              <img src="../liveopencall/receipt-excerpt-1.webp" alt="A second receipt, printed with submitted photographs" width="1000" height="5602" loading="lazy" decoding="async" class="js-lightbox-item" >
+            </div>
+          </div>
+        </div>
+        <figcaption class="caption"><span class="fig-num">Fig. 5</span>Two of the receipts. They are long, which is rather the point.</figcaption>
+      </figure>
+      <figure class="chapter-figure">
+        <div class="figure-frame">
+          <video class="js-lightbox-item" src="../liveopencall/desktop-site.webm" poster="../liveopencall/desktop-site-poster.webp" width="1902" height="1080" data-autoplay preload="none" loop muted playsinline></video>
+        </div>
+        <figcaption class="caption"><span class="fig-num">Fig. 6</span>The archive on desktop.</figcaption>
+      </figure>
+    </section>
+
+    <div class="results-highlight">
+      <h3>Results</h3>
+      <div class="results-cards">
+        <div class="result-card">
+          <strong>100+</strong>
+          <span>submissions across<br>both open calls</span>
+        </div>
+        <div class="result-card">
+          <strong>0</strong>
+          <span>technical glitches<br>on the night</span>
         </div>
       </div>
-      <figcaption class="caption">Two of the receipts, scanned and put back up on the site so that nothing that came in disappeared again. They are long. That is rather the point of printing submissions on one continuous roll, and it is why the archive needed all those fields in the first place.</figcaption>
-    </figure>
+    </div>
+
+    <section class="case-learned">
+      <h3>What I learned</h3>
+      <blockquote>
+        <p>The receipt printer was both a constraint and what unified the project. Once printed, nothing could be edited, so every submission became part of one record.</p>
+      </blockquote>
+    </section>
+
+    <!-- year, role, credits and links, filled from projects.js -->
+    <div class="snapshot-box case-credits"></div>
 
   <nav id="project-nav" class="project-nav-footer" style="display:none">
     <a class="nav-prev" href="#"></a>
