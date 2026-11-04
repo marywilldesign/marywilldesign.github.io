@@ -243,7 +243,7 @@ button, a, [data-href] { cursor: pointer; }
 .intro-name-link:hover,
 .intro-name-link:focus-visible,
 .intro-name-link:active {
-  color: #000;
+  color: #0040FF;
   background-image: none;
 }
 .intro-name-text {
