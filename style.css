@@ -2368,4 +2368,5 @@ a[aria-current="page"],
   box-sizing: border-box;
   background: #fff;
   padding: clamp(0.75rem, 3%, 2rem);
+  border-radius: 0.75rem;
 }
