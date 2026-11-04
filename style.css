@@ -2145,10 +2145,12 @@ a[aria-current="page"],
 }
 .glance-list li:last-child { margin-bottom: 0; }
 .glance-list li::before {
-  content: "→";
+  /* the same curved arrow as the cv tools list */
+  content: "↪";
+  content: "↪" / "";
   position: absolute;
   left: 0;
-  color: #0040FF;
+  color: #000;
 }
 
 /* case studies on wide panels: a centred column on a four-column grid,
