@@ -686,34 +686,12 @@ function initHome(initial) {
       resume.download = RESUME_FILE;
     }
     addBreadcrumb(wrapper, 'About');
-    // home sits where the about link was, top right
-    const topbar = wrapper.querySelector('.topbar');
-    if (topbar) {
-      const home = document.createElement('a');
-      home.className = 'view-home-link';
-      home.href = siteUrl('./');
-      home.textContent = 'home';
-      home.addEventListener('click', (e) => {
-        if (modified(e)) return;
-        e.preventDefault();
-        closeView();
-      });
-      topbar.appendChild(home);
-    }
 
     mount(wrapper);
     markProjectNav(null);
     document.title = ABOUT_TITLE;
     if (!opts || opts.push !== false) setUrl(siteUrl('about/'), { about: true }, opts && opts.replace);
   }
-
-  // about link in the left panel
-  sidebar.addEventListener('click', (e) => {
-    const link = e.target.closest('.js-open-about');
-    if (!link || modified(e)) return;
-    e.preventDefault();
-    openAbout();
-  });
 
   // clicks on the grid while nothing covers it
   gridView.addEventListener('click', (e) => {

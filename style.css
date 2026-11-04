@@ -238,32 +238,6 @@ button, a, [data-href] { cursor: pointer; }
 /* phone-menu project list, only while a case study is open on a phone */
 #panel-projects { display: none; }
 
-/* name with the about link top right */
-.intro-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: var(--sp-6);
-}
-.panel-about-link,
-.view-home-link {
-  flex: 0 0 auto;
-  color: #0040FF;
-  font-size: 0.78rem;
-  font-weight: 500;
-  line-height: 1.6;
-  white-space: nowrap;
-}
-.view-home-link { margin-left: auto; }
-/* wide screens use the panel link; phones keep about in the top bar and projects to go back */
-@media (min-width: 768px) {
-  .home-topbar > .about-link { display: none; }
-}
-@media (max-width: 767px) {
-  .panel-about-link,
-  .view-home-link { display: none; }
-}
-
 /* intro, set large and flush left */
 .intro-name {
   font-size: clamp(1.9rem, 5.2cqw, 5.5rem);
