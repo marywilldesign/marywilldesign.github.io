@@ -114,11 +114,11 @@ function set(w){
   if(m!==mode&&rects.length){ // glide tiles to their new columns, dropping any glide still running
     tiles.forEach(t=>t.getAnimations().forEach(a=>{if(!(a instanceof CSSTransition))a.cancel()}));
     tiles.forEach((t,i)=>{const dx=rects[i][0]-t.offsetLeft,dy=rects[i][1]-t.offsetTop;
-      if(dx||dy)t.animate([{transform:`translate(${dx}px,${dy}px)`},{transform:'none'}],{duration:450,easing:'cubic-bezier(.2,.8,.2,1)'})});
+      if(dx||dy)t.animate([{transform:`translate(${dx}px,${dy}px)`},{transform:'none'}],{duration:260,easing:'cubic-bezier(.2,.8,.2,1)'})});
   }
   mode=m;snap();fit();
 }
-const go=(to,d=1300)=>new Promise(r=>{cancelAnimationFrame(anim);if(still){set(to);return r()}const a=W,t0=performance.now();
+const go=(to,d=320)=>new Promise(r=>{cancelAnimationFrame(anim);if(still){set(to);return r()}const a=W,t0=performance.now();
   (function f(t){const k=Math.min(1,(t-t0)/d),e=k<.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2;set(a+(to-a)*e);k<1?anim=requestAnimationFrame(f):r()})(t0)});
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
 document.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{run++;go(+b.dataset.w)});
