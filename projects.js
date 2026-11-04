@@ -12,7 +12,11 @@ window.portfolioProjects = [
     // at a glance block at the top of the case study
     glance: {
       role: 'UX/UI Design Lead',
-      did: 'Audited the meganav, rebuilt the internet IA and its labels, and validated the new structure with card sorts, usability tests and A/B tests.',
+      did: [
+        'Audited the meganav and every drop-off point',
+        'Rebuilt the internet IA and menu labels',
+        'Validated with card sorts, usability and A/B tests'
+      ],
       impact: [
         { figure: '+42%', label: 'desired page visits after launch' },
         { figure: '+4%', label: 'click-through from the menu to the Plans Page' }
@@ -46,7 +50,12 @@ window.portfolioProjects = [
     category: 'ux',
     glance: {
       role: 'UX/UI Design Lead',
-      did: 'Led the IA and navigation rebuild, redesigned fleet selection and the map, restructured the FAQs, and saw the site through to a Webflow build.',
+      did: [
+        'Led the IA and navigation rebuild',
+        'Redesigned fleet selection and the map',
+        'Restructured the FAQs',
+        'Saw it through to a Webflow build'
+      ],
       impact: 'Modo reported a significant drop in Help Desk calls and a clearer, shorter journey for new members.'
     },
     tags: ['site refresh', 'IA', 'card design', 'navigation design'],
@@ -77,7 +86,11 @@ window.portfolioProjects = [
     category: 'ux',
     glance: {
       role: 'Strategy, UX & Graphic Design',
-      did: 'Led strategy, UX and visual design from discovery to launch, including the type and grid system and a splash that teaches visitors how to say the name.',
+      did: [
+        'Led strategy, UX and visual design, discovery to launch',
+        'Set the type, grid and card system',
+        'Designed a splash that teaches visitors to say the name'
+      ],
       impact: 'Launched in time for Milan Design Week 2026, with a structure ready to grow into e-commerce.'
     },
     tags: ['creative direction', 'end-to-end', 'animation'],
@@ -102,7 +115,11 @@ window.portfolioProjects = [
     category: 'ux',
     glance: {
       role: 'UX/UI Design Lead',
-      did: "Reworked the Plans Page journey for each behavioural segment and designed educational plan cards in Telus's Allium system, without dark patterns.",
+      did: [
+        'Reworked the Plans Page journey for each behavioural segment',
+        'Designed educational plan cards in the Allium design system',
+        'Kept the persuasion honest, without dark patterns'
+      ],
       impact: "Moved testing from small tweaks to structural changes. The version that explained the term most clearly was favoured."
     },
     tags: ['IA', 'allium design system', 'enterprise', 'a/b testing', 'analytics', 'user research', 'workshop facilitation'],
@@ -132,7 +149,11 @@ window.portfolioProjects = [
     category: 'ux',
     glance: {
       role: 'Service Designer, User Research, Project Manager',
-      did: "Pitched the concept the gallery's head curators chose, then designed its visual system, the visitor journey and the room layout.",
+      did: [
+        'Pitched the concept the head curators chose',
+        'Designed the generative visual system',
+        'Mapped the visitor journey and room layout'
+      ],
       impact: [
         { figure: '~830', label: 'visitors a day' },
         { figure: '8', label: 'months in the exhibit' },
@@ -163,7 +184,11 @@ window.portfolioProjects = [
     category: 'ux',
     glance: {
       role: 'UX/UI Design',
-      did: "Extended the Volunteering & Giving consent flows from lo-fi to hi-fi inside IBM's Carbon Design System.",
+      did: [
+        'Extended the Volunteering & Giving consent flows',
+        'Took them from lo-fi to hi-fi in Carbon',
+        'Reused existing patterns instead of inventing new ones'
+      ],
       impact: 'Delivered accessible, system-compliant flows on schedule, reusing Carbon patterns so internal review stayed fast.'
     },
     tags: ['carbon design system', 'enterprise', 'benevity platform flow'],
@@ -186,7 +211,11 @@ window.portfolioProjects = [
     category: 'code',
     glance: {
       role: 'Design & Development',
-      did: 'Designed and built a QR-to-receipt-printer submission flow, and the archive site every submission ends up in.',
+      did: [
+        'Designed and built the QR-to-printer submission flow',
+        'Designed the receipt output',
+        'Built the archive every submission ends up in'
+      ],
       impact: [
         { figure: '100+', label: 'submissions across both open calls' },
         { figure: '0', label: 'technical glitches on the night' }
@@ -213,7 +242,11 @@ window.portfolioProjects = [
     category: 'code',
     glance: {
       role: 'Design & Build',
-      did: 'Designed and built a browser VJ controller and a 3D-printed hardware twin, including the electronics and the Python bridge between them.',
+      did: [
+        'Designed and built the browser VJ controller',
+        'Modelled and printed the hardware controller',
+        'Wired the electronics and the Python bridge'
+      ],
       impact: 'Exhibited at Oslo Art Weekend. User testing led me to leave the physical controller unlabelled, so people played instead of reading.'
     },
     // tags shown on the card and case header
@@ -242,7 +275,11 @@ window.portfolioProjects = [
     category: 'code',
     glance: {
       role: 'Design & Build',
-      did: 'Scraped a million-word web artwork and designed a banned-word system that blurs rather than deletes, so the moderation stays visible.',
+      did: [
+        'Scraped a million-word web artwork',
+        'Designed a banned-word system that blurs, not deletes',
+        'Built it to scroll smoothly in the browser'
+      ],
       impact: [
         { figure: '1M+', label: 'words, scrolling smoothly in the browser' }
       ]
