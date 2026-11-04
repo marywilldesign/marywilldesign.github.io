@@ -104,15 +104,17 @@ const still=matchMedia('(prefers-reduced-motion: reduce)').matches;
 let W=1280,mode=3,rects=[],anim,run=0,stW=0,stH=0;
 // measure the stage on resize only
 function measure(){stW=st.clientWidth;stH=st.clientHeight}
-function fit(){const s=Math.min(1,(stW-56)/Math.min(W,1280));fr.style.zoom=s;fr.style.height=((stH-6)/s)+'px';return s}
+// one fixed scale for every width, so devices keep true proportions and nothing zooms mid-transition
+function fit(){const s=Math.min(1,(stW-56)/1280);fr.style.zoom=s;fr.style.height=((stH-6)/s)+'px';return s}
 const snap=()=>{rects=tiles.map(t=>[t.offsetLeft,t.offsetTop])};
 function set(w){
   W=w;fr.style.width=w+'px';$('#w').textContent=Math.round(w);
   const m=modeOf(w);
   document.querySelectorAll('[data-w]').forEach(b=>{const on=modeOf(+b.dataset.w)===m;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)});
-  if(m!==mode&&rects.length){ // glide tiles to their new columns
+  if(m!==mode&&rects.length){ // glide tiles to their new columns, dropping any glide still running
+    tiles.forEach(t=>t.getAnimations().forEach(a=>{if(!(a instanceof CSSTransition))a.cancel()}));
     tiles.forEach((t,i)=>{const dx=rects[i][0]-t.offsetLeft,dy=rects[i][1]-t.offsetTop;
-      if(dx||dy)t.animate([{transform:`translate(${dx}px,${dy}px)`},{transform:'none'}],{duration:750,easing:'cubic-bezier(.2,.8,.2,1)'})});
+      if(dx||dy)t.animate([{transform:`translate(${dx}px,${dy}px)`},{transform:'none'}],{duration:450,easing:'cubic-bezier(.2,.8,.2,1)'})});
   }
   mode=m;snap();fit();
 }
