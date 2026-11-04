@@ -257,8 +257,7 @@ button, a, [data-href] { cursor: pointer; }
   top: 0.16em;
   width: 0.72em;
   height: 0.72em;
-  background: currentColor;
-  background: #0040FF;
+  background: #000;
   -webkit-mask: var(--hook-arrow) no-repeat center / contain;
   mask: var(--hook-arrow) no-repeat center / contain;
 }
