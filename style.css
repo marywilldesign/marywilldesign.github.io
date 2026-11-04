@@ -2358,3 +2358,6 @@ a[aria-current="page"],
   color: var(--gray-900);
   margin-bottom: var(--sp-3);
 }
+
+/* a figure that already has its own edge sits without the black field */
+.figure-frame.is-bare { background: none; padding: 0; }
