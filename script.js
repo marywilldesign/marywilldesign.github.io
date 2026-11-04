@@ -430,6 +430,11 @@ function startSite(initial) {
       cursor.style.left = e.clientX + 'px';
       cursor.style.top = e.clientY + 'px';
     });
+    // over a link the blue highlight sits behind the dot, so it turns plain white there
+    document.addEventListener('mouseover', (e) => {
+      const onLink = !!(e.target.closest && e.target.closest('a'));
+      cursor.classList.toggle('on-link', onLink);
+    });
   }
 })();
 

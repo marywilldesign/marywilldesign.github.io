@@ -1635,13 +1635,15 @@ body.case-page .filters { display: none; }
   left: 0;
   width: 10px;
   height: 10px;
-  background: #0040FF;
-  border: 1px solid var(--white);
+  /* white, inverted against whatever is underneath: black on the page, white on dark media */
+  background: #fff;
+  mix-blend-mode: difference;
   border-radius: 50%;
   pointer-events: none;
   transform: translate(-50%, -50%);
   z-index: 999999;
 }
+#custom-cursor.on-link { mix-blend-mode: normal; }
 
 /* cursor handling */
 @media (hover: hover) and (pointer: fine) {
