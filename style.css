@@ -82,6 +82,16 @@
   src: url('fonts/NeueMontreal-MediumItalic.woff2') format('woff2');
 }
 
+/* regular, under its own name so only the intro uses it;
+   declared at 400 in the main family it would replace every body text's medium */
+@font-face {
+  font-family: 'NeueMontreal Regular';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/NeueMontreal-Regular.woff2') format('woff2');
+}
+
 /* metric-matched local fallback for neue montreal */
 @font-face {
   font-family: 'NeueMontreal-metric Arial';
@@ -224,7 +234,9 @@ button, a, [data-href] { cursor: pointer; }
   font-size: clamp(1.1rem, 3.4cqw, 3.6rem);
   line-height: 1.12;
   letter-spacing: -0.015em;
-  /* connecting words recede so the bold facts scan on their own */
+  /* connecting words recede in regular grey so the facts scan on their own */
+  font-family: 'NeueMontreal Regular', var(--font-sans);
+  font-weight: 400;
   color: var(--gray-500);
 }
 .intro-lines li {
@@ -251,12 +263,13 @@ button, a, [data-href] { cursor: pointer; }
   mask: var(--hook-arrow) no-repeat center / contain;
 }
 .intro-lines strong {
-  font-weight: 700;
+  font-family: var(--font-sans);
+  font-weight: 500;
   color: #000;
   /* each fact stays in one piece when a line wraps */
   white-space: nowrap;
 }
-.intro-lines em { color: #000; }
+.intro-lines em { font-family: var(--font-sans); font-weight: 500; color: #000; }
 .intro-lines em { font-style: italic; }
 
 .panel-home .sidebar-bottom { padding-top: var(--sp-10); }

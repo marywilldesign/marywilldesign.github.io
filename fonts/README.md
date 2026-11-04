@@ -32,6 +32,11 @@ them declared, `<strong>` and `<em>` anywhere on the site get the real drawings
 instead of a faux bold or slanted Medium. The intro's ⤷ arrows are not in the
 family at all, so they are drawn as an SVG mask (`--hook-arrow` in `style.css`).
 
+The intro's grey connecting words are set in Regular (`NeueMontreal-Regular.woff2`),
+declared as its own family, `'NeueMontreal Regular'`, rather than at 400 in
+`NeueMontreal`: the stylesheet's many 400s rely on landing on Medium, and a real
+400 face would quietly thin every one of them.
+
 Before that, only the Medium weight was in the file, and that is what the whole site is set
 in: the face is declared at 500, the weight it was drawn at, and nothing asks
 for more, so the browser never synthesises a bold over it. A 400 request lands
