@@ -138,18 +138,26 @@ body {
 
 img { display: block; max-width: 100%; height: auto; }
 
-/* links carry no underline at rest; one draws in left to right on hover,
-   keyboard focus and press, and stays drawn on the current page */
+/* links: on hover, focus and press a blue highlight sweeps in left to right
+   and the text turns white; the current page keeps its highlight */
 a,
-.topbar-back {
-  color: var(--blue);
+.topbar-back,
+.intro-name-text,
+.intro-about {
+  --hl: #0040FF;
   text-decoration: none;
-  background-image: linear-gradient(currentColor, currentColor);
+  background-image: linear-gradient(var(--hl), var(--hl));
   background-repeat: no-repeat;
-  background-position: 0 100%;
-  background-size: 0 var(--underline, max(1px, 0.06em));
-  transition: background-size 0.3s ease;
+  background-position: 0 0;
+  background-size: 0 100%;
+  /* a sliver of room either side, without shifting the text */
+  padding: 0 0.14em;
+  margin: 0 -0.14em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  transition: background-size 0.22s ease-out, color 0.18s ease-out;
 }
+a { color: var(--blue); }
 a:hover,
 a:focus-visible,
 a:active,
@@ -159,11 +167,14 @@ a:active,
 a.active,
 a[aria-current="page"] {
   text-decoration: none;
-  background-size: 100% var(--underline, max(1px, 0.06em));
+  background-size: 100% 100%;
+  color: #fff;
 }
 @media (prefers-reduced-motion: reduce) {
   a,
-  .topbar-back { transition: none; }
+  .topbar-back,
+  .intro-name-text,
+  .intro-about { transition: none; }
 }
 
 /* keyboard focus ring */
@@ -238,25 +249,24 @@ button, a, [data-href] { cursor: pointer; }
 /* phone-menu project list, only while a case study is open on a phone */
 #panel-projects { display: none; }
 
-/* the name opens about; the underline draws under the name only */
+/* the name opens about; the name and (about) each take the highlight */
 .intro-name-link,
 .intro-name-link:hover,
 .intro-name-link:focus-visible,
 .intro-name-link:active {
   color: #0040FF;
   background-image: none;
-}
-.intro-name-text {
-  background-image: linear-gradient(currentColor, currentColor);
-  background-repeat: no-repeat;
-  background-position: 0 100%;
-  background-size: 0 max(1px, 0.04em);
-  transition: background-size 0.3s ease;
+  padding: 0;
+  margin: 0;
 }
 .intro-name-link:hover .intro-name-text,
 .intro-name-link:focus-visible .intro-name-text,
-.intro-name-link:active .intro-name-text {
-  background-size: 100% max(1px, 0.04em);
+.intro-name-link:active .intro-name-text,
+.intro-name-link:hover .intro-about,
+.intro-name-link:focus-visible .intro-about,
+.intro-name-link:active .intro-about {
+  background-size: 100% 100%;
+  color: #fff;
 }
 /* (about), set small at the cap line like a footnote */
 .intro-about {
@@ -267,9 +277,6 @@ button, a, [data-href] { cursor: pointer; }
   line-height: 1;
   letter-spacing: 0;
   color: #0040FF;
-}
-@media (prefers-reduced-motion: reduce) {
-  .intro-name-text { transition: none; }
 }
 /* wide screens open about from the name; phones keep it in the top bar */
 @media (min-width: 768px) {
@@ -326,8 +333,6 @@ button, a, [data-href] { cursor: pointer; }
   /* each fact stays in one piece when a line wraps */
   white-space: nowrap;
 }
-.intro-lines em { font-family: var(--font-sans); font-weight: 500; color: #000; }
-.intro-lines em { font-style: italic; }
 
 .panel-home .sidebar-bottom { padding-top: var(--sp-10); }
 .panel-home .sidebar-links {
@@ -781,9 +786,10 @@ body.case-page .filters { display: none; }
 .card-link[aria-current="page"] {
   font-weight: inherit;
 }
-/* the card title underlines while the whole card is hovered */
+/* the card title highlights while the whole card is hovered */
 .case-card[data-href]:hover .card-link {
-  background-size: 100% var(--underline, max(1px, 0.06em));
+  background-size: 100% 100%;
+  color: #fff;
 }
 
 .card-summary {
@@ -2060,3 +2066,15 @@ html.boot-home body { visibility: hidden; }
 /* stacked link lists: each link only as wide as its text, so the underline is too */
 .sidebar-links,
 .project-view-links { align-items: flex-start; }
+
+/* highlighted links always read white, whatever colour a component gives them at rest */
+a:hover,
+a:focus-visible,
+a:active,
+a.active,
+a[aria-current="page"],
+.topbar-back:hover,
+.topbar-back:focus-visible,
+.topbar-back:active {
+  color: #fff !important;
+}
