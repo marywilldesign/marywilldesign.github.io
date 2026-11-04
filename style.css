@@ -1882,23 +1882,47 @@ html.is-touch [data-href] { cursor: pointer !important; }
   transform: scale(1.05);
 }
 
-/* wide screens: an open case study blurs and dims the grid and cv */
-.content,
-.sidebar-right {
-  transition: filter var(--transition-slow);
-}
+/* wide screens: an open case study or about spans everything left of the cv,
+   and the cv sits under a light scrim that closes it */
+.view-scrim { display: none; }
 @media (min-width: 768px) {
-  .layout.view-open .content,
+  .layout.view-open .content { display: none; }
+  .layout.view-open .sidebar {
+    flex-basis: calc(100% - var(--sidebar-right-w));
+    width: calc(100% - var(--sidebar-right-w));
+    /* the cv's own black hairline is the divider */
+    border-right: 0;
+  }
+  /* tablets bring the cv back while a view is open */
   .layout.view-open .sidebar-right {
-    filter: blur(6px) brightness(0.8);
+    display: block;
     user-select: none;
     -webkit-user-select: none;
   }
-  .layout.view-open .to-top { display: none; }
+  .view-scrim {
+    display: block;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    /* stops short of the hairline so the line stays crisp */
+    width: calc(var(--sidebar-right-w) - 1px);
+    z-index: 20;
+    pointer-events: none;
+    background: rgba(0, 0, 0, 0.16);
+    -webkit-backdrop-filter: blur(1.5px);
+    backdrop-filter: blur(1.5px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-slow), visibility var(--transition-slow);
+  }
+  .layout.view-open ~ .view-scrim {
+    opacity: 1;
+    visibility: visible;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
-  .content,
-  .sidebar-right { transition: none; }
+  .view-scrim { transition: none; }
 }
 
 /* close / open pill that follows the pointer over the blurred side */

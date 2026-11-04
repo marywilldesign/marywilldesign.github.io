@@ -483,8 +483,9 @@ function initHome(initial) {
   const findProject = (id) => projects.find((p) => p.id === id) || null;
   const modified = (e) => e.metaKey || e.ctrlKey || e.shiftKey || e.altKey;
 
+  const cvColumn = document.getElementById('sidebar-right');
   let view = null;      // the open case study or about view
-  let gridScroll = 0;   // phone scroll position to come back to
+  let gridScroll = 0;   // grid scroll position to come back to
   let loadToken = 0;    // ignore a fetch that a newer click overtook
 
   // pin relative links to this page before the url starts changing,
@@ -563,14 +564,13 @@ function initHome(initial) {
   }
 
   function mount(wrapper) {
-    if (!view && !wide.matches) gridScroll = window.scrollY;
+    if (!view) gridScroll = wide.matches ? content.scrollTop : window.scrollY;
     if (view) view.remove();
     view = wrapper;
     host().appendChild(view);
     sync();
     const pane = scroller();
     if (pane) pane.scrollTop = 0;
-    content.scrollTop = wide.matches ? content.scrollTop : 0;
     if (!wide.matches) window.scrollTo(0, 0);
     if (window.closeMobileMenu) window.closeMobileMenu();
     // the pointer is usually already over the blurred side
@@ -585,7 +585,8 @@ function initHome(initial) {
     view = null;
     sync();
     sidebar.scrollTop = 0;
-    if (!wide.matches) window.scrollTo(0, gridScroll);
+    if (wide.matches) content.scrollTop = gridScroll;
+    else window.scrollTo(0, gridScroll);
     markProjectNav(null);
     document.title = HOME_TITLE;
     if (!opts || opts.push !== false) setUrl(siteUrl('./'), { project: null });
@@ -713,27 +714,20 @@ function initHome(initial) {
     if (project) openProject(project);
   });
 
-  // the blurred side: a card opens, anywhere else closes
+  // the cv under the scrim: a click anywhere on it closes the view
   function inBlurredZone(target) {
     if (!view || !wide.matches || !target || !target.closest) return false;
-    return !!target.closest('#content, #sidebar-right');
+    return !!target.closest('#sidebar-right');
   }
 
   window.addEventListener('click', (e) => {
     if (!inBlurredZone(e.target)) return;
     e.preventDefault();
     e.stopPropagation();
-    const card = e.target.closest('.case-card[data-id]');
-    const project = card ? findProject(card.dataset.id) : null;
-    if (project) {
-      trackEvent('case-study-open', { project: project.title, from: 'blurred grid' });
-      openProject(project);
-    } else {
-      closeView();
-    }
+    closeView();
   }, true);
 
-  // pill that follows the pointer over the blurred side
+  // close pill that follows the pointer over the cv
   let lastPoint = null;
 
   function hidePill() {
@@ -742,8 +736,8 @@ function initHome(initial) {
     document.documentElement.classList.remove('pill-active');
   }
 
-  // with a point, follow the pointer; without one, sit at the top of the grid (touch)
-  function showPillAt(point, label) {
+  // with a point, follow the pointer; without one, sit at the top of the cv (touch)
+  function showPillAt(point) {
     if (!pill) return;
     if (point) {
       pill.style.left = point.x + 'px';
@@ -751,12 +745,12 @@ function initHome(initial) {
       pill.classList.remove('is-fixed');
       document.documentElement.classList.add('pill-active');
     } else {
-      const rect = content.getBoundingClientRect();
+      const rect = (cvColumn || content).getBoundingClientRect();
       pill.style.left = (rect.left + rect.width / 2) + 'px';
       pill.style.top = (rect.top + 48) + 'px';
       pill.classList.add('is-fixed');
     }
-    pill.textContent = label || 'close';
+    pill.textContent = 'close';
     pill.classList.add('is-visible');
   }
 
@@ -768,14 +762,12 @@ function initHome(initial) {
       hidePill();
       return;
     }
-    const overCard = !!target.closest('.case-card[data-id]');
-    showPillAt(point, overCard ? 'open →' : 'close');
+    showPillAt(point);
   }
 
   window.addEventListener('mousemove', (e) => updatePill({ x: e.clientX, y: e.clientY }), { passive: true });
   document.documentElement.addEventListener('mouseleave', hidePill);
-  // the card under a still pointer changes as the grid scrolls
-  content.addEventListener('scroll', () => { if (lastPoint && view) updatePill(lastPoint); }, { passive: true });
+
   if (pill) pill.addEventListener('click', () => closeView());
 
   window.addEventListener('resize', () => { if (view && wide.matches && isTouch()) showPillAt(null); });
