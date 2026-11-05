@@ -230,6 +230,9 @@
     <!-- right sidebar (cv), filled from projects.js -->
     <aside class="sidebar-right" id="sidebar-right"></aside>
 
+    <!-- the other projects, in place of the cv while a case study is open -->
+    <nav class="project-rail" id="project-rail" aria-label="Other projects"></nav>
+
   </div>
 
   <template id="about-template">
@@ -271,12 +274,6 @@
       </div>
     </section>
   </template>
-
-  <!-- light scrim over the cv while a case study is open -->
-  <div class="view-scrim" aria-hidden="true"></div>
-
-  <!-- close pill over the cv while a case study is open -->
-  <div class="view-pill" id="view-pill" aria-hidden="true">close</div>
 
   <div id="custom-cursor"></div>
 

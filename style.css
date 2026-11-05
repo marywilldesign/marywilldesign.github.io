@@ -144,7 +144,9 @@ img { display: block; max-width: 100%; height: auto; }
 /* links: on hover, focus and press a blue highlight sweeps in left to right
    and the text turns white; the current page keeps its highlight */
 a,
-.topbar-back {
+.topbar-back,
+.back-to-top,
+.rail-close {
   --hl: #0040FF;
   text-decoration: none;
   background-image: linear-gradient(var(--hl), var(--hl));
@@ -165,6 +167,12 @@ a:active,
 .topbar-back:hover,
 .topbar-back:focus-visible,
 .topbar-back:active,
+.back-to-top:hover,
+.back-to-top:focus-visible,
+.back-to-top:active,
+.rail-close:hover,
+.rail-close:focus-visible,
+.rail-close:active,
 a.active,
 a[aria-current="page"] {
   text-decoration: none;
@@ -173,7 +181,9 @@ a[aria-current="page"] {
 }
 @media (prefers-reduced-motion: reduce) {
   a,
-  .topbar-back { transition: none; }
+  .topbar-back,
+  .back-to-top,
+  .rail-close { transition: none; }
 }
 
 /* keyboard focus ring */
@@ -1406,14 +1416,16 @@ body.case-page .filters { display: none; }
   color: var(--blue-hover);
 }
 .back-to-top {
-  font-size: 0.78rem;
-  color: var(--gray-400);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--blue-hover);
   cursor: pointer;
-  background: none;
+  /* only the colour: the link highlight is a background image */
+  background-color: transparent;
   border: none;
   font-family: var(--font-sans);
+  line-height: inherit;
 }
-.back-to-top:hover { color: var(--blue-hover); }
 /* short prev/next labels on phones */
 .nav-label-short { display: none; }
 @media (max-width: 640px) {
@@ -1644,7 +1656,6 @@ body.case-page .filters { display: none; }
   transform: translate(-50%, -50%);
   z-index: 999999;
 }
-#custom-cursor.on-link { mix-blend-mode: normal; }
 
 /* cursor handling */
 @media (hover: hover) and (pointer: fine) {
@@ -1849,7 +1860,7 @@ html.is-touch [data-href] { cursor: pointer !important; }
 
 /* print */
 @media print {
-  .sidebar, .sidebar-right, .filters, .topbar,
+  .sidebar, .sidebar-right, .project-rail, .filters, .topbar,
   #custom-cursor, .menu-backdrop { display: none !important; }
   .layout { display: block; height: auto; overflow: visible; }
   .content { overflow: visible; padding: 0; }
@@ -1959,79 +1970,166 @@ html.is-touch [data-href] { cursor: pointer !important; }
   transform: scale(1.05);
 }
 
-/* wide screens: an open case study or about spans everything left of the cv,
-   and the cv sits under a light scrim that closes it */
-.view-scrim { display: none; }
+/* wide screens: an open case study or about spans everything left of the rail,
+   and the other projects take the cv's place so visitors can hop between them */
+.project-rail { display: none; }
 @media (min-width: 768px) {
-  .layout.view-open .content { display: none; }
+  .layout.view-open .content,
+  .layout.view-open .sidebar-right { display: none; }
   .layout.view-open .sidebar {
     flex-basis: calc(100% - var(--sidebar-right-w));
     width: calc(100% - var(--sidebar-right-w));
-    /* the cv's own black hairline is the divider */
+    /* the rail's own hairline is the divider */
     border-right: 0;
   }
-  /* tablets bring the cv back while a view is open */
-  .layout.view-open .sidebar-right {
-    display: block;
-    user-select: none;
-    -webkit-user-select: none;
+  .layout.view-open .project-rail {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+    width: var(--sidebar-right-w);
+    min-width: var(--sidebar-right-w);
+    height: 100%;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 0 var(--sp-4) var(--sp-6);
+    background: #ffffff;
+    border-left: 1px solid var(--blue);
+    animation: rail-in 0.3s ease both;
   }
-  .view-scrim {
-    display: block;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    /* stops short of the hairline so the line stays crisp */
-    width: calc(var(--sidebar-right-w) - 1px);
-    z-index: 20;
-    pointer-events: none;
-    background: rgba(255, 255, 255, 0.6);
-    -webkit-backdrop-filter: blur(1.5px);
-    backdrop-filter: blur(1.5px);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity var(--transition-slow), visibility var(--transition-slow);
-  }
-  .layout.view-open ~ .view-scrim {
-    opacity: 1;
-    visibility: visible;
-  }
+}
+@keyframes rail-in {
+  from { opacity: 0; transform: translateX(12px); }
+  to { opacity: 1; transform: none; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .view-scrim { transition: none; }
+  .layout.view-open .project-rail { animation: none; }
 }
 
-/* close / open pill that follows the pointer over the blurred side */
-.view-pill {
-  position: fixed;
-  left: 0;
+/* close and resume, pinned to the top of the rail */
+.rail-head {
+  position: sticky;
   top: 0;
-  z-index: 1000;
-  pointer-events: none;
-  padding: 0.4em 0.8em;
-  border-radius: 999px;
-  /* inverts like the cursor dot: the pill flips what's underneath,
-     and the black text leaves it unflipped, so the label reads inverted against the pill */
-  background: #fff;
-  color: #000;
-  mix-blend-mode: difference;
-  font-size: 0.85rem;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--sp-3);
+  margin: 0 calc(-1 * var(--sp-4));
+  padding: var(--page-pad) var(--sp-4) var(--sp-4);
+  background: #ffffff;
+  border-bottom: 1px solid var(--gray-100);
+  font-size: 0.8rem;
+}
+.rail-close {
+  cursor: pointer;
+  color: #0040FF;
+  font: inherit;
   font-weight: 500;
-  line-height: 1;
-  white-space: nowrap;
-  opacity: 0;
-  transform: translate(-50%, -50%) scale(0.9);
-  transition: opacity 0.15s ease, transform 0.15s ease;
+  line-height: inherit;
+  background-color: transparent;
+  border: 0;
 }
-.view-pill.is-visible {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
+
+/* condensed project cards: white with the grid cards' grey border */
+.rail-card {
+  display: block;
+  flex: none;
+  color: var(--gray-900);
+  background-color: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 4px;
+  overflow: hidden;
+  /* drop the site-wide link highlight and its side padding: on a card it showed as a blue edge */
+  background-image: none;
+  padding: 0;
+  margin: 0;
+  transition: transform var(--transition), border-color var(--transition);
 }
-/* on touch screens it sits at the top of the grid and can be tapped */
-.view-pill.is-fixed { pointer-events: auto; }
-/* the pill stands in for the cursor dot */
-html.pill-active #custom-cursor { opacity: 0; }
+.rail-card:hover,
+.rail-card:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--blue-hover);
+}
+.rail-card:focus-visible { outline: 2px solid #0040FF; outline-offset: 2px; }
+.rail-thumb {
+  display: block;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+}
+/* the collaborative sentence cover is white, so a hairline marks where it meets the text */
+.rail-card[data-id="collaborativesentence"] .rail-thumb { border-bottom: 1px solid var(--gray-100); }
+.rail-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform 0.4s ease;
+}
+.rail-card:hover .rail-thumb img { transform: scale(1.03); }
+.rail-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: var(--sp-3);
+}
+.rail-title {
+  font-size: 0.8rem;
+  line-height: 1.25;
+  font-weight: 500;
+  color: var(--gray-900);
+}
+.rail-year {
+  font-size: 0.68rem;
+  color: var(--gray-400);
+}
+.rail-summary {
+  margin-top: 0.15rem;
+  font-size: 0.7rem;
+  line-height: 1.45;
+  color: var(--gray-500);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
+}
+/* the project already open: washed dark, not a link, with a slow green dot top left */
+.rail-card.is-current {
+  position: relative;
+  cursor: default;
+  transform: none;
+}
+/* one dark wash over the whole card, picture and text alike */
+.rail-card.is-current::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  pointer-events: none;
+}
+.rail-card.is-current .rail-thumb img { transform: none; }
+.rail-card.is-current:hover { border-color: var(--gray-200); }
+.rail-card.is-current::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 2;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  /* deep green at the same full saturation as the site blue */
+  background: hsl(145, 100%, 32%);
+  animation: rail-viewing 2.4s ease-in-out infinite;
+}
+@keyframes rail-viewing {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rail-card.is-current::before { animation: none; }
+}
 
 /* hide a standalone page while it swaps in the home layout */
 html.boot-home { background: #fff; }
@@ -2066,7 +2164,13 @@ a.active,
 a[aria-current="page"],
 .topbar-back:hover,
 .topbar-back:focus-visible,
-.topbar-back:active {
+.topbar-back:active,
+.back-to-top:hover,
+.back-to-top:focus-visible,
+.back-to-top:active,
+.rail-close:hover,
+.rail-close:focus-visible,
+.rail-close:active {
   color: #fff !important;
 }
 
