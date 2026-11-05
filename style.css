@@ -542,6 +542,8 @@ button, a, [data-href] { cursor: pointer; }
 .cv-subitem .cv-org { font-size: 0.7rem; }
 .cv-subitem .cv-date { font-size: 0.6rem; }
 
+/* tools: the list in Regular, lighter than its Medium group label */
+.cv-tool-items { font-family: 'NeueMontreal Regular', var(--font-sans); font-weight: 400; }
 /* curved arrow before each tools line */
 .cv-tool-items::before {
   content: "";
