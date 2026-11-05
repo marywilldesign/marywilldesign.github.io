@@ -430,11 +430,6 @@ function startSite(initial) {
       cursor.style.left = e.clientX + 'px';
       cursor.style.top = e.clientY + 'px';
     });
-    // over a link or filter the blue highlight sits behind the dot, so it turns plain white there
-    document.addEventListener('mouseover', (e) => {
-      const onLink = !!(e.target.closest && e.target.closest('a, .filter-btn'));
-      cursor.classList.toggle('on-link', onLink);
-    });
   }
 })();
 
@@ -538,17 +533,15 @@ function initHome(initial) {
   const panelView = document.getElementById('panel-view');
   const panelProjects = document.getElementById('panel-projects');
   const sidebar = document.getElementById('sidebar');
-  const pill = document.getElementById('view-pill');
   const aboutTemplate = document.getElementById('about-template');
   if (!layout || !content || !gridView || !panelView || !sidebar) return null;
 
   const wide = window.matchMedia(WIDE_QUERY);
-  const isTouch = () => document.documentElement.classList.contains('is-touch');
   const projects = window.portfolioProjects || [];
   const findProject = (id) => projects.find((p) => p.id === id) || null;
   const modified = (e) => e.metaKey || e.ctrlKey || e.shiftKey || e.altKey;
 
-  const cvColumn = document.getElementById('sidebar-right');
+  const rail = document.getElementById('project-rail');
   let view = null;      // the open case study or about view
   let gridScroll = 0;   // grid scroll position to come back to
   let loadToken = 0;    // ignore a fetch that a newer click overtook
@@ -588,7 +581,108 @@ function initHome(initial) {
     });
   }
 
+  // the other projects, shown beside an open case study on wide screens
+  if (rail) {
+    const head = document.createElement('div');
+    head.className = 'rail-head';
+    const closeBtn = document.createElement('button');
+    closeBtn.type = 'button';
+    closeBtn.className = 'rail-close';
+    closeBtn.textContent = 'close';
+    closeBtn.addEventListener('click', () => closeView());
+    const resume = document.createElement('a');
+    resume.className = 'download-link rail-resume';
+    resume.href = siteUrl(RESUME_FILE);
+    resume.download = RESUME_FILE;
+    resume.append('resume ');
+    const arrow = document.createElement('span');
+    arrow.className = 'arrow';
+    arrow.setAttribute('aria-hidden', 'true');
+    arrow.textContent = '↗';
+    resume.appendChild(arrow);
+    head.append(closeBtn, resume);
+    rail.appendChild(head);
+
+    // same order as the home grid, so the list matches what visitors saw there
+    const inGridOrder = [...gridView.querySelectorAll('.case-card[data-id]')]
+      .map((card) => findProject(card.dataset.id))
+      .filter(Boolean);
+    projects.forEach((project) => { if (!inGridOrder.includes(project)) inGridOrder.push(project); });
+    inGridOrder.forEach((project) => {
+      const card = gridView.querySelector(`.case-card[data-id="${project.id}"]`);
+      const media = card && card.querySelector('.card-image img, .card-image video');
+      const link = document.createElement('a');
+      link.className = 'rail-card';
+      link.href = siteUrl(project.href);
+      link.dataset.id = project.id;
+      if (media) {
+        const thumb = document.createElement('span');
+        thumb.className = 'rail-thumb';
+        const img = document.createElement('img');
+        img.src = media.tagName === 'VIDEO' ? media.poster : media.src;
+        img.alt = '';
+        img.loading = 'lazy';
+        img.decoding = 'async';
+        thumb.appendChild(img);
+        link.appendChild(thumb);
+      }
+      // title, year and the card's summary, cut to a couple of lines
+      const body = document.createElement('span');
+      body.className = 'rail-body';
+      const title = document.createElement('span');
+      title.className = 'rail-title';
+      title.textContent = project.shortTitle || project.title;
+      body.appendChild(title);
+      const year = project.meta && project.meta.year;
+      if (year) {
+        const when = document.createElement('span');
+        when.className = 'rail-year';
+        when.textContent = year.replace(/\s*-\s*/, ' – ');
+        body.appendChild(when);
+      }
+      const summary = card && card.querySelector('.card-summary');
+      if (summary) {
+        const blurb = document.createElement('span');
+        blurb.className = 'rail-summary';
+        blurb.textContent = summary.textContent.trim();
+        body.appendChild(blurb);
+      }
+      link.appendChild(body);
+      link.addEventListener('click', (e) => {
+        if (modified(e)) return;
+        e.preventDefault();
+        if (link.classList.contains('is-current')) return;
+        openProject(project);
+      });
+      rail.appendChild(link);
+    });
+  }
+
+  function markRail(id) {
+    if (!rail) return;
+    let current = null;
+    rail.querySelectorAll('.rail-card').forEach((link) => {
+      const on = link.dataset.id === id;
+      link.classList.toggle('is-current', on);
+      if (on) {
+        link.setAttribute('aria-current', 'page');
+        current = link;
+      } else {
+        link.removeAttribute('aria-current');
+      }
+    });
+    // bring the open project into view inside the rail, under its sticky header
+    if (current) {
+      const head = rail.querySelector('.rail-head');
+      const top = current.offsetTop - (head ? head.offsetHeight : 0) - 16;
+      if (top < rail.scrollTop || current.offsetTop + current.offsetHeight > rail.scrollTop + rail.clientHeight) {
+        rail.scrollTop = Math.max(0, top);
+      }
+    }
+  }
+
   function markProjectNav(id) {
+    markRail(id);
     if (!panelProjects) return;
     panelProjects.querySelectorAll('a').forEach((link) => {
       const on = link.dataset.id === id;
@@ -615,17 +709,12 @@ function initHome(initial) {
     return wide.matches ? sidebar : null;
   }
 
-  // keep classes, the view's position and the pill in step with the screen size
+  // keep classes and the view's position in step with the screen size
   function sync() {
     const open = !!view;
     layout.classList.toggle('view-open', open);
     if (view && view.parentNode !== host()) host().appendChild(view);
     gridView.hidden = open && !wide.matches;
-    if (open && wide.matches && isTouch()) {
-      showPillAt(null);
-    } else if (!open || !wide.matches) {
-      hidePill();
-    }
   }
 
   function mount(wrapper) {
@@ -638,8 +727,6 @@ function initHome(initial) {
     if (pane) pane.scrollTop = 0;
     if (!wide.matches) window.scrollTo(0, 0);
     if (window.closeMobileMenu) window.closeMobileMenu();
-    // the pointer is usually already over the blurred side
-    if (lastPoint) updatePill(lastPoint);
     document.dispatchEvent(new CustomEvent('view-mounted', { detail: wrapper }));
   }
 
@@ -787,64 +874,6 @@ function initHome(initial) {
     const project = findProject(card.dataset.id);
     if (project) openProject(project);
   });
-
-  // the cv under the scrim: a click anywhere on it closes the view
-  function inBlurredZone(target) {
-    if (!view || !wide.matches || !target || !target.closest) return false;
-    return !!target.closest('#sidebar-right');
-  }
-
-  window.addEventListener('click', (e) => {
-    if (!inBlurredZone(e.target)) return;
-    e.preventDefault();
-    e.stopPropagation();
-    closeView();
-  }, true);
-
-  // close pill that follows the pointer over the cv
-  let lastPoint = null;
-
-  function hidePill() {
-    if (!pill) return;
-    pill.classList.remove('is-visible', 'is-fixed');
-    document.documentElement.classList.remove('pill-active');
-  }
-
-  // with a point, follow the pointer; without one, sit at the top of the cv (touch)
-  function showPillAt(point) {
-    if (!pill) return;
-    if (point) {
-      pill.style.left = point.x + 'px';
-      pill.style.top = point.y + 'px';
-      pill.classList.remove('is-fixed');
-      document.documentElement.classList.add('pill-active');
-    } else {
-      const rect = (cvColumn || content).getBoundingClientRect();
-      pill.style.left = (rect.left + rect.width / 2) + 'px';
-      pill.style.top = (rect.top + 48) + 'px';
-      pill.classList.add('is-fixed');
-    }
-    pill.textContent = 'close';
-    pill.classList.add('is-visible');
-  }
-
-  function updatePill(point) {
-    lastPoint = point;
-    if (isTouch()) return;
-    const target = document.elementFromPoint(point.x, point.y);
-    if (!inBlurredZone(target)) {
-      hidePill();
-      return;
-    }
-    showPillAt(point);
-  }
-
-  window.addEventListener('mousemove', (e) => updatePill({ x: e.clientX, y: e.clientY }), { passive: true });
-  document.documentElement.addEventListener('mouseleave', hidePill);
-
-  if (pill) pill.addEventListener('click', () => closeView());
-
-  window.addEventListener('resize', () => { if (view && wide.matches && isTouch()) showPillAt(null); });
 
   document.addEventListener('keydown', (e) => {
     if (e.key !== 'Escape' || !view) return;
