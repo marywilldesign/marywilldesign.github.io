@@ -1467,33 +1467,93 @@ onReady(function () {
   onReady(init);
 })();
 
-// back to top button on the home grid
+// back to top under the last card on the home grid
+// (delegated, so it still works after a case study page swaps in the home layout)
+document.addEventListener('click', (e) => {
+  if (!e.target.closest || !e.target.closest('#to-top')) return;
+  const pane = document.getElementById('content');
+  const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const behavior = calm ? 'auto' : 'smooth';
+  if (pane) pane.scrollTo({ top: 0, behavior });
+  window.scrollTo({ top: 0, behavior });
+});
+
+// line up the last lines of the grid (back to top) and the cv with the sidebar's
+// credit line, so all three columns end on one baseline once scrolled to the bottom
 (function () {
-  const button = document.getElementById('to-top');
-  if (!button) return;
+  // how far an element's last baseline sits above its bottom edge
+  function baselineGap(el) {
+    const mark = document.createElement('span');
+    mark.style.cssText = 'display:inline-block;width:0;height:0;vertical-align:baseline';
+    el.appendChild(mark);
+    const gap = el.getBoundingClientRect().bottom - mark.getBoundingClientRect().top;
+    mark.remove();
+    return gap;
+  }
 
-  const pane = document.querySelector('.content') || document.getElementById('content');
+  function lastText(root) {
+    let el = root;
+    while (el && el.lastElementChild) el = el.lastElementChild;
+    return el;
+  }
 
-  // check which element scrolls
-  const paneScrolls = () => !!pane && pane.scrollHeight > pane.clientHeight + 1;
-  const scrolled = () => (paneScrolls() ? pane.scrollTop : window.scrollY || 0);
-  const viewport = () => (paneScrolls() ? pane.clientHeight : window.innerHeight);
+  function align() {
+    const made = document.querySelector('.panel-home .made-row .made:last-child');
+    const button = document.getElementById('to-top');
+    const cv = document.getElementById('sidebar-right');
+    if (button) button.style.marginBottom = '';
+    if (cv) cv.style.paddingBottom = '';
+    // only when the credit line is on screen in the side panel
+    if (!made || !made.offsetParent) return;
+    const madeGap = baselineGap(made);
 
-  const update = () => button.classList.toggle('is-visible', scrolled() > viewport() * 0.6);
+    if (button && button.offsetParent) {
+      // negative when the button's line box is taller than the credit line's
+      button.style.marginBottom = (madeGap - baselineGap(button)) + 'px';
+    }
+    const cvLast = cv && cv.offsetParent && lastText(cv);
+    if (cvLast) {
+      // the cv's bottom padding becomes the grid's page padding plus the same baseline offset
+      const pad = parseFloat(getComputedStyle(document.querySelector('.content')).paddingBottom) || 0;
+      cv.style.paddingBottom = Math.max(0, pad + madeGap - baselineGap(cvLast)) + 'px';
+    }
+  }
 
-  [window, pane].forEach((target) => {
-    if (target) target.addEventListener('scroll', update, { passive: true });
-  });
-  window.addEventListener('resize', update);
-  update();
-
-  button.addEventListener('click', () => {
-    const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const behavior = calm ? 'auto' : 'smooth';
-    if (pane) pane.scrollTo({ top: 0, behavior });
-    window.scrollTo({ top: 0, behavior });
+  let queued = false;
+  const schedule = () => {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(() => { queued = false; align(); });
+  };
+  // the cv is filled in, views open and close, and a case study page swaps in the
+  // home layout after load: watch those, re-binding whenever the body is replaced
+  const watchers = [];
+  function bind() {
+    watchers.forEach((w) => w.disconnect());
+    watchers.length = 0;
+    const layout = document.querySelector('.layout');
+    const cv = document.getElementById('sidebar-right');
+    if (layout) {
+      const w = new MutationObserver(schedule);
+      w.observe(layout, { attributes: true, attributeFilter: ['class'] });
+      watchers.push(w);
+    }
+    if (cv) {
+      const w = new MutationObserver(schedule);
+      w.observe(cv, { childList: true });
+      watchers.push(w);
+    }
+    schedule();
+  }
+  onReady(() => {
+    if (!window.MutationObserver) { schedule(); return; }
+    bind();
+    new MutationObserver(bind).observe(document.body, { childList: true });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(schedule);
+    window.addEventListener('resize', schedule);
   });
 })();
+
 // umami analytics
 (function () {
   const projects = () => window.portfolioProjects || [];
