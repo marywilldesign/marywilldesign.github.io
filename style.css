@@ -2094,7 +2094,7 @@ html.is-touch [data-href] { cursor: pointer !important; }
   line-clamp: 3;
   overflow: hidden;
 }
-/* the project already open: washed dark, not a link, with a slow green dot top left */
+/* the project already open: washed dark, not a link, with a slow white dot top left */
 .rail-card.is-current {
   position: relative;
   cursor: default;
@@ -2119,8 +2119,8 @@ html.is-touch [data-href] { cursor: pointer !important; }
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  /* deep green at the same full saturation as the site blue */
-  background: hsl(145, 100%, 32%);
+  /* white, bright against the card's dark wash */
+  background: #ffffff;
   animation: rail-viewing 2.4s ease-in-out infinite;
 }
 @keyframes rail-viewing {
