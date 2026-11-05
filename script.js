@@ -713,6 +713,8 @@ function initHome(initial) {
   function sync() {
     const open = !!view;
     layout.classList.toggle('view-open', open);
+    // about keeps the cv beside it; case studies get the other projects
+    layout.classList.toggle('view-about', open && view.classList.contains('about-view'));
     if (view && view.parentNode !== host()) host().appendChild(view);
     gridView.hidden = open && !wide.matches;
   }

@@ -1982,6 +1982,8 @@ html.is-touch [data-href] { cursor: pointer !important; }
     /* the rail's own hairline is the divider */
     border-right: 0;
   }
+  .layout.view-open.view-about .sidebar-right { display: block; }
+  .layout.view-open.view-about .project-rail { display: none !important; }
   .layout.view-open .project-rail {
     display: flex;
     flex-direction: column;
