@@ -2449,3 +2449,119 @@ a[aria-current="page"],
   font-size: 0.8rem;
   color: #fff;
 }
+
+/* ---- case study storytelling: signposts, figure labels, callouts, placeholders ---- */
+
+/* the chapters at a glance, under the problem; each step jumps to its chapter */
+.case-steps {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--sp-2) 0;
+  margin: var(--sp-5) 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.8rem;
+}
+.case-steps li { display: flex; align-items: baseline; }
+.case-steps li + li::before {
+  content: "→";
+  margin: 0 0.6em;
+  color: var(--gray-400);
+}
+.case-steps .step-num { margin-right: 0.4em; opacity: 0.55; }
+.case-chapter, .results-highlight { scroll-margin-top: var(--sp-6); }
+
+/* a short label above a piece of media: before, after, option, the chosen one */
+.fig-label {
+  display: inline-block;
+  margin: 0 0 0.6rem;
+  padding: 0.15em 0.65em;
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 999px;
+}
+.fig-label.is-chosen { background: #0040FF; border-color: #0040FF; }
+.fig-label.is-before { color: rgba(255, 255, 255, 0.7); border-style: dashed; }
+.sbs-item > .fig-label,
+.figure-frame > .fig-label { display: table; }
+
+/* media stacked one above the other, each with its own label */
+.fig-stack { display: flex; flex-direction: column; gap: var(--sp-6); }
+.fig-stack > .fig-item > .fig-label { display: table; }
+
+/* numbered callouts pinned to a point on an image, keyed in the caption */
+.fig-media { position: relative; container-type: inline-size; }
+.callout {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  width: clamp(0.85rem, 2.4cqi, 1.6rem);
+  aspect-ratio: 1;
+  font-size: clamp(0.5rem, 1.15cqi, 0.78rem);
+  line-height: 1;
+  color: #fff;
+  background: #0040FF;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px #fff;
+  pointer-events: none;
+}
+.callout-key {
+  display: inline-grid;
+  place-items: center;
+  width: 1.45em;
+  aspect-ratio: 1;
+  margin: 0 0.35em 0 0.15em;
+  font-size: 0.9em;
+  line-height: 1;
+  color: #fff;
+  background: #0040FF;
+  border-radius: 50%;
+  vertical-align: 0.05em;
+}
+
+/* a wireframe slot for an image still to be sourced: white, crossed through */
+.fig-placeholder {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background:
+    linear-gradient(to top right, transparent calc(50% - 0.6px), #c8c8c8 calc(50% - 0.6px), #c8c8c8 calc(50% + 0.6px), transparent calc(50% + 0.6px)),
+    linear-gradient(to bottom right, transparent calc(50% - 0.6px), #c8c8c8 calc(50% - 0.6px), #c8c8c8 calc(50% + 0.6px), transparent calc(50% + 0.6px)),
+    #fff;
+  outline: 1px solid #c8c8c8;
+  outline-offset: -1px;
+}
+.fig-placeholder .placeholder-note {
+  max-width: min(32ch, 80%);
+  padding: 0.5em 0.8em;
+  font-size: 0.72rem;
+  line-height: 1.45;
+  text-align: center;
+  color: var(--gray-700);
+  background: #fff;
+  border: 1px solid #c8c8c8;
+}
+.fig-placeholder.is-tall { aspect-ratio: 3 / 4; }
+.fig-placeholder.is-wide { aspect-ratio: 3 / 1; min-height: 10rem; }
+.fig-placeholder.is-square { aspect-ratio: 1; }
+
+/* a result still waiting on its number */
+.result-card.is-placeholder strong { color: var(--gray-400); }
+
+/* a before and after set as a table of labels */
+.label-diff { width: 100%; max-width: none; }
+.metrics-table.label-diff th,
+.metrics-table.label-diff td { text-align: left; }
+.label-diff td:nth-child(2)::before { content: "→"; margin-right: 0.6em; color: var(--gray-400); }
+
+@media print {
+  .case-steps, .fig-placeholder { display: none; }
+}

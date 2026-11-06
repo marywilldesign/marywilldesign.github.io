@@ -70,20 +70,22 @@
           <div class="figure-frame">
             <video src="../vj-controller/bb-controller.webm" poster="../vj-controller/bb-controller-poster.webp" data-autoplay preload="none" loop muted playsinline class="js-lightbox-item"></video>
           </div>
-          <figcaption class="caption"><span class="fig-num">Fig. 1</span>The digital controller, styled on grey, button-heavy late-90s software.</figcaption>
+          <figcaption class="caption"><span class="fig-num">Fig. 1</span>The digital controller, styled on grey, button-heavy late-90s software, and labelled throughout.</figcaption>
         </figure>
         <figure class="chapter-figure">
           <div class="figure-frame">
             <div class="side-by-side">
               <div class="sbs-item">
+                <span class="fig-label">Webcam mapping</span>
                 <video src="../vj-controller/camera-test.webm" poster="../vj-controller/camera-test-poster.webp" data-autoplay preload="none" loop muted playsinline class="js-lightbox-item"></video>
               </div>
               <div class="sbs-item">
+                <span class="fig-label">A happy accident</span>
                 <video src="../vj-controller/blue-circles.webm" poster="../vj-controller/blue-circles-poster.webp" data-autoplay preload="none" loop muted playsinline class="js-lightbox-item"></video>
               </div>
             </div>
           </div>
-          <figcaption class="caption"><span class="fig-num">Fig. 2</span>Left: webcam mapping. Right: a happy accident.</figcaption>
+          <figcaption class="caption"><span class="fig-num">Fig. 2</span>Two of the iterations: shapes mapped from the webcam, and what came out of blending features.</figcaption>
         </figure>
       </section>
 
@@ -91,23 +93,28 @@
         <h3><span class="chapter-num">02</span>Wire</h3>
         <div class="chapter-text">
           <p class="chapter-highlight">A Python script connected the switches and knobs to the browser, so the hardware drove the visuals live.</p>
-          <p>It was my first foray into electronics, so lots of re-soldering was needed. I mapped each switch and potentiometer through an analogue to digital converter to a test site reading values from 0.0 to 1.0, handy for checking I hadn't fried the circuitry. A makeshift labelled case let me reassign features easily.</p>
+          <p>It was my first foray into electronics, so lots of re-soldering was needed. I mapped each switch and potentiometer through an analogue to digital converter to a test site reading values from 0.0 to 1.0, handy for checking I hadn't fried the circuitry.</p>
         </div>
         <figure class="chapter-figure">
           <div class="figure-frame">
-            <div class="side-by-side three-up">
+            <div class="fig-placeholder is-wide"><span class="placeholder-note">To source: the wiring diagram with the P01–P16 parameter map (deck p.32)</span></div>
+          </div>
+          <figcaption class="caption"><span class="fig-num">Fig. 3</span>The map: which switch or knob drives which parameter.</figcaption>
+        </figure>
+        <figure class="chapter-figure">
+          <div class="figure-frame">
+            <div class="side-by-side">
               <div class="sbs-item">
+                <span class="fig-label">Wiring</span>
                 <img src="../vj-controller/wiring-work.webp" alt="Soldering and wiring the controller" width="968" height="1026" loading="lazy" decoding="async" class="js-lightbox-item">
               </div>
               <div class="sbs-item">
+                <span class="fig-label">Test site, 0.0 to 1.0</span>
                 <video src="../vj-controller/prototype-test.webm" poster="../vj-controller/prototype-test-poster.webp" data-autoplay preload="none" loop muted playsinline class="js-lightbox-item"></video>
-              </div>
-              <div class="sbs-item">
-                <img src="../vj-controller/prototype-shot.webp" alt="Makeshift labelled test case" width="2000" height="1161" loading="lazy" decoding="async" class="js-lightbox-item">
               </div>
             </div>
           </div>
-          <figcaption class="caption"><span class="fig-num">Fig. 3</span>Left to right: wiring, the test site, the makeshift case.</figcaption>
+          <figcaption class="caption"><span class="fig-num">Fig. 4</span>Soldering, then checking every input reads before anything drives a visual.</figcaption>
         </figure>
       </section>
 
@@ -121,17 +128,20 @@
           <div class="figure-frame">
             <div class="side-by-side three-up">
               <div class="sbs-item">
+                <span class="fig-label">1. Model</span>
                 <video src="../vj-controller/casing.webm" poster="../vj-controller/casing-poster.webp" data-autoplay preload="none" loop muted playsinline class="js-lightbox-item"></video>
               </div>
               <div class="sbs-item">
+                <span class="fig-label">2. Cure</span>
                 <video src="../vj-controller/curing-3D.webm" poster="../vj-controller/curing-3D-poster.webp" data-autoplay preload="none" loop muted playsinline class="js-lightbox-item"></video>
               </div>
               <div class="sbs-item">
+                <span class="fig-label">3. Finish</span>
                 <img src="../vj-controller/case-clear-spray.webp" alt="Applying the clear coat to the casing" width="1389" height="1155" loading="lazy" decoding="async" class="js-lightbox-item">
               </div>
             </div>
           </div>
-          <figcaption class="caption"><span class="fig-num">Fig. 4</span>Left to right: Fusion 360, UV curing, clear coat.</figcaption>
+          <figcaption class="caption"><span class="fig-num">Fig. 5</span>From Fusion 360, to the UV chamber, to the clear coat.</figcaption>
         </figure>
       </section>
 
@@ -139,8 +149,23 @@
         <h3><span class="chapter-num">04</span>Test</h3>
         <div class="chapter-text">
           <p class="chapter-highlight">I left the physical controller unlabelled, so people would play instead of reading instructions.</p>
-          <p>Testing both controllers, most people locked in with the visual output, essentially "vibing" it out with the switches and knobs. The focus moved from understanding the system to experiencing it.</p>
+          <p>A makeshift labelled case let me reassign features while I built. Testing both controllers, most people locked in with the visual output, essentially "vibing" it out with the switches and knobs. The focus moved from understanding the system to experiencing it.</p>
         </div>
+        <figure class="chapter-figure">
+          <div class="figure-frame">
+            <div class="side-by-side">
+              <div class="sbs-item">
+                <span class="fig-label is-before">Before: labelled</span>
+                <img src="../vj-controller/prototype-shot.webp" alt="The makeshift test case, every control labelled" width="2000" height="1161" loading="lazy" decoding="async" class="js-lightbox-item">
+              </div>
+              <div class="sbs-item">
+                <span class="fig-label is-chosen">After: unlabelled</span>
+                <img src="../vj-controller/bw-movement.webp" alt="Hands on the finished, unlabelled controller, one blurred mid-movement" width="1335" height="885" loading="lazy" decoding="async" class="js-lightbox-item">
+              </div>
+            </div>
+          </div>
+          <figcaption class="caption"><span class="fig-num">Fig. 6</span>The labels came off, and people stopped reading and started playing.</figcaption>
+        </figure>
       </section>
 
       <section class="case-chapter">
@@ -163,20 +188,37 @@
               </div>
             </div>
           </div>
-          <figcaption class="caption"><span class="fig-num">Fig. 5</span>Installed at the White Box for Oslo Art Weekend.</figcaption>
+          <figcaption class="caption"><span class="fig-num">Fig. 7</span>Installed at the White Box for Oslo Art Weekend.</figcaption>
         </figure>
         <figure class="chapter-figure">
           <div class="figure-frame">
             <div class="side-by-side">
               <div class="sbs-item">
+                <span class="fig-label">Output</span>
+                <img src="../vj-controller/visual-output.webp" alt="A visual made with the controller: stacked yellow rectangles smeared across a purple field" width="2000" height="1429" loading="lazy" decoding="async" class="js-lightbox-item">
+              </div>
+              <div class="sbs-item">
+                <span class="fig-label">Output</span>
+                <video src="../vj-controller/postermovie.webm" poster="../vj-controller/postermovie-poster.webp" width="1200" height="1106" data-autoplay preload="none" loop muted playsinline class="js-lightbox-item"></video>
+              </div>
+            </div>
+          </div>
+          <figcaption class="caption"><span class="fig-num">Fig. 8</span>Visuals made live with the controller.</figcaption>
+        </figure>
+        <figure class="chapter-figure">
+          <div class="figure-frame">
+            <div class="side-by-side">
+              <div class="sbs-item">
+                <span class="fig-label">Silkscreen</span>
                 <video src="../vj-controller/silkscreen.webm" poster="../vj-controller/silkscreen-poster.webp" data-autoplay preload="none" loop muted playsinline class="js-lightbox-item"></video>
               </div>
               <div class="sbs-item">
+                <span class="fig-label">Digital knit</span>
                 <video src="../vj-controller/digital-knit.webm" poster="../vj-controller/digital-knit-poster.webp" data-autoplay preload="none" loop muted playsinline class="js-lightbox-item"></video>
               </div>
             </div>
           </div>
-          <figcaption class="caption"><span class="fig-num">Fig. 6</span>Left: silkscreen animation. Right: two-tone digital knit.</figcaption>
+          <figcaption class="caption"><span class="fig-num">Fig. 9</span>Closing the loop: screencaps of the visuals, back into analogue as a silkscreen animation and a two-tone knit.</figcaption>
         </figure>
       </section>
 

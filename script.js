@@ -1392,6 +1392,44 @@ onReady(function () {
     set();
   }
 
+  // list the chapters under the problem, so the story is signposted before it starts
+  function buildSteps(problem) {
+    if (problem.dataset.stepsBound) return;
+    problem.dataset.stepsBound = 'true';
+    const scope = problem.parentElement;
+    if (!scope) return;
+    const stops = Array.from(scope.querySelectorAll('.case-chapter:not(.case-problem), .results-highlight'));
+    if (stops.length < 2) return;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const list = document.createElement('ol');
+    list.className = 'case-steps';
+    list.setAttribute('aria-label', 'Chapters');
+    stops.forEach((stop) => {
+      const heading = stop.querySelector('h3');
+      if (!heading) return;
+      const numEl = heading.querySelector('.chapter-num');
+      const num = numEl ? numEl.textContent.trim() : '';
+      const name = heading.textContent.replace(num, '').trim();
+      const item = document.createElement('li');
+      const link = document.createElement('a');
+      link.href = '#';
+      if (num) {
+        const n = document.createElement('span');
+        n.className = 'step-num';
+        n.textContent = num;
+        link.appendChild(n);
+      }
+      link.appendChild(document.createTextNode(name));
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        stop.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+      });
+      item.appendChild(link);
+      list.appendChild(item);
+    });
+    (problem.querySelector('.chapter-text') || problem).appendChild(list);
+  }
+
   // hide the cursor in the embed and track it
   const cursor = document.getElementById('custom-cursor');
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches &&
@@ -1449,6 +1487,7 @@ onReady(function () {
     });
 
     root.querySelectorAll('[data-before-after]').forEach(bindBeforeAfter);
+    root.querySelectorAll('.case-problem').forEach(buildSteps);
     root.querySelectorAll('.case-embed').forEach(bindEmbed);
   }
 
