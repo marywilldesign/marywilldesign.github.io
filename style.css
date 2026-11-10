@@ -2581,6 +2581,18 @@ a[aria-current="page"],
   .panel-view .label-diff td:nth-child(2)::before { position: absolute; right: 100%; margin-right: 0.75em; }
 }
 
+/* captions on the wide panel follow the chapter grid: the figure number in the label
+   column, the caption text starting on the same line as the chapter text */
+@container panel (min-width: 56rem) {
+  .panel-view .chapter-figure > .caption {
+    position: relative;
+    max-width: none;
+    padding-left: calc((100% - 3 * var(--grid-gap)) / 4 + var(--grid-gap));
+    padding-right: calc((100% - 3 * var(--grid-gap)) / 4 + var(--grid-gap));
+  }
+  .panel-view .chapter-figure > .caption > .fig-num { position: absolute; left: 0; margin-right: 0; }
+}
+
 /* a deep dive: numbered notes beside the screen they describe */
 .fig-split { display: grid; gap: var(--sp-6); }
 .fig-notes { margin: 0; padding: 0; list-style: none; }
@@ -2590,10 +2602,12 @@ a[aria-current="page"],
 .fig-notes strong { display: block; font-weight: 500; font-size: 0.8rem; color: var(--gray-900); margin-bottom: 0.2em; }
 .fig-notes p { margin: 0; font-size: 0.8rem; line-height: 1.55; color: var(--gray-700); }
 @container panel (min-width: 56rem) {
-  .panel-view .fig-split { grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); column-gap: var(--grid-gap); align-items: start; }
+  .panel-view .fig-split { grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: var(--grid-gap); align-items: start; }
+  .panel-view .fig-split > .figure-frame { grid-column: 2 / -1; }
 }
 @media (min-width: 1024px) {
-  .content .fig-split { grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); column-gap: var(--grid-gap); align-items: start; }
+  .content .fig-split { grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: var(--grid-gap); align-items: start; }
+  .content .fig-split > .figure-frame { grid-column: 2 / -1; }
 }
 
 @media print {
