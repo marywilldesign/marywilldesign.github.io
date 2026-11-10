@@ -3,6 +3,9 @@
     <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M1 1 L9 5 L1 9" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
     </marker>
+    <marker id="ad" viewBox="0 0 10 10" refX="-3.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse" overflow="visible">
+      <path d="M1 1 L9 5 L1 9" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
   </defs>
   <rect width="1200" height="660" fill="#fff"/>
 
@@ -10,12 +13,12 @@
   <g fill="none" stroke="#555" stroke-width="1.6">
     <!-- 1 register consent -->
     <path d="M552 90 H210 V226" marker-end="url(#a)"/>
-    <path d="M210 90 H56 V455 H86" stroke-dasharray="6 5" marker-end="url(#a)"/>
+    <path d="M210 90 H56 V455 H71" stroke-dasharray="6 5" marker-end="url(#ad)"/>
     <!-- 2 log hours -->
     <path d="M600 180 V226" marker-end="url(#a)"/>
     <!-- 3 retrieve consenting users -->
     <path d="M480 470 H410 V285 H334" marker-end="url(#a)"/>
-    <path d="M410 455 H334" stroke-dasharray="6 5" marker-end="url(#a)"/>
+    <path d="M410 455 H349" stroke-dasharray="6 5" marker-end="url(#ad)"/>
     <!-- 4 nightly data, plus legacy -->
     <path d="M600 320 V416" marker-end="url(#a)"/>
     <path d="M820 440 H724" marker-end="url(#a)"/>
