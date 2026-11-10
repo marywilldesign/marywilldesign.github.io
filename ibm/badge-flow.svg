@@ -37,13 +37,13 @@
 
   <!-- consent pages: my work -->
   <g>
-    <rect x="90" y="230" width="244" height="110" fill="#E6ECFF" stroke="#0040FF" stroke-width="1.8"/>
+    <rect rx="6" x="90" y="230" width="244" height="110" fill="#E6ECFF" stroke="#0040FF" stroke-width="1.8"/>
     <line x1="90" y1="248" x2="334" y2="248" stroke="#0040FF" stroke-width="1.2"/>
     <circle cx="104" cy="239" r="2.5" fill="#0040FF"/><circle cx="113" cy="239" r="2.5" fill="#0040FF"/><circle cx="122" cy="239" r="2.5" fill="#0040FF"/>
     <text x="110" y="290" font-size="13" fill="#111">EMPLOYEE</text>
     <text x="110" y="314" font-size="13" fill="#111">BADGE CONSENT</text>
 
-    <rect x="90" y="400" width="244" height="110" fill="#E6ECFF" stroke="#0040FF" stroke-width="1.8" stroke-dasharray="7 5"/>
+    <rect rx="6" x="90" y="400" width="244" height="110" fill="#E6ECFF" stroke="#0040FF" stroke-width="1.8" stroke-dasharray="7 5"/>
     <line x1="90" y1="418" x2="334" y2="418" stroke="#0040FF" stroke-width="1.2"/>
     <circle cx="104" cy="409" r="2.5" fill="#0040FF"/><circle cx="113" cy="409" r="2.5" fill="#0040FF"/><circle cx="122" cy="409" r="2.5" fill="#0040FF"/>
     <text x="110" y="460" font-size="13" fill="#111">RETIREE</text>
@@ -51,12 +51,12 @@
   </g>
 
   <!-- benevity -->
-  <rect x="480" y="230" width="240" height="90" fill="#fff" stroke="#111" stroke-width="1.6"/>
+  <rect rx="6" x="480" y="230" width="240" height="90" fill="#fff" stroke="#111" stroke-width="1.6"/>
   <text x="600" y="270" text-anchor="middle" font-size="14" font-weight="600" fill="#111">BENEVITY</text>
   <text x="600" y="295" text-anchor="middle" font-size="9" fill="#666">VOLUNTEERING &amp; GIVING</text>
 
   <!-- engine -->
-  <rect x="480" y="420" width="240" height="120" fill="#f2f2f2" stroke="#111" stroke-width="1.6"/>
+  <rect rx="6" x="480" y="420" width="240" height="120" fill="#f2f2f2" stroke="#111" stroke-width="1.6"/>
   <text x="600" y="472" text-anchor="middle" font-size="13" fill="#111">BADGE PROCESSING</text>
   <text x="600" y="496" text-anchor="middle" font-size="13" fill="#111">ENGINE</text>
 
@@ -69,7 +69,7 @@
   <text x="872" y="467" text-anchor="middle" font-size="9" fill="#666">DATA</text>
 
   <!-- credly -->
-  <rect x="950" y="470" width="200" height="90" fill="#fff" stroke="#111" stroke-width="1.6"/>
+  <rect rx="6" x="950" y="470" width="200" height="90" fill="#fff" stroke="#111" stroke-width="1.6"/>
   <text x="1050" y="510" text-anchor="middle" font-size="14" font-weight="600" fill="#111">CREDLY</text>
   <text x="1050" y="535" text-anchor="middle" font-size="9" fill="#666">BADGE ISSUER</text>
 
@@ -107,7 +107,7 @@
 
   <!-- legend -->
   <g font-size="9" fill="#666">
-    <rect x="90" y="612" width="18" height="14" fill="#E6ECFF" stroke="#0040FF" stroke-width="1.4"/>
+    <rect rx="2" x="90" y="612" width="18" height="14" fill="#E6ECFF" stroke="#0040FF" stroke-width="1.4"/>
     <text x="118" y="624">THE CONSENT PAGES I DESIGNED</text>
     <line x1="400" y1="619" x2="440" y2="619" stroke="#555" stroke-width="1.6" stroke-dasharray="6 5"/>
     <text x="450" y="624">ALTERNATE PATH, FOR RETIREES</text>
