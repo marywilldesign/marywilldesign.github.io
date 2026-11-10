@@ -45,7 +45,7 @@
     <div class="case-header-grid">
       <div class="case-header-text">
         <h2>IBM: Benevity Platform Flow</h2>
-        <p class="case-lede">Extending the Volunteering &amp; Giving consent flows on IBM's internal Benevity platform, delivered on schedule within the Carbon Design System.</p>
+        <p class="case-lede">Designing the consent step for IBM's volunteer badges, from a first-round overlay to a standalone page built on the Carbon Design System.</p>
         <div class="tags"></div>
       </div>
     </div>
@@ -68,78 +68,77 @@
     </section>
 
     <section class="case-chapter">
-      <h3><span class="chapter-num">01</span>Extend</h3>
+      <h3><span class="chapter-num">01</span>Overlay</h3>
       <div class="chapter-text">
-        <p class="chapter-highlight">The flows needed more than Carbon's existing components, without adding inconsistency to a highly governed system.</p>
-        <p>Several consent and form layers came before logging in, which meant modals and setting scrim levels in line with Carbon. I took the flows from low to high fidelity on their recommended grid.</p>
+        <p class="chapter-highlight">My first version asked for consent in a modal, right where people already were.</p>
+        <p>A 'Before you begin' overlay sat on the w3publisher volunteering page with two plain choices: consent, or don't. Picking one dims the other, and Save is the only way forward.</p>
       </div>
       <figure class="chapter-figure">
         <div class="figure-frame">
           <div class="side-by-side">
             <div class="sbs-item">
-              <span class="fig-label is-before">Carbon, as shipped</span>
-              <div class="fig-placeholder"><span class="placeholder-note">To source: the original Carbon component (modal or form layer)</span></div>
+              <span class="fig-label">Arriving</span>
+              <img src="../ibm/overlay-empty.webp" alt="The 'Before you begin' consent modal over the volunteering page, with neither option selected" width="1754" height="1224" loading="lazy" decoding="async" class="js-lightbox-item">
             </div>
             <div class="sbs-item">
-              <span class="fig-label is-chosen">Extended</span>
-              <div class="fig-placeholder"><span class="placeholder-note">To source: the same component, extended for the consent flow (blurred is fine)</span></div>
+              <span class="fig-label">Consent selected</span>
+              <img src="../ibm/overlay-selected.webp" alt="The same modal with the consent option selected and the other option dimmed" width="1754" height="1224" loading="lazy" decoding="async" class="js-lightbox-item">
             </div>
           </div>
         </div>
-        <figcaption class="caption"><span class="fig-num">Fig. 2</span>One component, before and after it was extended, still inside Carbon's rules.</figcaption>
+        <figcaption class="caption"><span class="fig-num">Fig. 2</span>The first iteration: consent as an overlay on the page people already used.</figcaption>
       </figure>
     </section>
 
     <section class="case-chapter">
-      <h3><span class="chapter-num">02</span>Reuse</h3>
+      <h3><span class="chapter-num">02</span>Pivot</h3>
       <div class="chapter-text">
-        <p class="chapter-highlight">Preserving their existing patterns sped up internal design review.</p>
-        <p>Staying on the grid also meant an internal design team could take the project further without me. I ran frequent check-ins so each team on their end was happy.</p>
+        <p class="chapter-highlight">Neither platform could host an overlay, so consent moved to its own page and both sites link to it.</p>
+        <p>This was the turning point. After the first round, Kristin Lindeberg, the CSR offering manager, confirmed that Benevity and w3publisher don't allow that kind of action. Benevity only offers its Quick Links menu, while w3publisher had room for a sign-up card on the volunteering page.</p>
       </div>
       <figure class="chapter-figure">
         <div class="figure-frame">
-          <div class="side-by-side">
-            <div class="sbs-item">
-              <span class="fig-label is-before">Lo-fi</span>
-              <div class="fig-placeholder"><span class="placeholder-note">To source: a lo-fi frame of the consent flow on the Carbon grid</span></div>
+          <div class="fig-stack">
+            <div class="fig-item">
+              <span class="fig-label">Benevity: Quick Links</span>
+              <img src="../ibm/benevity-quicklinks.webp" alt="Benevity's navigation with the Quick Links menu open and 'Volunteer badges' marked in red" width="613" height="212" loading="lazy" decoding="async" class="js-lightbox-item">
             </div>
-            <div class="sbs-item">
-              <span class="fig-label is-chosen">Hi-fi</span>
-              <div class="fig-placeholder"><span class="placeholder-note">To source: the same frame in hi-fi</span></div>
+            <div class="fig-item">
+              <span class="fig-label">w3publisher: sign-up card</span>
+              <img src="../ibm/w3-badges-card.webp" alt="The w3publisher volunteering page with a 'Volunteer badges' sign-up card outlined in red" width="882" height="295" loading="lazy" decoding="async" class="js-lightbox-item">
             </div>
           </div>
         </div>
-        <figcaption class="caption"><span class="fig-num">Fig. 3</span>The same frame from lo-fi to hi-fi, on the grid an internal team could pick up from.</figcaption>
+        <figcaption class="caption"><span class="fig-num">Fig. 3</span>Where the links could live, marked up by the client: the only two doors into the new page.</figcaption>
       </figure>
     </section>
 
     <section class="case-chapter">
-      <h3><span class="chapter-num">03</span>Deliver</h3>
+      <h3><span class="chapter-num">03</span>Page</h3>
       <div class="chapter-text">
-        <p class="chapter-highlight">Accessible, system-compliant flows went out on schedule for the CSR initiative.</p>
-        <p>The flows are internal to IBM, so I'm limited in what I can show.</p>
+        <p class="chapter-highlight">The consent page stands on its own, built closely on Carbon, with room to read before deciding.</p>
+        <p>A leadspace, the blue banner with the title, gives people a moment before the policy. The client leaned towards photography, so we also explored echoing the banner they already use on Benevity. Links use Carbon's Blue 60 on light backgrounds and Blue 40 on Gray 100, and the notification follows Carbon's component closely. Staying on their grid sped up internal review and meant IBM's team could carry it on without me.</p>
       </div>
       <figure class="chapter-figure">
         <div class="figure-frame">
-          <div class="side-by-side">
-            <div class="sbs-item">
-              <span class="fig-label is-before">Before</span>
-              <div class="fig-placeholder"><span class="placeholder-note">To source: the old consent flow, as a simple flow diagram if screens can't be shown</span></div>
-            </div>
-            <div class="sbs-item">
-              <span class="fig-label is-chosen">After</span>
-              <img src="../ibm/cover.png" alt="The consent page on a tablet: the IBM Community Engagement Program, with the consent status block and the response options" width="1000" height="749" loading="lazy" decoding="async" class="js-lightbox-item">
-            </div>
-          </div>
+          <span class="fig-label is-chosen">Final</span>
+          <div class="fig-placeholder"><span class="placeholder-note">To source: the final consent page flats, leadspace and form</span></div>
         </div>
-        <figcaption class="caption"><span class="fig-num">Fig. 4</span>The consent page before and after, with the status and the response options up front.</figcaption>
+        <figcaption class="caption"><span class="fig-num">Fig. 4</span>The standalone consent page.</figcaption>
+      </figure>
+      <figure class="chapter-figure">
+        <div class="figure-frame">
+          <span class="fig-label">Coming back</span>
+          <img src="../ibm/consent-notification.webp" alt="A Carbon inline notification: 'Consent provided. Previously, on 00.00.00, you gave consent for volunteer badge data processing.'" width="600" height="280" loading="lazy" decoding="async" class="js-lightbox-item" style="max-width: 420px">
+        </div>
+        <figcaption class="caption"><span class="fig-num">Fig. 5</span>Already consented? A Carbon notification says when, so nobody is asked twice.</figcaption>
       </figure>
     </section>
 
     <section class="case-learned">
       <h3>What I learned</h3>
       <blockquote>
-        <p>In a system as governed as Carbon, the work is mostly deciding where not to invent. Working with what existed kept review fast and the experience consistent.</p>
+        <p>My first version was right for people but impossible for the platforms. Now I check what a platform allows before the first flat, then stay inside the system so review stays fast.</p>
       </blockquote>
     </section>
 
