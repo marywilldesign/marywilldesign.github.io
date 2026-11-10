@@ -101,7 +101,7 @@ address{font-style:normal;margin:36px 0 34px;line-height:1.5;font-size:12px}
 const $=s=>document.querySelector(s),fr=$('#fr'),vp=$('#vp'),st=$('#stage'),tiles=[...$('#grid').children];
 const modeOf=w=>w>=900?3:w>=600?2:1;
 const still=matchMedia('(prefers-reduced-motion: reduce)').matches;
-let W=1280,mode=3,rects=[],anim,run=0,stW=0,stH=0;
+let W=1280,mode=3,rects=[],anim,land,run=0,stW=0,stH=0;
 // measure the stage on resize only
 function measure(){stW=st.clientWidth;stH=st.clientHeight}
 // one fixed scale for every width, so devices keep true proportions and nothing zooms mid-transition
@@ -127,8 +127,10 @@ function set(w,f=w){
 // device buttons: the page jumps to that device's layout, the frame glides to its size
 function glide(to,d=340){
   cancelAnimationFrame(anim);const a=parseFloat(fr.style.width)||W;set(to,a);
-  if(still||a===to){frame(to);return}const t0=performance.now();
-  (function f(t){const k=Math.min(1,(t-t0)/d),e=1-Math.pow(1-k,3);frame(a+(to-a)*e);if(k<1)anim=requestAnimationFrame(f)})(t0);
+  clearTimeout(land);if(still||a===to){frame(to);return}const t0=performance.now(),r=run;
+  // a frame timestamp can predate t0, so clamp k to 0–1; the timeout lands the frame even if animation frames are throttled
+  (function f(t){const k=Math.max(0,Math.min(1,(t-t0)/d)),e=1-Math.pow(1-k,3);frame(a+(to-a)*e);if(k<1)anim=requestAnimationFrame(f)})(t0);
+  land=setTimeout(()=>{if(r===run){cancelAnimationFrame(anim);frame(to)}},d+80);
 }
 document.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{run++;glide(+b.dataset.w)});
 document.addEventListener('click',e=>{const a=e.target.closest('a[href="#"]');if(a&&a.id!=='top')e.preventDefault()});
