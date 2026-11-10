@@ -185,11 +185,11 @@ window.portfolioProjects = [
     glance: {
       role: 'UX/UI Design',
       did: [
-        'Extended the Volunteering & Giving consent flows',
-        'Took them from lo-fi to hi-fi in Carbon',
-        'Reused existing patterns instead of inventing new ones'
+        'Designed the consent step for volunteer badges',
+        'Reworked it from a modal into a standalone page',
+        'Built it closely on Carbon for a quick handoff'
       ],
-      impact: 'Delivered accessible, system-compliant flows on schedule, reusing Carbon patterns so internal review stayed fast.'
+      impact: 'Shipped on schedule: one consent page both platforms link to, built on Carbon so internal review stayed fast.'
     },
     tags: ['carbon design system', 'enterprise', 'benevity platform flow'],
     tools: [

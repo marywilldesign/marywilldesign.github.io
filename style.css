@@ -2562,6 +2562,21 @@ a[aria-current="page"],
 .metrics-table.label-diff td { text-align: left; }
 .label-diff td:nth-child(2)::before { content: "→"; margin-right: 0.6em; color: var(--gray-400); }
 
+/* a deep dive: numbered notes beside the screen they describe */
+.fig-split { display: grid; gap: var(--sp-6); }
+.fig-notes { margin: 0; padding: 0; list-style: none; }
+.fig-notes li { display: grid; grid-template-columns: 1.45em 1fr; column-gap: 0.6em; padding: var(--sp-3) 0; border-top: 1px solid var(--gray-200); }
+.fig-notes li:first-child { border-top: 0; padding-top: 0; }
+.fig-notes .callout-key { margin: 0.15em 0 0; font-size: 0.72rem; }
+.fig-notes strong { display: block; font-weight: 500; font-size: 0.8rem; color: var(--gray-900); margin-bottom: 0.2em; }
+.fig-notes p { margin: 0; font-size: 0.8rem; line-height: 1.55; color: var(--gray-700); }
+@container panel (min-width: 56rem) {
+  .panel-view .fig-split { grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); column-gap: var(--grid-gap); align-items: start; }
+}
+@media (min-width: 1024px) {
+  .content .fig-split { grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); column-gap: var(--grid-gap); align-items: start; }
+}
+
 @media print {
   .case-steps, .fig-placeholder { display: none; }
 }
