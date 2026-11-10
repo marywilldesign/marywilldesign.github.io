@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Modo — FAQ flow</title>
+<meta name="robots" content="noindex">
+<style>
+:root{--pill:#2c2c2c;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:inherit;margin:0}
+html{height:100%}
+body{height:100%;background:transparent;display:flex;flex-direction:column;font:500 12px system-ui,sans-serif}
+#bar{display:flex;justify-content:center;align-items:center;gap:8px;padding:10px;flex-wrap:wrap}
+.pill{display:flex;background:var(--pill);border-radius:7px;padding:2px;align-items:center}
+.pill button{all:unset;cursor:pointer;display:grid;place-items:center;min-width:34px;height:26px;border-radius:5px;padding:0 8px;color:#bbb;white-space:nowrap}
+.pill button:focus-visible{outline:2px solid #fff;outline-offset:-2px}
+.pill button[data-s]{display:flex;align-items:center}
+.pill button.on{background:#444;color:#fff}.pill button svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.4}
+.pill .ar{color:#777;padding:0 2px}
+.pill button b{font-weight:500;color:#888;margin-right:6px}.pill button.on b{color:#bbb}
+#stage{flex:1;min-height:0;display:flex;justify-content:center;align-items:flex-start;padding:0 16px 10px}
+#fr{position:relative;flex:none;width:1440px;border-radius:14px;background:#fff;transition:width .34s cubic-bezier(.2,.8,.2,1)}
+@media (prefers-reduced-motion: reduce){#fr{transition:none}}
+#vp{height:100%;overflow:auto;border-radius:14px;background:#fff;overscroll-behavior:contain}
+#vp img{display:block;width:100%;height:auto}
+</style><noscript><style>#bar{display:none}#fr{flex:1;width:auto;height:100%}</style></noscript></head><body>
+<div id="bar">
+ <div class="pill" role="group" aria-label="Step">
+  <button data-s="topics" class="on" aria-pressed="true"><b>1</b>Topics</button><span class="ar" aria-hidden="true">→</span>
+  <button data-s="questions" aria-pressed="false"><b>2</b>Questions</button><span class="ar" aria-hidden="true">→</span>
+  <button data-s="answer" aria-pressed="false"><b>3</b>Answer</button>
+ </div>
+ <div class="pill" role="group" aria-label="Device">
+  <button data-d="desktop" data-w="1440" title="Desktop" aria-label="Desktop" class="on" aria-pressed="true"><svg viewBox="0 0 16 16"><rect x="1.5" y="2.5" width="13" height="8.5" rx="1"/><path d="M5 14h6"/></svg></button>
+  <button data-d="tablet" data-w="991" title="Tablet" aria-label="Tablet" aria-pressed="false"><svg viewBox="0 0 16 16"><rect x="3" y="1.5" width="10" height="13" rx="1.5"/></svg></button>
+  <button data-d="mobile" data-w="478" title="Mobile" aria-label="Mobile" aria-pressed="false"><svg viewBox="0 0 16 16"><rect x="4.5" y="1.5" width="7" height="13" rx="1.5"/></svg></button>
+ </div>
+</div>
+<div id="stage"><div id="fr"><div id="vp">
+ <img id="shot" src="media/topics-desktop.webp" alt="" width="2160" height="2940" decoding="async">
+</div></div></div>
+<script>
+const $=s=>document.querySelector(s),fr=$('#fr'),vp=$('#vp'),st=$('#stage'),img=$('#shot');
+const ALT={
+  topics:'The Get Help page: eight FAQ topics, such as Joining Modo, Booking a Modo and Accidents and damage, each with a short description',
+  questions:'The Join Modo topic: its questions listed in a closed accordion',
+  answer:'The Join Modo topic with "What documents do I need to join Modo?" opened to its full answer'
+};
+let step='topics',dev='desktop';
+// one fixed scale for every device, so the three sizes keep their true proportions
+function fit(){const s=Math.min(1,Math.max(.2,(st.clientWidth-32)/1440));fr.style.zoom=s;fr.style.height=((st.clientHeight-6)/s)+'px'}
+function show(){
+  img.src=`media/${step}-${dev}.webp`;img.alt=ALT[step]+`, at ${dev} width.`;vp.scrollTop=0;
+  document.querySelectorAll('[data-s]').forEach(b=>{const on=b.dataset.s===step;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)});
+  document.querySelectorAll('[data-d]').forEach(b=>{const on=b.dataset.d===dev;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)});
+}
+// the frame glides to the new device width (a CSS transition, so it always lands on the target); the screenshot swaps straight away
+document.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{step=b.dataset.s;show()});
+document.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{dev=b.dataset.d;show();fr.style.width=b.dataset.w+'px'});
+// warm the cache so switching never flashes blank
+addEventListener('load',()=>{for(const s in ALT)for(const d of['desktop','tablet','mobile'])new Image().src=`media/${s}-${d}.webp`});
+new ResizeObserver(fit).observe(st);
+show();fit();
+</script></body></html>
