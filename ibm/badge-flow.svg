@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 660" width="1200" height="660" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#555"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="660" fill="#fff"/>
+
+  <!-- connectors -->
+  <g fill="none" stroke="#555" stroke-width="1.6">
+    <!-- 1 register consent -->
+    <path d="M552 90 H210 V226" marker-end="url(#a)"/>
+    <path d="M210 90 H56 V455 H86" stroke-dasharray="6 5" marker-end="url(#a)"/>
+    <!-- 2 log hours -->
+    <path d="M600 180 V226" marker-end="url(#a)"/>
+    <!-- 3 retrieve consenting users -->
+    <path d="M480 470 H410 V285 H334" marker-end="url(#a)"/>
+    <path d="M410 455 H334" stroke-dasharray="6 5" marker-end="url(#a)"/>
+    <!-- 4 nightly data, plus legacy -->
+    <path d="M600 320 V416" marker-end="url(#a)"/>
+    <path d="M820 440 H724" marker-end="url(#a)"/>
+    <!-- 5 award -->
+    <path d="M720 515 H946" marker-end="url(#a)"/>
+    <!-- 6 notify -->
+    <path d="M1050 470 V180" />
+    <path d="M1050 180 V140" stroke="none"/>
+    <path d="M1002 90 H652" marker-end="url(#a)"/>
+  </g>
+
+  <!-- user -->
+  <circle cx="600" cy="90" r="46" fill="#fff" stroke="#111" stroke-width="1.6"/>
+  <circle cx="600" cy="74" r="11" fill="none" stroke="#111" stroke-width="1.6"/>
+  <path d="M580 106 C582 92 618 92 620 106" fill="none" stroke="#111" stroke-width="1.6"/>
+  <text x="600" y="168" text-anchor="middle" font-size="15" fill="#111">Volunteer</text>
+
+  <!-- consent pages: my work -->
+  <g>
+    <rect x="90" y="230" width="244" height="110" fill="#E6ECFF" stroke="#0040FF" stroke-width="1.8"/>
+    <line x1="90" y1="248" x2="334" y2="248" stroke="#0040FF" stroke-width="1.2"/>
+    <circle cx="104" cy="239" r="2.5" fill="#0040FF"/><circle cx="113" cy="239" r="2.5" fill="#0040FF"/><circle cx="122" cy="239" r="2.5" fill="#0040FF"/>
+    <text x="110" y="290" font-size="18" fill="#111">Employee</text>
+    <text x="110" y="314" font-size="18" fill="#111">badge consent</text>
+
+    <rect x="90" y="400" width="244" height="110" fill="#E6ECFF" stroke="#0040FF" stroke-width="1.8" stroke-dasharray="7 5"/>
+    <line x1="90" y1="418" x2="334" y2="418" stroke="#0040FF" stroke-width="1.2"/>
+    <circle cx="104" cy="409" r="2.5" fill="#0040FF"/><circle cx="113" cy="409" r="2.5" fill="#0040FF"/><circle cx="122" cy="409" r="2.5" fill="#0040FF"/>
+    <text x="110" y="460" font-size="18" fill="#111">Retiree</text>
+    <text x="110" y="484" font-size="18" fill="#111">badge consent</text>
+  </g>
+
+  <!-- benevity -->
+  <rect x="480" y="230" width="240" height="90" fill="#fff" stroke="#111" stroke-width="1.6"/>
+  <text x="600" y="270" text-anchor="middle" font-size="20" font-weight="600" fill="#111">Benevity</text>
+  <text x="600" y="295" text-anchor="middle" font-size="14" fill="#666">Volunteering &amp; Giving</text>
+
+  <!-- engine -->
+  <rect x="480" y="420" width="240" height="120" fill="#f2f2f2" stroke="#111" stroke-width="1.6"/>
+  <text x="600" y="472" text-anchor="middle" font-size="18" fill="#111">Badge processing</text>
+  <text x="600" y="496" text-anchor="middle" font-size="18" fill="#111">engine</text>
+
+  <!-- legacy data -->
+  <g fill="#fff" stroke="#111" stroke-width="1.6">
+    <path d="M824 410 V470 A48 12 0 0 0 920 470 V410"/>
+    <ellipse cx="872" cy="410" rx="48" ry="12"/>
+  </g>
+  <text x="872" y="450" text-anchor="middle" font-size="14" fill="#666">Legacy</text>
+  <text x="872" y="467" text-anchor="middle" font-size="14" fill="#666">data</text>
+
+  <!-- credly -->
+  <rect x="950" y="470" width="200" height="90" fill="#fff" stroke="#111" stroke-width="1.6"/>
+  <text x="1050" y="510" text-anchor="middle" font-size="20" font-weight="600" fill="#111">Credly</text>
+  <text x="1050" y="535" text-anchor="middle" font-size="14" fill="#666">badge issuer</text>
+
+  <!-- badge -->
+  <circle cx="1050" cy="90" r="46" fill="#fff" stroke="#111" stroke-width="1.6"/>
+  <circle cx="1050" cy="90" r="34" fill="none" stroke="#111" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <text x="1050" y="88" text-anchor="middle" font-size="13" fill="#111">250</text>
+  <text x="1050" y="104" text-anchor="middle" font-size="11" fill="#666">hours</text>
+  <text x="1050" y="168" text-anchor="middle" font-size="15" fill="#111">Badge</text>
+
+  <!-- numbered steps -->
+  <g font-size="15" fill="#111">
+    <circle cx="300" cy="62" r="13" fill="#0040FF"/><text x="300" y="67" text-anchor="middle" fill="#fff" font-size="14">1</text>
+    <text x="322" y="67">Register consent</text>
+
+    <circle cx="628" cy="203" r="13" fill="#0040FF"/><text x="628" y="208" text-anchor="middle" fill="#fff" font-size="14">2</text>
+    <text x="650" y="208">Log volunteer hours</text>
+
+    <circle cx="434" cy="372" r="13" fill="#0040FF"/><text x="434" y="377" text-anchor="middle" fill="#fff" font-size="14">3</text>
+    <text x="456" y="368">Fetch who</text>
+    <text x="456" y="388">has consented</text>
+
+    <circle cx="628" cy="370" r="13" fill="#0040FF"/><text x="628" y="375" text-anchor="middle" fill="#fff" font-size="14">4</text>
+    <text x="650" y="366">Nightly data, plus legacy records,</text>
+    <text x="650" y="386">for consenting users only</text>
+
+    <circle cx="756" cy="545" r="13" fill="#0040FF"/><text x="756" y="550" text-anchor="middle" fill="#fff" font-size="14">5</text>
+    <text x="778" y="550">Hours pass a threshold:</text>
+    <text x="778" y="570">Credly awards the badge</text>
+
+    <circle cx="1078" cy="300" r="13" fill="#0040FF"/><text x="1078" y="305" text-anchor="middle" fill="#fff" font-size="14">6</text>
+    <text x="1100" y="296">Email:</text>
+    <text x="1100" y="316">new badge</text>
+  </g>
+
+  <!-- legend -->
+  <g font-size="14" fill="#666">
+    <rect x="90" y="612" width="18" height="14" fill="#E6ECFF" stroke="#0040FF" stroke-width="1.4"/>
+    <text x="118" y="624">The consent pages I designed</text>
+    <line x1="400" y1="619" x2="440" y2="619" stroke="#555" stroke-width="1.6" stroke-dasharray="6 5"/>
+    <text x="450" y="624">Alternate path, for retirees</text>
+  </g>
+</svg>
