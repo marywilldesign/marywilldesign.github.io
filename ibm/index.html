@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- wide screens open this page on the home layout; hide it until that is ready -->
   <script>if(window.matchMedia&&matchMedia('(min-width: 768px)').matches){document.documentElement.classList.add('boot-home');setTimeout(function(){document.documentElement.classList.remove('boot-home')},4000)}</script>
-  <title>IBM: Benevity Platform Flow</title>
+  <title>IBM: Volunteer Badge Consent</title>
   <!-- canonical url -->
   <link rel="canonical" href="https://marywildesign.com/ibm/" />
 
@@ -39,12 +39,12 @@
       <span class="clock" id="clock"></span>
     </div>
 
-    <span class="breadcrumb"><a href="../">projects</a> / <span class="breadcrumb-current">IBM: Benevity Platform Flow</span></span>
+    <span class="breadcrumb"><a href="../">projects</a> / <span class="breadcrumb-current">IBM: Volunteer Badge Consent</span></span>
 
     <!-- header -->
     <div class="case-header-grid">
       <div class="case-header-text">
-        <h2>IBM: Benevity Platform Flow</h2>
+        <h2>IBM: Volunteer Badge Consent</h2>
         <p class="case-lede">Designing the consent step for IBM's volunteer badges, from a first-round overlay to a standalone page built on the Carbon Design System.</p>
         <div class="tags"></div>
       </div>
@@ -57,7 +57,7 @@
     <section class="case-chapter case-problem">
       <h3>Problem</h3>
       <div class="chapter-text">
-        <p>IBM employees and retirees earn digital badges for volunteering, from an Engagement Award at 40 hours up to Platinum at 4,000, issued through Credly. IBM's CSR team was automating them: log hours in Benevity, and the badge arrives by email. But no hours count until someone accepts the programme's data privacy policy, so the consent pages sat at the start of the whole system. It was a maintenance engagement during a 'deep clean', with quick turnarounds and occasional design tweaks.</p>
+        <p>IBM employees and retirees earn digital badges for volunteering, from an Engagement Award at 40 hours up to Platinum at 4,000, issued through Credly. IBM's CSR team was automating them: log hours in Benevity, and the badge arrives by email. But no hours count until someone accepts the programme's data privacy policy, so the consent pages sat at the start of the whole system.</p>
       </div>
       <figure class="chapter-figure">
         <div class="figure-frame">
@@ -71,21 +71,21 @@
       <h3><span class="chapter-num">01</span>Overlay</h3>
       <div class="chapter-text">
         <p class="chapter-highlight">The first concept asked for consent in a Carbon modal, right where people already were.</p>
-        <p>A 'Before you begin' modal on the w3publisher volunteering page, built from Carbon's modal and radio buttons, with two plain choices: consent, or don't. Picking one dims the other, and Save is the only way forward.</p>
+        <p>A 'Before you begin' modal on the w3publisher volunteering page, built from Carbon's modal and radio buttons, with two choices, consent or don't. Picking one dims the other, and Save is the only way forward.</p>
       </div>
       <figure class="chapter-figure">
         <div class="figure-frame">
           <div class="fig-stack">
             <div class="fig-item">
-              <span class="fig-label">1. Sign in</span>
+              <span class="fig-label">Sign in</span>
               <img src="../ibm/sign-in.webp" alt="The portal sign-in page: retirees register before logging in, employees sign in with single sign-on" width="2000" height="1250" loading="lazy" decoding="async" class="js-lightbox-item">
             </div>
             <div class="fig-item">
-              <span class="fig-label">2. Before you begin</span>
+              <span class="fig-label">Before you begin</span>
               <img src="../ibm/overlay-empty.webp" alt="The 'Before you begin' consent modal over the volunteering page, with neither option selected" width="2000" height="1250" loading="lazy" decoding="async" class="js-lightbox-item">
             </div>
             <div class="fig-item">
-              <span class="fig-label is-chosen">3. Consent selected</span>
+              <span class="fig-label is-chosen">Consent selected</span>
               <img src="../ibm/overlay-selected.webp" alt="The same modal with the consent option selected and the other option dimmed" width="2000" height="1250" loading="lazy" decoding="async" class="js-lightbox-item">
             </div>
           </div>
@@ -98,53 +98,53 @@
       <h3><span class="chapter-num">02</span>Pivot</h3>
       <div class="chapter-text">
         <p class="chapter-highlight">The host platforms couldn't run a modal, so consent moved to its own page, with a link in from each site.</p>
-        <p>This was the turning point. In review, Kristin Lindeberg, the CSR offering manager, confirmed that Benevity and w3publisher don't allow that kind of customisation. Together we mapped where a link could live: Benevity's Quick Links menu, and a sign-up card on the w3publisher volunteering page.</p>
+        <p>In review, Kristin Lindeberg, the CSR offering manager, confirmed that Benevity and w3publisher don't allow that kind of customisation. Together we mapped where a link could live, in Benevity's Quick Links menu and as a sign-up card on the w3publisher volunteering page.</p>
       </div>
       <figure class="chapter-figure">
         <div class="figure-frame">
           <img src="../ibm/entry-points.svg" alt="Two ways into the consent page: a 'Volunteer badges' item in Benevity's Quick Links menu, and a sign-up card on the w3publisher volunteering page" width="1200" height="440" loading="lazy" decoding="async" class="js-lightbox-item">
         </div>
-        <figcaption class="caption"><span class="fig-num">Fig. 3</span>The two doors in: a Quick Links item on Benevity, and a sign-up card on w3publisher.</figcaption>
+        <figcaption class="caption"><span class="fig-num">Fig. 3</span>Two links in, a Quick Links item on Benevity and a sign-up card on w3publisher.</figcaption>
       </figure>
     </section>
 
     <section class="case-chapter">
         <h3><span class="chapter-num">03</span>Page</h3>
         <div class="chapter-text">
-          <p class="chapter-highlight">The consent page stands on its own, built closely on Carbon, with room to read before deciding.</p>
-          <p>Earlier versions sat inside each host's navigation. The final page drops that, keeping the program's leadspace, the policy, two choices and Save. The client leaned towards photography, so we also explored echoing the banner they already use on Benevity. Staying on Carbon's grid sped up internal review and meant IBM's team could carry it on without me.</p>
+          <p class="chapter-highlight">The consent page stands on its own, built closely on Carbon.</p>
+          <p>An earlier version sat inside Benevity's navigation. The final page stands alone, with the programme's leadspace, the policy, the two choices and Save. The client leaned towards photography, so we also explored echoing the banner they already use on Benevity. Staying on Carbon's grid sped up internal review and meant IBM's team could carry it on without me.</p>
         </div>
         <figure class="chapter-figure">
           <div class="figure-frame">
             <div class="side-by-side">
               <div class="sbs-item">
-                <span class="fig-label is-before">Earlier: inside w3publisher</span>
-                <img src="../ibm/earlier-w3.webp" alt="An earlier consent page titled Volunteering Badges, inside the w3publisher navigation" width="2000" height="1711" loading="lazy" decoding="async" class="js-lightbox-item">
+                <span class="fig-label is-before">Earlier: before choosing</span>
+                <img src="../ibm/earlier-w3.webp" alt="An earlier consent page titled Volunteering Badges, inside Benevity, with nothing selected" width="2000" height="1711" loading="lazy" decoding="async" class="js-lightbox-item">
               </div>
               <div class="sbs-item">
-                <span class="fig-label is-before">Earlier: inside Benevity</span>
-                <img src="../ibm/earlier-benevity.webp" alt="The same page inside the Benevity navigation, with the consent notification showing" width="2000" height="1711" loading="lazy" decoding="async" class="js-lightbox-item">
+                <span class="fig-label is-before">Earlier: after choosing</span>
+                <img src="../ibm/earlier-benevity.webp" alt="The same page after choosing, with the consent notification showing" width="2000" height="1711" loading="lazy" decoding="async" class="js-lightbox-item">
               </div>
             </div>
           </div>
-          <figcaption class="caption"><span class="fig-num">Fig. 4</span>Earlier versions, one for each host, titled Volunteering Badges.</figcaption>
+          <figcaption class="caption"><span class="fig-num">Fig. 4</span>An earlier version inside Benevity, titled Volunteering Badges, before and after choosing.</figcaption>
         </figure>
         <figure class="chapter-figure">
           <div class="figure-frame">
             <div class="fig-stack">
               <div class="fig-item">
-                <span class="fig-label">1. Way in</span>
+                <span class="fig-label">Way in</span>
                 <div class="fig-media">
                   <img src="../ibm/way-in.webp" alt="The portal home once signed in, with a Volunteer badges section: a short explanation, an Earn your badges button, and three badge tiers" width="1312" height="981" loading="lazy" decoding="async" class="js-lightbox-item">
                   <span class="callout" style="--x:15.6%;--y:82.7%">1</span>
                 </div>
               </div>
               <div class="fig-item">
-                <span class="fig-label">2. Arriving</span>
+                <span class="fig-label">Arriving</span>
                 <img src="../ibm/page-arriving.webp" alt="The consent page with neither option selected" width="2000" height="1171" loading="lazy" decoding="async" class="js-lightbox-item">
               </div>
               <div class="fig-item">
-                <span class="fig-label is-chosen">3. Consenting</span>
+                <span class="fig-label is-chosen">Consenting</span>
                 <img src="../ibm/page-choosing.webp" alt="The consent page with the consent option selected" width="2000" height="1171" loading="lazy" decoding="async" class="js-lightbox-item">
               </div>
             </div>
@@ -154,8 +154,8 @@
         <figure class="chapter-figure">
           <div class="fig-split">
             <ol class="fig-notes">
-              <li><span class="callout-key">1</span><div><strong>Leadspace</strong><p>A blue banner with the program's name gives a beat before the policy.</p></div></li>
-              <li><span class="callout-key">2</span><div><strong>Link</strong><p>Carbon Blue 60 on a light background, out to the program's w3 page for the full policy.</p></div></li>
+              <li><span class="callout-key">1</span><div><strong>Leadspace</strong><p>A blue banner with the programme's name, as a clear title before the policy text.</p></div></li>
+              <li><span class="callout-key">2</span><div><strong>Link</strong><p>Carbon Blue 60 on a light background, out to the programme's w3 page for the full policy.</p></div></li>
               <li><span class="callout-key">3</span><div><strong>Notification</strong><p>Carbon's inline notification. If you've consented before, it gives the date, so nobody is asked twice.</p></div></li>
               <li><span class="callout-key">4</span><div><strong>Two choices</strong><p>Consent or don't, as radio buttons, in the wording agreed with the client.</p></div></li>
               <li><span class="callout-key">5</span><div><strong>Save</strong><p>The only action on the page.</p></div></li>

@@ -179,7 +179,7 @@ window.portfolioProjects = [
   },
   {
     id: 'ibm',
-    title: 'IBM: Benevity Platform Flow',
+    title: 'IBM: Volunteer Badge Consent',
     href: 'ibm/',
     category: 'ux',
     glance: {
@@ -189,9 +189,9 @@ window.portfolioProjects = [
         'Reworked it from a modal into a standalone page',
         'Built it closely on Carbon for a quick handoff'
       ],
-      impact: 'Shipped on schedule: one consent page both platforms link to, built on Carbon so internal review stayed fast.'
+      impact: 'Shipped on schedule, with one consent page both platforms link to, built on Carbon so internal review stayed fast.'
     },
-    tags: ['carbon design system', 'enterprise', 'benevity platform flow'],
+    tags: ['carbon design system', 'enterprise', 'benevity'],
     tools: [
       { name: 'Figma', use: "Built the flows from lo-fi to hi-fi on IBM's Carbon grid, extending existing components where the consent steps needed them. Layers and names stayed tidy so their team could pick the file up without me." }
     ],
