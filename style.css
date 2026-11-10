@@ -2561,6 +2561,25 @@ a[aria-current="page"],
 .metrics-table.label-diff th,
 .metrics-table.label-diff td { text-align: left; }
 .label-diff td:nth-child(2)::before { content: "→"; margin-right: 0.6em; color: var(--gray-400); }
+/* on the wide panel each row sits on the chapter grid: before under the chapter
+   labels, after under the chapter text, job in the last column; the arrow hangs in the gutter */
+@container panel (min-width: 56rem) {
+  .panel-view .label-diff,
+  .panel-view .label-diff thead,
+  .panel-view .label-diff tbody { display: block; }
+  .panel-view .label-diff tr {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: var(--grid-gap);
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .panel-view .label-diff tbody tr:last-child { border-bottom: 0; }
+  .panel-view .label-diff th,
+  .panel-view .label-diff td { padding-right: 0; border-bottom: 0; }
+  .panel-view .label-diff :is(th, td):nth-child(2) { grid-column: 2 / 4; position: relative; }
+  .panel-view .label-diff :is(th, td):nth-child(3) { grid-column: 4; }
+  .panel-view .label-diff td:nth-child(2)::before { position: absolute; right: 100%; margin-right: 0.75em; }
+}
 
 /* a deep dive: numbered notes beside the screen they describe */
 .fig-split { display: grid; gap: var(--sp-6); }
