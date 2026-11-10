@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 660" width="1200" height="660" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" letter-spacing="0.06em">
   <defs>
     <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0 0 L10 5 L0 10 z" fill="#555"/>
+      <path d="M1 1 L9 5 L1 9" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
     </marker>
   </defs>
   <rect width="1200" height="660" fill="#fff"/>
@@ -22,8 +22,7 @@
     <!-- 5 award -->
     <path d="M720 515 H946" marker-end="url(#a)"/>
     <!-- 6 notify -->
-    <path d="M1050 470 V180" />
-    <path d="M1050 180 V140" stroke="none"/>
+    <path d="M1050 470 V182" marker-end="url(#a)"/>
     <path d="M1002 90 H652" marker-end="url(#a)"/>
   </g>
 
@@ -31,80 +30,80 @@
   <circle cx="600" cy="90" r="46" fill="#fff" stroke="#111" stroke-width="1.6"/>
   <circle cx="600" cy="74" r="11" fill="none" stroke="#111" stroke-width="1.6"/>
   <path d="M580 106 C582 92 618 92 620 106" fill="none" stroke="#111" stroke-width="1.6"/>
-  <text x="600" y="168" text-anchor="middle" font-size="12" fill="#111">VOLUNTEER</text>
+  <text x="600" y="168" text-anchor="middle" font-size="10" fill="#111">VOLUNTEER</text>
 
   <!-- consent pages: my work -->
   <g>
     <rect x="90" y="230" width="244" height="110" fill="#E6ECFF" stroke="#0040FF" stroke-width="1.8"/>
     <line x1="90" y1="248" x2="334" y2="248" stroke="#0040FF" stroke-width="1.2"/>
     <circle cx="104" cy="239" r="2.5" fill="#0040FF"/><circle cx="113" cy="239" r="2.5" fill="#0040FF"/><circle cx="122" cy="239" r="2.5" fill="#0040FF"/>
-    <text x="110" y="290" font-size="15" fill="#111">EMPLOYEE</text>
-    <text x="110" y="314" font-size="15" fill="#111">BADGE CONSENT</text>
+    <text x="110" y="290" font-size="13" fill="#111">EMPLOYEE</text>
+    <text x="110" y="314" font-size="13" fill="#111">BADGE CONSENT</text>
 
     <rect x="90" y="400" width="244" height="110" fill="#E6ECFF" stroke="#0040FF" stroke-width="1.8" stroke-dasharray="7 5"/>
     <line x1="90" y1="418" x2="334" y2="418" stroke="#0040FF" stroke-width="1.2"/>
     <circle cx="104" cy="409" r="2.5" fill="#0040FF"/><circle cx="113" cy="409" r="2.5" fill="#0040FF"/><circle cx="122" cy="409" r="2.5" fill="#0040FF"/>
-    <text x="110" y="460" font-size="15" fill="#111">RETIREE</text>
-    <text x="110" y="484" font-size="15" fill="#111">BADGE CONSENT</text>
+    <text x="110" y="460" font-size="13" fill="#111">RETIREE</text>
+    <text x="110" y="484" font-size="13" fill="#111">BADGE CONSENT</text>
   </g>
 
   <!-- benevity -->
   <rect x="480" y="230" width="240" height="90" fill="#fff" stroke="#111" stroke-width="1.6"/>
-  <text x="600" y="270" text-anchor="middle" font-size="16" font-weight="600" fill="#111">BENEVITY</text>
-  <text x="600" y="295" text-anchor="middle" font-size="11" fill="#666">VOLUNTEERING &amp; GIVING</text>
+  <text x="600" y="270" text-anchor="middle" font-size="14" font-weight="600" fill="#111">BENEVITY</text>
+  <text x="600" y="295" text-anchor="middle" font-size="9" fill="#666">VOLUNTEERING &amp; GIVING</text>
 
   <!-- engine -->
   <rect x="480" y="420" width="240" height="120" fill="#f2f2f2" stroke="#111" stroke-width="1.6"/>
-  <text x="600" y="472" text-anchor="middle" font-size="15" fill="#111">BADGE PROCESSING</text>
-  <text x="600" y="496" text-anchor="middle" font-size="15" fill="#111">ENGINE</text>
+  <text x="600" y="472" text-anchor="middle" font-size="13" fill="#111">BADGE PROCESSING</text>
+  <text x="600" y="496" text-anchor="middle" font-size="13" fill="#111">ENGINE</text>
 
   <!-- legacy data -->
   <g fill="#fff" stroke="#111" stroke-width="1.6">
     <path d="M824 410 V470 A48 12 0 0 0 920 470 V410"/>
     <ellipse cx="872" cy="410" rx="48" ry="12"/>
   </g>
-  <text x="872" y="450" text-anchor="middle" font-size="11" fill="#666">LEGACY</text>
-  <text x="872" y="467" text-anchor="middle" font-size="11" fill="#666">DATA</text>
+  <text x="872" y="450" text-anchor="middle" font-size="9" fill="#666">LEGACY</text>
+  <text x="872" y="467" text-anchor="middle" font-size="9" fill="#666">DATA</text>
 
   <!-- credly -->
   <rect x="950" y="470" width="200" height="90" fill="#fff" stroke="#111" stroke-width="1.6"/>
-  <text x="1050" y="510" text-anchor="middle" font-size="16" font-weight="600" fill="#111">CREDLY</text>
-  <text x="1050" y="535" text-anchor="middle" font-size="11" fill="#666">BADGE ISSUER</text>
+  <text x="1050" y="510" text-anchor="middle" font-size="14" font-weight="600" fill="#111">CREDLY</text>
+  <text x="1050" y="535" text-anchor="middle" font-size="9" fill="#666">BADGE ISSUER</text>
 
   <!-- badge -->
   <circle cx="1050" cy="90" r="46" fill="#fff" stroke="#111" stroke-width="1.6"/>
   <circle cx="1050" cy="90" r="34" fill="none" stroke="#111" stroke-width="1.2" stroke-dasharray="3 3"/>
-  <text x="1050" y="88" text-anchor="middle" font-size="11" fill="#111">250</text>
-  <text x="1050" y="104" text-anchor="middle" font-size="9" fill="#666">HOURS</text>
-  <text x="1050" y="168" text-anchor="middle" font-size="12" fill="#111">BADGE</text>
+  <text x="1050" y="88" text-anchor="middle" font-size="9" fill="#111">250</text>
+  <text x="1050" y="104" text-anchor="middle" font-size="8" fill="#666">HOURS</text>
+  <text x="1050" y="168" text-anchor="middle" font-size="10" fill="#111">BADGE</text>
 
   <!-- numbered steps -->
-  <g font-size="12" fill="#111">
-    <circle cx="300" cy="62" r="13" fill="#0040FF"/><text x="300" y="67" text-anchor="middle" fill="#fff" font-size="11">1</text>
+  <g font-size="10" fill="#111">
+    <circle cx="300" cy="62" r="13" fill="#0040FF"/><text x="300" y="67" text-anchor="middle" fill="#fff" font-size="10">1</text>
     <text x="322" y="67">REGISTER CONSENT</text>
 
-    <circle cx="628" cy="203" r="13" fill="#0040FF"/><text x="628" y="208" text-anchor="middle" fill="#fff" font-size="11">2</text>
+    <circle cx="628" cy="203" r="13" fill="#0040FF"/><text x="628" y="208" text-anchor="middle" fill="#fff" font-size="10">2</text>
     <text x="650" y="208">LOG VOLUNTEER HOURS</text>
 
-    <circle cx="434" cy="372" r="13" fill="#0040FF"/><text x="434" y="377" text-anchor="middle" fill="#fff" font-size="11">3</text>
+    <circle cx="434" cy="372" r="13" fill="#0040FF"/><text x="434" y="377" text-anchor="middle" fill="#fff" font-size="10">3</text>
     <text x="456" y="368">FETCH WHO</text>
     <text x="456" y="388">HAS CONSENTED</text>
 
-    <circle cx="628" cy="370" r="13" fill="#0040FF"/><text x="628" y="375" text-anchor="middle" fill="#fff" font-size="11">4</text>
+    <circle cx="628" cy="370" r="13" fill="#0040FF"/><text x="628" y="375" text-anchor="middle" fill="#fff" font-size="10">4</text>
     <text x="650" y="366">NIGHTLY DATA, PLUS LEGACY RECORDS,</text>
     <text x="650" y="386">FOR CONSENTING USERS ONLY</text>
 
-    <circle cx="756" cy="580" r="13" fill="#0040FF"/><text x="756" y="584" text-anchor="middle" fill="#fff" font-size="11">5</text>
+    <circle cx="756" cy="580" r="13" fill="#0040FF"/><text x="756" y="584" text-anchor="middle" fill="#fff" font-size="10">5</text>
     <text x="778" y="585">HOURS PASS A THRESHOLD:</text>
     <text x="778" y="603">CREDLY AWARDS THE BADGE</text>
 
-    <circle cx="1078" cy="300" r="13" fill="#0040FF"/><text x="1078" y="305" text-anchor="middle" fill="#fff" font-size="11">6</text>
+    <circle cx="1078" cy="300" r="13" fill="#0040FF"/><text x="1078" y="305" text-anchor="middle" fill="#fff" font-size="10">6</text>
     <text x="1100" y="296">EMAIL:</text>
     <text x="1100" y="316">NEW BADGE</text>
   </g>
 
   <!-- legend -->
-  <g font-size="11" fill="#666">
+  <g font-size="9" fill="#666">
     <rect x="90" y="612" width="18" height="14" fill="#E6ECFF" stroke="#0040FF" stroke-width="1.4"/>
     <text x="118" y="624">THE CONSENT PAGES I DESIGNED</text>
     <line x1="400" y1="619" x2="440" y2="619" stroke="#555" stroke-width="1.6" stroke-dasharray="6 5"/>
