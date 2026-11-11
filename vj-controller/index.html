@@ -111,35 +111,50 @@
           <figcaption class="caption"><span class="fig-num">Fig. 3</span>Switches go straight to the Raspberry Pi; knobs go through an analogue to digital converter first, so their position reads as a value. The build uses two converters; the diagram shows one to keep it simple.</figcaption>
         </figure>
         <figure class="chapter-figure">
-          <table class="metrics-table param-map">
-            <thead>
-              <tr>
-                <th scope="col">Input</th>
-                <th scope="col">Drives</th>
-                <th scope="col">Range</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>B01</td><td>Randomiser</td><td>“I’m feeling lucky”</td></tr>
-              <tr><td>B02</td><td>Grain</td><td>On or off</td></tr>
-              <tr><td>P01</td><td>Background colour A</td><td>Shared colour range</td></tr>
-              <tr><td>P02</td><td>Background colour B</td><td>Shared colour range</td></tr>
-              <tr><td>P03</td><td>Grid spacing</td><td>None, then small to large</td></tr>
-              <tr><td>P04</td><td>Grid colour</td><td>Shared colour range</td></tr>
-              <tr><td>P05</td><td>Shape type</td><td>None, square, blob</td></tr>
-              <tr><td>P06</td><td>Shape type</td><td>Circle, starburst, Bézier</td></tr>
-              <tr><td>P07</td><td>Shape size</td><td>0 to 100</td></tr>
-              <tr><td>P08</td><td>Shape count</td><td>0 to 100</td></tr>
-              <tr><td>P09</td><td>Shape colour A</td><td>Shared colour range</td></tr>
-              <tr><td>P10</td><td>Shape colour B</td><td>Shared colour range</td></tr>
-              <tr><td>P11</td><td>Placement</td><td>Vertical, horizontal, scattered, centred</td></tr>
-              <tr><td>P12</td><td>Stroke width</td><td>0 to 20, always black</td></tr>
-              <tr><td>P13</td><td>Animation</td><td>Bounce, pulse, wave, rain</td></tr>
-              <tr><td>P14</td><td>Speed</td><td>Slow to fast</td></tr>
-              <tr><td>P15</td><td>Post-effects A</td><td>Pixel, CRT, threshold, posterise</td></tr>
-              <tr><td>P16</td><td>Post-effects B</td><td>Feedback, glitch, duotone, invert</td></tr>
-            </tbody>
-          </table>
+          <div class="figure-frame">
+          <div class="param-map-grid">
+            <table class="metrics-table param-map">
+              <thead>
+                <tr>
+                  <th scope="col">Input</th>
+                  <th scope="col">Drives</th>
+                  <th scope="col">Range</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>B01</td><td>Randomiser</td><td>“I’m feeling lucky”</td></tr>
+                <tr><td>B02</td><td>Grain</td><td>On or off</td></tr>
+                <tr><td>P01</td><td>Background colour A</td><td>Shared colour range</td></tr>
+                <tr><td>P02</td><td>Background colour B</td><td>Shared colour range</td></tr>
+                <tr><td>P03</td><td>Grid spacing</td><td>None, then small to large</td></tr>
+                <tr><td>P04</td><td>Grid colour</td><td>Shared colour range</td></tr>
+                <tr><td>P05</td><td>Shape type</td><td>None, square, blob</td></tr>
+                <tr><td>P06</td><td>Shape type</td><td>Circle, starburst, Bézier</td></tr>
+                <tr><td>P07</td><td>Shape size</td><td>0 to 100</td></tr>
+              </tbody>
+            </table>
+            <table class="metrics-table param-map">
+              <thead>
+                <tr>
+                  <th scope="col">Input</th>
+                  <th scope="col">Drives</th>
+                  <th scope="col">Range</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>P08</td><td>Shape count</td><td>0 to 100</td></tr>
+                <tr><td>P09</td><td>Shape colour A</td><td>Shared colour range</td></tr>
+                <tr><td>P10</td><td>Shape colour B</td><td>Shared colour range</td></tr>
+                <tr><td>P11</td><td>Placement</td><td>Vertical, horizontal, scattered, centred</td></tr>
+                <tr><td>P12</td><td>Stroke width</td><td>0 to 20, always black</td></tr>
+                <tr><td>P13</td><td>Animation</td><td>Bounce, pulse, wave, rain</td></tr>
+                <tr><td>P14</td><td>Speed</td><td>Slow to fast</td></tr>
+                <tr><td>P15</td><td>Post-effects A</td><td>Pixel, CRT, threshold, posterise</td></tr>
+                <tr><td>P16</td><td>Post-effects B</td><td>Feedback, glitch, duotone, invert</td></tr>
+              </tbody>
+            </table>
+          </div>
+          </div>
           <figcaption class="caption"><span class="fig-num">Fig. 4</span>The map: two switches and sixteen knobs, each driving one parameter of the visuals. All five colour knobs share one colour range, the same as the browser version at <a href="https://blackboxvj.me" target="_blank" rel="noopener noreferrer">blackboxvj.me</a>. B is for boolean, as on/off inputs are called in single-board computing (the diagram labels them S, for switch); P is for potentiometer, the knobs.</figcaption>
         </figure>
         <figure class="chapter-figure">
