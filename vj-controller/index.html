@@ -93,7 +93,7 @@
         <h3><span class="chapter-num">02</span>Wire</h3>
         <div class="chapter-text">
           <p class="chapter-highlight">A Python script connected the switches and knobs to the browser, so the hardware drove the visuals live.</p>
-          <p>It was my first foray into electronics, so lots of re-soldering was needed. I mapped each switch and potentiometer through an analogue to digital converter to a test site reading values from 0.0 to 1.0, handy for checking I hadn't fried the circuitry.</p>
+          <p>It was my first foray into electronics, so lots of re-soldering was needed. I mapped each knob through an analogue to digital converter, and each switch straight to the Pi as a simple on or off, to a test site reading values from 0.0 to 1.0, handy for checking I hadn't fried the circuitry.</p>
         </div>
         <figure class="chapter-figure">
           <div class="figure-frame">
@@ -122,16 +122,16 @@
             <tbody>
               <tr><td>B01</td><td>Randomiser</td><td>“I’m feeling lucky”</td></tr>
               <tr><td>B02</td><td>Grain</td><td>On or off</td></tr>
-              <tr><td>P01</td><td>Background colour A</td><td>–</td></tr>
-              <tr><td>P02</td><td>Background colour B</td><td>–</td></tr>
+              <tr><td>P01</td><td>Background colour A</td><td>Shared colour range</td></tr>
+              <tr><td>P02</td><td>Background colour B</td><td>Shared colour range</td></tr>
               <tr><td>P03</td><td>Grid spacing</td><td>None, then small to large</td></tr>
-              <tr><td>P04</td><td>Grid colour</td><td>–</td></tr>
+              <tr><td>P04</td><td>Grid colour</td><td>Shared colour range</td></tr>
               <tr><td>P05</td><td>Shape type</td><td>None, square, blob</td></tr>
               <tr><td>P06</td><td>Shape type</td><td>Circle, starburst, Bézier</td></tr>
-              <tr><td>P07</td><td>Shape size</td><td>–</td></tr>
-              <tr><td>P08</td><td>Shape count</td><td>–</td></tr>
-              <tr><td>P09</td><td>Shape colour A</td><td>–</td></tr>
-              <tr><td>P10</td><td>Shape colour B</td><td>–</td></tr>
+              <tr><td>P07</td><td>Shape size</td><td>0 to 100</td></tr>
+              <tr><td>P08</td><td>Shape count</td><td>0 to 100</td></tr>
+              <tr><td>P09</td><td>Shape colour A</td><td>Shared colour range</td></tr>
+              <tr><td>P10</td><td>Shape colour B</td><td>Shared colour range</td></tr>
               <tr><td>P11</td><td>Placement</td><td>Vertical, horizontal, scattered, centred</td></tr>
               <tr><td>P12</td><td>Stroke width</td><td>0 to 20, always black</td></tr>
               <tr><td>P13</td><td>Animation</td><td>Bounce, pulse, wave, rain</td></tr>
@@ -140,7 +140,7 @@
               <tr><td>P16</td><td>Post-effects B</td><td>Feedback, glitch, duotone, invert</td></tr>
             </tbody>
           </table>
-          <figcaption class="caption"><span class="fig-num">Fig. 4</span>The map: two switches and sixteen knobs, each driving one parameter of the visuals. B is for boolean, as on/off inputs are called in single-board computing (the diagram labels them S, for switch); P is for potentiometer, the knobs.</figcaption>
+          <figcaption class="caption"><span class="fig-num">Fig. 4</span>The map: two switches and sixteen knobs, each driving one parameter of the visuals. All five colour knobs share one colour range, the same as the browser version at <a href="https://blackboxvj.me" target="_blank" rel="noopener noreferrer">blackboxvj.me</a>. B is for boolean, as on/off inputs are called in single-board computing (the diagram labels them S, for switch); P is for potentiometer, the knobs.</figcaption>
         </figure>
         <figure class="chapter-figure">
           <div class="figure-frame">
