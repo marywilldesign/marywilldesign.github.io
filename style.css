@@ -2096,19 +2096,30 @@ html.is-touch [data-href] { cursor: pointer !important; }
   line-clamp: 3;
   overflow: hidden;
 }
-/* the project already open: washed dark, not a link, with a slow white dot top left */
+/* the rail title highlights like the grid card titles: blue slides in on hover */
+.rail-title-text {
+  background-image: linear-gradient(#0040FF, #0040FF);
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-size: 0 100%;
+  padding: 0 0.14em;
+  margin: 0 -0.14em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  transition: background-size 0.22s ease-out, color 0.18s ease-out;
+}
+.rail-card:hover .rail-title-text,
+.rail-card:focus-visible .rail-title-text,
+.rail-card.is-current .rail-title-text {
+  background-size: 100% 100%;
+  color: #fff;
+}
+
+/* the project already open: not a link, title kept highlighted, a slow blue dot top left */
 .rail-card.is-current {
   position: relative;
   cursor: default;
   transform: none;
-}
-/* one dark wash over the whole card, picture and text alike */
-.rail-card.is-current::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.65);
-  pointer-events: none;
 }
 .rail-card.is-current .rail-thumb img { transform: none; }
 .rail-card.is-current:hover { border-color: var(--gray-200); }
@@ -2121,16 +2132,16 @@ html.is-touch [data-href] { cursor: pointer !important; }
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  /* white, bright against the card's dark wash */
-  background: #ffffff;
-  animation: rail-viewing 2.4s ease-in-out infinite;
+  background: #0040FF;
+  animation: rail-viewing 3s ease-in-out infinite;
 }
 @keyframes rail-viewing {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0.2; }
+  50% { opacity: 0.15; }
 }
 @media (prefers-reduced-motion: reduce) {
   .rail-card.is-current::before { animation: none; }
+  .rail-title-text { transition: none; }
 }
 
 /* hide a standalone page while it swaps in the home layout */

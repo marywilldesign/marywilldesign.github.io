@@ -20,7 +20,7 @@ function fallBackToStill(media) {
 
   const still = document.createElement('img');
   still.src = poster;
-  still.alt = media.getAttribute('alt') || '';
+  still.alt = media.getAttribute('aria-label') || media.getAttribute('alt') || '';
   if (media.className) still.className = media.className;
 
   // remove the still if it fails too
@@ -631,7 +631,11 @@ function initHome(initial) {
       body.className = 'rail-body';
       const title = document.createElement('span');
       title.className = 'rail-title';
-      title.textContent = project.shortTitle || project.title;
+      // inner span carries the blue highlight, so it hugs the words like the grid card titles
+      const titleText = document.createElement('span');
+      titleText.className = 'rail-title-text';
+      titleText.textContent = project.shortTitle || project.title;
+      title.appendChild(titleText);
       body.appendChild(title);
       const year = project.meta && project.meta.year;
       if (year) {
