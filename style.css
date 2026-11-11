@@ -2613,3 +2613,13 @@ a[aria-current="page"],
 @media print {
   .case-steps, .fig-placeholder { display: none; }
 }
+
+/* a parameter map: input code, what it drives, its range; all left-aligned */
+.param-map { width: 100%; max-width: none; }
+.metrics-table.param-map th,
+.metrics-table.param-map td { text-align: left; }
+.metrics-table.param-map td:first-child { font-family: var(--font-mono); font-size: 0.8rem; white-space: nowrap; }
+/* a diagram with white wires, set on a grey panel so the wires and labels both read */
+.fig-on-paper { background: #dcdcdc; padding: 4%; box-sizing: border-box; }
+.metrics-table.param-map th,
+.metrics-table.param-map td { padding-top: var(--sp-2); padding-bottom: var(--sp-2); }

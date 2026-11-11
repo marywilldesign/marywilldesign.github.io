@@ -97,9 +97,50 @@
         </div>
         <figure class="chapter-figure">
           <div class="figure-frame">
-            <div class="fig-placeholder is-wide"><span class="placeholder-note">To source: the wiring diagram with the P01–P16 parameter map (deck p.32)</span></div>
+            <div class="side-by-side">
+              <div class="sbs-item">
+                <span class="fig-label">Wiring diagram</span>
+                <img src="../vj-controller/wiring-diagram.svg" alt="Wiring diagram: the Raspberry Pi 5 connected to a breadboard, with the knobs running through an analogue to digital converter and the two switches wired straight in" width="621" height="410" loading="lazy" decoding="async" class="fig-on-paper js-lightbox-item">
+              </div>
+              <div class="sbs-item">
+                <span class="fig-label">Closing the box</span>
+                <img src="../vj-controller/closing-the-box.webp" alt="The controller open on a desk: knobs and toggle switches in the clear resin lid, wired down to the Raspberry Pi in the base" width="1600" height="1201" loading="lazy" decoding="async" class="js-lightbox-item">
+              </div>
+            </div>
           </div>
-          <figcaption class="caption"><span class="fig-num">Fig. 3</span>The map: which switch or knob drives which parameter.</figcaption>
+          <figcaption class="caption"><span class="fig-num">Fig. 3</span>Switches go straight to the Raspberry Pi; knobs go through the converter first, so their position reads as a value.</figcaption>
+        </figure>
+        <figure class="chapter-figure">
+          <table class="metrics-table param-map">
+            <thead>
+              <tr>
+                <th scope="col">Input</th>
+                <th scope="col">Drives</th>
+                <th scope="col">Range</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>B01</td><td>Randomiser</td><td>“I’m feeling lucky”</td></tr>
+              <tr><td>B02</td><td>Grain</td><td>On or off</td></tr>
+              <tr><td>P01</td><td>Background colour A</td><td>–</td></tr>
+              <tr><td>P02</td><td>Background colour B</td><td>–</td></tr>
+              <tr><td>P03</td><td>Grid spacing</td><td>None, then small to large</td></tr>
+              <tr><td>P04</td><td>Grid colour</td><td>–</td></tr>
+              <tr><td>P05</td><td>Shape type</td><td>None, square, blob</td></tr>
+              <tr><td>P06</td><td>Shape type</td><td>Circle, starburst, Bézier</td></tr>
+              <tr><td>P07</td><td>Shape size</td><td>–</td></tr>
+              <tr><td>P08</td><td>Shape count</td><td>–</td></tr>
+              <tr><td>P09</td><td>Shape colour A</td><td>–</td></tr>
+              <tr><td>P10</td><td>Shape colour B</td><td>–</td></tr>
+              <tr><td>P11</td><td>Placement</td><td>Vertical, horizontal, scattered, centred</td></tr>
+              <tr><td>P12</td><td>Stroke width</td><td>0 to 20, always black</td></tr>
+              <tr><td>P13</td><td>Animation</td><td>Bounce, pulse, wave, rain</td></tr>
+              <tr><td>P14</td><td>Speed</td><td>Slow to fast</td></tr>
+              <tr><td>P15</td><td>Post-effects A</td><td>Pixel, CRT, threshold, posterise</td></tr>
+              <tr><td>P16</td><td>Post-effects B</td><td>Feedback, glitch, duotone, invert</td></tr>
+            </tbody>
+          </table>
+          <figcaption class="caption"><span class="fig-num">Fig. 4</span>The map: two switches and sixteen knobs, each driving one parameter of the visuals.</figcaption>
         </figure>
         <figure class="chapter-figure">
           <div class="figure-frame">
@@ -114,7 +155,7 @@
               </div>
             </div>
           </div>
-          <figcaption class="caption"><span class="fig-num">Fig. 4</span>Soldering, then checking every input reads before anything drives a visual.</figcaption>
+          <figcaption class="caption"><span class="fig-num">Fig. 5</span>Soldering, then checking every input reads before anything drives a visual.</figcaption>
         </figure>
       </section>
 
@@ -141,7 +182,7 @@
               </div>
             </div>
           </div>
-          <figcaption class="caption"><span class="fig-num">Fig. 5</span>From Fusion 360, to the UV chamber, to the clear coat.</figcaption>
+          <figcaption class="caption"><span class="fig-num">Fig. 6</span>From Fusion 360, to the UV chamber, to the clear coat.</figcaption>
         </figure>
       </section>
 
@@ -164,7 +205,7 @@
               </div>
             </div>
           </div>
-          <figcaption class="caption"><span class="fig-num">Fig. 6</span>The labels came off, and people stopped reading and started playing.</figcaption>
+          <figcaption class="caption"><span class="fig-num">Fig. 7</span>The labels came off, and people stopped reading and started playing.</figcaption>
         </figure>
       </section>
 
@@ -188,7 +229,7 @@
               </div>
             </div>
           </div>
-          <figcaption class="caption"><span class="fig-num">Fig. 7</span>Installed at the White Box for Oslo Art Weekend.</figcaption>
+          <figcaption class="caption"><span class="fig-num">Fig. 8</span>Installed at the White Box for Oslo Art Weekend.</figcaption>
         </figure>
         <figure class="chapter-figure">
           <div class="figure-frame">
@@ -203,7 +244,7 @@
               </div>
             </div>
           </div>
-          <figcaption class="caption"><span class="fig-num">Fig. 8</span>Visuals made live with the controller.</figcaption>
+          <figcaption class="caption"><span class="fig-num">Fig. 9</span>Visuals made live with the controller.</figcaption>
         </figure>
         <figure class="chapter-figure">
           <div class="figure-frame">
@@ -218,7 +259,7 @@
               </div>
             </div>
           </div>
-          <figcaption class="caption"><span class="fig-num">Fig. 9</span>Closing the loop: screencaps of the visuals, back into analogue as a silkscreen animation and a two-tone knit.</figcaption>
+          <figcaption class="caption"><span class="fig-num">Fig. 10</span>Closing the loop: screencaps of the visuals, back into analogue as a silkscreen animation and a two-tone knit.</figcaption>
         </figure>
       </section>
 
