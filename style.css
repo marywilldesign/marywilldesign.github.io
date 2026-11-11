@@ -863,18 +863,36 @@ body.case-page .filters { display: none; }
   container-name: about-grid;
 }
 /* about portrait, columns 1-2 */
-.about-portrait {
+.about-portrait-frame {
   grid-column: 1 / 3;
   grid-row: 1;
   align-self: stretch;
+  aspect-ratio: 1.3 / 1;
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  width: 100%;
+  margin: 0;
+}
+.about-portrait {
   width: 100%;
   height: 100%;
-  aspect-ratio: 1.3 / 1;
   object-fit: cover;
   /* portrait crop position */
   object-position: 80% 50%;
   display: block;
   border-radius: var(--radius);
+}
+/* where the photo was taken, set small inside the image */
+.about-portrait-caption {
+  position: absolute;
+  left: var(--sp-3);
+  bottom: var(--sp-3);
+  font-size: 0.7rem;
+  line-height: 1;
+  color: #fff;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.55);
+  pointer-events: none;
 }
 /* about facts table, columns 3-4 */
 .about-facts {
@@ -944,21 +962,18 @@ body.case-page .filters { display: none; }
     grid-template-rows: none;
     row-gap: var(--about-gap);
   }
-  .about-portrait,
+  .about-portrait-frame,
   .about-facts,
   .about-copy {
     grid-column: 1 / -1;
     grid-row: auto;
   }
   /* stacked portrait, full width at 4:3 */
-  .about-portrait {
+  .about-portrait-frame {
     align-self: start;
     width: 100%;
     max-width: 100%;
-    height: auto;
     aspect-ratio: 4 / 3;
-    object-fit: cover;
-    object-position: 80% 50%;
   }
   /* match the copy gap to the stack */
   .about-copy { gap: var(--about-gap); }
