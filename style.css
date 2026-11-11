@@ -2623,18 +2623,25 @@ a[aria-current="page"],
 .fig-on-paper { background: #fff; padding: 4%; box-sizing: border-box; border-radius: 8px; }
 .metrics-table.param-map th,
 .metrics-table.param-map td { padding-top: var(--sp-2); padding-bottom: var(--sp-2); }
-/* the map sits in a dark figure frame as two half-tables side by side, small and light */
+/* the parameter map: a preamble on the chapter text column, then two half-tables side by side */
+.param-map-block { margin-top: var(--sp-8); }
+.param-map-intro { max-width: 68ch; margin: 0 0 var(--sp-5); font-size: 0.9rem; line-height: 1.75; color: var(--gray-700); }
 .param-map-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--sp-6); }
-.figure-frame .metrics-table.param-map { margin: 0; }
-.figure-frame .metrics-table.param-map th,
-.figure-frame .metrics-table.param-map td { font-size: 0.72rem; line-height: 1.4; color: #e6e6e6; border-bottom-color: rgba(255,255,255,0.14); padding-top: 0.45rem; padding-bottom: 0.45rem; }
-.figure-frame .metrics-table.param-map thead th { font-size: 0.62rem; color: #8a8a8a; }
-.figure-frame .metrics-table.param-map td:first-child { font-size: 0.68rem; color: #8a8a8a; }
+.param-map-block .metrics-table.param-map { margin: 0; }
+.param-map-block .metrics-table.param-map th,
+.param-map-block .metrics-table.param-map td { font-size: 0.78rem; line-height: 1.4; color: #000; padding-top: 0.45rem; padding-bottom: 0.45rem; }
+.param-map-block .metrics-table.param-map thead th { font-size: 0.66rem; color: var(--gray-500); }
+.param-map-block .metrics-table.param-map td:first-child { font-size: 0.72rem; color: var(--gray-500); }
 .param-map-grid .metrics-table.param-map { table-layout: fixed; }
 .param-map-grid .param-map th:nth-child(1), .param-map-grid .param-map td:nth-child(1) { width: 3.4rem; }
 .param-map-grid .param-map th:nth-child(2), .param-map-grid .param-map td:nth-child(2) { width: 38%; }
+@container panel (min-width: 56rem) {
+  .panel-view .param-map-block { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: var(--grid-gap); }
+  .panel-view .param-map-intro { grid-column: 2 / -1; }
+  .panel-view .param-map-grid { grid-column: 1 / -1; }
+}
 @media (max-width: 640px) {
   .param-map-grid { grid-template-columns: 1fr; }
   .param-map-grid .metrics-table.param-map + .metrics-table.param-map thead { display: none; }
-  .param-map-grid .metrics-table.param-map:first-child tbody tr:last-child td { border-bottom: 1px solid rgba(255,255,255,0.14); }
+  .param-map-grid .metrics-table.param-map:first-child tbody tr:last-child td { border-bottom: 1px solid var(--gray-200); }
 }
