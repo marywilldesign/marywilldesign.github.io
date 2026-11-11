@@ -2619,7 +2619,7 @@ a[aria-current="page"],
 .metrics-table.param-map th,
 .metrics-table.param-map td { text-align: left; }
 .metrics-table.param-map td:first-child { font-family: var(--font-mono); font-size: 0.8rem; white-space: nowrap; }
-/* a diagram with white wires, set on a grey panel so the wires and labels both read */
-.fig-on-paper { background: #dcdcdc; padding: 4%; box-sizing: border-box; }
+/* a diagram set on a white card with softly rounded corners inside a dark frame */
+.fig-on-paper { background: #fff; padding: 4%; box-sizing: border-box; border-radius: 8px; }
 .metrics-table.param-map th,
 .metrics-table.param-map td { padding-top: var(--sp-2); padding-bottom: var(--sp-2); }
