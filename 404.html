@@ -4,48 +4,96 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#0040FF" />
   <title>Page not found – Mary Wilson</title>
   <link rel="icon" type="image/svg+xml" href="/mw.svg" />
   <!-- absolute paths: GitHub Pages serves this page at whatever address was mistyped -->
   <link rel="stylesheet" href="/style.css" />
   <style>
+    /* a blue screen of death, in the site's own type */
+    html, body { background: #0040FF; }
     body {
       min-height: 100vh;
       margin: 0;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: clamp(1.5rem, 6vw, 6rem);
+      padding: clamp(1.5rem, 7vw, 7rem);
       box-sizing: border-box;
-      background: #fff;
-      color: #000;
-      cursor: auto;
+      font-family: var(--font-sans);
+      font-weight: 500;
+      color: #fff;
     }
-    .nf-mark { width: 2.5rem; height: auto; margin-bottom: clamp(2rem, 6vh, 4rem); }
+    .nf-face {
+      margin: 0 0 clamp(1.5rem, 4vh, 2.5rem);
+      font-size: clamp(3.5rem, 11vw, 8.5rem);
+      line-height: 1.1;
+      /* the face uses symbols neue montreal lacks, so keep it on one line */
+      white-space: nowrap;
+    }
     .nf-title {
-      max-width: min(14ch, 100%);
+      max-width: min(16ch, 100%);
       margin: 0 0 clamp(1.25rem, 3vh, 2rem);
-      font-size: clamp(3rem, 10vw, 8.5rem);
-      font-weight: 700;
-      line-height: 0.95;
-      letter-spacing: -0.03em;
+      font-size: clamp(2.6rem, 7vw, 6rem);
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: #fff;
     }
     .nf-text {
-      max-width: min(30ch, 100%);
-      margin: 0 0 clamp(2rem, 5vh, 3rem);
-      font-size: clamp(1.25rem, 2.6vw, 2.1rem);
-      font-weight: 500;
-      line-height: 1.25;
+      max-width: min(34ch, 100%);
+      margin: 0 0 clamp(1.5rem, 4vh, 2.5rem);
+      font-size: clamp(1.15rem, 2.2vw, 1.75rem);
+      line-height: 1.3;
+      color: #fff;
     }
-    .nf-text a, .nf-back { color: #0040FF; text-decoration: underline; text-underline-offset: 0.15em; }
-    .nf-text a { overflow-wrap: anywhere; }
-    .nf-back { font-size: 1rem; font-weight: 500; }
+    .nf-code {
+      max-width: none;
+      margin: 0 0 clamp(2rem, 5vh, 3rem);
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.75);
+    }
+    /* links keep the site's slide-in bar, inverted: white bar, blue text */
+    .nf a {
+      --hl: #fff;
+      color: #fff;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.15em;
+    }
+    .nf a:hover,
+    .nf a:focus-visible,
+    .nf a:active {
+      /* !important to beat the site rule that turns every highlighted link white */
+      color: #0040FF !important;
+      text-decoration-color: transparent;
+    }
+    .nf .nf-email { overflow-wrap: anywhere; }
+    .nf .nf-back { align-self: flex-start; font-size: 1rem; }
+    /* the site's cursor dot, plain white here so it reads on the blue */
+    #custom-cursor { mix-blend-mode: normal; background: #fff; box-shadow: 0 0 0 1px #0040FF; }
   </style>
 </head>
-<body>
-  <a href="/" aria-label="Mary Wilson, home"><img class="nf-mark" src="/mw.svg" alt=""></a>
+<body class="nf">
+  <p class="nf-face" aria-hidden="true">(⊙ _ ⊙ )</p>
   <h1 class="nf-title">Oh no! This is awkward.</h1>
-  <p class="nf-text">Try refreshing, or reach out to me at <a href="mailto:marywildesign@gmail.com">marywildesign@gmail.com</a> if this isn't where you meant to be.</p>
+  <p class="nf-text">Try refreshing, or reach out to me at <a class="nf-email" href="mailto:marywildesign@gmail.com">marywildesign@gmail.com</a> if this isn't where you meant to be.</p>
+  <p class="nf-code">Stop code: 404_PAGE_NOT_FOUND</p>
   <a class="nf-back" href="/">← Back to projects</a>
+
+  <div id="custom-cursor"></div>
+  <script>
+    // same cursor as the rest of the site: a dot that follows the mouse, none on touch screens
+    (function () {
+      var cursor = document.getElementById('custom-cursor');
+      var isTouch = matchMedia('(hover: none) and (pointer: coarse)').matches || 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      if (isTouch) { document.documentElement.classList.add('is-touch'); cursor.style.display = 'none'; return; }
+      cursor.style.left = '-100px';
+      document.addEventListener('mousemove', function (e) {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+      });
+    })();
+  </script>
 </body>
 </html>
