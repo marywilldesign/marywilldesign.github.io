@@ -113,103 +113,13 @@ s.style.cssText = 'position:absolute;top:0;font:100px Georgia;white-space:nowrap
 document.body.append(s); console.log(s.getBoundingClientRect().width); s.remove();
 ```
 
-## Adobe Garamond Pro - retired September 2026
+## Adobe Garamond Pro - removed November 2026
 
-Nothing references it any more: `style.css` no longer declares an `AGaramondPro`
-face, so no browser fetches the woff2. **The file is kept on purpose**, in case
-the design goes back to it - nothing loads it, so it costs the repo 45 KB and
-nothing else. Deleting it is a one-line change if that ever stops being true.
-The masters (`AGaramondPro-Regular.otf`, `AGaramondPro-Italic.otf`) are still in
-`_originals/fonts/`. What follows describes it as it was.
-
-| file | what it is |
-| --- | --- |
-| `AGaramondPro-Regular.woff2` | the upright face, subset to Latin and compressed - 45 KB from 116 KB of OTF |
-
-The master this was cut from (`AGaramondPro-Regular.otf`) is not shipped with
-the site. It lives in `_originals/fonts/`, which is gitignored, since nothing
-loads it.
-
-The italic was served from here too, as `AGaramondPro-Italic.woff2`, until the
-wordmark was changed to the upright face and no rule set `font-style: italic` -
-at which point it was a file no browser would ever fetch, so it was deleted. The
-master is still in `_originals/fonts/`: bringing it back is the command below
-with `Italic` in place of `Regular`, plus a second `@font-face` block with
-`font-style: italic`.
-
-Set the wordmark, the case-study page titles and the home card titles. `style.css`
-declares the pair as the family `AGaramondPro` rather than "Adobe Garamond Pro",
-so a copy installed on a visitor's machine cannot be substituted for the file the
-site serves - everyone gets the same spacing and the same drawings. The stack
-falls back to Georgia, then Times, if the files fail to load.
-
-### The fallback faces
-
-`font-display: swap` means a local fallback is painted first, and both local
-serifs are wider than Garamond at the same size: "Mary G. Wilson" measures
-6.362x its font-size in Garamond, 6.927x in Georgia and 6.469x in Times. The
-wordmark is sized to its column (15.6cqw), which only fits a face up to 6.41x -
-so before the woff2 landed the wordmark took two lines, and the bio under it sat
-30px lower until the swap pulled it back up.
-
-`style.css` therefore declares two further `@font-face` rules, `Garamond-metric
-Georgia` and `Garamond-metric Times`, which are those same local files with
-`size-adjust` set to Garamond's proportions - 636.2 / 692.69 = 91.84% and
-636.2 / 646.88 = 98.35%. `size-adjust` scales a face's advances and its metrics
-together, so the fallback occupies exactly Garamond's width and the swap costs no
-layout at all. Measured with the woff2 blocked: one line, 189.53px, and the bio
-does not move. Liberation Serif is metrically a Times clone, so it takes the
-Times figure.
-
-The percentages are per-string, so they need redoing if the wordmark's text
-ever changes - measure the string at 100px in each face and divide 636.2 by the
-result:
-
-```js
-// in the page console; Georgia gives ~692.7 and Times New Roman ~646.9
-const s = document.createElement('span');
-s.textContent = 'Mary G. Wilson';
-s.style.cssText = 'position:absolute;top:0;font:100px Georgia;white-space:nowrap';
-document.body.append(s); console.log(s.getBoundingClientRect().width); s.remove();
-```
-
-To regenerate after editing a master in `_originals/fonts/`:
-
-```sh
-LATIN='U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2212,U+FEFF,U+FFFD'
-for F in Regular; do
-  /opt/miniconda3/bin/pyftsubset "_originals/fonts/AGaramondPro-$F.otf" \
-    --output-file="fonts/AGaramondPro-$F.woff2" --flavor=woff2 \
-    --unicodes="$LATIN" --layout-features='*' --no-hinting
-done
-```
-
-Then check every character in a title is still covered - the subset is Latin
-only, so a title using anything outside it would silently fall back to Georgia:
-
-```sh
-/opt/miniconda3/bin/python3 -c "
-from fontTools.ttLib import TTFont
-cmap = set(TTFont('fonts/AGaramondPro-Regular.woff2').getBestCmap())
-missing = [c for c in set('Mary G. Wilson Telus: Enterprise IA Refresh') if ord(c) not in cmap]
-print('missing:', missing or 'none')"
-```
-
-## To do: serve the serif from Adobe Fonts
-
-**Moot as of September 2026:** the site no longer ships a serif, so there is
-nothing to move to Adobe Fonts unless Garamond comes back. Kept for that case.
-
-Marked to pick up later. Adobe Garamond Pro is commercial, and the copies
-installed on this machine are licensed for desktop use. Serving these files from
-the published site - which is what `@font-face` does - is webfont use, and Adobe
-licenses that through Adobe Fonts, its own hosted embed, rather than by shipping
-the files. A Creative Cloud subscription includes it.
-
-The plan is to add the family to an Adobe Fonts web project and swap the
-`@font-face` rule in `style.css` for the kit's stylesheet link, then delete the
-woff2 file here. Nothing else about the type should need to change. Until that
-happens, the self-hosted pair above is how the serif is served.
+The site stopped using it in September 2026, and the web font file was deleted in
+November so it is no longer published (Adobe licenses web use through Adobe Fonts,
+not by self-hosting). The masters, `AGaramondPro-Regular.otf` and
+`AGaramondPro-Italic.otf`, are still in `_originals/fonts/` if the design ever goes
+back to it; in that case, serve it through an Adobe Fonts web project.
 
 ## Noto Sans Egyptian Hieroglyphs - the clock
 

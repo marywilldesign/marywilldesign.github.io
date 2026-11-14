@@ -38,6 +38,10 @@ jobs:
       - name: take ownership of the built files
         run: sudo chown -R "$USER" _site
 
+      # readme files are notes for whoever edits the repo, not pages for visitors, so keep them off the site
+      - name: leave readme notes out of the site
+        run: find _site -iname 'readme*' -delete
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
