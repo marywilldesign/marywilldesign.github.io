@@ -1,0 +1,65 @@
+# publishes the site to github pages, minified.
+# the repo keeps the readable source; this builds a copy, shrinks it, and puts that copy live.
+name: publish site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:          # lets you re-run it by hand from the actions tab
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# only one publish at a time; a newer push waits for the current one to finish
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # build exactly as github pages always has: through jekyll, unless the repo opts out with .nojekyll
+      - name: build with jekyll
+        if: hashFiles('.nojekyll') == ''
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+      - name: copy as-is (repo has .nojekyll)
+        if: hashFiles('.nojekyll') != ''
+        run: rsync -a --exclude .git --exclude .github --exclude _site ./ ./_site/
+
+      # jekyll runs as root, so hand the files back before editing them
+      - name: take ownership of the built files
+        run: sudo chown -R "$USER" _site
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # strip comments and whitespace, shorten js names (see .github/minify.mjs)
+      - name: minify
+        run: |
+          mkdir -p /tmp/minify && cp .github/minify.mjs /tmp/minify/
+          cd /tmp/minify && npm init -y > /dev/null
+          npm install --no-audit --no-fund html-minifier-terser@7.2.0 terser@5.36.0 clean-css@5.3.3
+          node /tmp/minify/minify.mjs "$GITHUB_WORKSPACE/_site"
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
