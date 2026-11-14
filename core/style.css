@@ -66,7 +66,7 @@
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url('fonts/NeueMontreal-Medium.woff2') format('woff2');
+  src: url('../assets/fonts/NeueMontreal-Medium.woff2') format('woff2');
 }
 
 /* real bold and italic, so the browser never fakes them */
@@ -75,14 +75,14 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url('fonts/NeueMontreal-Bold.woff2') format('woff2');
+  src: url('../assets/fonts/NeueMontreal-Bold.woff2') format('woff2');
 }
 @font-face {
   font-family: 'NeueMontreal';
   font-style: italic;
   font-weight: 500;
   font-display: swap;
-  src: url('fonts/NeueMontreal-MediumItalic.woff2') format('woff2');
+  src: url('../assets/fonts/NeueMontreal-MediumItalic.woff2') format('woff2');
 }
 
 /* regular, under its own name so only the intro uses it;
@@ -92,7 +92,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('fonts/NeueMontreal-Regular.woff2') format('woff2');
+  src: url('../assets/fonts/NeueMontreal-Regular.woff2') format('woff2');
 }
 
 /* metric-matched local fallback for neue montreal */
@@ -109,7 +109,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('fonts/noto-sans-egyptian-hieroglyphs-subset.woff2') format('woff2');
+  src: url('../assets/fonts/noto-sans-egyptian-hieroglyphs-subset.woff2') format('woff2');
   unicode-range: U+13005, U+13007, U+13009, U+13020-13022, U+13024, U+13028-13029, U+1303f;
 }
 

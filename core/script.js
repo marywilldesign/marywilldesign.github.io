@@ -2,10 +2,10 @@
 
 // shared helpers for the home page and project pages
 
-// site root, taken from where script.js loaded
+// site root, taken from where script.js loaded: it lives in core/, so the root is one folder up
 const SITE_ROOT = (function () {
   const src = document.currentScript && document.currentScript.src;
-  return new URL('.', src || window.location.href);
+  return src ? new URL('../', src) : new URL('.', window.location.href);
 })();
 
 // turn a site path into a full url
@@ -32,13 +32,14 @@ function fallBackToStill(media) {
   return still;
 }
 
-// resume file name
+// resume: where it lives, and the file name it downloads as
+const RESUME_PATH = 'assets/mary-wilson-resume.pdf';
 const RESUME_FILE = 'mary-wilson-resume.pdf';
 
 function buildDownloadLink() {
   const link = document.createElement('a');
   link.className = 'download-link';
-  link.href = siteUrl(RESUME_FILE);
+  link.href = siteUrl(RESUME_PATH);
   // set the file name for the download
   link.download = RESUME_FILE;
   link.append('download resume.pdf ');
@@ -70,7 +71,7 @@ function isIOS() {
 let resumeRequest = null;
 function fetchedResume() {
   if (!resumeRequest) {
-    resumeRequest = fetch(siteUrl(RESUME_FILE))
+    resumeRequest = fetch(siteUrl(RESUME_PATH))
       .then((res) => {
         if (!res.ok) throw new Error('resume: HTTP ' + res.status);
         return res.blob();
@@ -98,7 +99,7 @@ function saveResumeToFile(event) {
     setTimeout(() => URL.revokeObjectURL(objectUrl), 60000);
   }).catch(() => {
     // on failure, just open the resume link
-    window.location.href = siteUrl(RESUME_FILE);
+    window.location.href = siteUrl(RESUME_PATH);
   });
 }
 
@@ -592,7 +593,7 @@ function initHome(initial) {
     closeBtn.addEventListener('click', () => closeView());
     const resume = document.createElement('a');
     resume.className = 'download-link rail-resume';
-    resume.href = siteUrl(RESUME_FILE);
+    resume.href = siteUrl(RESUME_PATH);
     resume.download = RESUME_FILE;
     resume.append('resume ');
     const arrow = document.createElement('span');
@@ -838,10 +839,10 @@ function initHome(initial) {
     wrapper.className = 'case-study-view about-view';
     wrapper.innerHTML = aboutTemplate.innerHTML;
     const portrait = wrapper.querySelector('.about-portrait');
-    if (portrait) portrait.src = siteUrl('portrait-of-the-artist.jpg');
+    if (portrait) portrait.src = siteUrl('assets/portrait-of-the-artist.jpg');
     const resume = wrapper.querySelector('.about-facts .download-link');
     if (resume) {
-      resume.href = siteUrl(RESUME_FILE);
+      resume.href = siteUrl(RESUME_PATH);
       resume.download = RESUME_FILE;
     }
     addBreadcrumb(wrapper, 'About');

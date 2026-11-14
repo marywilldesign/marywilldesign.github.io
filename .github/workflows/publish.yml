@@ -42,6 +42,20 @@ jobs:
       - name: leave readme notes out of the site
         run: find _site -iname 'readme*' -delete
 
+      # the repo keeps pages in pages/ and case studies in projects/, but their web addresses
+      # stay at the top level (marywildesign.com/telus/, /about/), so lift each folder up a level
+      - name: put pages and case studies at their web addresses
+        run: |
+          for d in _site/pages/* _site/projects/*; do
+            name=$(basename "$d")
+            if [ -e "_site/$name" ]; then echo "two things want the address /$name/"; exit 1; fi
+            mv "$d" "_site/$name"
+          done
+          rmdir _site/pages _site/projects
+          # the cv used to sit at the top of the site and is linked from past applications,
+          # so keep a copy at that old address too
+          cp _site/assets/mary-wilson-resume.pdf _site/mary-wilson-resume.pdf
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
