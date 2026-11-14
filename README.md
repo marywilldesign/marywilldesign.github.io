@@ -22,7 +22,7 @@ assets/           files every page shares
   portrait-of-the-artist.jpg
   og.jpg            the home page's link preview image
   mary-wilson-resume.pdf
-  fonts/            Neue Montreal and the clock's hieroglyphs
+  fonts/            Neue Montreal, Stockfleth and the clock's hieroglyphs
 
 pages/
   about/            the about page
@@ -36,6 +36,6 @@ projects/         one folder per case study, with its page, images and videos
 
 ## Licences
 
-Neue Montreal is from Pangram Pangram Foundry, used under their free terms for portfolios. The clock uses Noto Sans Egyptian Hieroglyphs under the SIL Open Font License (`assets/fonts/OFL.txt`).
+Neue Montreal is from Pangram Pangram Foundry, used under their free terms for portfolios. Stockfleth is my own typeface (https://marywildesign.com/stockfleth/). The clock uses Noto Sans Egyptian Hieroglyphs under the SIL Open Font License (`assets/fonts/OFL.txt`).
 
 The case study work belongs to the clients and collaborators credited on each page.

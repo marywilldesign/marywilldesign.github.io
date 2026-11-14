@@ -1,6 +1,6 @@
 # assets/fonts/
 
-Two families live here: the one the whole site is set in, and the clock's glyphs.
+Three families live here: the one the whole site is set in, Stockfleth for the mono, and the clock's glyphs.
 
 ## Neue Montreal Medium - the site's typeface
 
@@ -27,7 +27,7 @@ sidebar bio on the home page.
 
 **November 2026:** the home intro sets a few words in bold and one in italic, so
 `NeueMontreal-Bold.woff2` (700) and `NeueMontreal-MediumItalic.woff2` (500 italic)
-now ship too, cut with the same command from the OTFs in `_originals/fonts/`. With
+now ship too, cut with the same command from the OTFs in `_originals/assets/fonts/`. With
 them declared, `<strong>` and `<em>` anywhere on the site get the real drawings
 instead of a faux bold or slanted Medium. The curved ↪ arrows (intro, CV tools, What I did) are not in the
 family at all, so they are drawn as an SVG mask (`--hook-arrow` in `core/style.css`).
@@ -45,12 +45,12 @@ the stylesheet's 400s and 500s are the same drawing. The wordmark's hover draws
 its own weight with `-webkit-text-stroke`.
 
 The master is not shipped with the site. `NeueMontreal-Medium.otf` (v1.000,
-2018) lives in `_originals/fonts/`, which is gitignored, since nothing loads it.
+2018) lives in `_originals/assets/fonts/`, which is gitignored, since nothing loads it.
 To regenerate the shipped woff2:
 
 ```sh
 LATIN='U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2190-21FF,U+2212'
-/opt/miniconda3/bin/pyftsubset _originals/fonts/NeueMontreal-Medium.otf \
+/opt/miniconda3/bin/pyftsubset _originals/assets/fonts/NeueMontreal-Medium.otf \
   --output-file=assets/fonts/NeueMontreal-Medium.woff2 --flavor=woff2 \
   --unicodes="$LATIN" --layout-features='*' --no-hinting
 ```
@@ -118,8 +118,32 @@ document.body.append(s); console.log(s.getBoundingClientRect().width); s.remove(
 The site stopped using it in September 2026, and the web font file was deleted in
 November so it is no longer published (Adobe licenses web use through Adobe Fonts,
 not by self-hosting). The masters, `AGaramondPro-Regular.otf` and
-`AGaramondPro-Italic.otf`, are still in `_originals/fonts/` if the design ever goes
+`AGaramondPro-Italic.otf`, are still in `_originals/assets/fonts/` if the design ever goes
 back to it; in that case, serve it through an Adobe Fonts web project.
+
+## Stockfleth - the mono
+
+My own typeface (https://marywildesign.com/stockfleth/, repo `marywilldesign/stockfleth`),
+used for the results and "at a glance" figures and code-like labels
+such as the VJ Controller parameter codes. It replaced JetBrains Mono from Google Fonts in
+November 2026, and the footer credits it.
+
+| file | what it is |
+| --- | --- |
+| `Stockfleth-Regular.woff2` | the variable font pinned to wght 400 (wdth 100, slnt 0), cut to basic Latin plus arrows and the minus sign - about 5 KB |
+| `Stockfleth-Bold.woff2` | the same at wght 700, for the figures - about 5 KB |
+
+To regenerate after a new Stockfleth release (run from this repo, using the Stockfleth repo's python):
+
+```sh
+P=../stockfleth/.venv/bin/python
+for pair in 400:Regular 700:Bold; do
+  W=${pair%%:*}; N=${pair#*:}
+  $P -m fontTools.varLib.instancer ../stockfleth/fonts/Stockfleth-VF.ttf wght=$W wdth=100 slnt=0 -o /tmp/stockfleth-$W.ttf
+  $P -m fontTools.subset /tmp/stockfleth-$W.ttf --output-file=assets/fonts/Stockfleth-$N.woff2 --flavor=woff2 \
+    --unicodes='U+0020-007E,U+00A0,U+00B7,U+00D7,U+2013,U+2014,U+2019,U+2190-2193,U+2212' --layout-features='*' --no-hinting
+done
+```
 
 ## Noto Sans Egyptian Hieroglyphs - the clock
 

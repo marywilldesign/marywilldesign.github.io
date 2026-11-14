@@ -27,7 +27,7 @@
 
   /* site font stack and clock font */
   --font-sans: 'NeueMontreal', 'Inter', 'NeueMontreal-metric Arial', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-mono: 'Stockfleth', monospace;
 
   /* spacing scale */
 
@@ -93,6 +93,24 @@
   font-weight: 400;
   font-display: swap;
   src: url('../assets/fonts/NeueMontreal-Regular.woff2') format('woff2');
+}
+
+/* stockfleth, my own mono, for the figures and code-like labels.
+   small cuts of the variable font at regular and bold, basic latin plus arrows and minus */
+@font-face {
+  font-family: 'Stockfleth';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/Stockfleth-Regular.woff2') format('woff2');
+}
+/* bold, for the results and "at a glance" figures */
+@font-face {
+  font-family: 'Stockfleth';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../assets/fonts/Stockfleth-Bold.woff2') format('woff2');
 }
 
 /* metric-matched local fallback for neue montreal */
@@ -355,6 +373,8 @@ button, a, [data-href] { cursor: pointer; }
   gap: var(--sp-6);
   margin-top: var(--sp-10);
 }
+/* a link inside the credits (stockfleth) reads blue like the links above it */
+.made a { color: var(--sidebar-link, #0040FF); }
 .panel-home .made {
   margin: 0;
   font-size: clamp(0.8rem, 1.85cqw, 1.7rem);
@@ -628,6 +648,9 @@ button, a, [data-href] { cursor: pointer; }
   font-family: var(--font-sans);
   line-height: 1;
 }
+
+/* the clock is switched off for now: delete this rule to bring it back */
+.clock { display: none !important; }
 
 /* clock showing oslo time */
 .clock {
@@ -1255,8 +1278,10 @@ body.case-page .filters { display: none; }
 }
 .result-card strong {
   display: block;
+  /* results figures are set in stockfleth */
+  font-family: var(--font-mono);
   font-size: 2.5rem;
-  font-weight: 500;
+  font-weight: 700;
   color: #0040FF;
   line-height: 1;
   margin-bottom: var(--sp-2);
@@ -2086,10 +2111,13 @@ a[aria-current="page"],
 }
 .glance-figure strong {
   display: block;
+  /* the same figures as the results, so the same face */
+  font-family: var(--font-mono);
   font-size: 2rem;
-  font-weight: 500;
+  font-weight: 700;
   line-height: 1;
-  letter-spacing: -0.02em;
+  /* a mono keeps its own spacing */
+  letter-spacing: 0;
   color: #000;
 }
 .glance-figure span {
