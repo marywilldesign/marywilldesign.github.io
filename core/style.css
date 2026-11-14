@@ -366,11 +366,12 @@ button, a, [data-href] { cursor: pointer; }
   font-size: inherit;
   line-height: 1.1;
 }
+/* the credits: who made the site, then what it's set in, stacked bottom left */
 .made-row {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: var(--sp-6);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35em;
   margin-top: var(--sp-10);
 }
 /* a link inside the credits (stockfleth) reads blue like the links above it */
