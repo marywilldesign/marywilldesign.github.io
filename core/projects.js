@@ -170,7 +170,8 @@ window.portfolioProjects = [
       credits: [
         'Lead Programmer, Artist, UI Designer: Cindy Shi',
         'Concept Artist: Yuri Wu',
-        'Project Management, UX Support: Shruti Sharma'
+        'Project Manager, User Researcher: Shruti Sharma',
+        'Supervisor: Jason Landry'
       ],
       links: [
         { label: 'view press ↗', href: 'https://preview-art.com/feature/the-imitation-game-visual-culture-in-the-age-of-artificial-intelligence/' }
